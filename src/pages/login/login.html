@@ -1,10 +1,16 @@
 <ion-content padding>
 
-  <button (click)="cancel()" ion-button clear icon-left><ion-icon name="ios-arrow-back"></ion-icon>Cancel</button>
+  <section class="navBar">
+    <button (click)="cancel()" ion-button clear icon-left color="light"><ion-icon name="ios-arrow-back"></ion-icon>Cancel</button>
+  </section>
 
-  <img class="logo-img" src="assets/img/logo-square.png">
+  <section class="logo" text-center>
+    <img class="logo-img" src="assets/img/logo-square.png">
+  </section>
 
-  <p text-center>Login to continue</p>
+  <section class="login-text">
+    <p class="color-light" text-center>Login to continue</p>
+  </section>
 
   <ion-list>
 
@@ -13,17 +19,23 @@
     </ion-item>
 
     <ion-item>
-      <ion-input type="password" placeholder="Password"></ion-input>
+      <ion-input #password type="{{pwdType}}" placeholder="Password"></ion-input>
+      <button ion-button clear icon-only item-right (click)="showPassword()">
+        <ion-icon name="ios-eye-outline" color="{{pwdType === 'password' ? 'light' : 'secondary' }}"></ion-icon>
+      </button>
     </ion-item>
 
   </ion-list>
 
-  <button ion-button block (click)="login()">Login</button>
+  <section>
+    <button ion-button block (click)="login()">Login</button>
 
-  <div text-center>
-    <button ion-button clear (click)="openBrowser('https://www.digistore24.com/extern/login/new_password')">Forgot Password?</button>
-  </div>
+    <section class="footer" text-center>
+      <a (click)="openBrowser('https://www.digistore24.com/extern/login/new_password')">Forgot Password?</a>
+      <br/>
+      <p class="color-light" text-center>Not a member yet? <a (click)="openBrowser('https://www.digistore24.com/signup')">Register</a></p>
+    </section>
 
-  <p text-center>Not a member yet? <a (click)="openBrowser('https://www.digistore24.com/signup')">Register</a></p>
+  </section>
 
 </ion-content>

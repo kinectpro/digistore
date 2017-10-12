@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { App, NavController, NavParams } from 'ionic-angular';
 import { LandingPage } from '../landing/landing';
-import { LoginPage } from '../login/login';
 
 /**
  * Generated class for the SettingsPage page.

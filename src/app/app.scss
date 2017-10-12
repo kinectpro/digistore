@@ -15,15 +15,26 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
+.color-light {
+  color: color($colors, light, base);
+}
 .toolbar-background {
-  background-color: #1998db;
+  background-color: color($colors, primary, base);;
 }
 .toolbar-title {
   color: #ffffff;
+  font-size: 1.7rem;
 }
 .toolbar .segment-button {
   color: #ffffff;
 }
 .segment-md .segment-button.activated, .segment-md .segment-button.segment-activated {
   border-color: #ffffff;
+}
+
+.button-block {
+  border-radius: 8px;
+  text-transform: capitalize;
+  font-size: 20px;
+  height: 5.6rem;
 }
