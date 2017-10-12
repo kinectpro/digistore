@@ -1,0 +1,29 @@
+<ion-content padding>
+
+  <button (click)="cancel()" ion-button clear icon-left><ion-icon name="ios-arrow-back"></ion-icon>Cancel</button>
+
+  <img class="logo-img" src="assets/img/logo-square.png">
+
+  <p text-center>Login to continue</p>
+
+  <ion-list>
+
+    <ion-item>
+      <ion-input type="text" placeholder="Digistore24-ID/Email"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input type="password" placeholder="Password"></ion-input>
+    </ion-item>
+
+  </ion-list>
+
+  <button ion-button block (click)="login()">Login</button>
+
+  <div text-center>
+    <button ion-button clear (click)="openBrowser('https://www.digistore24.com/extern/login/new_password')">Forgot Password?</button>
+  </div>
+
+  <p text-center>Not a member yet? <a (click)="openBrowser('https://www.digistore24.com/signup')">Register</a></p>
+
+</ion-content>

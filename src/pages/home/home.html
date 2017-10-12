@@ -1,17 +1,46 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>Home</ion-title>
+  <ion-navbar no-border-bottom>
+    <ion-title text-center>
+      Earning Overview
+    </ion-title>
   </ion-navbar>
+
+  <ion-toolbar no-border-top>
+    <ion-segment [(ngModel)]="segment">
+      <ion-segment-button value="total">
+        Total
+      </ion-segment-button>
+      <ion-segment-button value="month">
+        Month
+      </ion-segment-button>
+      <ion-segment-button value="quarter">
+        Quarter
+      </ion-segment-button>
+      <ion-segment-button value="year">
+        Year
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+<ion-content>
+  <div [ngSwitch]="segment">
+    <ion-list *ngSwitchCase="'total'">
+      <ion-list-header>Total Net</ion-list-header>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'month'">
+      <ion-list-header>Month Net</ion-list-header>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'quarter'">
+      <ion-list-header>Quarter Net</ion-list-header>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'year'">
+      <ion-list-header>Year Net</ion-list-header>
+    </ion-list>
+  </div>
 </ion-content>
+
+

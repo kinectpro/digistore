@@ -1,14 +1,16 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, Platform } from 'ionic-angular';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
+  segment: string = "total";
+  isAndroid: boolean = false;
 
-  constructor(public navCtrl: NavController) {
-
+  constructor(platform: Platform) {
+    this.isAndroid = platform.is('android');
   }
 
 }
