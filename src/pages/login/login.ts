@@ -17,9 +17,6 @@ export class LoginPage {
   showedErrorPass: string;
   pwdType: string = 'password';
 
-  username: string;
-  password: string;
-
   constructor(public navCtrl: NavController, public navParams: NavParams, public iab: InAppBrowser, public http: HttpClient, public fb: FormBuilder) {
     this.loginForm = fb.group({
       'username': ['', [
@@ -43,9 +40,9 @@ export class LoginPage {
   login() {
     // @todo change language "en" in the future
     // this.navCtrl.setRoot(TabsPage);
-    this.http.get(Settings.BASE_URL + Settings.API_KEY + '/json/createApiKey?username=' + this.username + '&password=' + this.password + '&language=en').subscribe(
+    this.http.get(Settings.BASE_URL + Settings.API_KEY + '/json/createApiKey?username=' + this.loginForm.get('username').value + '&password=' + this.loginForm.get('password').value + '&language=en').subscribe(
       (res: any) => {
-        if (res.result == 'error') {
+        if (res.result === 'error') {
           this.showError(res.message);
         } else {
           // @todo save user details to local storage
@@ -57,7 +54,7 @@ export class LoginPage {
         console.log('ERROR:', err);
       })
   }
-  
+
   checkValid(field: string): void {
     let f = this.loginForm.get(field);
     if (f.errors) {
@@ -70,7 +67,7 @@ export class LoginPage {
       }
     }
   }
-  
+
   showError(mess: string) {
     this.showedError = mess;
     setTimeout(() => {

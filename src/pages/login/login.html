@@ -21,7 +21,7 @@
       </ion-label>
 
       <ion-item no-margin no-padding>
-        <ion-input formControlName="username" type="text" placeholder="Digistore24-ID/Email"></ion-input>
+        <ion-input formControlName="username" type="email" placeholder="Digistore24-ID/Email"></ion-input>
       </ion-item>
       <ion-row *ngIf="loginForm.controls['username'].invalid && loginForm.controls['username'].touched && !loginForm.controls['username'].pristine">
         <ion-col>
