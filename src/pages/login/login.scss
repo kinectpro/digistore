@@ -72,5 +72,8 @@ page-login {
     border-bottom: solid 1px #3247a1;
     box-shadow: none;
   }
-
+  .list-md .item-input.item-input-has-focus:last-child, .list-md .item-input.item-has-focus:last-child {
+    border-bottom: solid 1px #3247a1;
+    box-shadow: none;
+  }
 }
