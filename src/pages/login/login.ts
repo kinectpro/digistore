@@ -3,20 +3,33 @@ import { NavController, NavParams } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { LandingPage } from '../landing/landing';
-import { Http } from '@angular/http';
 import { Settings } from '../../config/settings';
+import { HttpClient } from '@angular/common/http';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
 })
 export class LoginPage {
+  private loginForm : FormGroup;
+  showedError: string = ''; //  from server
+  showedErrorPass: string;
   pwdType: string = 'password';
 
   username: string;
   password: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public iab: InAppBrowser, public http: Http) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public iab: InAppBrowser, public http: HttpClient, public fb: FormBuilder) {
+    this.loginForm = fb.group({
+      'username': ['', [
+        Validators.required
+      ]],
+      'password': ['', [
+        Validators.required,
+        Validators.minLength(8)
+      ]]
+    });
   }
 
   ionViewDidLoad() {
@@ -30,16 +43,38 @@ export class LoginPage {
   login() {
     // @todo change language "en" in the future
     this.http.get(Settings.BASE_URL + Settings.API_KEY + '/json/createApiKey?username=' + this.username + '&password=' + this.password + '&language=en').subscribe(
-      res => {
-        let response = res.json();
-        if (response.result == 'error') {
-          // @todo show alert message here
-          alert("error:" + response.message);
+      (res: any) => {
+        if (res.result == 'error') {
+          this.showError('Incorrect Digistore24 ID/Email or password');
         } else {
           // @todo save user details to local storage
           this.navCtrl.setRoot(TabsPage);
         }
-    })
+      },
+      err => {
+        this.showError('Connection problem');
+        console.log('ERROR:', err);
+      })
+  }
+  
+  checkValid(field: string): void {
+    let f = this.loginForm.get(field);
+    if (f.errors) {
+      if (f.errors.required) {
+        this.showedErrorPass = field + ' is required';
+        return;
+      }
+      if (f.errors.minlength) {
+        this.showedErrorPass = 'min length of ' + field + ' is ' + f.errors.minlength.requiredLength;
+      }
+    }
+  }
+  
+  showError(mess: string) {
+    this.showedError = mess;
+    setTimeout(() => {
+      this.showedError = '';
+    }, 3000);
   }
 
   openBrowser(url: string) {
