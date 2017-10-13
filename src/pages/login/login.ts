@@ -42,10 +42,11 @@ export class LoginPage {
 
   login() {
     // @todo change language "en" in the future
+    // this.navCtrl.setRoot(TabsPage);
     this.http.get(Settings.BASE_URL + Settings.API_KEY + '/json/createApiKey?username=' + this.username + '&password=' + this.password + '&language=en').subscribe(
       (res: any) => {
         if (res.result == 'error') {
-          this.showError('Incorrect Digistore24 ID/Email or password');
+          this.showError(res.message);
         } else {
           // @todo save user details to local storage
           this.navCtrl.setRoot(TabsPage);
