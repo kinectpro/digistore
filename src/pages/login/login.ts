@@ -3,6 +3,8 @@ import { NavController, NavParams } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { LandingPage } from '../landing/landing';
+import { Http } from '@angular/http';
+import { Settings } from '../../config/settings';
 
 @Component({
   selector: 'page-login',
@@ -11,7 +13,10 @@ import { LandingPage } from '../landing/landing';
 export class LoginPage {
   pwdType: string = 'password';
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public iab: InAppBrowser) {
+  username: string;
+  password: string;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public iab: InAppBrowser, public http: Http) {
   }
 
   ionViewDidLoad() {
@@ -23,7 +28,18 @@ export class LoginPage {
   }
 
   login() {
-    this.navCtrl.setRoot(TabsPage);
+    // @todo change language "en" in the future
+    this.http.get(Settings.BASE_URL + Settings.API_KEY + '/json/createApiKey?username=' + this.username + '&password=' + this.password + '&language=en').subscribe(
+      res => {
+        let response = res.json();
+        if (response.result == 'error') {
+          // @todo show alert message here
+          alert("error:" + response.message);
+        } else {
+          // @todo save user details to local storage
+          this.navCtrl.setRoot(TabsPage);
+        }
+    })
   }
 
   openBrowser(url: string) {

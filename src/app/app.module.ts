@@ -14,6 +14,8 @@ import { LoginPage } from '../pages/login/login';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { TransactionsPage } from '../pages/transactions/transactions';
 import { TicketPage } from '../pages/ticket/ticket';
+import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,8 @@ import { TicketPage } from '../pages/ticket/ticket';
   ],
   imports: [
     BrowserModule,
+    HttpModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
