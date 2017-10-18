@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
-import { ModalController, NavController, NavParams } from 'ionic-angular';
+import { App, ModalController, NavController, NavParams } from 'ionic-angular';
 import { SortByPage } from '../sort-by/sort-by';
+import { TabsPage } from '../tabs/tabs';
 
 @Component({
   selector: 'page-transactions',
   templateUrl: 'transactions.html',
 })
 export class TransactionsPage {
+  // @todo Add to constants, add navigation between dates
   periods: string[] = [
     'day', 'week', 'month', 'year'
   ];
@@ -24,7 +26,9 @@ export class TransactionsPage {
     {date:'2017', name: 'data1', earning: 23123},
     {date:'2017', name: 'data1', earning: 23123}
   ];
-  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public app: App) {
+    this.currentPeriod = this.navParams.get('period');
   }
 
   ionViewDidLoad() {
@@ -36,14 +40,29 @@ export class TransactionsPage {
   }
 
   showAll() {
-    this.currentPeriod = null;
-    setTimeout(() => {
-      this.currentPeriod = 'day'
-    }, 5000);
+    this.app.getRootNav().setRoot(TabsPage, {tab: 1});
+  }
+
+  goNext() {
+    let index = this.periods.indexOf(this.currentPeriod);
+    if (index + 1 >= this.periods.length) {
+      this.currentPeriod = this.periods[0];
+    } else {
+      this.currentPeriod = this.periods[index + 1];
+    }
+  }
+
+  goPrev() {
+    let index = this.periods.indexOf(this.currentPeriod);
+    if (index == 0) {
+      this.currentPeriod = this.periods[this.periods.length - 1];
+    } else {
+      this.currentPeriod = this.periods[index - 1];
+    }
   }
 
   sortBy(params: any) {
-    const profileModal = this.modalCtrl.create(SortByPage);
+    const profileModal = this.modalCtrl.create(SortByPage, {period: this.currentPeriod});
     profileModal.present();
   }
 

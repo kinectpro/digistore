@@ -48,7 +48,10 @@ export function createTranslateLoader(http: HttpClient) {
       }
     }),
     IonicModule.forRoot(MyApp, {
-      mode: 'md'
+      mode: 'md',
+      backButtonText: 'Back',
+      iconMode: 'ios',
+      backButtonIcon: 'ios-arrow-back'
     })
   ],
   bootstrap: [IonicApp],

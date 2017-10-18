@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { TransactionsPage } from '../transactions/transactions';
 
 @Component({
   selector: 'page-ticket',
@@ -12,6 +13,10 @@ export class TicketPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TicketPage');
+  }
+
+  openPeriod() {
+    this.navCtrl.push(TransactionsPage, {period: 'day'});
   }
 
 }
