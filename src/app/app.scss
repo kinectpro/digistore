@@ -15,6 +15,17 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
+@font-face {
+  font-family: 'SFProText';
+  src:url('../assets/fonts/SanFranciscoText-Regular.otf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  font-family: "SFProText";
+}
+
 .color-light {
   color: color($colors, light, base);
 }
@@ -55,6 +66,10 @@
 }
 
 // Add bottom padding to show content under the logo (need to add for all pages with this logo)
-page-home .scroll-content, page-transactions .scroll-content {
+page-home .scroll-content, page-transactions .scroll-content, page-sort-by .scroll-content {
   padding-bottom: 5rem !important;
+}
+
+.white-bg {
+  background-color: #fff;
 }

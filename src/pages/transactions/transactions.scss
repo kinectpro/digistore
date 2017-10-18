@@ -1,3 +1,61 @@
 page-transactions {
-
+  .period {
+    color: #ffffff;
+    background-color: color($colors, primary);
+    font-size: 1.6rem;
+    line-height: 1.29;
+    letter-spacing: -0.4px;
+    font-weight: normal;
+  }
+  .transaction-name-block {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  .transaction-date {
+    font-size: 11px;
+    line-height: 1.18;
+    letter-spacing: 0.1px;
+    text-align: left;
+    color: #c1c4cb;
+  }
+  .transaction-name {
+    font-size: 17px;
+    line-height: 1.29;
+    letter-spacing: -0.4px;
+    text-align: left;
+    color: #414141;
+  }
+  .transaction-id {
+    font-size: 11px;
+    line-height: 1.18;
+    letter-spacing: 0.1px;
+    text-align: left;
+    color: #c1c4cb;
+  }
+  .transaction-earning {
+    font-size: 17px;
+    line-height: 1.29;
+    letter-spacing: -0.4px;
+    text-align: left;
+    color: color($colors, activated, base);
+  }
+  .nav-btn {
+    font-size: 17px;
+    line-height: 1.29;
+    letter-spacing: -0.4px;
+    text-align: left;
+    text-transform: capitalize;
+    font-weight: normal;
+  }
+  .header {
+    background-color: #fafafa;
+    color: #c1c4cb;
+  }
+  .col-name {
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.18;
+    letter-spacing: normal;
+  }
 }

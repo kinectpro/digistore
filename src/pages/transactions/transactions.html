@@ -3,9 +3,70 @@
     <ion-title text-center>
       Transactions
     </ion-title>
+    <ion-buttons *ngIf="currentPeriod" end>
+      <button ion-button float-end clear color="clear" (click)="showAll()">All</button>
+    </ion-buttons>
   </ion-navbar>
+
+  <ion-grid *ngIf="currentPeriod" class="period" text-center no-padding>
+    <ion-row align-items-center>
+      <ion-col col-2>
+        <button small ion-button clear icon-only color="clear"><ion-icon name="arrow-back" md="ios-arrow-back"></ion-icon></button>
+      </ion-col>
+      <ion-col col-8>
+        This <span text-capitalize>{{currentPeriod}}</span>
+      </ion-col>
+      <ion-col col-2>
+        <button small ion-button clear icon-only color="clear"><ion-icon name="arrow-forward" md="ios-arrow-forward"></ion-icon></button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
 </ion-header>
 
-<ion-content>
-  <ion-list-header>Transactions list</ion-list-header>
+<ion-content no-padding>
+
+  <ion-grid no-padding *ngIf="transactions">
+    <ion-row>
+      <ion-col col-6>
+        <button ion-button class="nav-btn" clear color="primary" (click)="sortBy()">Sort By</button>
+      </ion-col>
+      <ion-col col-6 text-right>
+        <button *ngIf="!currentPeriod" ion-button class="nav-btn" clear color="primary">Search & Filters</button>
+        <button *ngIf="currentPeriod" small ion-button class="nav-btn" icon-only clear color="primary">
+          <ion-icon name="search"></ion-icon>
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-item-group *ngIf="transactions">
+    <ion-item-divider class="header">
+      <ion-label no-margin>
+        <ion-row text-uppercase margin-right>
+          <ion-col col-2><span class="col-name">Date</span></ion-col>
+          <ion-col col-5><span class="col-name">Product name/ID</span></ion-col>
+          <ion-col col-5 text-right><span class="col-name">Your Earnings</span></ion-col>
+        </ion-row>
+      </ion-label>
+    </ion-item-divider>
+
+    <button no-padding ion-item *ngFor="let transaction of transactions" (click)="openTransaction(transaction)">
+      <ion-label no-margin>
+        <ion-row margin-left align-items-center>
+          <ion-col text-wrap col-2 class="transaction-date">{{transaction.date}}</ion-col>
+          <ion-col class="transaction-name-block" col-5>
+            <p class="transaction-name">{{transaction.name}}</p>
+            <p class="transaction-id">12354</p>
+          </ion-col>
+          <ion-col col-5 text-right><span class="transaction-earning">{{transaction.earning}}</span><ion-icon md="ios-arrow-forward" padding-left color="light"></ion-icon></ion-col>
+        </ion-row>
+      </ion-label>
+    </button>
+  </ion-item-group>
+
 </ion-content>
+
+<section class="bottom-logo">
+  <img src="assets/img/logo-long.png">
+</section>

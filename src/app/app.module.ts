@@ -19,6 +19,7 @@ import { LoadingInterceptor } from '../providers/loading-interceptor';
 import { AuthService } from '../providers/auth-service';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { SortByPage } from '../pages/sort-by/sort-by';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -33,7 +34,8 @@ export function createTranslateLoader(http: HttpClient) {
     SettingsPage,
     LandingPage,
     LoginPage,
-    TabsPage
+    TabsPage,
+    SortByPage
   ],
   imports: [
     BrowserModule,
@@ -58,6 +60,7 @@ export function createTranslateLoader(http: HttpClient) {
     LandingPage,
     LoginPage,
     TabsPage,
+    SortByPage,
     SettingsPage
   ],
   providers: [
