@@ -56,10 +56,12 @@ page-login {
   .item-md.item-input.item-input-has-focus .item-inner, .item-md.item-input.input-has-focus .item-inner{
     border: solid 1px #3247a1;
     box-shadow: inset 0 -1px 0 0 #3247a1;
+    border-radius: 4px;
   }
   .item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus):not(.item-input-has-focus):not(.ng-pristine) .item-inner {
     border: solid 1px #f53d3d;
     box-shadow: inset 0 -1px 0 0 #f53d3d;
+    border-radius: 4px;
   }
   .item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
     box-shadow: none;

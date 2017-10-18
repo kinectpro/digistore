@@ -14,7 +14,14 @@ import { LoginPage } from '../pages/login/login';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { TransactionsPage } from '../pages/transactions/transactions';
 import { TicketPage } from '../pages/ticket/ticket';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
+import { LoadingInterceptor } from '../providers/loading-interceptor';
+import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 @NgModule({
   declarations: [
@@ -30,6 +37,13 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: [HttpClient]
+      }
+    }),
     IonicModule.forRoot(MyApp, {
       mode: 'md'
     })
@@ -49,7 +63,13 @@ import { HttpClientModule } from '@angular/common/http';
     StatusBar,
     SplashScreen,
     InAppBrowser,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    TranslateService,
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoadingInterceptor,
+      multi: true,
+    }
   ]
 })
 export class AppModule {}

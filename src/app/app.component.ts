@@ -4,6 +4,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { LandingPage } from '../pages/landing/landing';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   templateUrl: 'app.html'
@@ -11,7 +12,7 @@ import { LandingPage } from '../pages/landing/landing';
 export class MyApp {
   rootPage:any = LandingPage;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public translate: TranslateService) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -19,5 +20,8 @@ export class MyApp {
       statusBar.backgroundColorByHexString('#1998db');
       splashScreen.hide();
     });
+    // Set the default language for translation strings, and the current language.
+    this.translate.setDefaultLang('en');
+    this.translate.use('en');
   }
 }

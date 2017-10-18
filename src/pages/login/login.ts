@@ -6,6 +6,7 @@ import { LandingPage } from '../landing/landing';
 import { Settings } from '../../config/settings';
 import { HttpClient } from '@angular/common/http';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'page-login',
@@ -16,8 +17,10 @@ export class LoginPage {
   showedError: string = ''; //  from server
   showedErrorPass: string;
   pwdType: string = 'password';
+  mesConnProblem: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public iab: InAppBrowser, public http: HttpClient, public fb: FormBuilder) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public iab: InAppBrowser, public http: HttpClient, public fb: FormBuilder, public translate: TranslateService) {
+
     this.loginForm = fb.group({
       'username': ['', [
         Validators.required
@@ -39,6 +42,7 @@ export class LoginPage {
 
   login() {
     // @todo change language "en" in the future
+    this.translate.get('LOGIN_PAGE.CONNECTION_PROBLEM').subscribe(value => this.mesConnProblem = value);
     // this.navCtrl.setRoot(TabsPage);
     this.http.get(Settings.BASE_URL + Settings.API_KEY + '/json/createApiKey?username=' + this.loginForm.get('username').value + '&password=' + this.loginForm.get('password').value + '&language=en').subscribe(
       (res: any) => {
@@ -50,7 +54,7 @@ export class LoginPage {
         }
       },
       err => {
-        this.showError('Connection problem');
+        this.showError(this.mesConnProblem);
         console.log('ERROR:', err);
       })
   }
