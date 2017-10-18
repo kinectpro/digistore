@@ -1,0 +1,102 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Transactions</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content no-padding>
+  <ion-grid padding>
+    <ion-row align-items-center>
+      <ion-col col-7>
+        <label class="label">Product Name / ID</label>
+        <p class="product_name">{{transaction.name}}</p>
+      </ion-col>
+      <ion-col col-5 text-right>
+        <label class="label" >Order ID</label>
+        <p>{{transaction.orderID}}</p>
+        <label class="label">Transaction ID</label>
+        <p>{{transaction.id}}</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid class="bordered">
+    <ion-row>
+      <ion-col col-6>
+        <label class="label">Gross amount</label>
+        <h3>{{transaction.gross}}</h3>
+      </ion-col>
+      <ion-col col-6 >
+        <label class="label">Net commission</label>
+        <p>{{transaction.net}}</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid padding>
+    <ion-row align-items-center>
+      <ion-col col-4>
+        <label class="label">Transaction type</label>
+        <h3>{{transaction.type}}</h3>
+      </ion-col>
+      <ion-col col-4>
+        <label class="label">Payment method</label>
+        <p>{{transaction.payment_method}}</p>
+      </ion-col>
+      <ion-col col-4>
+        <label class="label">Currency</label>
+        <p>{{transaction.currency}}</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-list >
+    <ion-list-header>
+      Customer details
+    </ion-list-header>
+    <ion-item>
+      <ion-label>
+        Name
+      </ion-label>
+      <div item-content>
+        {{transaction.customer_name}}
+      </div>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        Email
+      </ion-label>
+      <div item-content>
+        {{transaction.customer_email}}
+      </div>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        Phone number
+      </ion-label>
+      <div item-content>
+        {{transaction.customer_phone}}
+      </div>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        Affiliate
+      </ion-label>
+      <div item-content>
+        {{transaction.customer_affiliate}}
+      </div>
+    </ion-item>
+  </ion-list>
+
+  <br/>
+
+  <button ion-item>
+    <ion-icon name="ios-alert-outline" color="danger" item-start></ion-icon>
+    Report customer
+  </button>
+
+</ion-content>

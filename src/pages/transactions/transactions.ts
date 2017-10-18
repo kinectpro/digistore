@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { App, ModalController, NavController, NavParams } from 'ionic-angular';
 import { SortByPage } from '../sort-by/sort-by';
 import { TabsPage } from '../tabs/tabs';
+import { TransactionDetailsPage } from '../transaction-details/transaction-details';
 
 @Component({
   selector: 'page-transactions',
@@ -37,6 +38,7 @@ export class TransactionsPage {
 
   openTransaction(transaction: any) {
     console.log(transaction);
+    this.navCtrl.push(TransactionDetailsPage, {transaction: transaction});
   }
 
   showAll() {

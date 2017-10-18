@@ -1,0 +1,35 @@
+page-transaction-details {
+  p {
+    margin: 0;
+    font-size: 17px;
+    line-height: 1.29;
+    letter-spacing: -0.4px;
+  }
+  .label {
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.18;
+    letter-spacing: -0.1px;
+    color: color($colors, light);
+    text-transform: uppercase;
+  }
+  .bordered {
+    padding-top: 0;
+    padding-bottom: 0;
+    border-top: 1px solid #d1d1d6;
+    border-bottom: 1px solid #d1d1d6;
+  }
+  .bordered ion-col:first-of-type {
+    border-right: 1px solid #d1d1d6;
+  }
+  .bordered ion-col {
+    padding: 2rem;
+  }
+  .product_name {
+    font-size: 20px;
+    line-height: 1.3;
+    letter-spacing: 0.3px;
+    text-align: left;
+    color: #3247a1;
+  }
+}

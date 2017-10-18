@@ -20,6 +20,7 @@ import { AuthService } from '../providers/auth-service';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SortByPage } from '../pages/sort-by/sort-by';
+import { TransactionDetailsPage } from '../pages/transaction-details/transaction-details';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -35,7 +36,8 @@ export function createTranslateLoader(http: HttpClient) {
     LandingPage,
     LoginPage,
     TabsPage,
-    SortByPage
+    SortByPage,
+    TransactionDetailsPage
   ],
   imports: [
     BrowserModule,
@@ -63,7 +65,8 @@ export function createTranslateLoader(http: HttpClient) {
     LoginPage,
     TabsPage,
     SortByPage,
-    SettingsPage
+    SettingsPage,
+    TransactionDetailsPage
   ],
   providers: [
     StatusBar,
