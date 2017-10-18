@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { App, NavController, NavParams } from 'ionic-angular';
 import { LandingPage } from '../landing/landing';
+import { AuthService } from '../../providers/auth-service';
 
 @Component({
   selector: 'page-settings',
@@ -8,7 +9,7 @@ import { LandingPage } from '../landing/landing';
 })
 export class SettingsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public app: App) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public app: App, public authService: AuthService) {
   }
 
   ionViewDidLoad() {
@@ -16,6 +17,7 @@ export class SettingsPage {
   }
 
   logout() {
+    this.authService.logout();
     this.app.getRootNav().setRoot(LandingPage);
   }
 

@@ -7,6 +7,7 @@ import { Settings } from '../../config/settings';
 import { HttpClient } from '@angular/common/http';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
+import { AuthService } from '../../providers/auth-service';
 
 @Component({
   selector: 'page-login',
@@ -19,7 +20,8 @@ export class LoginPage {
   pwdType: string = 'password';
   mesConnProblem: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public iab: InAppBrowser, public http: HttpClient, public fb: FormBuilder, public translate: TranslateService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public iab: InAppBrowser, public fb: FormBuilder,
+              public http: HttpClient, public translate: TranslateService, public authService: AuthService) {
 
     this.loginForm = fb.group({
       'username': ['', [
@@ -43,13 +45,12 @@ export class LoginPage {
   login() {
     // @todo change language "en" in the future
     this.translate.get('LOGIN_PAGE.CONNECTION_PROBLEM').subscribe(value => this.mesConnProblem = value);
-    // this.navCtrl.setRoot(TabsPage);
     this.http.get(Settings.BASE_URL + Settings.API_KEY + '/json/createApiKey?username=' + this.loginForm.get('username').value + '&password=' + this.loginForm.get('password').value + '&language=en').subscribe(
       (res: any) => {
         if (res.result === 'error') {
           this.showError(res.message);
         } else {
-          // @todo save user details to local storage
+          this.authService.apiKey = res.data.api_key;
           this.navCtrl.setRoot(TabsPage);
         }
       },

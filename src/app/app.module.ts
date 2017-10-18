@@ -16,6 +16,7 @@ import { TransactionsPage } from '../pages/transactions/transactions';
 import { TicketPage } from '../pages/ticket/ticket';
 import { HttpClientModule, HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { LoadingInterceptor } from '../providers/loading-interceptor';
+import { AuthService } from '../providers/auth-service';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
@@ -69,7 +70,8 @@ export function createTranslateLoader(http: HttpClient) {
       provide: HTTP_INTERCEPTORS,
       useClass: LoadingInterceptor,
       multi: true,
-    }
+    },
+    AuthService
   ]
 })
 export class AppModule {}
