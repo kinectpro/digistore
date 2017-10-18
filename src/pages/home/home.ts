@@ -8,6 +8,8 @@ import { Platform } from 'ionic-angular';
 export class HomePage {
   segment: string = "total";
   isAndroid: boolean = false;
+  toggle: string = 'gross';
+  amount: number = 52307.04;
 
   constructor(platform: Platform) {
     this.isAndroid = platform.is('android');

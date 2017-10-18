@@ -1,6 +1,88 @@
 page-home {
   .toolbar-md {
     padding: 4px 4px 0 4px;
-    min-height: 46px;
+    min-height: 44px;
+  }
+
+  ion-segment.toogle {
+    background-color: #fafafa;
+    width: 260px;
+    margin: 20px auto 39px;
+    border: none;
+    ion-segment-button.segment-button {
+      border: none;
+      border-radius: 20px!important;
+      font-family: SFProText;
+      font-size: 13px;
+      height: 28px;
+      line-height: 1.38;
+      letter-spacing: -0.1px;
+      padding: 4px 5px 6px 5px;
+    }
+    ion-segment-button.segment-button.segment-activated {
+      border: none;
+      border-radius: 20px!important;
+    }
+  }
+
+  ion-list {
+    ion-list-header.item.item-md.list-header.list-header-md {
+      border-top: none;
+      min-height: 22px;
+      padding: 0;
+      margin: 0;
+      ion-label.label.label-md {
+        font-family: SFProText;
+        font-size: 17px;
+        line-height: 1.29;
+        letter-spacing: -0.4px;
+        color: #687381;
+        margin: 0;
+      }
+      ion-label.label.label-md.amount {
+        height: 41px;
+        font-family: SFProDisplay;
+        text-align: center!important;
+        font-size: 34px;
+        font-weight: bold;
+        line-height: 1.21;
+        letter-spacing: 0.4px;
+        text-align: left;
+        color: #3247a1;
+      }
+    }
+    ion-item.logo.item.item-block.item-md {
+      margin-top: 40px;
+      padding: 0;
+      min-height: 22px;
+      ion-label.label.label-md {
+        height: 22px;
+        margin: 0 0 11px;
+        .img-logo {
+          width: 124px;
+          height: 22px;
+          margin-right: 7px;
+        }
+      }
+    }
+    ion-item.item.item-block.item-md {
+      min-height: 60px;
+      font-family: SFProText;
+      font-size: 17px;
+      line-height: 1.29;
+      letter-spacing: -0.4px;
+      ion-label.label.label-md {
+        padding-left: 29px;
+        height: 22px;
+        color: #687381;
+      }
+      div.total {
+        height: 22px;
+        font-weight: 500;
+        text-align: right;
+        color: #3247a1;
+        padding-right: 8px;
+      }
+    }
   }
 }

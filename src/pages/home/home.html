@@ -25,30 +25,68 @@
 
 <ion-content>
   <div [ngSwitch]="segment">
+
+    <ion-segment mode="ios" [(ngModel)]="toggle" class="toogle">
+      <ion-segment-button value='gross'>
+        Gross
+      </ion-segment-button>
+      <ion-segment-button value='net'>
+        Net Commision
+      </ion-segment-button>
+    </ion-segment>
+
     <ion-list *ngSwitchCase="'total'">
       <!--<ion-list-header>Total Net</ion-list-header>-->
+
       <ion-list>
-        <ion-list-header>
-          Total Net
+        <ion-list-header text-center no-margin>
+          <ion-label>
+            {{ toggle == 'gross' ? "Total Gross" : "Total Net" }}
+          </ion-label>
         </ion-list-header>
-        <ion-item>Test data for transparent bottom</ion-item>
-        <ion-item>Test data for transparent bottom</ion-item>
-        <ion-item>Test data for transparent bottom</ion-item>
-        <ion-item>Test data for transparent bottom</ion-item>
-        <ion-item>Test data for transparent bottom</ion-item>
-        <ion-item>Test data for transparent bottom</ion-item>
-        <ion-item>Test data for transparent bottom</ion-item>
-        <ion-item>Test data for transparent bottom</ion-item>
-        <ion-item>Test data for transparent bottom</ion-item>
-        <ion-item>Test data for transparent bottom</ion-item>
-        <ion-item>Test data for transparent bottom</ion-item>
-        <ion-item>Test data for transparent bottom</ion-item>
-        <ion-item>Test data for transparent bottom</ion-item>
-        <ion-item>Test data for transparent bottom</ion-item>
-        <ion-item>Test data for transparent bottom</ion-item>
-        <ion-item>Test data for transparent bottom</ion-item>
-        <ion-item>Test data for transparent bottom</ion-item>
-        <ion-item>Test data for transparent bottom</ion-item>
+        <ion-list-header text-center no-margin>
+          <ion-label class="amount">
+            {{ amount | currency:'EUR':true }}
+          </ion-label>
+        </ion-list-header>
+
+        <ion-item class="logo" text-end>
+          <img class="img-logo" src="assets/img/logo-long.png">
+        </ion-item>
+        <ion-item no-padding>
+          <ion-label>
+            Today
+          </ion-label>
+          <div item-content class="total">
+            {{ 1608.92 | currency:'EUR':true }} <ion-icon md="ios-arrow-forward" padding-left color="light"></ion-icon>
+          </div>
+        </ion-item>
+        <ion-item no-padding>
+          <ion-label>
+            This week
+          </ion-label>
+          <div item-content class="total">
+            {{ 11608.92 | currency:'EUR':true }} <ion-icon md="ios-arrow-forward" padding-left color="light"></ion-icon>
+          </div>
+        </ion-item>
+        <ion-item no-padding>
+          <ion-label>
+            This month
+          </ion-label>
+          <div item-content class="total">
+            {{ 38608.92 | currency:'EUR':true }} <ion-icon md="ios-arrow-forward" padding-left color="light"></ion-icon>
+          </div>
+        </ion-item>
+        <ion-item no-padding>
+          <ion-label>
+            This year
+          </ion-label>
+          <div item-content class="total">
+            {{ 138608.92 | currency:'EUR':true }} <ion-icon md="ios-arrow-forward" padding-left color="light"></ion-icon>
+          </div>
+        </ion-item>
+        <ion-item no-padding>
+        </ion-item>
       </ion-list>
     </ion-list>
 
@@ -65,9 +103,4 @@
     </ion-list>
   </div>
 </ion-content>
-
-<section class="bottom-logo">
-  <img src="assets/img/logo-long.png">
-</section>
-
 
