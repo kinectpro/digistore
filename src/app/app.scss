@@ -55,6 +55,6 @@
 }
 
 // Add bottom padding to show content under the logo (need to add for all pages with this logo)
-page-home .scroll-content {
-  padding-bottom: 5rem;
+page-home .scroll-content, page-transactions .scroll-content {
+  padding-bottom: 5rem !important;
 }

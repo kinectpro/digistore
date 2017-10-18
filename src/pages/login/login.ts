@@ -80,7 +80,7 @@ export class LoginPage {
   }
 
   openBrowser(url: string) {
-    this.iab.create(url, '_self', {location:'no'});
+    this.iab.create(Settings.SITE_URL + url, '_self', {location:'no'});
   }
 
   cancel() {
