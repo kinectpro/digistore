@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { Platform } from 'ionic-angular';
+import { Platform, NavController } from 'ionic-angular';
+import { TransactionsPage } from '../transactions/transactions';
 
 @Component({
   selector: 'page-home',
@@ -27,8 +28,12 @@ export class HomePage {
     }
   ];
 
-  constructor(platform: Platform) {
+  constructor(platform: Platform, public navCtrl: NavController) {
     this.isAndroid = platform.is('android');
+  }
+
+  goToTransaction(period: string): void {
+    this.navCtrl.push(TransactionsPage, { period: period });
   }
 
 }

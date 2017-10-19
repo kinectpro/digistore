@@ -54,7 +54,7 @@
           <img class="img-logo" src="assets/img/logo-long.png">
         </ion-item>
 
-        <button ion-item no-padding>
+        <button ion-item no-padding (click)="goToTransaction('day')">
           <ion-label>
             Today
           </ion-label>
@@ -63,7 +63,7 @@
           </div>
         </button>
 
-        <button ion-item no-padding>
+        <button ion-item no-padding (click)="goToTransaction('week')">
           <ion-label>
             This week
           </ion-label>
@@ -72,7 +72,7 @@
           </div>
         </button>
 
-        <button ion-item no-padding>
+        <button ion-item no-padding (click)="goToTransaction('month')">
           <ion-label>
             This month
           </ion-label>
@@ -81,7 +81,7 @@
           </div>
         </button>
 
-        <button ion-item no-padding>
+        <button ion-item no-padding (click)="goToTransaction('year')">
           <ion-label>
             This year
           </ion-label>
