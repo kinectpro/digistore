@@ -1,0 +1,26 @@
+page-report {
+  .scroll-content {
+    background-color: #fafafa;
+  }
+  .bottom-logo {
+    bottom: 0;
+  }
+  ion-textarea {
+    border-bottom: 1px solid #d1d1d6;
+    font-size: 17px;
+    line-height: 1.29;
+    letter-spacing: -0.4px;
+    text-align: left;
+    color: #414141;
+  }
+  ion-item-group {
+    border-bottom: 1px solid #d1d1d6;
+    border-top: 1px solid #d1d1d6;
+  }
+  .no-affiliate-text {
+    font-size: 13px;
+    letter-spacing: -0.1px;
+    text-align: left;
+    color: #687381;
+  }
+}

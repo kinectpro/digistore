@@ -1,0 +1,48 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Report</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content no-padding>
+  <form [formGroup]="reportForm">
+    <section margin-bottom class="white-bg">
+      <ion-textarea placeholder="Enter your thoughts" rows="7" id="thoughtsBox"></ion-textarea>
+    </section>
+    <section class="white-bg">
+        <ion-list>
+
+          <ion-item>
+            <ion-label fixed>Customer Name</ion-label>
+            <ion-input type="text" placeholder="Enter here" value=""></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label fixed>Customer Email</ion-label>
+            <ion-input type="email" placeholder="Enter here" value=""></ion-input>
+          </ion-item>
+
+        </ion-list>
+    </section>
+    <span *ngIf="reportForm.get('affiliate').value" class="no-affiliate-text" padding-left>This purchase was made without affiliate</span>
+    <section margin-top class="white-bg">
+      <ion-item-group>
+        <ion-item>
+          <ion-label>Report affiliate</ion-label>
+          <ion-toggle formControlName="affiliate" color="secondary"></ion-toggle>
+        </ion-item>
+      </ion-item-group>
+    </section>
+
+    <section padding>
+      <button ion-button block color="danger" text-capitalize>Report</button>
+    </section>
+  </form>
+</ion-content>
+
+<section class="bottom-logo">
+  <img src="assets/img/logo-long.png">
+</section>
