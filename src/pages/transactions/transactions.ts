@@ -15,18 +15,20 @@ export class TransactionsPage {
     'day', 'week', 'month', 'year'
   ];
   currentPeriod: string;
+  showedSearchInput: boolean = false;
+  searchInputValue: string = '';
 
   transactions: any = [
     {date:'27.11.17 10:23', name: 'afsdfas afsa asfafasf asfsafas asfsaaffaff asfsa', earning: 23123},
+    {date:'2017', name: 'test', earning: 23123},
+    {date:'2017', name: 'hello', earning: 23123},
+    {date:'2017', name: 'fbi is best', earning: 23123},
+    {date:'2017', name: 'I DO NOT LIKE BUGS', earning: 23123},
     {date:'2017', name: 'data1', earning: 23123},
-    {date:'2017', name: 'data1', earning: 23123},
-    {date:'2017', name: 'data1', earning: 23123},
-    {date:'2017', name: 'data1', earning: 23123},
-    {date:'2017', name: 'data1', earning: 23123},
-    {date:'2017', name: 'data1', earning: 23123},
-    {date:'2017', name: 'data1', earning: 23123},
-    {date:'2017', name: 'data1', earning: 23123},
-    {date:'2017', name: 'data1', earning: 23123}
+    {date:'2017', name: 'want holiday', earning: 23123},
+    {date:'2017', name: 'abrakadabra', earning: 23123},
+    {date:'2017', name: 'UkRaInE', earning: 23123},
+    {date:'2017', name: ' spaces is set ', earning: 23123}
   ];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public app: App) {
@@ -72,6 +74,21 @@ export class TransactionsPage {
 
   openSearch() {
     this.app.getRootNav().push(SearchPage);
+  }
+
+  showSearchInput(flag: boolean): void {
+    if (!flag) this.searchInputValue = '';
+    this.showedSearchInput = flag;
+  }
+
+  getTransactions(value: string) {
+    let val = value.trim().toLowerCase();
+    if (!val) {
+      return this.transactions;
+    }
+    return this.transactions.filter(item => {
+      return item.name.trim().toLowerCase().indexOf(val) >= 0;
+    });
   }
 
 }

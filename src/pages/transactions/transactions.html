@@ -27,17 +27,28 @@
 <ion-content no-padding>
 
   <ion-grid no-padding *ngIf="transactions">
-    <ion-row>
+    <ion-row *ngIf="!showedSearchInput;else searchInput">
       <ion-col col-6>
         <button ion-button class="nav-btn" clear color="primary" (click)="sortBy()">Sort By</button>
       </ion-col>
       <ion-col col-6 text-right>
         <button *ngIf="!currentPeriod" ion-button class="nav-btn" clear color="primary" (click)="openSearch()">Search & Filters</button>
-        <button *ngIf="currentPeriod" small ion-button class="nav-btn" icon-only clear color="primary">
+        <button *ngIf="currentPeriod" small ion-button class="nav-btn" icon-only clear color="primary" (click)="showSearchInput(true)">
           <ion-icon name="search"></ion-icon>
         </button>
       </ion-col>
     </ion-row>
+    <ng-template #searchInput>
+      <ion-row>
+        <ion-col col-12>
+          <ion-item no-padding>
+            <ion-label><ion-icon name="search"></ion-icon></ion-label>
+            <ion-input placeholder="Text Input" [(ngModel)]="searchInputValue"></ion-input>
+            <button ion-button class="btn-cancel" clear item-end (click)="showSearchInput(false)">Cancel</button>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ng-template>
   </ion-grid>
 
   <ion-item-group *ngIf="transactions">
@@ -51,7 +62,7 @@
       </ion-label>
     </ion-item-divider>
 
-    <button no-padding ion-item *ngFor="let transaction of transactions" (click)="openTransaction(transaction)">
+    <button no-padding ion-item *ngFor="let transaction of getTransactions(searchInputValue)" (click)="openTransaction(transaction)">
       <ion-label no-margin>
         <ion-row margin-left align-items-center>
           <ion-col text-wrap col-2 class="transaction-date">{{transaction.date}}</ion-col>
