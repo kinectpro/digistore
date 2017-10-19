@@ -3,6 +3,7 @@ import { App, ModalController, NavController, NavParams } from 'ionic-angular';
 import { SortByPage } from '../sort-by/sort-by';
 import { TabsPage } from '../tabs/tabs';
 import { TransactionDetailsPage } from '../transaction-details/transaction-details';
+import { SearchPage } from '../search/search';
 
 @Component({
   selector: 'page-transactions',
@@ -67,6 +68,10 @@ export class TransactionsPage {
   sortBy(params: any) {
     const profileModal = this.modalCtrl.create(SortByPage, {period: this.currentPeriod});
     profileModal.present();
+  }
+
+  openSearch() {
+    this.app.getRootNav().push(SearchPage);
   }
 
 }

@@ -21,6 +21,7 @@ import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-transla
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SortByPage } from '../pages/sort-by/sort-by';
 import { TransactionDetailsPage } from '../pages/transaction-details/transaction-details';
+import { SearchPage } from '../pages/search/search';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -37,6 +38,7 @@ export function createTranslateLoader(http: HttpClient) {
     LoginPage,
     TabsPage,
     SortByPage,
+    SearchPage,
     TransactionDetailsPage
   ],
   imports: [
@@ -65,6 +67,7 @@ export function createTranslateLoader(http: HttpClient) {
     LoginPage,
     TabsPage,
     SortByPage,
+    SearchPage,
     SettingsPage,
     TransactionDetailsPage
   ],

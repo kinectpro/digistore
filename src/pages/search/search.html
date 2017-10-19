@@ -1,0 +1,175 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Search & Filters</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content no-padding>
+
+  <ion-grid padding>
+    <ion-row>
+      <ion-col text-right>
+        <button small ion-button text-capitalize color="activated" (click)="switchType()">{{extended ? 'OrderID' : 'Detailed search'}}</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <form [formGroup]="searchForm">
+    <section padding *ngIf="!extended">
+
+      <ion-list>
+        <ion-item no-margin no-padding>
+          <ion-input formControlName="orderID" type="text" placeholder="OrderID"></ion-input>
+        </ion-item>
+        <ion-label *ngIf="showedError" class="err-message" no-margin>
+          {{ showedError }}
+        </ion-label>
+      </ion-list>
+
+    </section>
+    <section *ngIf="extended" no-padding>
+      <ion-list no-padding>
+        <ion-item-divider style="min-height: 0"><ion-label no-margin></ion-label></ion-item-divider>
+        <button no-padding ion-item icon-end (click)="setActive('product')">
+          <ion-icon [color]="activeTab === 'product' ? 'primary' : 'dark'" name="{{activeTab === 'product' ? 'ios-arrow-up' :'ios-arrow-down'}}" item-end></ion-icon>
+          <ion-label padding-left [color]="activeTab === 'product' ? 'primary' : 'dark'">Product Name</ion-label>
+        </button>
+        <ion-list padding *ngIf="activeTab === 'product'">
+          <ion-item no-margin no-padding>
+            <ion-input formControlName="orderID" type="text" placeholder="Order ID"></ion-input>
+          </ion-item>
+          <ion-item no-margin no-padding>
+            <ion-input formControlName="orderID" type="text" placeholder="Product Name"></ion-input>
+          </ion-item>
+        </ion-list>
+
+        <button no-padding ion-item icon-end (click)="setActive('customer')">
+          <ion-icon [color]="activeTab === 'customer' ? 'primary' : 'dark'" name="{{activeTab === 'customer' ? 'ios-arrow-up' :'ios-arrow-down'}}" item-end></ion-icon>
+          <ion-label padding-left [color]="activeTab === 'customer' ? 'primary' : 'dark'">Customer Info</ion-label>
+        </button>
+        <ion-list padding *ngIf="activeTab === 'customer'">
+          <ion-grid no-padding>
+            <ion-row>
+              <ion-col col-6>
+                <ion-item no-margin no-padding>
+                  <ion-input formControlName="orderID" type="text" placeholder="Firstname"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col col-6>
+                <ion-item no-margin no-padding>
+                  <ion-input formControlName="orderID" type="text" placeholder="Lastname"></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <ion-item no-margin no-padding>
+            <ion-input formControlName="orderID" type="email" placeholder="Email"></ion-input>
+          </ion-item>
+        </ion-list>
+
+        <button no-padding ion-item icon-end (click)="setActive('transaction')">
+          <ion-icon [color]="activeTab === 'transaction' ? 'primary' : 'dark'" name="{{activeTab === 'transaction' ? 'ios-arrow-up' :'ios-arrow-down'}}" item-end></ion-icon>
+          <ion-label padding-left [color]="activeTab === 'transaction' ? 'primary' : 'dark'">Transaction Details</ion-label>
+        </button>
+        <ion-list *ngIf="activeTab === 'transaction'">
+          <ion-grid padding>
+            <ion-row>
+              <ion-col col-6>
+                <ion-item no-margin no-padding>
+                  <ion-input formControlName="orderID" type="text" placeholder="StartDay"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col col-6>
+                <ion-item no-margin no-padding>
+                  <ion-input formControlName="orderID" type="text" placeholder="EndDay"></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <ion-list no-padding>
+            <button no-padding ion-item (click)="openOption('product_name')">
+              <ion-label padding-left>
+                Affiliate
+              </ion-label>
+              <div item-content class="item-content">
+                With Affiliate
+                <ion-icon md="ios-arrow-forward" color="light"></ion-icon>
+              </div>
+            </button>
+            <button no-padding ion-item (click)="openOption('affiliate')">
+              <ion-label padding-left>
+                Transaction Type
+              </ion-label>
+              <div item-content class="item-content">
+                Payment, Test refunding
+                <ion-icon md="ios-arrow-forward" color="light"></ion-icon>
+              </div>
+            </button>
+          </ion-list>
+          <ion-grid no-padding>
+            <ion-row>
+              <ion-list-header no-margin>
+                Payment Method
+              </ion-list-header>
+            </ion-row>
+            <ion-row padding-left padding-right>
+              <ion-col col-6 class="horizontal-list">
+                <button ion-button block color="filter">Bank Transfer</button>
+                <button ion-button block color="filter">Bank Transfer</button>
+                <button ion-button block color="filter">Bank Transfer</button>
+              </ion-col>
+              <ion-col col-6 class="horizontal-list">
+                <button ion-button block color="filter">Bank Transfer</button>
+                <button ion-button block color="filter">Bank Transfer</button>
+                <button ion-button block color="filter">Bank Transfer</button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+          <ion-grid no-padding>
+            <ion-row>
+              <ion-list-header no-margin>
+                Currency
+              </ion-list-header>
+            </ion-row>
+            <ion-row padding-left padding-right>
+              <ion-col col-4 class="horizontal-list">
+                <button ion-button block color="filter">EUR</button>
+              </ion-col>
+              <ion-col col-4 class="horizontal-list">
+                <button ion-button block color="filter">USD</button>
+              </ion-col>
+              <ion-col col-4 class="horizontal-list">
+                <button ion-button block color="filter">CHF</button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+          <ion-list>
+            <ion-item-divider></ion-item-divider>
+            <button ion-item (click)="openOption('affiliate')">
+              <ion-label>
+                Billing Type
+              </ion-label>
+              <div item-content class="item-content">
+                Invoice
+                <ion-icon md="ios-arrow-forward" color="light"></ion-icon>
+              </div>
+            </button>
+          </ion-list>
+        </ion-list>
+      </ion-list>
+    </section>
+  </form>
+
+</ion-content>
+
+<ion-footer>
+  <button large text-capitalize ion-button full color="secondary">Search</button>
+</ion-footer>
+<section class="bottom-logo">
+  <img src="assets/img/logo-long.png">
+</section>
