@@ -2,4 +2,24 @@ page-sort-by {
   .bottom-logo {
     bottom: 0;
   }
+  ion-toolbar {
+    min-height: 3.5rem !important;
+  }
+  .sublist .label {
+    font-size: 17px;
+    line-height: 1.29;
+    letter-spacing: -0.4px;
+    text-align: left;
+    color: #c1c4cb;
+  }
+  .item-content {
+    font-size: 17px;
+    line-height: 1.29;
+    letter-spacing: -0.4px;
+    text-align: right;
+    color: #687381;
+  }
+  .item-content ion-icon {
+    padding-left: 5px;
+  }
 }

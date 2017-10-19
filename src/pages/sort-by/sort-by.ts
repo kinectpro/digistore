@@ -14,6 +14,13 @@ import { NavController, NavParams, ViewController } from 'ionic-angular';
 })
 export class SortByPage {
   period: string;
+  options: any[] = [
+    { product_name: false },
+    { earning: false },
+    { date: false }
+  ];
+
+  product_name:boolean = false;
 
   constructor(
     public viewCtrl: ViewController,
@@ -28,5 +35,9 @@ export class SortByPage {
 
   submit() {
     this.viewCtrl.dismiss();
+  }
+
+  openOption(option: string) {
+    this.options[option]= !this.options[option];
   }
 }
