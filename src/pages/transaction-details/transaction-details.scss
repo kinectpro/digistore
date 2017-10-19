@@ -1,4 +1,7 @@
 page-transaction-details {
+  .scroll-content {
+    background: #fafafa;
+  }
   p {
     margin: 0;
     font-size: 17px;
@@ -31,5 +34,44 @@ page-transaction-details {
     letter-spacing: 0.3px;
     text-align: left;
     color: #3247a1;
+  }
+  .list ion-label {
+    font-size: 17px;
+    line-height: 1.29;
+    letter-spacing: -0.4px;
+    text-align: left;
+    color: #687381;
+    text-transform: capitalize;
+  }
+  .list ion-list-header ion-label {
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.18;
+    letter-spacing: -0.1px;
+    text-align: left;
+    color: #c1c4cb;
+    text-transform: uppercase;
+  }
+  .list ion-list-header {
+    background-color: #fafafa;
+    margin: 0;
+  }
+  .divider {
+    height: 30px;
+    background-color: #fafafa;
+  }
+  .report-customer-btn {
+    border-top: 1px solid #d1d1d6;
+    border-bottom: 1px solid #d1d1d6;
+  }
+  .report-customer-btn .item-inner {
+    border-bottom: 0 !important;
+  }
+  .report-customer-btn ion-label {
+    font-size: 17px;
+    line-height: 1.29;
+    letter-spacing: -0.4px;
+    text-align: left;
+    color: #414142;
   }
 }

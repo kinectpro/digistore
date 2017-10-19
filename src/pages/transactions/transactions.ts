@@ -38,7 +38,8 @@ export class TransactionsPage {
 
   openTransaction(transaction: any) {
     console.log(transaction);
-    this.navCtrl.push(TransactionDetailsPage, {transaction: transaction});
+    // this.navCtrl.push(TransactionDetailsPage, {transaction: transaction});
+    this.app.getRootNav().push(TransactionDetailsPage, {transaction: transaction});
   }
 
   showAll() {
