@@ -18,21 +18,24 @@ export class TransactionsPage {
   showedSearchInput: boolean = false;
   searchInputValue: string = '';
 
-  transactions: any = [
-    {date:'27.11.17 10:23', name: 'afsdfas afsa asfafasf asfsafas asfsaaffaff asfsa', earning: 23123},
-    {date:'2017', name: 'test', earning: 23123},
-    {date:'2017', name: 'hello', earning: 23123},
-    {date:'2017', name: 'fbi is best', earning: 23123},
-    {date:'2017', name: 'I DO NOT LIKE BUGS', earning: 23123},
-    {date:'2017', name: 'data1', earning: 23123},
-    {date:'2017', name: 'want holiday', earning: 23123},
-    {date:'2017', name: 'abrakadabra', earning: 23123},
-    {date:'2017', name: 'UkRaInE', earning: 23123},
-    {date:'2017', name: ' spaces is set ', earning: 23123}
-  ];
+  transactionsFromService: any[];
+  transactions: any = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public app: App) {
     this.currentPeriod = this.navParams.get('period');
+    this.transactionsFromService = [
+      {date:'27.11.17 10:23', name: 'afsdfas afsa asfafasf asfsafas asfsaaffaff asfsa', earning: 23123},
+      {date:'2017', name: 'test', earning: 23123},
+      {date:'2017', name: 'hello', earning: 23123},
+      {date:'2017', name: 'fbi is best', earning: 23123},
+      {date:'2017', name: 'I DO NOT LIKE BUGS', earning: 23123},
+      {date:'2017', name: 'data1', earning: 23123},
+      {date:'2017', name: 'want holiday', earning: 23123},
+      {date:'2017', name: 'abrakadabra', earning: 23123},
+      {date:'2017', name: 'UkRaInE', earning: 23123},
+      {date:'2017', name: ' spaces is set ', earning: 23123}
+    ];
+    this.transactions = this.transactionsFromService;
   }
 
   ionViewDidLoad() {
@@ -76,17 +79,22 @@ export class TransactionsPage {
     this.app.getRootNav().push(SearchPage);
   }
 
+  updateTransactions() {
+    this.transactions = this.getTransactions(this.searchInputValue);
+  }
+
   showSearchInput(flag: boolean): void {
     if (!flag) this.searchInputValue = '';
+    this.updateTransactions();
     this.showedSearchInput = flag;
   }
 
   getTransactions(value: string) {
     let val = value.trim().toLowerCase();
     if (!val) {
-      return this.transactions;
+      return this.transactionsFromService;
     }
-    return this.transactions.filter(item => {
+    return this.transactionsFromService.filter(item => {
       return item.name.trim().toLowerCase().indexOf(val) >= 0;
     });
   }

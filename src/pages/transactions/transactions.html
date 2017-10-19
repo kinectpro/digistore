@@ -43,7 +43,7 @@
         <ion-col col-12>
           <ion-item no-padding>
             <ion-label><ion-icon name="search"></ion-icon></ion-label>
-            <ion-input placeholder="Text Input" [(ngModel)]="searchInputValue"></ion-input>
+            <ion-input placeholder="Text Input" [(ngModel)]="searchInputValue" (input)="updateTransactions()"></ion-input>
             <button ion-button class="btn-cancel" clear item-end (click)="showSearchInput(false)">Cancel</button>
           </ion-item>
         </ion-col>
@@ -51,7 +51,7 @@
     </ng-template>
   </ion-grid>
 
-  <ion-item-group *ngIf="transactions">
+  <ion-item-group *ngIf="transactions && transactions.length;else transactionsNotFound">
     <ion-item-divider class="header">
       <ion-label no-margin>
         <ion-row text-uppercase margin-right>
@@ -62,7 +62,7 @@
       </ion-label>
     </ion-item-divider>
 
-    <button no-padding ion-item *ngFor="let transaction of getTransactions(searchInputValue)" (click)="openTransaction(transaction)">
+    <button no-padding ion-item *ngFor="let transaction of transactions" (click)="openTransaction(transaction)">
       <ion-label no-margin>
         <ion-row margin-left align-items-center>
           <ion-col text-wrap col-2 class="transaction-date">{{transaction.date}}</ion-col>
@@ -75,6 +75,18 @@
       </ion-label>
     </button>
   </ion-item-group>
+
+  <ng-template #transactionsNotFound>
+    <ion-row class="transactions-not-found">
+      <ion-col col-8 offset-2>
+        <ion-item no-lines no-padding>
+          <p>No results found.</p>
+          <p>Try to go through all base.</p>
+          <p><button no-margin ion-button clear (click)="openSearch()">Search & Filters</button></p>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ng-template>
 
 </ion-content>
 

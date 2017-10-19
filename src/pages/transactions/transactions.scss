@@ -77,4 +77,22 @@ page-transactions {
         color: #1998db;
     }
   }
+  ion-row.transactions-not-found {
+    margin-top: 10vh;
+    ion-item {
+      text-align: center;
+      font-family: SFProText;
+      font-size: 17px;
+      line-height: 1.65;
+      letter-spacing: -0.4px;
+      color: #c1c4cb;
+      button {
+        text-transform: capitalize;
+        color: #3247a1;
+      }
+      div.item-inner {
+        padding: 0!important;
+      }
+    }
+  }
 }
