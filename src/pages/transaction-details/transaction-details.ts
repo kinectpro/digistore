@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { ReportPage } from '../report/report';
 
 /**
  * Generated class for the TransactionDetailsPage page.
@@ -22,6 +23,10 @@ export class TransactionDetailsPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TransactionDetailsPage');
+  }
+
+  report() {
+    this.navCtrl.push(ReportPage);
   }
 
 }
