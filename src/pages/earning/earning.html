@@ -27,10 +27,10 @@
   <div [ngSwitch]="segment">
 
     <ion-segment mode="ios" [(ngModel)]="toggle" class="toogle">
-      <ion-segment-button value='gross'>
+      <ion-segment-button value='brutto'>
         Gross
       </ion-segment-button>
-      <ion-segment-button value='net'>
+      <ion-segment-button value='netto'>
         Net Commision
       </ion-segment-button>
     </ion-segment>
@@ -43,12 +43,12 @@
 
         <ion-list-header text-center no-margin>
           <ion-label>
-            {{ toggle == 'gross' ? "Total Gross" : "Total Net" }}
+            {{ toggle == 'brutto' ? "Total Gross" : "Total Net" }}
           </ion-label>
         </ion-list-header>
         <ion-list-header text-center no-margin>
           <ion-label class="amount">
-            {{ amount | currency:'EUR':true }}
+            {{ totalData[toggle].total || 0 | currency:'EUR':true }}
           </ion-label>
         </ion-list-header>
 
@@ -61,7 +61,7 @@
             Today
           </ion-label>
           <div item-content class="total">
-            {{ 1608.92 | currency:'EUR':true }} <ion-icon md="ios-arrow-forward" padding-left color="light"></ion-icon>
+            {{ totalData[toggle].today || 0 | currency:'EUR':true }} <ion-icon md="ios-arrow-forward" padding-left color="light"></ion-icon>
           </div>
         </button>
 
@@ -70,7 +70,7 @@
             This week
           </ion-label>
           <div item-content class="total">
-            {{ 11608.92 | currency:'EUR':true }} <ion-icon md="ios-arrow-forward" padding-left color="light"></ion-icon>
+            {{ totalData[toggle].week || 0 | currency:'EUR':true }} <ion-icon md="ios-arrow-forward" padding-left color="light"></ion-icon>
           </div>
         </button>
 
@@ -79,7 +79,7 @@
             This month
           </ion-label>
           <div item-content class="total">
-            {{ 38608.92 | currency:'EUR':true }} <ion-icon md="ios-arrow-forward" padding-left color="light"></ion-icon>
+            {{ totalData[toggle].month || 0 | currency:'EUR':true }} <ion-icon md="ios-arrow-forward" padding-left color="light"></ion-icon>
           </div>
         </button>
 
@@ -88,7 +88,7 @@
             This year
           </ion-label>
           <div item-content class="total">
-            {{ 138608.92 | currency:'EUR':true }} <ion-icon md="ios-arrow-forward" padding-left color="light"></ion-icon>
+            {{ totalData[toggle].year || 0 | currency:'EUR':true }} <ion-icon md="ios-arrow-forward" padding-left color="light"></ion-icon>
           </div>
         </button>
 
