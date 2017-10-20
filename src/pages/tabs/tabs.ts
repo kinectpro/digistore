@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { HomePage } from '../home/home';
+import { EarningPage } from '../earning/earning';
 import { SettingsPage } from '../settings/settings';
 import { TicketPage } from '../ticket/ticket';
 import { TransactionsPage } from '../transactions/transactions';
@@ -12,7 +12,7 @@ import { NavParams } from 'ionic-angular';
 export class TabsPage {
   tabID: number = 0;
 
-  tabHome = HomePage;
+  tabEarning = EarningPage;
   tabTransactions = TransactionsPage;
   tabTicket = TicketPage;
   tabSettings = SettingsPage;

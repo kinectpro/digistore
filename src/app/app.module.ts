@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
-import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -17,12 +16,14 @@ import { TicketPage } from '../pages/ticket/ticket';
 import { HttpClientModule, HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { LoadingInterceptor } from '../providers/loading-interceptor';
 import { AuthService } from '../providers/auth-service';
+import { EarningService } from '../providers/earning-service';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SortByPage } from '../pages/sort-by/sort-by';
 import { TransactionDetailsPage } from '../pages/transaction-details/transaction-details';
 import { SearchPage } from '../pages/search/search';
 import { ReportPage } from '../pages/report/report';
+import { EarningPageModule } from '../pages/earning/earning.module';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -33,7 +34,6 @@ export function createTranslateLoader(http: HttpClient) {
     MyApp,
     TransactionsPage,
     TicketPage,
-    HomePage,
     SettingsPage,
     LandingPage,
     LoginPage,
@@ -46,6 +46,7 @@ export function createTranslateLoader(http: HttpClient) {
   imports: [
     BrowserModule,
     HttpClientModule,
+    EarningPageModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -64,7 +65,6 @@ export function createTranslateLoader(http: HttpClient) {
     MyApp,
     TransactionsPage,
     TicketPage,
-    HomePage,
     LandingPage,
     LoginPage,
     TabsPage,
@@ -85,7 +85,8 @@ export function createTranslateLoader(http: HttpClient) {
       useClass: LoadingInterceptor,
       multi: true,
     },
-    AuthService
+    AuthService,
+    EarningService
   ]
 })
 export class AppModule {}

@@ -35,6 +35,8 @@
       </ion-segment-button>
     </ion-segment>
 
+    <!--  ------------------------------------------- TOTAL AMOUNTS -----------------------------------------------  -->
+
     <ion-list class="list-total" *ngSwitchCase="'total'">
 
       <ion-list>
@@ -94,6 +96,8 @@
 
     </ion-list>
 
+    <!--  ------------------------------------------ MONTHLY AMOUNTS ----------------------------------------------  -->
+
     <ion-list class="list-month" *ngSwitchCase="'month'">
       <ion-list-header>
         <img class="img-logo" src="assets/img/logo-long.png">
@@ -145,13 +149,15 @@
 
     </ion-list>
 
+    <!--  ----------------------------------------- QUARTERLY AMOUNTS ---------------------------------------------  -->
+
     <ion-list class="list-quarter" *ngSwitchCase="'quarter'">
 
       <ion-list-header>
         <img class="img-logo" src="assets/img/logo-long.png">
       </ion-list-header>
 
-      <div *ngFor="let obj of quartersData">
+      <div *ngFor="let obj of quarterlyData">
         <ion-item-divider>
           {{obj.year}}
         </ion-item-divider>
@@ -168,40 +174,25 @@
 
     </ion-list>
 
+    <!--  ------------------------------------------- YEARLY AMOUNTS ----------------------------------------------  -->
+
     <ion-list class="list-year" *ngSwitchCase="'year'">
 
       <ion-list-header>
         <img class="img-logo" src="assets/img/logo-long.png">
       </ion-list-header>
 
-      <button ion-item no-padding>
+      <button ion-item no-padding *ngFor="let obj of yearlyData">
         <ion-label>
-          2017
+          {{ obj.year }}
         </ion-label>
         <div item-content class="total">
-          {{ 138608.92 | currency:'EUR':true }} <ion-icon md="ios-arrow-forward" color="light"></ion-icon>
-        </div>
-      </button>
-
-      <button ion-item no-padding>
-        <ion-label>
-          2016
-        </ion-label>
-        <div item-content class="total">
-          {{ 13308.92 | currency:'EUR':true }} <ion-icon md="ios-arrow-forward" color="light"></ion-icon>
-        </div>
-      </button>
-
-      <button ion-item no-padding>
-        <ion-label>
-          2015
-        </ion-label>
-        <div item-content class="total">
-          {{ 138608.92 | currency:'EUR':true }} <ion-icon md="ios-arrow-forward" color="light"></ion-icon>
+          {{ obj.amount | currency:'EUR':true }} <ion-icon md="ios-arrow-forward" color="light"></ion-icon>
         </div>
       </button>
 
     </ion-list>
+
   </div>
 </ion-content>
 

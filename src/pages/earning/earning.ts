@@ -1,35 +1,27 @@
 import { Component } from '@angular/core';
-import { Platform, NavController } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 import { TransactionsPage } from '../transactions/transactions';
+import { EarningService } from '../../providers/earning-service';
 
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+  selector: 'earning-home',
+  templateUrl: 'earning.html'
 })
-export class HomePage {
+export class EarningPage {
   segment: string = "total";
-  isAndroid: boolean = false;
   toggle: string = 'gross';
   amount: number = 52307.04;
   monthes: string[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   quarters: string[] = ['January, February, March', 'April, May, June', 'July, August, September', 'October, November, December'];
-  quartersData: any[] = [
-    {
-      year: 2017,
-      quarters: [423523, 23423.23, 3123.00, 1233.22]
-    },
-    {
-      year: 2016,
-      quarters: [423523, 23423.23, 3123.00, 1233.22]
-    },
-    {
-      year: 2015,
-      quarters: [423523, 23423.23, 3123.00, 1233.22]
-    }
-  ];
+  monthlyData: any[];
+  quarterlyData: any[];
+  yearlyData: any[];
 
-  constructor(platform: Platform, public navCtrl: NavController) {
-    this.isAndroid = platform.is('android');
+  constructor(public navCtrl: NavController, public eServ: EarningService) {
+    // this.someObject = this.eServ.getTotal();
+    // this.monthlyData = this.eServ.getMonthlyData();
+    this.quarterlyData = this.eServ.getQuarterlyData();
+    this.yearlyData = this.eServ.getYearlyData();
   }
 
   goToTransaction(period: string): void {
