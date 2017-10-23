@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, LoadingController } from 'ionic-angular';
 import { TransactionsPage } from '../transactions/transactions';
 import { EarningService } from '../../providers/earning-service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'earning-home',
@@ -10,27 +11,60 @@ import { EarningService } from '../../providers/earning-service';
 export class EarningPage {
   segment: string = "total";
   toggle: string = 'brutto';
-  monthes: string[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-  quarters: string[] = ['January, February, March', 'April, May, June', 'July, August, September', 'October, November, December'];
   monthlyData: any[];
   quarterlyData: any[];
   yearlyData: any[];
-  totalData: any = {
-    netto: {},
-    brutto: {}
-  };
+  totalData: any;
 
-  constructor(public navCtrl: NavController, public eServ: EarningService) {
+  constructor(public navCtrl: NavController, public eServ: EarningService, public loadingCtrl: LoadingController, public translate: TranslateService) {
 
     console.log('Init EarningPage');
 
-    this.eServ.getTotal().then(
-      res => this.totalData = res,
-      err => console.log(err)
-    );
-    // this.monthlyData = this.eServ.getMonthlyData();
-    this.quarterlyData = this.eServ.getQuarterlyData();
-    this.yearlyData = this.eServ.getYearlyData();
+    this.translate.get('LOADING_TEXT').subscribe(loadingText => {
+      let loading = this.loadingCtrl.create({
+        content: loadingText,
+        spinner: 'dots'
+      });
+
+      loading.present();
+
+      Promise.all([
+        this.eServ.getTotal(),
+        this.eServ.getMonthlyData(),
+        this.eServ.getQuarterlyData(),
+        this.eServ.getYearlyData()
+      ]).then(
+        result => {
+          this.totalData = result[0];
+          this.monthlyData = result[1];
+          this.quarterlyData = result[2];
+          this.yearlyData = result[3];
+          loading.dismiss();
+        },
+        error => {
+          loading.dismiss();
+          console.log(error);
+        }
+      );
+    });
+
+
+    // this.eServ.getTotal().then(
+    //   res => this.totalData = res,
+    //   err => console.log(err)
+    // );
+    // this.eServ.getMonthlyData().then(
+    //   res => this.monthlyData = res,
+    //   err => console.log(err)
+    // );
+    // this.eServ.getQuarterlyData().then(
+    //   res => this.quarterlyData = res,
+    //   err => console.log(err)
+    // );
+    // this.eServ.getYearlyData().then(
+    //   res => this.yearlyData = res,
+    //   err => console.log(err)
+    // );
   }
 
   goToTransaction(period: string): void {

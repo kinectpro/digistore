@@ -12,6 +12,11 @@ import { Observable } from 'rxjs/Observable';
 export class EarningService {
 
     statsSalesSummary: {[key: string]: any};
+    statsSalesMonthly = [];
+    statsSalesQuarterly = [];
+    statsSalesYearly: any[];
+    months: string[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    quarters: string[] = ['January, February, March', 'April, May, June', 'July, August, September', 'October, November, December'];
 
     constructor(public http: HttpClient, public auth: AuthService) {
       console.log('Init EarningServiceProvider');
@@ -19,6 +24,10 @@ export class EarningService {
 
     getStatsSalesSummary(): Observable<{[key: string]: any}> {
       return this.http.get(Settings.BASE_URL + this.auth.apiKey + '/json/statsSalesSummary?language=en');
+    }
+
+    getStatsSalesByPeriod(period: string, from: string, to: string): Observable<{[key: string]: any}> {
+      return this.http.get(`${Settings.BASE_URL}${this.auth.apiKey}/json/statsSales?period=${period}&from=${from}&to=${to}&language=en`);
     }
 
     getTotal(): Promise<any> {
@@ -54,42 +63,98 @@ export class EarningService {
       });
     }
 
-    getMonthlyData() {
-
-    }
-
-    getQuarterlyData() {
-      return [
-        {
-          year: 2017,
-          quarters: [423523, 23423.23, 3123.00, 1233.22]
-        },
-        {
-          year: 2016,
-          quarters: [423523, 23423.23, 3123.00, 1233.22]
-        },
-        {
-          year: 2015,
-          quarters: [423523, 23423.23, 3123.00, 1233.22]
-        }
-      ]
-    }
-
-    getYearlyData() {
-        return [
-            {
-                year: 2017,
-                amount: 125633.22
-            },
-            {
-                year: 2016,
-                amount: 1286733.50
-            },
-            {
-                year: 2015,
-                amount: 423523
+    getMonthlyData(): Promise<any> {
+      return new Promise((resolve, reject) => {
+        this.getStatsSalesByPeriod('month', 'now', '-2Y').subscribe(
+          res => {
+            if (res.result === 'success') {
+              let monthlyTotals = res.data.amounts[""].reverse();
+              for (let i = 0; i < monthlyTotals.length; i++) {
+                  let date = new Date(monthlyTotals[i].from);
+                  let year = date.getFullYear();
+                  if (!this.statsSalesMonthly.length || this.statsSalesMonthly[this.statsSalesMonthly.length - 1]['year'] !== year) {
+                    // console.log('array is empty or year do not match');
+                    this.statsSalesMonthly.push({
+                      year: year,
+                      months: []
+                    });
+                  }
+                  this.statsSalesMonthly[this.statsSalesMonthly.length - 1]['months'].push({
+                    name: this.months[date.getMonth()],
+                    netto: monthlyTotals[i].total_netto_amount + 25,
+                    brutto: monthlyTotals[i].total_brutto_amount
+                  });
+              }
+              resolve(this.statsSalesMonthly);
             }
-        ]
+            else {
+              reject(res.message);
+            }
+          },
+          err => {
+            reject(err);
+          });
+      });
+    }
+
+    getQuarterlyData(): Promise<any> {
+      return new Promise((resolve, reject) => {
+        this.getStatsSalesByPeriod('quarter', 'now', '-10Y').subscribe(
+          res => {
+            if (res.result === 'success') {
+              let quarterlyTotals = res.data.amounts[""].reverse();
+              for (let i = 0; i < quarterlyTotals.length; i++) {
+                let date = new Date(quarterlyTotals[i].from);
+                let year = date.getFullYear();
+                let quarter = Math.floor((date.getMonth() + 3) / 3);
+                if (!this.statsSalesQuarterly.length || this.statsSalesQuarterly[this.statsSalesQuarterly.length - 1]['year'] !== year) {
+                  // console.log('array is empty or year do not match');
+                  this.statsSalesQuarterly.push({
+                    year: year,
+                    quarters: []
+                  });
+                }
+                this.statsSalesQuarterly[this.statsSalesQuarterly.length - 1]['quarters'].push({
+                  number: quarter,
+                  name: this.quarters[quarter - 1],
+                  netto: quarterlyTotals[i].total_netto_amount + 25,
+                  brutto: quarterlyTotals[i].total_brutto_amount
+                });
+              }
+              resolve(this.statsSalesQuarterly);
+            }
+            else {
+              reject(res.message);
+            }
+          },
+          err => {
+            reject(err);
+          });
+      });
+    }
+
+    getYearlyData(): Promise<any> {
+      return new Promise((resolve, reject) => {
+        this.getStatsSalesByPeriod('year', 'now', '-10Y').subscribe(
+          res => {
+            if (res.result === 'success') {
+              this.statsSalesYearly = res.data.amounts[""].reverse().map(obj => {
+                return {
+                  "year": (new Date(obj.from)).getFullYear(),
+                  "netto": obj.total_netto_amount + 25,
+                  "brutto": obj.total_brutto_amount
+                }
+              });
+              resolve(this.statsSalesYearly);
+            }
+            else {
+              reject(res.message);
+            }
+          },
+          err => {
+            reject(err);
+          });
+      });
     }
 
 }

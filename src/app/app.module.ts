@@ -80,11 +80,11 @@ export function createTranslateLoader(http: HttpClient) {
     InAppBrowser,
     TranslateService,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: LoadingInterceptor,
-      multi: true,
-    },
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: LoadingInterceptor,
+    //   multi: true,
+    // },
     AuthService,
     EarningService
   ]
