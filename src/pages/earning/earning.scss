@@ -107,6 +107,9 @@ earning-home {
   ion-list.list-total {
     margin-top: 39px;
   }
+  ion-list.list-total button ion-label {
+    padding-left: 16px !important;
+  }
 
   // ion-list month quarter year
   ion-list.list-month, ion-list.list-quarter, ion-list.list-year {
