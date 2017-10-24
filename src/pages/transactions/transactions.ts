@@ -25,7 +25,10 @@ export class TransactionsPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public app: App, public tranServ: TransactionService) {
     this.currentPeriod = this.navParams.get('period');
     this.tranServ.getTransactions(this.currentPeriod).then(
-      res => this.transactions = res,
+      res => {
+        this.transactionsFromService = res;
+        this.updateTransactions();
+      },
       err => console.log(err)
     );
   }
