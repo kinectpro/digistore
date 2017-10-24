@@ -2,7 +2,7 @@
  * Created by Andrey Okhotnikov on 20.10.17.
  */
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Settings } from '../config/settings';
 import { AuthService } from './auth-service';
 import { Observable } from 'rxjs/Observable';
@@ -41,18 +41,18 @@ export class EarningService {
             if (res.result === 'success') {
               this.statsSalesSummary = {
                 netto: {
-                  total: res.data.for.all.amounts[""].total_netto_amount + 25,
-                  today: res.data.for.day.amounts[""].total_netto_amount + 25,
-                  week: res.data.for.week.amounts[""].total_netto_amount + 25,
-                  month: res.data.for.month.amounts[""].total_netto_amount + 25,
-                  year: res.data.for.year.amounts[""].total_netto_amount + 25
+                  total: res.data.for.all.amounts.EUR.total_netto_amount,
+                  today: res.data.for.day.amounts.EUR.total_netto_amount,
+                  week: res.data.for.week.amounts.EUR.total_netto_amount,
+                  month: res.data.for.month.amounts.EUR.total_netto_amount,
+                  year: res.data.for.year.amounts.EUR.total_netto_amount
                 },
                 brutto: {
-                  total: res.data.for.all.amounts[""].total_brutto_amount,
-                  today: res.data.for.day.amounts[""].total_brutto_amount,
-                  week: res.data.for.week.amounts[""].total_brutto_amount,
-                  month: res.data.for.month.amounts[""].total_brutto_amount,
-                  year: res.data.for.year.amounts[""].total_brutto_amount
+                  total: res.data.for.all.amounts.EUR.total_brutto_amount,
+                  today: res.data.for.day.amounts.EUR.total_brutto_amount,
+                  week: res.data.for.week.amounts.EUR.total_brutto_amount,
+                  month: res.data.for.month.amounts.EUR.total_brutto_amount,
+                  year: res.data.for.year.amounts.EUR.total_brutto_amount
                 }
               };
               resolve(this.statsSalesSummary);
@@ -69,10 +69,10 @@ export class EarningService {
 
     getMonthlyData(noSpinner: boolean): Promise<any> {
       return new Promise((resolve, reject) => {
-        this.getStatsSalesByPeriod('month', 'now', '-2Y', noSpinner).subscribe(
+        this.getStatsSalesByPeriod('month', 'now', '2010-01-01', noSpinner).subscribe(
           res => {
             if (res.result === 'success') {
-              let monthlyTotals = res.data.amounts[""].reverse();
+              let monthlyTotals = res.data.amounts.EUR.reverse();
               for (let i = 0; i < monthlyTotals.length; i++) {
                   let date = new Date(monthlyTotals[i].from);
                   let year = date.getFullYear();
@@ -85,7 +85,7 @@ export class EarningService {
                   }
                   this.statsSalesMonthly[this.statsSalesMonthly.length - 1]['months'].push({
                     name: this.months[date.getMonth()],
-                    netto: monthlyTotals[i].total_netto_amount + 25,
+                    netto: monthlyTotals[i].total_netto_amount,
                     brutto: monthlyTotals[i].total_brutto_amount
                   });
               }
@@ -103,10 +103,10 @@ export class EarningService {
 
     getQuarterlyData(noSpinner: boolean): Promise<any> {
       return new Promise((resolve, reject) => {
-        this.getStatsSalesByPeriod('quarter', 'now', '-10Y', noSpinner).subscribe(
+        this.getStatsSalesByPeriod('quarter', 'now', '2010-01-01', noSpinner).subscribe(
           res => {
             if (res.result === 'success') {
-              let quarterlyTotals = res.data.amounts[""].reverse();
+              let quarterlyTotals = res.data.amounts.EUR.reverse();
               for (let i = 0; i < quarterlyTotals.length; i++) {
                 let date = new Date(quarterlyTotals[i].from);
                 let year = date.getFullYear();
@@ -121,7 +121,7 @@ export class EarningService {
                 this.statsSalesQuarterly[this.statsSalesQuarterly.length - 1]['quarters'].push({
                   number: quarter,
                   name: this.quarters[quarter - 1],
-                  netto: quarterlyTotals[i].total_netto_amount + 25,
+                  netto: quarterlyTotals[i].total_netto_amount,
                   brutto: quarterlyTotals[i].total_brutto_amount
                 });
               }
@@ -139,13 +139,13 @@ export class EarningService {
 
     getYearlyData(noSpinner: boolean): Promise<any> {
       return new Promise((resolve, reject) => {
-        this.getStatsSalesByPeriod('year', 'now', '-10Y', noSpinner).subscribe(
+        this.getStatsSalesByPeriod('year', 'now', '2010-01-01', noSpinner).subscribe(
           res => {
             if (res.result === 'success') {
-              this.statsSalesYearly = res.data.amounts[""].reverse().map(obj => {
+              this.statsSalesYearly = res.data.amounts.EUR.reverse().map(obj => {
                 return {
                   "year": (new Date(obj.from)).getFullYear(),
-                  "netto": obj.total_netto_amount + 25,
+                  "netto": obj.total_netto_amount,
                   "brutto": obj.total_brutto_amount
                 }
               });
