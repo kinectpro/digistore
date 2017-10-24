@@ -29,10 +29,10 @@ export class EarningPage {
       loading.present();
 
       Promise.all([
-        this.eServ.getTotal(),
-        this.eServ.getMonthlyData(),
-        this.eServ.getQuarterlyData(),
-        this.eServ.getYearlyData()
+        this.eServ.getTotal(true),
+        this.eServ.getMonthlyData(true),
+        this.eServ.getQuarterlyData(true),
+        this.eServ.getYearlyData(true)
       ]).then(
         result => {
           this.totalData = result[0];

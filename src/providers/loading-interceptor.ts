@@ -24,7 +24,12 @@ export class LoadingInterceptor implements HttpInterceptor {
       spinner: 'dots'
     });
 
-    loading.present();
+    if (req.params.has('no-spinner')) {
+      req = req.clone({params: req.params.delete('no-spinner')});
+    }
+    else {
+      loading.present();
+    }
 
     return next.handle(req).do(
       event => {

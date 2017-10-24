@@ -4,6 +4,7 @@ import { SortByPage } from '../sort-by/sort-by';
 import { TabsPage } from '../tabs/tabs';
 import { TransactionDetailsPage } from '../transaction-details/transaction-details';
 import { SearchPage } from '../search/search';
+import { TransactionService } from '../../providers/transaction-service';
 
 @Component({
   selector: 'page-transactions',
@@ -21,21 +22,12 @@ export class TransactionsPage {
   transactionsFromService: any[];
   transactions: any = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public app: App) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public app: App, public tranServ: TransactionService) {
     this.currentPeriod = this.navParams.get('period');
-    this.transactionsFromService = [
-      {date:'27.11.17 10:23', name: 'afsdfas afsa asfafasf asfsafas asfsaaffaff asfsa', earning: 23123},
-      {date:'2017', name: 'test', earning: 23123},
-      {date:'2017', name: 'hello', earning: 23123},
-      {date:'2017', name: 'fbi is best', earning: 23123},
-      {date:'2017', name: 'I DO NOT LIKE BUGS', earning: 23123},
-      {date:'2017', name: 'data1', earning: 23123},
-      {date:'2017', name: 'want holiday', earning: 23123},
-      {date:'2017', name: 'abrakadabra', earning: 23123},
-      {date:'2017', name: 'UkRaInE', earning: 23123},
-      {date:'2017', name: ' spaces is set ', earning: 23123}
-    ];
-    this.transactions = this.transactionsFromService;
+    this.tranServ.getTransactions(this.currentPeriod).then(
+      res => this.transactions = res,
+      err => console.log(err)
+    );
   }
 
   ionViewDidLoad() {

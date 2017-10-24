@@ -56,7 +56,7 @@
       <ion-label no-margin>
         <ion-row text-uppercase margin-right>
           <ion-col col-2><span class="col-name">Date</span></ion-col>
-          <ion-col col-5><span class="col-name">Product name/ID</span></ion-col>
+          <ion-col col-5><span class="col-name">Product name/order ID</span></ion-col>
           <ion-col col-5 text-right><span class="col-name">Your Earnings</span></ion-col>
         </ion-row>
       </ion-label>
@@ -65,12 +65,12 @@
     <button no-padding ion-item *ngFor="let transaction of transactions" (click)="openTransaction(transaction)">
       <ion-label no-margin>
         <ion-row margin-left align-items-center>
-          <ion-col text-wrap col-2 class="transaction-date">{{transaction.date}}</ion-col>
+          <ion-col text-wrap col-2 class="transaction-date">{{ transaction.date | date:"yyyy.MM.dd HH:mm" }}</ion-col>
           <ion-col class="transaction-name-block" col-5>
-            <p class="transaction-name">{{transaction.name}}</p>
-            <p class="transaction-id">12354</p>
+            <p class="transaction-name">{{ transaction.name }}</p>
+            <p class="transaction-id">{{ transaction.order_id }}</p>
           </ion-col>
-          <ion-col col-5 text-right><span class="transaction-earning">{{transaction.earning}}</span><ion-icon md="ios-arrow-forward" padding-left color="light"></ion-icon></ion-col>
+          <ion-col col-5 text-right><span class="transaction-earning">{{ transaction.earning }}</span><ion-icon md="ios-arrow-forward" padding-left color="light"></ion-icon></ion-col>
         </ion-row>
       </ion-label>
     </button>

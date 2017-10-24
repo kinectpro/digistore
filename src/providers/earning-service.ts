@@ -2,7 +2,7 @@
  * Created by Andrey Okhotnikov on 20.10.17.
  */
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Settings } from '../config/settings';
 import { AuthService } from './auth-service';
 import { Observable } from 'rxjs/Observable';
@@ -22,17 +22,21 @@ export class EarningService {
       console.log('Init EarningServiceProvider');
     }
 
-    getStatsSalesSummary(): Observable<{[key: string]: any}> {
-      return this.http.get(Settings.BASE_URL + this.auth.apiKey + '/json/statsSalesSummary?language=en');
+    getStatsSalesSummary(noSpinner: boolean = false): Observable<{[key: string]: any}> {
+      return this.http.get(Settings.BASE_URL + this.auth.apiKey + '/json/statsSalesSummary?language=en',  {
+        params: new HttpParams().set('no-spinner', noSpinner ? 'true' : ''),
+      });
     }
 
-    getStatsSalesByPeriod(period: string, from: string, to: string): Observable<{[key: string]: any}> {
-      return this.http.get(`${Settings.BASE_URL}${this.auth.apiKey}/json/statsSales?period=${period}&from=${from}&to=${to}&language=en`);
+    getStatsSalesByPeriod(period: string, from: string, to: string, noSpinner: boolean = false): Observable<{[key: string]: any}> {
+      return this.http.get(`${Settings.BASE_URL}${this.auth.apiKey}/json/statsSales?period=${period}&from=${from}&to=${to}&language=en`, {
+        params: new HttpParams().set('no-spinner', noSpinner ? 'true' : ''),
+      });
     }
 
-    getTotal(): Promise<any> {
+    getTotal(noSpinner: boolean): Promise<any> {
       return new Promise((resolve, reject) => {
-        this.getStatsSalesSummary().subscribe(
+        this.getStatsSalesSummary(noSpinner).subscribe(
           res => {
             if (res.result === 'success') {
               this.statsSalesSummary = {
@@ -63,9 +67,9 @@ export class EarningService {
       });
     }
 
-    getMonthlyData(): Promise<any> {
+    getMonthlyData(noSpinner: boolean): Promise<any> {
       return new Promise((resolve, reject) => {
-        this.getStatsSalesByPeriod('month', 'now', '-2Y').subscribe(
+        this.getStatsSalesByPeriod('month', 'now', '-2Y', noSpinner).subscribe(
           res => {
             if (res.result === 'success') {
               let monthlyTotals = res.data.amounts[""].reverse();
@@ -97,9 +101,9 @@ export class EarningService {
       });
     }
 
-    getQuarterlyData(): Promise<any> {
+    getQuarterlyData(noSpinner: boolean): Promise<any> {
       return new Promise((resolve, reject) => {
-        this.getStatsSalesByPeriod('quarter', 'now', '-10Y').subscribe(
+        this.getStatsSalesByPeriod('quarter', 'now', '-10Y', noSpinner).subscribe(
           res => {
             if (res.result === 'success') {
               let quarterlyTotals = res.data.amounts[""].reverse();
@@ -133,9 +137,9 @@ export class EarningService {
       });
     }
 
-    getYearlyData(): Promise<any> {
+    getYearlyData(noSpinner: boolean): Promise<any> {
       return new Promise((resolve, reject) => {
-        this.getStatsSalesByPeriod('year', 'now', '-10Y').subscribe(
+        this.getStatsSalesByPeriod('year', 'now', '-10Y', noSpinner).subscribe(
           res => {
             if (res.result === 'success') {
               this.statsSalesYearly = res.data.amounts[""].reverse().map(obj => {

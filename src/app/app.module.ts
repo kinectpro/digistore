@@ -17,6 +17,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS, HttpClient } from '@angular/common
 import { LoadingInterceptor } from '../providers/loading-interceptor';
 import { AuthService } from '../providers/auth-service';
 import { EarningService } from '../providers/earning-service';
+import { TransactionService } from '../providers/transaction-service';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SortByPage } from '../pages/sort-by/sort-by';
@@ -80,13 +81,14 @@ export function createTranslateLoader(http: HttpClient) {
     InAppBrowser,
     TranslateService,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: LoadingInterceptor,
-    //   multi: true,
-    // },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoadingInterceptor,
+      multi: true,
+    },
     AuthService,
-    EarningService
+    EarningService,
+    TransactionService
   ]
 })
 export class AppModule {}
