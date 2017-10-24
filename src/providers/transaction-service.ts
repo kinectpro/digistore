@@ -1,5 +1,5 @@
 /**
- * Created by Andrey Okhotnikov on 20.10.17.
+ * Created by Andrey Okhotnikov on 23.10.17.
  */
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -19,7 +19,11 @@ export class TransactionService {
     return this.http.get(`${Settings.BASE_URL}${this.auth.apiKey}/json/listPurchases?from=${from}&to=${to}&sort_order=desc&language=en`);
   }
 
-  getTransactions(period: string): Promise<any> {
+  getTransactionByOrderId(orderId: string): Observable<{[key: string]: any}> {
+    return this.http.get(`${Settings.BASE_URL}${this.auth.apiKey}/json/getPurchase?purchase_id=${orderId}&language=en`);
+  }
+
+  getTransactionList(period: string): Promise<any> {
     return new Promise((resolve, reject) => {
       let from: string;
       let date = new Date();
@@ -48,6 +52,44 @@ export class TransactionService {
                 earning: obj.amount - obj.vat_amount
               }
             }));
+          }
+          else {
+            reject(res.message);
+          }
+        },
+        err => {
+          reject(err);
+        });
+    });
+  }
+
+  getTransaction(id: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.getTransactionByOrderId(id).subscribe(
+        res => {
+          if (res.result === 'success') {
+            let obj = res.data;
+            resolve({
+              products: obj.items.map(item => {
+                return {
+                  name: item.product_name,
+                  id: item.product_id
+                }
+              }),
+              order_id: obj.id,
+              brutto: obj.amount,
+              netto: obj.amount - obj.vat_amount,
+              transaction_id: obj.transaction_list[obj.transaction_list.length - 1].id,
+              type: obj.transaction_list[obj.transaction_list.length - 1].type,
+              method: obj.transaction_list[obj.transaction_list.length - 1].pay_method_msg,
+              currency: obj.transaction_list[obj.transaction_list.length - 1].currency,
+              customer: {
+                name: obj.buyer.first_name + ' ' + obj.buyer.last_name ,
+                email: obj.buyer.email,
+                phone: obj.buyer.phone_no,
+                affiliate: '' // todo: where to take it?
+              }
+            });
           }
           else {
             reject(res.message);

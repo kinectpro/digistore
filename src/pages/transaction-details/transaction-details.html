@@ -9,96 +9,101 @@
 
 
 <ion-content no-padding>
-  <section class="white-bg">
-    <ion-grid padding>
-      <ion-row align-items-center>
-        <ion-col col-7>
-          <label class="label">Product Name / ID</label>
-          <p class="product_name">{{transaction.name  || '-'}}</p>
-        </ion-col>
-        <ion-col col-5 text-right>
-          <label class="label" >Order ID</label>
-          <p>{{transaction.orderID || '-'}}</p>
-          <label class="label">Transaction ID</label>
-          <p>{{transaction.id  || '-'}}</p>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
 
-    <ion-grid class="bordered">
-      <ion-row>
-        <ion-col col-6>
-          <label class="label">Gross amount</label>
-          <p>{{transaction.gross  || '-'}}</p>
-        </ion-col>
-        <ion-col col-6 >
-          <label class="label">Net commission</label>
-          <p>{{transaction.net  || '-'}}</p>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+  <div *ngIf="transaction">
 
-    <ion-grid padding>
-      <ion-row align-items-center>
-        <ion-col col-4>
-          <label class="label">Transaction type</label>
-          <p>{{transaction.type  || '-'}}</p>
-        </ion-col>
-        <ion-col col-4>
-          <label class="label">Payment method</label>
-          <p>{{transaction.payment_method  || '-'}}</p>
-        </ion-col>
-        <ion-col col-4>
-          <label class="label">Currency</label>
-          <p>{{transaction.currency  || '-'}}</p>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </section>
+    <section class="white-bg">
+      <ion-grid padding>
+        <ion-row align-items-center>
+          <ion-col col-7>
+            <label class="label">Product Name / ID</label>
+            <p class="product_name" *ngFor="let obj of transaction.products">{{ obj.name }} / {{ obj.id }}</p>
+          </ion-col>
+          <ion-col col-5 text-right>
+            <label class="label" >Order ID</label>
+            <p>{{ transaction.order_id }}</p>
+            <label class="label">Transaction ID</label>
+            <p>{{ transaction.transaction_id }}</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
 
-  <ion-list class="list">
-    <ion-list-header>
-      Customer details
-    </ion-list-header>
-    <ion-item no-padding>
-      <ion-label padding-left>
-        Name
-      </ion-label>
-      <div item-content class="item-content" padding-right>
-        {{transaction.customer_name  || '-'}}
-      </div>
-    </ion-item>
-    <ion-item no-padding>
-      <ion-label padding-left>
-        Email
-      </ion-label>
-      <div item-content class="item-content" padding-right>
-        {{transaction.customer_email  || '-'}}
-      </div>
-    </ion-item>
-    <ion-item no-padding>
-      <ion-label padding-left>
-        Phone number
-      </ion-label>
-      <div item-content class="item-content" padding-right>
-        {{transaction.customer_phone  || '-'}}
-      </div>
-    </ion-item>
-    <ion-item no-padding>
-      <ion-label padding-left>
-        Affiliate
-      </ion-label>
-      <div item-content class="item-content" padding-right>
-        {{transaction.customer_affiliate  || '-'}}
-      </div>
-    </ion-item>
-  </ion-list>
+      <ion-grid class="bordered">
+        <ion-row>
+          <ion-col col-6>
+            <label class="label">Gross amount</label>
+            <p>{{ transaction.brutto }}</p>
+          </ion-col>
+          <ion-col col-6 >
+            <label class="label">Net commission</label>
+            <p>{{ transaction.netto }}</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
 
-  <div class="divider"></div>
+      <ion-grid padding>
+        <ion-row align-items-center>
+          <ion-col col-4>
+            <label class="label">Transaction type</label>
+            <p>{{ transaction.type }}</p>
+          </ion-col>
+          <ion-col col-4>
+            <label class="label">Payment method</label>
+            <p>{{ transaction.method }}</p>
+          </ion-col>
+          <ion-col col-4>
+            <label class="label">Currency</label>
+            <p>{{ transaction.currency }}</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </section>
 
-  <button class="report-customer-btn" ion-item no-border (click)="report()">
-    <ion-icon name="ios-alert-outline" color="danger" item-start></ion-icon>
-    Report customer
-  </button>
+    <ion-list class="list">
+      <ion-list-header>
+        Customer details
+      </ion-list-header>
+      <ion-item no-padding>
+        <ion-label padding-left>
+          Name
+        </ion-label>
+        <div item-content class="item-content" padding-right>
+          {{ transaction.customer.name  || '-' }}
+        </div>
+      </ion-item>
+      <ion-item no-padding>
+        <ion-label padding-left>
+          Email
+        </ion-label>
+        <div item-content class="item-content" padding-right>
+          {{ transaction.customer.email  || '-' }}
+        </div>
+      </ion-item>
+      <ion-item no-padding>
+        <ion-label padding-left>
+          Phone number
+        </ion-label>
+        <div item-content class="item-content" padding-right>
+          {{ transaction.customer.phone  || '-' }}
+        </div>
+      </ion-item>
+      <ion-item no-padding>
+        <ion-label padding-left>
+          Affiliate
+        </ion-label>
+        <div item-content class="item-content" padding-right>
+          {{ transaction.customer.affiliate  || '-' }}
+        </div>
+      </ion-item>
+    </ion-list>
+
+    <div class="divider"></div>
+
+    <button class="report-customer-btn" ion-item no-border (click)="report()">
+      <ion-icon name="ios-alert-outline" color="danger" item-start></ion-icon>
+      Report customer
+    </button>
+
+  </div>
 
 </ion-content>

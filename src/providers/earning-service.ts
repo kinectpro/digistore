@@ -6,6 +6,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Settings } from '../config/settings';
 import { AuthService } from './auth-service';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
 
 
 @Injectable()
@@ -15,6 +16,7 @@ export class EarningService {
     statsSalesMonthly = [];
     statsSalesQuarterly = [];
     statsSalesYearly: any[];
+    periods: string[] = ['all', 'day', 'week', 'month', 'year'];
     months: string[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     quarters: string[] = ['January, February, March', 'April, May, June', 'July, August, September', 'October, November, December'];
 
@@ -25,12 +27,25 @@ export class EarningService {
     getStatsSalesSummary(noSpinner: boolean = false): Observable<{[key: string]: any}> {
       return this.http.get(Settings.BASE_URL + this.auth.apiKey + '/json/statsSalesSummary?language=en',  {
         params: new HttpParams().set('no-spinner', noSpinner ? 'true' : ''),
+      }).map((res: any) => {
+        this.periods.forEach(period => {
+          if (!res.data.for[period].amounts.EUR) {
+            res.data.for[period].amounts.EUR = {
+              total_netto_amount: 0,
+              total_brutto_amount: 0
+            };
+          }
+        });
+        return res;
       });
     }
 
     getStatsSalesByPeriod(period: string, from: string, to: string, noSpinner: boolean = false): Observable<{[key: string]: any}> {
       return this.http.get(`${Settings.BASE_URL}${this.auth.apiKey}/json/statsSales?period=${period}&from=${from}&to=${to}&language=en`, {
         params: new HttpParams().set('no-spinner', noSpinner ? 'true' : ''),
+      }).map((res: any) => {
+        res.data.amounts.EUR = res.data.amounts.EUR ? res.data.amounts.EUR.reverse() : [];
+        return res;
       });
     }
 
@@ -72,12 +87,12 @@ export class EarningService {
         this.getStatsSalesByPeriod('month', 'now', '2010-01-01', noSpinner).subscribe(
           res => {
             if (res.result === 'success') {
-              let monthlyTotals = res.data.amounts.EUR.reverse();
+              let monthlyTotals = res.data.amounts.EUR;
               for (let i = 0; i < monthlyTotals.length; i++) {
                   let date = new Date(monthlyTotals[i].from);
                   let year = date.getFullYear();
                   if (!this.statsSalesMonthly.length || this.statsSalesMonthly[this.statsSalesMonthly.length - 1]['year'] !== year) {
-                    // console.log('array is empty or year do not match');
+                    // if array is empty or year do not match
                     this.statsSalesMonthly.push({
                       year: year,
                       months: []
@@ -106,13 +121,13 @@ export class EarningService {
         this.getStatsSalesByPeriod('quarter', 'now', '2010-01-01', noSpinner).subscribe(
           res => {
             if (res.result === 'success') {
-              let quarterlyTotals = res.data.amounts.EUR.reverse();
+              let quarterlyTotals = res.data.amounts.EUR;
               for (let i = 0; i < quarterlyTotals.length; i++) {
                 let date = new Date(quarterlyTotals[i].from);
                 let year = date.getFullYear();
                 let quarter = Math.floor((date.getMonth() + 3) / 3);
                 if (!this.statsSalesQuarterly.length || this.statsSalesQuarterly[this.statsSalesQuarterly.length - 1]['year'] !== year) {
-                  // console.log('array is empty or year do not match');
+                  // if array is empty or year do not match
                   this.statsSalesQuarterly.push({
                     year: year,
                     quarters: []
@@ -142,7 +157,7 @@ export class EarningService {
         this.getStatsSalesByPeriod('year', 'now', '2010-01-01', noSpinner).subscribe(
           res => {
             if (res.result === 'success') {
-              this.statsSalesYearly = res.data.amounts.EUR.reverse().map(obj => {
+              this.statsSalesYearly = res.data.amounts.EUR.map(obj => {
                 return {
                   "year": (new Date(obj.from)).getFullYear(),
                   "netto": obj.total_netto_amount,

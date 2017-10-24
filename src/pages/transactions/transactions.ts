@@ -24,13 +24,7 @@ export class TransactionsPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public app: App, public tranServ: TransactionService) {
     this.currentPeriod = this.navParams.get('period');
-    this.tranServ.getTransactions(this.currentPeriod).then(
-      res => {
-        this.transactionsFromService = res;
-        this.updateTransactions();
-      },
-      err => console.log(err)
-    );
+    this.getTransactions();
   }
 
   ionViewDidLoad() {
@@ -38,9 +32,18 @@ export class TransactionsPage {
   }
 
   openTransaction(transaction: any) {
-    console.log(transaction);
     // this.navCtrl.push(TransactionDetailsPage, {transaction: transaction});
     this.app.getRootNav().push(TransactionDetailsPage, {transaction: transaction});
+  }
+
+  getTransactions() {
+    this.tranServ.getTransactionList(this.currentPeriod).then(
+      res => {
+        this.transactionsFromService = res;
+        this.updateTransactions();
+      },
+      err => console.log(err)
+    );
   }
 
   showAll() {
@@ -54,6 +57,7 @@ export class TransactionsPage {
     } else {
       this.currentPeriod = this.periods[index + 1];
     }
+    this.getTransactions();
   }
 
   goPrev() {
@@ -63,6 +67,7 @@ export class TransactionsPage {
     } else {
       this.currentPeriod = this.periods[index - 1];
     }
+    this.getTransactions();
   }
 
   sortBy(params: any) {
@@ -75,7 +80,7 @@ export class TransactionsPage {
   }
 
   updateTransactions() {
-    this.transactions = this.getTransactions(this.searchInputValue);
+    this.transactions = this.getFilteredTransactions(this.searchInputValue);
   }
 
   showSearchInput(flag: boolean): void {
@@ -84,7 +89,12 @@ export class TransactionsPage {
     this.showedSearchInput = flag;
   }
 
-  getTransactions(value: string) {
+  /**
+   * The method filters transactions by name
+   * @param value
+   * @returns {array}
+   */
+  getFilteredTransactions(value: string) {
     let val = value.trim().toLowerCase();
     if (!val) {
       return this.transactionsFromService;
