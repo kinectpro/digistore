@@ -15,15 +15,15 @@ export class TransactionService {
     console.log('Init TransactionServiceProvider');
   }
 
-  getTransactionListByPeriod(from: string = 'start', to: string = 'now'): Observable<{[key: string]: any}> {
-    return this.http.get(`${Settings.BASE_URL}${this.auth.apiKey}/json/listPurchases?from=${from}&to=${to}&sort_order=desc&language=en`);
+  getTransactionListByPeriod(sort: any, from: string = 'start', to: string = 'now'): Observable<{[key: string]: any}> {
+    return this.http.get(`${Settings.BASE_URL}${this.auth.apiKey}/json/listPurchases?from=${from}&to=${to}&sort_by=${sort.sort_by}&sort_order=${sort.sort_order}&language=en`);
   }
 
   getTransactionByOrderId(orderId: string): Observable<{[key: string]: any}> {
     return this.http.get(`${Settings.BASE_URL}${this.auth.apiKey}/json/getPurchase?purchase_id=${orderId}&language=en`);
   }
 
-  getTransactionList(period: string): Promise<any> {
+  getTransactionList(period: string, sort: any): Promise<any> {
     return new Promise((resolve, reject) => {
       let from: string;
       let date = new Date();
@@ -41,7 +41,7 @@ export class TransactionService {
         from = date.getFullYear() + '-01-01';
       }
 
-      this.getTransactionListByPeriod(from).subscribe(
+      this.getTransactionListByPeriod(sort, from).subscribe(
         res => {
           if (res.result === 'success') {
             resolve(res.data.purchase_list.map(obj => {

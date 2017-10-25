@@ -15,6 +15,10 @@ export class TransactionsPage {
   periods: string[] = [
     'day', 'week', 'month', 'year'
   ];
+  params_sort: any = {
+    sort_by: 'date',
+    sort_order: 'asc'
+  };
   currentPeriod: string;
   showedSearchInput: boolean = false;
   searchInputValue: string = '';
@@ -37,7 +41,7 @@ export class TransactionsPage {
   }
 
   getTransactions() {
-    this.tranServ.getTransactionList(this.currentPeriod).then(
+    this.tranServ.getTransactionList(this.currentPeriod, this.params_sort).then(
       res => {
         this.transactionsFromService = res;
         this.updateTransactions();
@@ -70,9 +74,15 @@ export class TransactionsPage {
     this.getTransactions();
   }
 
-  sortBy(params: any) {
-    const profileModal = this.modalCtrl.create(SortByPage, {period: this.currentPeriod});
-    profileModal.present();
+  sortBy() {
+    const sortByPageModal = this.modalCtrl.create(SortByPage, { params_sort: this.params_sort });
+    sortByPageModal.onDidDismiss(res => {
+      if (res.params_changed) {
+        this.params_sort = res.params_sort;
+        this.getTransactions();
+      }
+    });
+    sortByPageModal.present();
   }
 
   openSearch() {

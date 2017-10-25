@@ -6,31 +6,43 @@ import { NavParams, ViewController } from 'ionic-angular';
   templateUrl: 'sort-by.html',
 })
 export class SortByPage {
-  period: string;
   options: any[] = [
     { product_name: false },
     { earning: false },
     { date: false }
   ];
+  sort: string;
 
   product_name:boolean = false;
 
-  constructor(
-    public viewCtrl: ViewController,
-    params: NavParams
-  ) {
-    this.period = params.get('period');
+  constructor(public viewCtrl: ViewController, public params: NavParams) {
+    let sortObj = params.get('params_sort');
+    this.sort = sortObj.sort_by + '_' + sortObj.sort_order;
+  }
+
+  ionViewDidLoad() {
+    console.log('Init SortByPage');
   }
 
   dismiss() {
-    this.viewCtrl.dismiss();
+    this.viewCtrl.dismiss({
+      params_changed: false
+    });
   }
 
   submit() {
-    this.viewCtrl.dismiss();
+    let params_sort = this.sort.split('_');
+    this.viewCtrl.dismiss({
+      params_changed: true,
+      params_sort: {
+        sort_by: params_sort[0],
+        sort_order: params_sort[1]
+      }
+    });
   }
 
   openOption(option: string) {
-    this.options[option]= !this.options[option];
+    for (let key in this.options) this.options[key] = false;
+    this.options[option] = !this.options[option];
   }
 }
