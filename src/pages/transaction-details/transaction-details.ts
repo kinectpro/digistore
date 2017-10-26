@@ -23,7 +23,7 @@ export class TransactionDetailsPage {
   }
 
   report() {
-    this.navCtrl.push(ReportPage);
+    this.navCtrl.push(ReportPage, {transaction: this.transaction});
   }
 
 }

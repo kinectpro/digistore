@@ -25,6 +25,7 @@ import { TransactionDetailsPage } from '../pages/transaction-details/transaction
 import { SearchPage } from '../pages/search/search';
 import { ReportPage } from '../pages/report/report';
 import { EarningPageModule } from '../pages/earning/earning.module';
+import { ReportResultPage } from '../pages/report-result/report-result';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -42,6 +43,7 @@ export function createTranslateLoader(http: HttpClient) {
     SortByPage,
     SearchPage,
     ReportPage,
+    ReportResultPage,
     TransactionDetailsPage
   ],
   imports: [
@@ -72,6 +74,7 @@ export function createTranslateLoader(http: HttpClient) {
     SortByPage,
     SearchPage,
     ReportPage,
+    ReportResultPage,
     SettingsPage,
     TransactionDetailsPage
   ],

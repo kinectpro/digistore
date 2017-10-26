@@ -9,25 +9,26 @@
 
 <ion-content no-padding>
   <form [formGroup]="reportForm">
-    <section margin-bottom class="white-bg">
-      <ion-textarea placeholder="Enter your thoughts" rows="7" id="thoughtsBox"></ion-textarea>
+    <ion-label no-padding [color]="reportForm.controls['description'].invalid ? 'danger' : 'light'" class="textarea-status" float-end>Required</ion-label>
+    <section padding-top margin-bottom class="white-bg">
+      <ion-textarea formControlName="description" placeholder="Why do you think that this is a fraud order?" rows="7" id="thoughtsBox"></ion-textarea>
     </section>
     <section class="white-bg">
         <ion-list>
 
           <ion-item>
-            <ion-label fixed>Customer Name</ion-label>
-            <ion-input type="text" placeholder="Enter here" value=""></ion-input>
+            <ion-label fixed>Name</ion-label>
+            <ion-input readonly text-right type="text" placeholder="Enter here" value="{{transaction ? transaction.customer.name : '-'}}"></ion-input>
           </ion-item>
 
           <ion-item>
-            <ion-label fixed>Customer Email</ion-label>
-            <ion-input type="email" placeholder="Enter here" value=""></ion-input>
+            <ion-label fixed>Email</ion-label>
+            <ion-input readonly text-right type="email" placeholder="Enter here" value="{{transaction ? transaction.customer.email : '-'}}"></ion-input>
           </ion-item>
 
         </ion-list>
     </section>
-    <span *ngIf="reportForm.get('affiliate').value" class="no-affiliate-text" padding-left>This purchase was made without affiliate</span>
+    <span *ngIf="!reportForm.get('affiliate').value" class="no-affiliate-text" padding-left>This purchase was made without affiliate</span>
     <section margin-top class="white-bg">
       <ion-item-group>
         <ion-item>
@@ -38,7 +39,7 @@
     </section>
 
     <section padding>
-      <button ion-button block color="danger" text-capitalize>Report</button>
+      <button [disabled]="!reportForm.valid" (click)="sendReport()" ion-button block color="danger" text-capitalize>Report</button>
     </section>
   </form>
 </ion-content>
