@@ -2,10 +2,11 @@
  * Created by Andrey Okhotnikov on 23.10.17.
  */
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Settings } from '../config/settings';
 import { AuthService } from './auth-service';
 import { Observable } from 'rxjs/Observable';
+import { Params } from '../models/params';
 
 
 @Injectable()
@@ -15,15 +16,28 @@ export class TransactionService {
     console.log('Init TransactionServiceProvider');
   }
 
-  getTransactionListByPeriod(sort: any, from: string = 'start', to: string = 'now'): Observable<{[key: string]: any}> {
-    return this.http.get(`${Settings.BASE_URL}${this.auth.apiKey}/json/listPurchases?from=${from}&to=${to}&sort_by=${sort.sort_by}&sort_order=${sort.sort_order}&language=en`);
+  getTransactionListByPeriod(params: Params, from: string = 'start', to: string = 'now'): Observable<{[key: string]: any}> {
+    let params_search = new HttpParams();
+    for (let key in params.search) {
+      if (params.search[key]) {
+        if (key === 'from')
+          from = params.search[key];
+        else if (key === 'to')
+          to = params.search[key];
+        else
+          params_search = params_search.append(`search[${key}]`, params.search[key]);
+      }
+    }
+    return this.http.get(`${Settings.BASE_URL}${this.auth.apiKey}/json/listPurchases?from=${from}&to=${to}&sort_by=${params.sort.sort_by}&sort_order=${params.sort.sort_order}&language=en`, {
+      params: params_search
+    });
   }
 
   getTransactionByOrderId(orderId: string): Observable<{[key: string]: any}> {
     return this.http.get(`${Settings.BASE_URL}${this.auth.apiKey}/json/getPurchase?purchase_id=${orderId}&language=en`);
   }
 
-  getTransactionList(period: string, sort: any): Promise<any> {
+  getTransactionList(period: string, params: Params): Promise<any> {
     return new Promise((resolve, reject) => {
       let from: string;
       let date = new Date();
@@ -41,7 +55,7 @@ export class TransactionService {
         from = date.getFullYear() + '-01-01';
       }
 
-      this.getTransactionListByPeriod(sort, from).subscribe(
+      this.getTransactionListByPeriod(params, from).subscribe(
         res => {
           if (res.result === 'success') {
             resolve(res.data.purchase_list.map(obj => {

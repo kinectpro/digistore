@@ -17,6 +17,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS, HttpClient } from '@angular/common
 import { LoadingInterceptor } from '../providers/loading-interceptor';
 import { AuthService } from '../providers/auth-service';
 import { EarningService } from '../providers/earning-service';
+import { SettingsService } from '../providers/settings-service';
 import { TransactionService } from '../providers/transaction-service';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -24,8 +25,10 @@ import { SortByPage } from '../pages/sort-by/sort-by';
 import { TransactionDetailsPage } from '../pages/transaction-details/transaction-details';
 import { SearchPage } from '../pages/search/search';
 import { ReportPage } from '../pages/report/report';
+import { ParamsPage } from '../pages/params/params';
 import { EarningPageModule } from '../pages/earning/earning.module';
 import { ReportResultPage } from '../pages/report-result/report-result';
+import { KeysPipe } from '../pipes/keys-pipe';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -40,9 +43,11 @@ export function createTranslateLoader(http: HttpClient) {
     LandingPage,
     LoginPage,
     TabsPage,
+    ParamsPage,
     SortByPage,
     SearchPage,
     ReportPage,
+    KeysPipe,
     ReportResultPage,
     TransactionDetailsPage
   ],
@@ -74,6 +79,7 @@ export function createTranslateLoader(http: HttpClient) {
     SortByPage,
     SearchPage,
     ReportPage,
+    ParamsPage,
     ReportResultPage,
     SettingsPage,
     TransactionDetailsPage
@@ -91,6 +97,7 @@ export function createTranslateLoader(http: HttpClient) {
     },
     AuthService,
     EarningService,
+    SettingsService,
     TransactionService
   ]
 })

@@ -1,0 +1,48 @@
+page-params {
+  ion-content.content {
+    background-color: #fafafa;
+  }
+  .bottom-logo {
+    bottom: 0;
+  }
+  ion-list {
+    .item-input {
+      margin-bottom: 10px;
+      border: solid 1px #e3e3e3;
+      border-radius: 4px;
+      .item-inner {
+        border-bottom: none !important;
+        input {
+          margin: 0;
+          padding: 17px;
+          height: 56px;
+          font-family: SFProText;
+          font-size: 17px;
+          line-height: 1.29;
+          letter-spacing: -0.4px;
+          text-align: left;
+          color: #414141;
+        }
+      }
+    }
+    .checkbox-ios .checkbox-checked .checkbox-inner {
+      width: 6px;
+      height: 12px;
+      border-color: inherit;
+      border-top-width: 0;
+      border-right-width: 2px;
+      border-bottom-width: 2px;
+      border-left-width: 0;
+    }
+    .checkbox-ios .checkbox-checked {
+      border-color: #3247a1;
+      background-color: #fff;
+    }
+    .checkbox-ios .checkbox-icon {
+      border-style: none;
+    }
+    div.checkbox-inner {
+
+    }
+  }
+}

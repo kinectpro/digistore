@@ -4,6 +4,9 @@ page-search {
   }
 
   ion-list {
+    .selected {
+      color: #3c50a6;
+    }
     .err-message {
       height: 30px;
       margin-bottom: 10px;
@@ -17,7 +20,7 @@ page-search {
       letter-spacing: -0.3px;
       text-align: center;
     }
-    .item-input {
+    .item-input, .item-datetime {
       margin-bottom: 10px;
       border: solid 1px #e3e3e3;
       border-radius: 4px;

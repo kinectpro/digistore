@@ -5,6 +5,7 @@ import { TabsPage } from '../tabs/tabs';
 import { TransactionDetailsPage } from '../transaction-details/transaction-details';
 import { SearchPage } from '../search/search';
 import { TransactionService } from '../../providers/transaction-service';
+import { Params } from '../../models/params';
 
 @Component({
   selector: 'page-transactions',
@@ -15,9 +16,12 @@ export class TransactionsPage {
   periods: string[] = [
     'day', 'week', 'month', 'year'
   ];
-  params_sort: any = {
-    sort_by: 'date',
-    sort_order: 'asc'
+  params: Params = {
+    sort: {
+      sort_by: 'date',
+      sort_order: 'asc'
+    },
+    search: {}
   };
   currentPeriod: string;
   showedSearchInput: boolean = false;
@@ -41,7 +45,7 @@ export class TransactionsPage {
   }
 
   getTransactions() {
-    this.tranServ.getTransactionList(this.currentPeriod, this.params_sort).then(
+    this.tranServ.getTransactionList(this.currentPeriod, this.params).then(
       res => {
         this.transactionsFromService = res;
         this.updateTransactions();
@@ -75,10 +79,10 @@ export class TransactionsPage {
   }
 
   sortBy() {
-    const sortByPageModal = this.modalCtrl.create(SortByPage, { params_sort: this.params_sort });
+    const sortByPageModal = this.modalCtrl.create(SortByPage, { params_sort: this.params.sort });
     sortByPageModal.onDidDismiss(res => {
       if (res.params_changed) {
-        this.params_sort = res.params_sort;
+        this.params.sort = res.params_sort;
         this.getTransactions();
       }
     });
@@ -86,7 +90,14 @@ export class TransactionsPage {
   }
 
   openSearch() {
-    this.app.getRootNav().push(SearchPage);
+    const searchPageModal = this.modalCtrl.create(SearchPage, { params_search: this.params.search });
+    searchPageModal.onDidDismiss(res => {
+      if (res.params_changed) {
+        this.params.search = res.params_search;
+        this.getTransactions();
+      }
+    });
+    searchPageModal.present();
   }
 
   updateTransactions() {

@@ -1,0 +1,59 @@
+<ion-header>
+
+  <ion-navbar>
+
+    <ion-buttons left>
+      <button text-capitalize ion-button clear color="clear" (click)="dismiss()" icon-left><ion-icon name="ios-arrow-back"></ion-icon></button>
+    </ion-buttons>
+
+    <ion-title padding-right text-center><b>{{ pageName }}</b></ion-title>
+
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content no-padding>
+
+  <ion-list radio-group [(ngModel)]="affiliate" no-padding *ngIf="pageName == 'Affiliate'">
+    <ion-item mode="ios">
+      <ion-label color="dark">All</ion-label>
+      <ion-radio mode="ios" value="" (ionSelect)="showInputAffiliateName(false)"></ion-radio>
+    </ion-item>
+    <ion-item mode="ios">
+      <ion-label color="dark">With {{ pageName }}</ion-label>
+      <ion-radio mode="ios" value="Y" (ionSelect)="showInputAffiliateName(false)"></ion-radio>
+    </ion-item>
+    <ion-item mode="ios">
+      <ion-label color="dark">Without {{ pageName }}</ion-label>
+      <ion-radio mode="ios" value="N" (ionSelect)="showInputAffiliateName(false)"></ion-radio>
+    </ion-item>
+    <ion-item mode="ios" no-lines>
+      <ion-label color="dark">Enter {{ pageName }}</ion-label>
+      <ion-radio mode="ios" value="name" (ionSelect)="showInputAffiliateName(true)"></ion-radio>
+    </ion-item>
+    <ion-row class="white-bg" *ngIf="showedInputAffiliateName">
+      <ion-col col-12 padding>
+        <ion-item mode="ios">
+          <ion-input mode="ios" [(ngModel)]="affiliateName"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-list>
+
+  <ion-list no-padding *ngIf="pageName == 'Transaction type' || pageName == 'Billing type'">
+    <ion-item mode="ios">
+      <ion-label color="dark">Any</ion-label>
+      <ion-checkbox item-right mode="ios" [(ngModel)]="anyValue" (ionChange)="clearCheckboxesTypes()"></ion-checkbox>
+    </ion-item>
+    <ion-item mode="ios" *ngFor="let type of types">
+      <ion-label color="dark" text-capitalize>{{type.name}}</ion-label>
+      <ion-checkbox item-right mode="ios" [(ngModel)]="type.value" (ionChange)="clearCheckboxAny(type.value)"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+
+</ion-content>
+
+<section class="bottom-logo">
+  <img src="assets/img/logo-long.png">
+</section>
