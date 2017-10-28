@@ -1,4 +1,5 @@
 <ion-header>
+
   <ion-navbar>
     <ion-title text-center>
       Transactions
@@ -7,6 +8,10 @@
       <button ion-button float-end text-capitalize clear color="clear" (click)="showAll()">All</button>
     </ion-buttons>
   </ion-navbar>
+
+</ion-header>
+
+<ion-content no-padding>
 
   <ion-grid *ngIf="currentPeriod" class="period" text-center no-padding>
     <ion-row align-items-center>
@@ -21,10 +26,6 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-
-</ion-header>
-
-<ion-content no-padding>
 
   <ion-grid no-padding *ngIf="transactions">
     <ion-row *ngIf="!showedSearchInput;else searchInput">

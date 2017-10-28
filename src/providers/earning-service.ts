@@ -12,6 +12,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class EarningService {
 
+    currentPeriod: string;
     statsSalesSummary: {[key: string]: any};
     statsSalesMonthly = [];
     statsSalesQuarterly = [];

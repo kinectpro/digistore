@@ -1,18 +1,17 @@
 import { Component } from '@angular/core';
-import { App, ModalController, NavController, NavParams } from 'ionic-angular';
+import { App, ModalController, NavController, NavParams, Events } from 'ionic-angular';
 import { SortByPage } from '../sort-by/sort-by';
-import { TabsPage } from '../tabs/tabs';
 import { TransactionDetailsPage } from '../transaction-details/transaction-details';
 import { SearchPage } from '../search/search';
 import { TransactionService } from '../../providers/transaction-service';
 import { Params } from '../../models/params';
+import { EarningService } from "../../providers/earning-service";
 
 @Component({
   selector: 'page-transactions',
   templateUrl: 'transactions.html',
 })
 export class TransactionsPage {
-  // @todo Add to constants, add navigation between dates
   periods: string[] = [
     'day', 'week', 'month', 'year'
   ];
@@ -30,8 +29,12 @@ export class TransactionsPage {
   transactionsFromService: any[];
   transactions: any = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public app: App, public tranServ: TransactionService) {
-    this.currentPeriod = this.navParams.get('period');
+  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public app: App, public eServ: EarningService, public tranServ: TransactionService, public events: Events) {
+    this.events.subscribe('period:changed', period => {
+      this.currentPeriod = period;
+      this.getTransactions();
+    });
+    this.currentPeriod = this.eServ.currentPeriod;
     this.getTransactions();
   }
 
@@ -55,7 +58,8 @@ export class TransactionsPage {
   }
 
   showAll() {
-    this.app.getRootNav().setRoot(TabsPage, {tab: 1});
+    this.currentPeriod = '';
+    this.getTransactions();
   }
 
   goNext() {

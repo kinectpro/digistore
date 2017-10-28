@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController } from 'ionic-angular';
-import { TransactionsPage } from '../transactions/transactions';
+import { NavController, LoadingController, Events } from 'ionic-angular';
 import { EarningService } from '../../providers/earning-service';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -16,7 +15,7 @@ export class EarningPage {
   yearlyData: any[];
   totalData: any;
 
-  constructor(public navCtrl: NavController, public eServ: EarningService, public loadingCtrl: LoadingController, public translate: TranslateService) {
+  constructor(public navCtrl: NavController, public eServ: EarningService, public loadingCtrl: LoadingController, public translate: TranslateService, public events: Events) {
 
     console.log('Init EarningPage');
 
@@ -68,7 +67,9 @@ export class EarningPage {
   }
 
   goToTransaction(period: string): void {
-    this.navCtrl.push(TransactionsPage, { period: period });
+    this.eServ.currentPeriod = period;
+    this.events.publish('period:changed', period);
+    this.navCtrl.parent.select(1);
   }
 
 
