@@ -13,11 +13,13 @@
   <div *ngIf="transaction">
 
     <section class="white-bg">
-      <ion-grid padding>
-        <ion-row align-items-center>
+      <ion-grid padding *ngIf="transaction.products.length < 3;else many_products">
+        <ion-row>
           <ion-col col-7>
-            <label class="label">Product Name / ID</label>
-            <p class="product_name" *ngFor="let obj of transaction.products">{{ obj.name }} / {{ obj.id }}</p>
+            <div *ngFor="let obj of transaction.products; let i = index">
+              <label class="label">{{ transaction.products.length > 1 && i == 0 ? 'Main' : ''}} Product Name / ID</label>
+              <p class="product_name">{{ obj.name }} / {{ obj.id }}</p>
+            </div>
           </ion-col>
           <ion-col col-5 text-right>
             <label class="label" >Order ID</label>
@@ -28,15 +30,36 @@
         </ion-row>
       </ion-grid>
 
+      <ng-template #many_products>
+        <ion-grid no-padding>
+          <ion-row class="products-header">
+            <ion-col col-6>
+              <label class="label" >Order ID</label>
+              <p>{{ transaction.order_id }}</p>
+            </ion-col>
+            <ion-col col-6 padding>
+              <label class="label">Transaction ID</label>
+              <p>{{ transaction.transaction_id }}</p>
+            </ion-col>
+          </ion-row>
+          <ion-row class="products-body">
+            <ion-col col-12>
+              <label class="label">Product Name / ID</label>
+              <p class="product_name" *ngFor="let obj of transaction.products">{{ obj.name }} / {{ obj.id }}</p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ng-template>
+
       <ion-grid class="bordered">
         <ion-row>
           <ion-col col-6>
             <label class="label">Gross amount</label>
-            <p>{{ transaction.brutto }}</p>
+            <p>{{ transaction.currency }} {{ transaction.brutto }}</p>
           </ion-col>
           <ion-col col-6 >
             <label class="label">Net commission</label>
-            <p>{{ transaction.netto }}</p>
+            <p>{{ transaction.currency }} {{ transaction.netto }}</p>
           </ion-col>
         </ion-row>
       </ion-grid>

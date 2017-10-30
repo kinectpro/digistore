@@ -28,6 +28,18 @@ page-transaction-details {
   .bordered ion-col {
     padding: 2rem;
   }
+  .products-header {
+    border-bottom: 1px solid #d1d1d6;
+  }
+  .products-header ion-col:first-of-type {
+    border-right: 1px solid #d1d1d6;
+  }
+  .products-header ion-col {
+    padding: 2rem!important;
+  }
+  .products-body {
+    padding: 2rem;
+  }
   .product_name {
     font-size: 20px;
     line-height: 1.3;
