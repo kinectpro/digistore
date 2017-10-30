@@ -103,20 +103,24 @@
         <img class="img-logo" src="assets/img/logo-long.png">
       </ion-list-header>
 
-      <div *ngFor="let obj of monthlyData">
+      <div *ngIf="monthlyData.length > 0; else emptyResult">
 
-        <ion-item-divider sticky>
-          {{ obj.year }}
-        </ion-item-divider>
+        <div *ngFor="let obj of monthlyData">
 
-        <button ion-item no-padding *ngFor="let month of obj.months">
-          <ion-label>
-            {{ month.name }}
-          </ion-label>
-          <div item-content class="total">
-            {{ month[toggle] | currency:'EUR':true }} <ion-icon md="ios-arrow-forward" color="light"></ion-icon>
-          </div>
-        </button>
+          <ion-item-divider sticky>
+            {{ obj.year }}
+          </ion-item-divider>
+
+          <button ion-item no-padding *ngFor="let month of obj.months">
+            <ion-label>
+              {{ month.name }}
+            </ion-label>
+            <div item-content class="total">
+              {{ month[toggle] | currency:'EUR':true }} <ion-icon md="ios-arrow-forward" color="light"></ion-icon>
+            </div>
+          </button>
+
+        </div>
 
       </div>
 
@@ -130,19 +134,23 @@
         <img class="img-logo" src="assets/img/logo-long.png">
       </ion-list-header>
 
-      <div *ngFor="let obj of quarterlyData">
-        <ion-item-divider sticky>
-          {{obj.year}}
-        </ion-item-divider>
+      <div *ngIf="quarterlyData.length > 0; else emptyResult">
 
-        <button ion-item no-padding *ngFor="let quarter of obj.quarters">
-          <ion-label>
-            Q{{ quarter.number }} <span>{{ quarter.name }}</span>
-          </ion-label>
-          <div item-content class="total">
-            {{ quarter[toggle] | currency:'EUR':true }} <ion-icon md="ios-arrow-forward" color="light"></ion-icon>
-          </div>
-        </button>
+        <div *ngFor="let obj of quarterlyData">
+          <ion-item-divider sticky>
+            {{obj.year}}
+          </ion-item-divider>
+
+          <button ion-item no-padding *ngFor="let quarter of obj.quarters">
+            <ion-label>
+              Q{{ quarter.number }} <span>{{ quarter.name }}</span>
+            </ion-label>
+            <div item-content class="total">
+              {{ quarter[toggle] | currency:'EUR':true }} <ion-icon md="ios-arrow-forward" color="light"></ion-icon>
+            </div>
+          </button>
+        </div>
+
       </div>
 
     </ion-list>
@@ -155,16 +163,30 @@
         <img class="img-logo" src="assets/img/logo-long.png">
       </ion-list-header>
 
-      <button ion-item no-padding *ngFor="let obj of yearlyData">
-        <ion-label>
-          {{ obj.year }}
-        </ion-label>
-        <div item-content class="total">
-          {{ obj[toggle] | currency:'EUR':true }} <ion-icon md="ios-arrow-forward" color="light"></ion-icon>
-        </div>
-      </button>
+      <div *ngIf="yearlyData.length > 0; else emptyResult">
+
+        <button ion-item no-padding *ngFor="let obj of yearlyData">
+          <ion-label>
+            {{ obj.year }}
+          </ion-label>
+          <div item-content class="total">
+            {{ obj[toggle] | currency:'EUR':true }} <ion-icon md="ios-arrow-forward" color="light"></ion-icon>
+          </div>
+        </button>
+
+      </div>
 
     </ion-list>
+
+    <ng-template #emptyResult>
+      <ion-row class="empty-result">
+        <ion-col col-8 offset-2>
+          <ion-item no-lines no-padding>
+            <p>No results found.</p>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ng-template>
 
   </div>
 </ion-content>

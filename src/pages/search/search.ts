@@ -107,7 +107,7 @@ export class SearchPage {
       console.log('ПРИШЛИ ПАРАММЕТРЫ ИЗ ParamsPage');
       console.log(res.search);
       this.searchObj = res.search;
-      console.log('ТЕПЕРЬ ТАК ВЫШЛЯДИТ searchObj');
+      console.log('ТЕПЕРЬ ТАК ВЫГЛЯДИТ searchObj');
       console.log(this.searchObj);
     });
     pageModal.present();

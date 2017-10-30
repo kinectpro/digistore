@@ -4,6 +4,18 @@ earning-home {
     min-height: 44px;
   }
 
+  ion-row.empty-result {
+    margin-top: 10vh;
+    ion-item {
+      text-align: center;
+      font-family: SFProText;
+      font-size: 17px;
+      line-height: 1.65;
+      letter-spacing: -0.4px;
+      color: #c1c4cb;
+    }
+  }
+
   ion-segment.toogle {
     background-color: #fafafa;
     border-radius: 20px!important;
