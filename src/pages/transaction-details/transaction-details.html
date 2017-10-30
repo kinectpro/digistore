@@ -99,7 +99,12 @@
           Email
         </ion-label>
         <div item-content class="item-content" padding-right>
-          {{ transaction.customer.email  || '-' }}
+          <div *ngIf="transaction.customer.email; else no_email">
+            <a target="_blank" href="mailto:{{transaction.customer.email}}">{{ transaction.customer.email }}</a>
+          </div>
+          <ng-template #no_email>
+            -
+          </ng-template>
         </div>
       </ion-item>
       <ion-item no-padding>
@@ -107,7 +112,12 @@
           Phone number
         </ion-label>
         <div item-content class="item-content" padding-right>
-          {{ transaction.customer.phone  || '-' }}
+          <div *ngIf="transaction.customer.phone; else no_phone">
+            <a target="_blank" href="tel:{{transaction.customer.phone}}">{{ transaction.customer.phone }}</a>
+          </div>
+          <ng-template #no_phone>
+            -
+          </ng-template>
         </div>
       </ion-item>
       <ion-item no-padding>
