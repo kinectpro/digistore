@@ -19,7 +19,12 @@
         <button (click)="goPrev()" small ion-button clear icon-only color="clear"><ion-icon name="arrow-back" md="ios-arrow-back"></ion-icon></button>
       </ion-col>
       <ion-col col-8>
-        This <span text-capitalize>{{currentPeriod}}</span>
+        <div *ngIf="currentPeriod == 'day'; else notToday">
+          Today
+        </div>
+        <ng-template #notToday>
+          This <span text-capitalize>{{currentPeriod}}</span>
+        </ng-template>
       </ion-col>
       <ion-col col-2>
         <button (click)="goNext()" small ion-button clear icon-only color="clear"><ion-icon name="arrow-forward" md="ios-arrow-forward"></ion-icon></button>
@@ -82,7 +87,7 @@
       <ion-col col-8 offset-2>
         <ion-item no-lines no-padding>
           <p>No results found.</p>
-          <p>Try to go through all base.</p>
+          <p>Try to go through all transactions.</p>
           <p><button no-margin ion-button clear (click)="openSearch()">Search & Filters</button></p>
         </ion-item>
       </ion-col>

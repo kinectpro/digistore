@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { NavParams, ViewController, ModalController } from 'ionic-angular';
+import { NavParams, ViewController, ModalController, LoadingController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Search } from '../../models/params';
 import { ParamsPage } from '../params/params';
 import { SettingsService } from '../../providers/settings-service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'page-search',
@@ -22,8 +23,10 @@ export class SearchPage {
 
   activeTab: string;
 
-  constructor(public navParams: NavParams, public fb: FormBuilder, public viewCtrl: ViewController, public modalCtrl: ModalController, public settingsServ: SettingsService) {
+  constructor(public navParams: NavParams, public fb: FormBuilder, public viewCtrl: ViewController, public modalCtrl: ModalController,
+              public settingsServ: SettingsService, public loadingCtrl: LoadingController, public translate: TranslateService) {
 
+    let cameTheResponse = false;
     this.searchObj = navParams.get('params_search');
     console.log('-------------search parameters is there-----------------');
     console.log(this.searchObj);
@@ -41,16 +44,36 @@ export class SearchPage {
       //'to': [this.searchObj.to]
     });
 
-    this.settingsServ.getGlobalSettings().then(
-      types => this.globalTypesFromServer = types,
-      err => console.log(err)
-    );
+    this.translate.get('LOADING_TEXT').subscribe(loadingText => {
+      let loading = this.loadingCtrl.create({
+        content: loadingText,
+        spinner: 'dots'
+      });
 
-    this.settingsServ.getCurrencies().then(
-      currencies => this.currenciesFromServer = currencies,
-      err => console.log(err)
-    );
-    
+      setTimeout(()=> {
+        if (!cameTheResponse) {
+          loading.present();
+        }
+      }, 1000);
+
+      Promise.all([
+        this.settingsServ.getGlobalSettings(),
+        this.settingsServ.getCurrencies(),
+      ]).then(
+        result => {
+          this.globalTypesFromServer = result[0];
+          this.currenciesFromServer = result[1];
+          cameTheResponse = true;
+          loading.dismiss();
+        },
+        error => {
+          cameTheResponse = true;
+          loading.dismiss();
+          console.log(error);
+        }
+      );
+    });
+
     this.payments = this.searchObj.pay_method ? this.searchObj.pay_method.split(',') : [];
     this.currencies = this.searchObj.currency ? this.searchObj.currency.split(',') : [];
   }

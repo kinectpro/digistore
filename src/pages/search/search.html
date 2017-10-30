@@ -2,15 +2,19 @@
 
   <ion-navbar>
 
-    <ion-buttons left>
-      <button text-capitalize ion-button clear color="clear" (click)="dismiss()" icon-left><ion-icon name="ios-arrow-back"></ion-icon>Cancel</button>
-    </ion-buttons>
-
-    <ion-title text-center><b>Search & Filters</b></ion-title>
-
-    <ion-buttons end *ngIf="extended">
-      <button text-capitalize clear color="clear" ion-button (click)="clearSearchParams()">Clear all</button>
-    </ion-buttons>
+    <ion-grid no-padding>
+      <ion-row align-items-center>
+        <ion-col text-left col-2>
+          <button no-padding text-capitalize ion-button clear color="clear" (click)="dismiss()" icon-left><ion-icon name="ios-arrow-back"></ion-icon>Cancel</button>
+        </ion-col>
+        <ion-col text-center col-8>
+          <ion-title><b>Search & Filters</b></ion-title>
+        </ion-col>
+        <ion-col text-right col-2 *ngIf="extended">
+          <button no-padding text-capitalize clear color="clear" ion-button (click)="clearSearchParams()">Clear all</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
 
   </ion-navbar>
 
@@ -22,7 +26,7 @@
   <ion-grid padding>
     <ion-row>
       <ion-col text-right>
-        <button small ion-button text-capitalize color="activated" (click)="switchType()">{{extended ? 'OrderID' : 'Detailed search'}}</button>
+        <button small ion-button text-capitalize color="activated" (click)="switchType()">{{extended ? 'Order ID' : 'Detailed search'}}</button>
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -33,7 +37,7 @@
 
       <ion-list>
         <ion-item no-margin no-padding>
-          <ion-input formControlName="product_id" type="text" placeholder="OrderID"></ion-input>
+          <ion-input formControlName="product_id" type="text" placeholder="Order ID"></ion-input>
         </ion-item>
         <ion-label *ngIf="showedError" class="err-message" no-margin>
           {{ showedError }}

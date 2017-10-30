@@ -16,7 +16,9 @@ export class LoadingInterceptor implements HttpInterceptor {
   }
   
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    
+
+    let cameTheResponse: boolean = false;
+
     this.inj.get(TranslateService).get('LOADING_TEXT').subscribe(value => this.loadingText = value);
 
     let loading = this.loadingCtrl.create({
@@ -28,16 +30,24 @@ export class LoadingInterceptor implements HttpInterceptor {
       req = req.clone({params: req.params.delete('no-spinner')});
     }
     else {
-      loading.present();
+      setTimeout(()=> {
+        if (!cameTheResponse) {
+          loading.present();
+        }
+      }, 1000);
     }
 
     return next.handle(req).do(
       event => {
         if (event instanceof HttpResponse) {
+          cameTheResponse = true;
           loading.dismiss();
         }
       },
-      err => loading.dismiss()
+      err => {
+        cameTheResponse = true;
+        loading.dismiss();
+      }
     );
   }
 
