@@ -1,12 +1,18 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title text-center>
-      Transactions
-    </ion-title>
-    <ion-buttons *ngIf="currentPeriod" end>
-      <button ion-button float-end text-capitalize clear color="clear" (click)="showAll()">All</button>
-    </ion-buttons>
+
+    <ion-grid no-padding>
+      <ion-row align-items-center>
+        <ion-col text-center col-8 offset-2>
+          <ion-title><b>Transactions</b></ion-title>
+        </ion-col>
+        <ion-col text-right col-2 *ngIf="currentPeriod" >
+          <button ion-button float-end text-capitalize clear color="clear" (click)="showAll()">All</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
   </ion-navbar>
 
 </ion-header>
