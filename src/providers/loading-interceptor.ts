@@ -23,8 +23,8 @@ export class LoadingInterceptor implements HttpInterceptor {
       content: this.loadingText,
       spinner: 'dots'
     });
-
-    if (req.params.has('no-spinner')) {
+    
+    if (req.params.has('no-spinner') || req.url.includes('i18n')) {
       req = req.clone({params: req.params.delete('no-spinner')});
     }
     else {
