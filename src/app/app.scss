@@ -80,3 +80,73 @@ page-report .scroll-content, page-search .scroll-content, page-transactions .scr
   text-align: center;
   color: #ffffff;
 }
+
+
+.tab-button[aria-selected=false] {
+  .ion-md-custom-earning {
+    content: url(../assets/img/ic_earnings.svg);
+    width: 26px;
+    height: 20px;
+  }
+}
+.tab-button[aria-selected=true] {
+  .tab-button-text {
+    color: #3247a1;
+  }
+  .ion-md-custom-earning {
+    content: url(../assets/img/ic_earnings_active.svg);
+    width: 26px;
+    height: 20px;
+  }
+}
+.tab-button[aria-selected=false] {
+  .ion-md-custom-transactions {
+    content: url(../assets/img/ic_transactions.svg);
+    width: 26px;
+    height: 20px;
+  }
+}
+.tab-button[aria-selected=true] {
+  .tab-button-text {
+    color: #3247a1;
+  }
+  .ion-md-custom-transactions {
+    content: url(../assets/img/ic_transactions_active.svg);
+    width: 26px;
+    height: 20px;
+  }
+}
+.tab-button[aria-selected=false] {
+  .ion-md-custom-e-ticket {
+    content: url(../assets/img/ic_e-ticket.svg);
+    width: 26px;
+    height: 20px;
+  }
+}
+.tab-button[aria-selected=true] {
+  .tab-button-text {
+    color: #3247a1;
+  }
+  .ion-md-custom-e-ticket  {
+    content: url(../assets/img/ic_e-ticket_active.svg);
+    width: 26px;
+    height: 20px;
+  }
+}
+.tab-button[aria-selected=false] {
+  .ion-md-custom-settings {
+    content: url(../assets/img/ic_settings.svg);
+    width: 26px;
+    height: 20px;
+  }
+}
+.tab-button[aria-selected=true] {
+  .tab-button-text {
+    color: #3247a1;
+  }
+  .ion-md-custom-settings {
+    content: url(../assets/img/ic_settings_active.svg);
+    width: 26px;
+    height: 20px;
+  }
+}

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="21px" height="20px" viewBox="0 0 21 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
+    <title>ic_e-ticket</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="bottom-bar_transactions_focuseed" transform="translate(-223.000000, -9.000000)" fill-rule="nonzero" fill="#687381">
+            <g id="Group-8" transform="translate(4.000000, 0.000000)">
+                <g id="ic_e-ticket" transform="translate(219.000000, 9.000000)">
+                    <polygon id="Path-5" points="1.5 1.0625 6.45454545 1.0625 6.45454545 0.0625 0.5 0.0625 0.5 5.625 1.5 5.625"></polygon>
+                    <polygon id="Path-5-Copy" transform="translate(18.022727, 2.843750) scale(-1, 1) translate(-18.022727, -2.843750) " points="21 1.0625 21 0.0625 15.0454545 0.0625 15.0454545 5.625 16.0454545 5.625 16.0454545 1.0625"></polygon>
+                    <rect id="Rectangle-path" x="15" y="16" width="1" height="1"></rect>
+                    <rect id="Rectangle-path" x="17" y="16" width="1" height="1"></rect>
+                    <polygon id="Shape" points="16.8000066 12.2000919 15.6001116 12.2000919 15.6001116 11 12 11 12 17 13.2000919 17 13.2000919 13.3999869 14.3998884 13.3999869 14.3998884 14.6001116 18 14.6001116 18 11 18 11 16.8000066 11"></polygon>
+                    <path d="M9,16 L9,12 L5,12 L5,16 L9,16 Z M4,17 L4,11 L10,11 L10,17 L4,17 Z" id="Shape"></path>
+                    <path d="M5,8 L9,8 L9,4 L5,4 L5,8 Z M4,9 L4,3 L10,3 L10,9 L4,9 Z" id="Shape"></path>
+                    <path d="M13,8 L17,8 L17,4 L13,4 L13,8 Z M12,9 L12,3 L18,3 L18,9 L12,9 Z" id="Shape"></path>
+                    <rect id="Rectangle-path" x="6" y="13" width="2" height="2"></rect>
+                    <rect id="Rectangle-path" x="6" y="5" width="2" height="2"></rect>
+                    <rect id="Rectangle-path" x="14" y="5" width="2" height="2"></rect>
+                    <polygon id="Path-5" transform="translate(3.477273, 16.656250) scale(1, -1) translate(-3.477273, -16.656250) " points="6.45454545 14.875 6.45454545 13.875 0.5 13.875 0.5 19.4375 1.5 19.4375 1.5 14.875"></polygon>
+                    <polygon id="Path-5-Copy" transform="translate(18.022727, 16.656250) scale(-1, -1) translate(-18.022727, -16.656250) " points="21 14.875 21 13.875 15.0454545 13.875 15.0454545 19.4375 16.0454545 19.4375 16.0454545 14.875"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
