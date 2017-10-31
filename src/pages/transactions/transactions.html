@@ -7,7 +7,7 @@
         <ion-col text-center col-8 offset-2>
           <ion-title><b>Transactions</b></ion-title>
         </ion-col>
-        <ion-col text-right col-2 *ngIf="currentPeriod" >
+        <ion-col text-right col-2 *ngIf="currentPeriod || !isEmptyObject(params.search)" >
           <button ion-button float-end text-capitalize clear color="clear" (click)="showAll()">All</button>
         </ion-col>
       </ion-row>
@@ -77,7 +77,7 @@
     <button no-padding ion-item *ngFor="let transaction of transactions" (click)="openTransaction(transaction)">
       <ion-label no-margin>
         <ion-row margin-left align-items-center>
-          <ion-col text-wrap col-2 class="transaction-date">{{ transaction.date | date:"yyyy.MM.dd HH:mm" }}</ion-col>
+          <ion-col text-wrap col-2 class="transaction-date">{{ transaction.date | date:"dd/MM/yy" }} <br> {{ transaction.date | date:"HH:mm" }}</ion-col>
           <ion-col class="transaction-name-block" col-5>
             <p class="transaction-name">{{ transaction.name }}</p>
             <p class="transaction-id">{{ transaction.order_id }}</p>

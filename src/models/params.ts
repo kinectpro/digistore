@@ -7,6 +7,7 @@ export interface Sort {
 }
 
 export interface Search {
+  purchase_id?: string,
   product_id?: string,
   first_name?: string,
   last_name?: string,

@@ -48,20 +48,26 @@
         </ion-list-header>
         <ion-list-header text-center no-margin>
           <ion-label class="amount">
-            {{ totalData[toggle].total | currency:'EUR':true }}
+            {{ totalData[currentCurrency][toggle].total | currency:currentCurrency:true }}
           </ion-label>
         </ion-list-header>
 
-        <ion-item class="logo" text-end>
-          <img class="img-logo" src="assets/img/logo-long.png">
-        </ion-item>
+        <button ion-item no-padding (click)="changeCurrency()">
+          <button class="btn-currency" ion-button icon-right clear>
+            {{ currentCurrency }}
+            <ion-icon name="ios-arrow-down"></ion-icon>
+          </button>
+          <div item-content class="logo" text-end>
+            <img class="img-logo" src="assets/img/logo-long.png">
+          </div>
+        </button>
 
         <button ion-item no-padding (click)="goToTransaction('day')">
           <ion-label>
             Today
           </ion-label>
           <div item-content class="total">
-            {{ totalData[toggle].today | currency:'EUR':true }} <ion-icon md="ios-arrow-forward" padding-left color="light"></ion-icon>
+            {{ totalData[currentCurrency][toggle].today | currency:currentCurrency:true }} <ion-icon md="ios-arrow-forward" padding-left color="light"></ion-icon>
           </div>
         </button>
 
@@ -70,7 +76,7 @@
             This week
           </ion-label>
           <div item-content class="total">
-            {{ totalData[toggle].week | currency:'EUR':true }} <ion-icon md="ios-arrow-forward" padding-left color="light"></ion-icon>
+            {{ totalData[currentCurrency][toggle].week | currency:currentCurrency:true }} <ion-icon md="ios-arrow-forward" padding-left color="light"></ion-icon>
           </div>
         </button>
 
@@ -79,7 +85,7 @@
             This month
           </ion-label>
           <div item-content class="total">
-            {{ totalData[toggle].month | currency:'EUR':true }} <ion-icon md="ios-arrow-forward" padding-left color="light"></ion-icon>
+            {{ totalData[currentCurrency][toggle].month | currency:currentCurrency:true }} <ion-icon md="ios-arrow-forward" padding-left color="light"></ion-icon>
           </div>
         </button>
 
@@ -88,7 +94,7 @@
             This year
           </ion-label>
           <div item-content class="total">
-            {{ totalData[toggle].year | currency:'EUR':true }} <ion-icon md="ios-arrow-forward" padding-left color="light"></ion-icon>
+            {{ totalData[currentCurrency][toggle].year | currency:currentCurrency:true }} <ion-icon md="ios-arrow-forward" padding-left color="light"></ion-icon>
           </div>
         </button>
 
@@ -103,9 +109,9 @@
         <img class="img-logo" src="assets/img/logo-long.png">
       </ion-list-header>
 
-      <div *ngIf="monthlyData.length > 0; else emptyResult">
+      <div *ngIf="monthlyData[currentCurrency] && monthlyData[currentCurrency].length > 0; else emptyResult">
 
-        <div *ngFor="let obj of monthlyData">
+        <div *ngFor="let obj of monthlyData[currentCurrency]">
 
           <ion-item-divider sticky>
             {{ obj.year }}
@@ -116,7 +122,7 @@
               {{ month.name }}
             </ion-label>
             <div item-content class="total">
-              {{ month[toggle] | currency:'EUR':true }} <ion-icon md="ios-arrow-forward" color="light"></ion-icon>
+              {{ month[toggle] | currency:currentCurrency:true }} <ion-icon md="ios-arrow-forward" color="light"></ion-icon>
             </div>
           </button>
 
@@ -134,9 +140,9 @@
         <img class="img-logo" src="assets/img/logo-long.png">
       </ion-list-header>
 
-      <div *ngIf="quarterlyData.length > 0; else emptyResult">
+      <div *ngIf="quarterlyData[currentCurrency] && quarterlyData[currentCurrency].length > 0; else emptyResult">
 
-        <div *ngFor="let obj of quarterlyData">
+        <div *ngFor="let obj of quarterlyData[currentCurrency]">
           <ion-item-divider sticky>
             {{obj.year}}
           </ion-item-divider>
@@ -146,7 +152,7 @@
               Q{{ quarter.number }} <span>{{ quarter.name }}</span>
             </ion-label>
             <div item-content class="total">
-              {{ quarter[toggle] | currency:'EUR':true }} <ion-icon md="ios-arrow-forward" color="light"></ion-icon>
+              {{ quarter[toggle] | currency:currentCurrency:true }} <ion-icon md="ios-arrow-forward" color="light"></ion-icon>
             </div>
           </button>
         </div>
@@ -163,14 +169,14 @@
         <img class="img-logo" src="assets/img/logo-long.png">
       </ion-list-header>
 
-      <div *ngIf="yearlyData.length > 0; else emptyResult">
+      <div *ngIf="yearlyData[currentCurrency].length > 0; else emptyResult">
 
-        <button ion-item no-padding *ngFor="let obj of yearlyData">
+        <button ion-item no-padding *ngFor="let obj of yearlyData[currentCurrency]">
           <ion-label>
             {{ obj.year }}
           </ion-label>
           <div item-content class="total">
-            {{ obj[toggle] | currency:'EUR':true }} <ion-icon md="ios-arrow-forward" color="light"></ion-icon>
+            {{ obj[toggle] | currency:currentCurrency:true }} <ion-icon md="ios-arrow-forward" color="light"></ion-icon>
           </div>
         </button>
 

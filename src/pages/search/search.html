@@ -37,7 +37,7 @@
 
       <ion-list>
         <ion-item no-margin no-padding>
-          <ion-input formControlName="product_id" type="text" placeholder="Product ID"></ion-input>
+          <ion-input formControlName="purchase_id" type="text" placeholder="Order ID"></ion-input>
         </ion-item>
         <ion-label *ngIf="showedError" class="err-message" no-margin>
           {{ showedError }}
@@ -62,6 +62,10 @@
 
           <ion-list padding *ngIf="activeTab === 'product'">
             <ion-item no-margin no-padding>
+              <ion-input formControlName="purchase_id" type="text" placeholder="Order ID"></ion-input>
+            </ion-item>
+
+            <ion-item no-margin no-padding hidden>
               <ion-input formControlName="product_id" type="text" placeholder="Product ID"></ion-input>
             </ion-item>
 

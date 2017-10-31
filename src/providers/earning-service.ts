@@ -7,21 +7,22 @@ import { Settings } from '../config/settings';
 import { AuthService } from './auth-service';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import { SettingsService } from './settings-service';
 
 
 @Injectable()
 export class EarningService {
 
     currentPeriod: string;
-    statsSalesSummary: {[key: string]: any};
-    statsSalesMonthly = [];
-    statsSalesQuarterly = [];
-    statsSalesYearly: any[];
+    statsSalesSummary: {[key: string]: any} = {};
+    statsSalesMonthly: {[key: string]: any} = {};
+    statsSalesQuarterly: {[key: string]: any} = {};
+    statsSalesYearly: {[key: string]: any} = {};
     periods: string[] = ['all', 'day', 'week', 'month', 'year'];
     months: string[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     quarters: string[] = ['January, February, March', 'April, May, June', 'July, August, September', 'October, November, December'];
 
-    constructor(public http: HttpClient, public auth: AuthService) {
+    constructor(public http: HttpClient, public auth: AuthService, public settingsServ: SettingsService) {
       console.log('Init EarningServiceProvider');
     }
 
@@ -30,12 +31,14 @@ export class EarningService {
         params: new HttpParams().set('no-spinner', noSpinner ? 'true' : ''),
       }).map((res: any) => {
         this.periods.forEach(period => {
-          if (!res.data.for[period].amounts.EUR) {
-            res.data.for[period].amounts.EUR = {
-              total_netto_amount: 0,
-              total_brutto_amount: 0
-            };
-          }
+          this.settingsServ.currencies.forEach(currency => {
+            if (!res.data.for[period].amounts[currency]) {
+              res.data.for[period].amounts[currency] = {
+                total_netto_amount: 0,
+                total_brutto_amount: 0
+              };
+            }
+          });
         });
         return res;
       });
@@ -45,7 +48,10 @@ export class EarningService {
       return this.http.get(`${Settings.BASE_URL}${this.auth.apiKey}/json/statsSales?period=${period}&from=${from}&to=${to}&language=en`, {
         params: new HttpParams().set('no-spinner', noSpinner ? 'true' : ''),
       }).map((res: any) => {
-        res.data.amounts.EUR = res.data.amounts.EUR ? res.data.amounts.EUR.reverse() : [];
+        this.settingsServ.currencies.forEach(currency => {
+          res.data.amounts[currency] = res.data.amounts[currency] ? res.data.amounts[currency].reverse() : [];
+        });
+
         return res;
       });
     }
@@ -55,22 +61,24 @@ export class EarningService {
         this.getStatsSalesSummary(noSpinner).subscribe(
           res => {
             if (res.result === 'success') {
-              this.statsSalesSummary = {
-                netto: {
-                  total: res.data.for.all.amounts.EUR.total_netto_amount,
-                  today: res.data.for.day.amounts.EUR.total_netto_amount,
-                  week: res.data.for.week.amounts.EUR.total_netto_amount,
-                  month: res.data.for.month.amounts.EUR.total_netto_amount,
-                  year: res.data.for.year.amounts.EUR.total_netto_amount
-                },
-                brutto: {
-                  total: res.data.for.all.amounts.EUR.total_brutto_amount,
-                  today: res.data.for.day.amounts.EUR.total_brutto_amount,
-                  week: res.data.for.week.amounts.EUR.total_brutto_amount,
-                  month: res.data.for.month.amounts.EUR.total_brutto_amount,
-                  year: res.data.for.year.amounts.EUR.total_brutto_amount
-                }
-              };
+              this.settingsServ.currencies.forEach(currency => {
+                this.statsSalesSummary[currency] = {
+                  netto: {
+                    total: res.data.for.all.amounts[currency].total_netto_amount,
+                    today: res.data.for.day.amounts[currency].total_netto_amount,
+                    week: res.data.for.week.amounts[currency].total_netto_amount,
+                    month: res.data.for.month.amounts[currency].total_netto_amount,
+                    year: res.data.for.year.amounts[currency].total_netto_amount
+                  },
+                  brutto: {
+                    total: res.data.for.all.amounts[currency].total_brutto_amount,
+                    today: res.data.for.day.amounts[currency].total_brutto_amount,
+                    week: res.data.for.week.amounts[currency].total_brutto_amount,
+                    month: res.data.for.month.amounts[currency].total_brutto_amount,
+                    year: res.data.for.year.amounts[currency].total_brutto_amount
+                  }
+                };
+              });
               resolve(this.statsSalesSummary);
             }
             else {
@@ -88,23 +96,32 @@ export class EarningService {
         this.getStatsSalesByPeriod('month', 'now', '2010-01-01', noSpinner).subscribe(
           res => {
             if (res.result === 'success') {
-              let monthlyTotals = res.data.amounts.EUR;
-              for (let i = 0; i < monthlyTotals.length; i++) {
+
+              this.settingsServ.currencies.forEach(currency => {
+
+                let monthlyTotals = res.data.amounts[currency];
+                for (let i = 0; i < monthlyTotals.length; i++) {
                   let date = new Date(monthlyTotals[i].from);
                   let year = date.getFullYear();
-                  if (!this.statsSalesMonthly.length || this.statsSalesMonthly[this.statsSalesMonthly.length - 1]['year'] !== year) {
+                  if (!this.statsSalesMonthly[currency]) {
+                    this.statsSalesMonthly[currency] = [];
+                  }
+                  if (!this.statsSalesMonthly[currency].length || this.statsSalesMonthly[currency][this.statsSalesMonthly[currency].length - 1]['year'] !== year) {
                     // if array is empty or year do not match
-                    this.statsSalesMonthly.push({
+                    this.statsSalesMonthly[currency].push({
                       year: year,
                       months: []
                     });
                   }
-                  this.statsSalesMonthly[this.statsSalesMonthly.length - 1]['months'].push({
+                  this.statsSalesMonthly[currency][this.statsSalesMonthly[currency].length - 1]['months'].push({
                     name: this.months[date.getMonth()],
                     netto: monthlyTotals[i].total_netto_amount,
                     brutto: monthlyTotals[i].total_brutto_amount
                   });
-              }
+                }
+
+              });
+
               resolve(this.statsSalesMonthly);
             }
             else {
@@ -122,25 +139,34 @@ export class EarningService {
         this.getStatsSalesByPeriod('quarter', 'now', '2010-01-01', noSpinner).subscribe(
           res => {
             if (res.result === 'success') {
-              let quarterlyTotals = res.data.amounts.EUR;
-              for (let i = 0; i < quarterlyTotals.length; i++) {
-                let date = new Date(quarterlyTotals[i].from);
-                let year = date.getFullYear();
-                let quarter = Math.floor((date.getMonth() + 3) / 3);
-                if (!this.statsSalesQuarterly.length || this.statsSalesQuarterly[this.statsSalesQuarterly.length - 1]['year'] !== year) {
-                  // if array is empty or year do not match
-                  this.statsSalesQuarterly.push({
-                    year: year,
-                    quarters: []
+
+              this.settingsServ.currencies.forEach(currency => {
+
+                let quarterlyTotals = res.data.amounts[currency];
+                for (let i = 0; i < quarterlyTotals.length; i++) {
+                  let date = new Date(quarterlyTotals[i].from);
+                  let year = date.getFullYear();
+                  let quarter = Math.floor((date.getMonth() + 3) / 3);
+                  if (!this.statsSalesQuarterly[currency]) {
+                    this.statsSalesQuarterly[currency] = [];
+                  }
+                  if (!this.statsSalesQuarterly[currency].length || this.statsSalesQuarterly[currency][this.statsSalesQuarterly[currency].length - 1]['year'] !== year) {
+                    // if array is empty or year do not match
+                    this.statsSalesQuarterly[currency].push({
+                      year: year,
+                      quarters: []
+                    });
+                  }
+                  this.statsSalesQuarterly[currency][this.statsSalesQuarterly[currency].length - 1]['quarters'].push({
+                    number: quarter,
+                    name: this.quarters[quarter - 1],
+                    netto: quarterlyTotals[i].total_netto_amount,
+                    brutto: quarterlyTotals[i].total_brutto_amount
                   });
                 }
-                this.statsSalesQuarterly[this.statsSalesQuarterly.length - 1]['quarters'].push({
-                  number: quarter,
-                  name: this.quarters[quarter - 1],
-                  netto: quarterlyTotals[i].total_netto_amount,
-                  brutto: quarterlyTotals[i].total_brutto_amount
-                });
-              }
+
+              });
+
               resolve(this.statsSalesQuarterly);
             }
             else {
@@ -158,12 +184,14 @@ export class EarningService {
         this.getStatsSalesByPeriod('year', 'now', '2010-01-01', noSpinner).subscribe(
           res => {
             if (res.result === 'success') {
-              this.statsSalesYearly = res.data.amounts.EUR.map(obj => {
-                return {
-                  "year": (new Date(obj.from)).getFullYear(),
-                  "netto": obj.total_netto_amount,
-                  "brutto": obj.total_brutto_amount
-                }
+              this.settingsServ.currencies.forEach(currency => {
+                this.statsSalesYearly[currency] = res.data.amounts[currency].map(obj => {
+                  return {
+                    "year": (new Date(obj.from)).getFullYear(),
+                    "netto": obj.total_netto_amount,
+                    "brutto": obj.total_brutto_amount
+                  }
+                });
               });
               resolve(this.statsSalesYearly);
             }

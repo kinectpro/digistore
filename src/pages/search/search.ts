@@ -31,16 +31,16 @@ export class SearchPage {
   constructor(public navParams: NavParams, public fb: FormBuilder, public viewCtrl: ViewController, public modalCtrl: ModalController,
               public settingsServ: SettingsService, public loadingCtrl: LoadingController, public translate: TranslateService, public complServ: CompleteService) {
 
-    let cameTheResponse = false;
     this.searchObj = navParams.get('params_search');
     console.log('-------------search parameters is there-----------------');
     console.log(this.searchObj);
 
     this.searchForm = fb.group({
-      'product_id': [this.searchObj.product_id, [Validators.required]]
+      'purchase_id': [this.searchObj.purchase_id, [Validators.required]]
     });
 
     this.searchFormExtended = fb.group({
+      'purchase_id': [this.searchObj.purchase_id],
       'product_id': [this.searchObj.product_id],
       'first_name': [this.searchObj.first_name],
       'last_name': [this.searchObj.last_name],
@@ -55,11 +55,7 @@ export class SearchPage {
         spinner: 'dots'
       });
 
-      setTimeout(()=> {
-        if (!cameTheResponse) {
-          loading.present();
-        }
-      }, 1000);
+      loading.present();
 
       Promise.all([
         this.settingsServ.getGlobalSettings(),
@@ -68,11 +64,9 @@ export class SearchPage {
         result => {
           this.globalTypesFromServer = result[0];
           this.currenciesFromServer = result[1];
-          cameTheResponse = true;
           loading.dismiss();
         },
         error => {
-          cameTheResponse = true;
           loading.dismiss();
           console.log(error);
         }
@@ -158,9 +152,10 @@ export class SearchPage {
         this.showError('At least one symbol should be entered');
         return;
       }
-      this.searchObj.product_id = this.searchForm.get('product_id').value;
+      this.searchObj.purchase_id = this.searchForm.get('purchase_id').value;
     }
     else {
+      this.searchObj.purchase_id = this.searchFormExtended.get('purchase_id').value;
       this.searchObj.product_id = this.searchFormExtended.get('product_id').value;
       this.searchObj.first_name = this.searchFormExtended.get('first_name').value;
       this.searchObj.last_name = this.searchFormExtended.get('last_name').value;

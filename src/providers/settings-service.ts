@@ -9,6 +9,8 @@ import { AuthService } from './auth-service';
 @Injectable()
 export class SettingsService {
 
+  currencies: string[];
+
   constructor(public http: HttpClient, public auth: AuthService) {
     console.log('Init SettingsServiceProvider');
   }
@@ -38,7 +40,8 @@ export class SettingsService {
       }).subscribe(
         (res: any) => {
           if (res.result === 'success') {
-            resolve(res.data.map(obj => obj.code));
+            this.currencies = res.data.map(obj => obj.code);
+            resolve(this.currencies);
           }
           else {
             reject(res.message);

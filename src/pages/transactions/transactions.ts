@@ -59,6 +59,7 @@ export class TransactionsPage {
 
   showAll() {
     this.currentPeriod = '';
+    this.params.search = {};
     this.getTransactions();
   }
 
@@ -127,6 +128,18 @@ export class TransactionsPage {
     return this.transactionsFromService.filter(item => {
       return item.name.trim().toLowerCase().indexOf(val) >= 0;
     });
+  }
+  /**
+   * Returns true if specified object has no properties, false otherwise.
+   *
+   * @param obj
+   * @returns {boolean}
+   */
+  isEmptyObject(obj: Object): boolean {
+    for (let name in obj ) {
+      return false;
+    }
+    return true;
   }
 
 }
