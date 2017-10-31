@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NavParams, ViewController, ModalController, LoadingController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Search } from '../../models/params';
 import { ParamsPage } from '../params/params';
 import { SettingsService } from '../../providers/settings-service';
 import { TranslateService } from '@ngx-translate/core';
+import { CompleteService } from '../../providers/complete-service';
+import { AutoCompleteComponent } from 'ionic2-auto-complete';
 
 @Component({
   selector: 'page-search',
@@ -20,11 +22,14 @@ export class SearchPage {
   globalTypesFromServer: any;
   currenciesFromServer: string[];
   extended: boolean = false;
+  
+  @ViewChild('searchbar')
+  searchbar: AutoCompleteComponent;
 
   activeTab: string;
 
   constructor(public navParams: NavParams, public fb: FormBuilder, public viewCtrl: ViewController, public modalCtrl: ModalController,
-              public settingsServ: SettingsService, public loadingCtrl: LoadingController, public translate: TranslateService) {
+              public settingsServ: SettingsService, public loadingCtrl: LoadingController, public translate: TranslateService, public complServ: CompleteService) {
 
     let cameTheResponse = false;
     this.searchObj = navParams.get('params_search');
@@ -170,6 +175,11 @@ export class SearchPage {
       params_changed: true,
       params_search: this.searchObj
     });
+  }
+
+  selectedProduct(e: any) {
+    console.log(this.searchbar.getValue());
+    this.searchFormExtended.get('product_id').setValue(e.id);
   }
 
 }

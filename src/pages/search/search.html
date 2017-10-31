@@ -37,7 +37,7 @@
 
       <ion-list>
         <ion-item no-margin no-padding>
-          <ion-input formControlName="product_id" type="text" placeholder="Order ID"></ion-input>
+          <ion-input formControlName="product_id" type="text" placeholder="Product ID"></ion-input>
         </ion-item>
         <ion-label *ngIf="showedError" class="err-message" no-margin>
           {{ showedError }}
@@ -62,11 +62,10 @@
 
           <ion-list padding *ngIf="activeTab === 'product'">
             <ion-item no-margin no-padding>
-              <ion-input formControlName="product_id" type="text" placeholder="Order ID"></ion-input>
+              <ion-input formControlName="product_id" type="text" placeholder="Product ID"></ion-input>
             </ion-item>
-            <!--<ion-item no-margin no-padding>-->
-              <!--<ion-input formControlName="orderID" type="text" placeholder="Product Name"></ion-input>-->
-            <!--</ion-item>-->
+
+            <ion-auto-complete [dataProvider]="complServ" #searchbar (itemSelected)="selectedProduct($event)" [options]="{ placeholder : 'Product name' }"></ion-auto-complete>
           </ion-list>
 
           <button no-padding ion-item icon-end (click)="setActive('customer')">

@@ -7,6 +7,33 @@ page-search {
     bottom: 6rem;
   }
   ion-list {
+    //--------- search-bar ---------
+    ion-auto-complete {
+      width: 100%;
+      ion-searchbar.searchbar-md {
+        div.searchbar-search-icon {
+          display: none;
+        }
+        .searchbar-input {
+          box-shadow: none!important;
+          border: solid 1px #e3e3e3;
+          border-radius: 4px;
+          margin: 0;
+          padding: 17px;
+          height: 56px;
+          font-family: SFProText;
+          font-size: 17px;
+          line-height: 1.29;
+          letter-spacing: -0.4px;
+          text-align: left;
+          color: #414141;
+        }
+      }
+      ul {
+        width: 90vw;
+      }
+    }
+    //------- search-bar end -------
     .selected {
       color: #3c50a6;
     }

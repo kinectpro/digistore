@@ -18,6 +18,7 @@ import { LoadingInterceptor } from '../providers/loading-interceptor';
 import { AuthService } from '../providers/auth-service';
 import { EarningService } from '../providers/earning-service';
 import { SettingsService } from '../providers/settings-service';
+import { CompleteService } from '../providers/complete-service';
 import { TransactionService } from '../providers/transaction-service';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -27,6 +28,7 @@ import { SearchPage } from '../pages/search/search';
 import { ReportPage } from '../pages/report/report';
 import { ParamsPage } from '../pages/params/params';
 import { EarningPageModule } from '../pages/earning/earning.module';
+import { AutoCompleteModule } from 'ionic2-auto-complete';
 import { ReportResultPage } from '../pages/report-result/report-result';
 import { KeysPipe } from '../pipes/keys-pipe';
 
@@ -53,6 +55,7 @@ export function createTranslateLoader(http: HttpClient) {
   ],
   imports: [
     BrowserModule,
+    AutoCompleteModule,
     HttpClientModule,
     EarningPageModule,
     TranslateModule.forRoot({
@@ -97,6 +100,7 @@ export function createTranslateLoader(http: HttpClient) {
     },
     AuthService,
     EarningService,
+    CompleteService,
     SettingsService,
     TransactionService
   ]
