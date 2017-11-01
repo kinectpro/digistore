@@ -24,14 +24,17 @@ import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-transla
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SortByPage } from '../pages/sort-by/sort-by';
 import { TransactionDetailsPage } from '../pages/transaction-details/transaction-details';
+import { TicketParamsPage } from '../pages/ticket-params/ticket-params';
 import { SearchPage } from '../pages/search/search';
 import { ReportPage } from '../pages/report/report';
 import { ParamsPage } from '../pages/params/params';
 import { EarningPageModule } from '../pages/earning/earning.module';
 import { AutoCompleteModule } from 'ionic2-auto-complete';
+import { CalendarModule } from 'ion2-calendar';
 import { ReportResultPage } from '../pages/report-result/report-result';
 import { KeysPipe } from '../pipes/keys-pipe';
 import { Keyboard } from '@ionic-native/keyboard';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -42,6 +45,7 @@ export function createTranslateLoader(http: HttpClient) {
     MyApp,
     TransactionsPage,
     TicketPage,
+    TicketParamsPage,
     SettingsPage,
     LandingPage,
     LoginPage,
@@ -59,6 +63,7 @@ export function createTranslateLoader(http: HttpClient) {
     AutoCompleteModule,
     HttpClientModule,
     EarningPageModule,
+    CalendarModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -77,6 +82,7 @@ export function createTranslateLoader(http: HttpClient) {
     MyApp,
     TransactionsPage,
     TicketPage,
+    TicketParamsPage,
     LandingPage,
     LoginPage,
     TabsPage,
@@ -91,6 +97,7 @@ export function createTranslateLoader(http: HttpClient) {
   providers: [
     StatusBar,
     SplashScreen,
+    BarcodeScanner,
     InAppBrowser,
     TranslateService,
     Keyboard,

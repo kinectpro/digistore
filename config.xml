@@ -86,4 +86,5 @@
     <plugin name="cordova-plugin-statusbar" spec="^2.2.3" />
     <allow-navigation href="http://192.168.1.123:8102" />
     <engine name="android" spec="~6.3.0" />
+    <plugin name="phonegap-plugin-barcodescanner" spec="^7.0.0" />
 </widget>

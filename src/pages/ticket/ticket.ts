@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
-import { TransactionsPage } from '../transactions/transactions';
+import { NavController, NavParams, ModalController } from 'ionic-angular';
+import { TicketParamsPage } from '../ticket-params/ticket-params';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
 @Component({
   selector: 'page-ticket',
@@ -8,15 +9,36 @@ import { TransactionsPage } from '../transactions/transactions';
 })
 export class TicketPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  date: any = new Date();
+  showedCalendar: boolean = false;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public barcodeScanner: BarcodeScanner) {
+
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TicketPage');
   }
 
-  openPeriod() {
-    this.navCtrl.push(TransactionsPage, {period: 'day'});
+  openPageParams(pageName: string) {
+    const pageModal = this.modalCtrl.create(TicketParamsPage, { pageName: pageName });
+    pageModal.onDidDismiss(res => {
+      //this.params = res.params;
+    });
+    pageModal.present();
   }
 
+  onChange() {
+    console.log(this.date);
+    this.showedCalendar = !this.showedCalendar;
+  }
+
+  scan() {
+    this.barcodeScanner.scan({ formats: 'QR_CODE'}).then((barcodeData) => {
+      console.log(barcodeData.text);
+      alert(barcodeData.text);
+    }, (err) => {
+      console.log(err);
+    });
+  }
 }

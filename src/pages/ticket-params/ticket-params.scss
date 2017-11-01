@@ -1,0 +1,47 @@
+page-ticket-params {
+  ion-content.content {
+    background-color: #fafafa;
+  }
+  .bottom-logo {
+    bottom: 0;
+  }
+  ion-list {
+    border-bottom: 1px solid #dedede;
+    ion-item-divider.item.item-divider.item-md.item-divider-md {
+      background-color: #fafafa;
+      border-top: 1px solid #dedede;
+      height: 31px;
+      ion-label.label.label-md {
+        height: 19px;
+        font-family: SFProText;
+        font-size: 13px;
+        font-weight: 500;
+        line-height: 1.38;
+        letter-spacing: -0.1px;
+        text-align: left;
+        color: #c1c4cb;
+      }
+    }
+    .checkbox-ios .checkbox-checked .checkbox-inner {
+      width: 6px;
+      height: 12px;
+      border-color: inherit;
+      border-top-width: 0;
+      border-right-width: 2px;
+      border-bottom-width: 2px;
+      border-left-width: 0;
+    }
+    .checkbox-ios .checkbox-checked {
+      border-color: #3247a1;
+      background-color: #fff;
+    }
+    .checkbox-ios .checkbox-icon {
+      border-style: none;
+    }
+    ion-item.last {
+      div.item-inner {
+        border-bottom: none!important;
+      }
+    }
+  }
+}

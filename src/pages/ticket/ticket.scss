@@ -1,3 +1,10 @@
 page-ticket {
-
+  ion-content.content {
+    background-color: #fafafa;
+  }
+  ion-icon {
+    top: 1px;
+    position: relative;
+    padding-left: 4px;
+  }
 }

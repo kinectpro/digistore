@@ -1,12 +1,51 @@
 <ion-header>
   <ion-navbar>
     <ion-title text-center>
-      Ticket
+      E-Ticket Scan
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <ion-list-header>Ticket list</ion-list-header>
-  <button ion-button block (click)="openPeriod()">Test</button>
+  <ion-list no-padding no-margin>
+    <button no-padding ion-item (click)="openPageParams('E-Ticket template')">
+      <ion-label padding-left>
+        E-Ticket template
+      </ion-label>
+      <div item-content class="item-content">
+        Template 1
+        <ion-icon md="ios-arrow-forward" color="light"></ion-icon>
+      </div>
+    </button>
+    <button no-padding ion-item (click)="openPageParams('Event location')">
+      <ion-label padding-left>
+        Event location
+      </ion-label>
+      <div item-content class="item-content">
+        Hamburg
+        <ion-icon md="ios-arrow-forward" color="light"></ion-icon>
+      </div>
+    </button>
+    <button no-padding ion-item (click)="showedCalendar = !showedCalendar">
+      <ion-label padding-left>
+        Date
+      </ion-label>
+      <div item-content class="item-content">
+        {{ date | date:'d MMM, y' }}
+      </div>
+    </button>
+  </ion-list>
+
+  <ion-calendar [hidden]="!showedCalendar"
+                [(ngModel)]="date"
+                (onChange)="onChange()"
+                [type]="'string'"
+                [format]="'YYYY-MM-DD'"
+                [options]="{ monthFormat: 'MMMM y' }">
+  </ion-calendar>
+
 </ion-content>
+
+<ion-footer>
+  <button large text-capitalize ion-button full color="secondary" no-margin (click)="scan()">Scan</button>
+</ion-footer>

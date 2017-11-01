@@ -1,0 +1,56 @@
+<ion-header>
+
+  <ion-navbar>
+
+    <ion-buttons left>
+      <button text-capitalize ion-button clear color="clear" (click)="dismiss()" icon-left><ion-icon name="ios-arrow-back"></ion-icon></button>
+    </ion-buttons>
+
+    <ion-title padding-right text-center><b>{{ pageName }}</b></ion-title>
+
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+
+  <ion-list radio-group [(ngModel)]="currentTemplate" no-padding *ngIf="pageName == 'E-Ticket template'">
+    <ion-item-divider>
+      DS 24 ACCOUNT ID 1
+    </ion-item-divider>
+    <ion-item mode="ios" *ngFor="let template of templates, let i = index" [class.last]="i == templates.length - 1">
+      <ion-label color="dark">template {{ i + 1 }}</ion-label>
+      <ion-radio mode="ios" value="{{ template.value }}"></ion-radio>
+    </ion-item>
+    <ion-item-divider>
+      DS 24 ACCOUNT ID 2
+    </ion-item-divider>
+    <ion-item mode="ios" *ngFor="let template of templates2, let i = index" [class.last]="i == templates2.length - 1">
+      <ion-label color="dark">template {{ i + 1 }}</ion-label>
+      <ion-radio mode="ios" value="{{ template.value }}"></ion-radio>
+    </ion-item>
+  </ion-list>
+
+  <ion-list radio-group [(ngModel)]="currentTemplate" no-padding *ngIf="pageName == 'Event location'">
+    <ion-item-divider>
+      DS 24 ACCOUNT ID 1
+    </ion-item-divider>
+    <ion-item mode="ios" *ngFor="let template of templates, let i = index" [class.last]="i == templates.length - 1">
+      <ion-label color="dark">location {{ i + 1 }}</ion-label>
+      <ion-radio mode="ios" value="{{ template.value }}"></ion-radio>
+    </ion-item>
+    <ion-item-divider>
+      DS 24 ACCOUNT ID 2
+    </ion-item-divider>
+    <ion-item mode="ios" *ngFor="let template of templates2, let i = index" [class.last]="i == templates2.length - 1">
+      <ion-label color="dark">location {{ i + 1 }}</ion-label>
+      <ion-radio mode="ios" value="{{ template.value }}"></ion-radio>
+    </ion-item>
+  </ion-list>
+
+</ion-content>
+
+<section class="hideElementOnKeyboardShown bottom-logo">
+  <img src="assets/img/logo-long.png">
+</section>
