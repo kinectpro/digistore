@@ -19,7 +19,7 @@ export class TransactionService {
   getTransactionListByPeriod(params: Params, from: string = 'start', to: string = 'now'): Observable<{[key: string]: any}> {
     let params_search = new HttpParams();
     for (let key in params.search) {
-      if (params.search[key]) {
+      if (params.search[key] && key != 'product_name') {
         if (key === 'from')
           from = params.search[key];
         else if (key === 'to')
