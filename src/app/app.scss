@@ -66,6 +66,9 @@
   height: 3rem;
   margin: 1rem 0;
 }
+body.keyboard-is-open .hideElementOnKeyboardShown{
+  display: none;
+}
 
 // Add bottom padding to show content under the logo (need to add for all pages with this logo)
 page-report .scroll-content, page-search .scroll-content, page-transactions .scroll-content, page-sort-by .scroll-content {

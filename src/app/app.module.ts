@@ -31,6 +31,7 @@ import { EarningPageModule } from '../pages/earning/earning.module';
 import { AutoCompleteModule } from 'ionic2-auto-complete';
 import { ReportResultPage } from '../pages/report-result/report-result';
 import { KeysPipe } from '../pipes/keys-pipe';
+import { Keyboard } from '@ionic-native/keyboard';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -92,6 +93,7 @@ export function createTranslateLoader(http: HttpClient) {
     SplashScreen,
     InAppBrowser,
     TranslateService,
+    Keyboard,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     {
       provide: HTTP_INTERCEPTORS,
