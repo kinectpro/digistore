@@ -17,9 +17,7 @@ export class SettingsService {
 
   getGlobalSettings(): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.http.get(`${Settings.BASE_URL}${this.auth.apiKey}/json/getGlobalSettings?language=en`, {
-        params: new HttpParams().set('no-spinner', 'true')
-      }).subscribe(
+      this.http.get(`${Settings.BASE_URL}${this.auth.apiKey}/json/getGlobalSettings?language=en`).subscribe(
         (res: any) => {
           if (res.result === 'success') {
             resolve(res.data.types);
@@ -41,7 +39,13 @@ export class SettingsService {
         (res: any) => {
           if (res.result === 'success') {
             this.currencies = res.data.map(obj => obj.code);
-            resolve(this.currencies);
+            resolve(res.data.map(obj => {
+              return {
+                'name': obj.name,
+                'code': obj.code,
+                'symbol': obj.symbol
+              }
+            }));
           }
           else {
             reject(res.message);

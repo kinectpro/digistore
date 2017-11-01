@@ -49,29 +49,12 @@ export class SearchPage {
       //'to': [this.searchObj.to]
     });
 
-    this.translate.get('LOADING_TEXT').subscribe(loadingText => {
-      let loading = this.loadingCtrl.create({
-        content: loadingText,
-        spinner: 'dots'
-      });
+    this.currenciesFromServer = this.settingsServ.currencies;
 
-      loading.present();
-
-      Promise.all([
-        this.settingsServ.getGlobalSettings(),
-        this.settingsServ.getCurrencies(),
-      ]).then(
-        result => {
-          this.globalTypesFromServer = result[0];
-          this.currenciesFromServer = result[1];
-          loading.dismiss();
-        },
-        error => {
-          loading.dismiss();
-          console.log(error);
-        }
-      );
-    });
+    this.settingsServ.getGlobalSettings().then(
+      res => this.globalTypesFromServer = res,
+      err => console.log(err)
+    );
 
     this.payments = this.searchObj.pay_method ? this.searchObj.pay_method.split(',') : [];
     this.currencies = this.searchObj.currency ? this.searchObj.currency.split(',') : [];

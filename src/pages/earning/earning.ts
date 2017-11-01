@@ -25,45 +25,42 @@ export class EarningPage {
               public events: Events, public alertCtrl: AlertController, public settingsServ: SettingsService) {
 
     console.log('Init EarningPage');
-    this.init();
+    this.translate.get('LOADING_TEXT').subscribe(loadingText => {
+      this.init(loadingText);
+    });
   }
 
-  async init() {
-    // this.translate.get('LOADING_TEXT').subscribe(loadingText => {
-    //   let loading = this.loadingCtrl.create({
-    //     content: loadingText,
-    //     spinner: 'dots'
-    //   });
+  async init(loadingText: string) {
 
-      let loading = this.loadingCtrl.create({
-        content: 'Please wait...',
-        spinner: 'dots'
-      });
+    let loading = this.loadingCtrl.create({
+      content: loadingText,
+      spinner: 'dots'
+    });
 
-      loading.present();
+    loading.present();
+
+    try {
 
       this.currenciesFromServer = await this.settingsServ.getCurrencies();
 
-      Promise.all([
+      const result = await Promise.all([
         this.eServ.getTotal(true),
         this.eServ.getMonthlyData(true),
         this.eServ.getQuarterlyData(true),
         this.eServ.getYearlyData(true),
-      ]).then(
-        result => {
-          this.totalData = result[0];
-          this.monthlyData = result[1];
-          this.quarterlyData = result[2];
-          this.yearlyData = result[3];
-          loading.dismiss();
-        },
-        error => {
-          loading.dismiss();
-          console.log(error);
-        }
-      );
+      ]);
 
-    // });
+      this.totalData = result[0];
+      this.monthlyData = result[1];
+      this.quarterlyData = result[2];
+      this.yearlyData = result[3];
+
+      loading.dismiss();
+
+    } catch (err) {
+      console.log(err);
+      loading.dismiss();
+    }
   }
 
   ionViewDidEnter() {
@@ -79,13 +76,14 @@ export class EarningPage {
   changeCurrency() {
     let prompt = this.alertCtrl.create({
       title: 'Currency',
+      mode: 'ios',
       message: 'Please choose currency for data to be displayed',
-      inputs: this.currenciesFromServer.map(val => {
+      inputs: this.currenciesFromServer.map((val: any) => {
         return {
           type: 'radio',
-          label: val,
-          value: val,
-          checked: this.currentCurrency == val
+          label: val.symbol + ' ' + val.name,
+          value: val.code,
+          checked: this.currentCurrency == val.code
         }
       }),
       buttons: [
