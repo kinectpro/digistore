@@ -8,9 +8,19 @@ page-search {
   }
   ion-list {
     //--------- search-bar ---------
+    .clearAC {
+      color: #414141;
+      position: relative;
+      top: -50px;
+      left: calc(100vw - 70px)
+    }
     ion-auto-complete {
       width: 100%;
       ion-searchbar.searchbar-md {
+        .searchbar-clear-icon {
+          background-image: none;
+          display: none;
+        }
         div.searchbar-search-icon {
           display: none;
         }

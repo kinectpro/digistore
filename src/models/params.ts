@@ -9,6 +9,7 @@ export interface Sort {
 export interface Search {
   purchase_id?: string,
   product_id?: string,
+  product_name?: string,  // AutoComplete field
   first_name?: string,
   last_name?: string,
   email?: string,
@@ -23,6 +24,6 @@ export interface Search {
 }
 
 export interface Params {
-  search: Search;
-  sort: Sort;
+  search: Search,
+  sort: Sort
 }

@@ -66,6 +66,7 @@ export class SearchPage {
 
   ionViewDidLoad() {
     console.log('Init SearchPage');
+    this.searchbar.setValue(this.searchObj.product_name);
   }
 
   switchType() {
@@ -75,6 +76,7 @@ export class SearchPage {
   clearSearchParams() {
     this.searchFormExtended.reset();
     for (let key in this.searchObj) this.searchObj[key] = '';
+    this.searchbar.setValue('');
     this.payments = [];
     this.currencies = [];
   }
@@ -156,8 +158,13 @@ export class SearchPage {
   }
 
   selectedProduct(e: any) {
-    console.log(this.searchbar.getValue());
+    this.searchObj.product_name = this.searchbar.getValue();
     this.searchFormExtended.get('product_id').setValue(e.id);
+  }
+
+  clearProduct() {
+    this.searchbar.setValue('');
+    this.searchFormExtended.get('product_id').reset();
   }
 
 }

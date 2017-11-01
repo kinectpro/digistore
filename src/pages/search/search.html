@@ -48,7 +48,7 @@
 
   </section>
 
-  <section *ngIf="extended" no-padding>
+  <section [hidden]="!extended" no-padding>
 
     <ion-list no-padding>
 
@@ -60,7 +60,7 @@
 
         <form [formGroup]="searchFormExtended">
 
-          <ion-list padding *ngIf="activeTab === 'product'">
+          <ion-list no-margin padding-top padding-horizontal [hidden]="activeTab !== 'product'">
             <ion-item no-margin no-padding>
               <ion-input formControlName="purchase_id" type="text" placeholder="Order ID"></ion-input>
             </ion-item>
@@ -70,6 +70,7 @@
             </ion-item>
 
             <ion-auto-complete [dataProvider]="complServ" #searchbar (itemSelected)="selectedProduct($event)" [options]="{ placeholder : 'Product name' }"></ion-auto-complete>
+            <button no-margin ion-button icon-only clear (click)="clearProduct()" class="clearAC"><ion-icon name="ios-close"></ion-icon></button>
           </ion-list>
 
           <button no-padding ion-item icon-end (click)="setActive('customer')">
