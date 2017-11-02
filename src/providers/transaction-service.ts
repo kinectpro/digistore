@@ -101,7 +101,7 @@ export class TransactionService {
                 name: obj.buyer.first_name + ' ' + obj.buyer.last_name ,
                 email: obj.buyer.email,
                 phone: obj.buyer.phone_no,
-                affiliate: '' // todo: where to take it?
+                affiliate: obj.affiliate_name
               }
             });
           }
