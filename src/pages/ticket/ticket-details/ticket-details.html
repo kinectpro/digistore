@@ -1,0 +1,97 @@
+<ion-header no-border>
+
+  <ion-navbar hideBackButton no-padding>
+
+    <ion-grid [style.background-color]="result.status == 'success' ? '#35ce76' : '#ed1c24'">
+      <ion-row align-items-center>
+        <ion-col text-left col-2>
+          <button no-padding text-capitalize ion-button clear color="clear" (click)="redirect()" icon-left><ion-icon name="ios-arrow-back"></ion-icon>Back</button>
+        </ion-col>
+        <ion-col text-center col-8>
+          <ion-title><b>E-Ticket details</b></ion-title>
+        </ion-col>
+        <ion-col text-right col-2>
+          <button no-padding text-capitalize clear color="clear" ion-button (click)="redirect()">Done</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content no-padding>
+
+  <ion-list>
+
+    <ion-list-header text-center no-margin [style.color]="result.status == 'success' ? '#35ce76' : '#ed1c24'">
+      {{ result.title }}
+    </ion-list-header>
+
+    <ion-label text-wrap class="message" margin *ngIf="result.message">
+      {{ result.message }}
+    </ion-label>
+
+    <ion-grid>
+      <ion-row align-items-center>
+        <ion-col col-3 class="first-col">
+            Number
+        </ion-col>
+        <ion-col col-9 class="second-col">
+            {{ result.id }}
+        </ion-col>
+      </ion-row>
+      <ion-row align-items-center>
+        <ion-col col-3 class="first-col">
+          Order ID
+        </ion-col>
+        <ion-col col-9 class="second-col">
+          {{ result.purchase_item_id }}
+        </ion-col>
+      </ion-row>
+      <br>
+      <ion-row align-items-center>
+        <ion-col col-3 class="first-col">
+          First name
+        </ion-col>
+        <ion-col col-9 class="second-col">
+          {{ result.first_name }}
+        </ion-col>
+      </ion-row>
+      <ion-row align-items-center>
+        <ion-col col-3 class="first-col">
+          Last name
+        </ion-col>
+        <ion-col col-9 class="second-col">
+          {{ result.last_name }}
+        </ion-col>
+      </ion-row>
+      <ion-row align-items-center>
+        <ion-col col-3 class="first-col">
+          Email
+        </ion-col>
+        <ion-col col-9 class="second-col">
+          {{ result.email }}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </ion-list>
+
+  <button ion-button full outline text-capitalize class="pdf-btn">
+    <img src="assets/img/ic-download-pdf@2x.png" class="ic_download_pdf">Download E-Ticket
+  </button>
+
+  <section padding class="ctrl-buttons" *ngIf="result.status == 'invalid'">
+    <button (click)="retry()" ion-button block color="primary" text-capitalize>Retry</button>
+    <button (click)="checkWithNumber()" ion-button block outline text-capitalize>Check with number</button>
+  </section>
+
+</ion-content>
+
+<ion-footer *ngIf="result.status != 'invalid'">
+  <button large ion-button full [style.background-color]="result.status == 'success' ? '#35ce76' : '#ed1c24'" no-margin (click)="markTicket(result.status == 'success')">
+    <b>Mark as {{ result.status == 'success' ? 'used' : 'unused'}}</b>
+  </button>
+</ion-footer>

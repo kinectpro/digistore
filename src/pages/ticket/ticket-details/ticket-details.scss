@@ -1,0 +1,97 @@
+page-ticket-details {
+  ion-content.content {
+    background-color: #fafafa;
+  }
+  ion-navbar {
+    ion-grid {
+      height: 64px;
+      ion-row {
+        height: 64px;
+      }
+    }
+  }
+  ion-list {
+    background-color: #ffffff;
+    padding: 5vh 0 8vh 0;
+    margin: 0 0 31px!important;
+    ion-list-header {
+      border-top: none!important;
+      padding: 0!important;
+      height: 41px;
+      font-family: SFProDisplay;
+      font-size: 34px!important;
+      font-weight: bold;
+      line-height: 1.21;
+      letter-spacing: 0.4px;
+      text-align: center;
+      div.input-wrapper {
+        ion-label.label.label-md {
+          margin: 0;
+        }
+      }
+    }
+    ion-label.message {
+      font-family: SFProText;
+      font-size: 17px;
+      line-height: 1.29;
+      letter-spacing: -0.4px;
+      text-align: center;
+      color: #c1c4cb;
+    }
+    ion-grid {
+      margin-top: 20px;
+      ion-row {
+        font-family: SFProText;
+        ion-col.col.first-col {
+          padding: 0;
+          font-size: 13px!important;
+          line-height: 1.38;
+          letter-spacing: -0.1px;
+          text-align: right;
+          color: #c1c4cb;
+        }
+        ion-col.col.second-col {
+          padding: 0 0 0 29px;
+          font-size: 17px!important;
+          line-height: 1.29;
+          letter-spacing: -0.4px;
+          text-align: left;
+          color: #414141;
+        }
+      }
+    }
+  }
+  .ic_download_pdf {
+    width: 24px;
+    height: 22px;
+    margin-right: 7px;
+    object-fit: contain;
+  }
+  .pdf-btn {
+    height: 48px;
+    background-color: #ffffff;
+    border-color: #d1d1d6;
+    font-family: SFProText;
+    font-size: 17px;
+    line-height: 1.29;
+    letter-spacing: -0.4px;
+    color: #3247a1;
+  }
+  .ctrl-buttons {
+    font-family: SFProDisplay;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0.4px;
+    button {
+      margin-top: 8px;
+      margin-bottom: 8px;
+    }
+  }
+
+  ion-footer {
+    button {
+      text-transform: none!important;
+    }
+  }
+}

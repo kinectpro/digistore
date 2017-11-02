@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ModalController } from 'ionic-angular';
-import { TicketParamsPage } from '../ticket-params/ticket-params';
+import { TicketParamsPage } from './ticket-params/ticket-params';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { TicketScanPage } from './ticket-scan/ticket-scan';
 
 @Component({
   selector: 'page-ticket',
@@ -35,10 +36,12 @@ export class TicketPage {
 
   scan() {
     this.barcodeScanner.scan({ formats: 'QR_CODE'}).then((barcodeData) => {
-      console.log(barcodeData.text);
-      alert(barcodeData.text);
+      const pageTicketScan = this.modalCtrl.create(TicketScanPage, { barcodeData: barcodeData.text });
+      pageTicketScan.present();
     }, (err) => {
       console.log(err);
     });
+
+    // this.modalCtrl.create(TicketScanPage, { barcodeData: 'some barcode' }).present();  // for test
   }
 }

@@ -12,7 +12,6 @@ import { LandingPage } from '../pages/landing/landing';
 import { LoginPage } from '../pages/login/login';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { TransactionsPage } from '../pages/transactions/transactions';
-import { TicketPage } from '../pages/ticket/ticket';
 import { HttpClientModule, HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { LoadingInterceptor } from '../providers/loading-interceptor';
 import { AuthService } from '../providers/auth-service';
@@ -24,13 +23,12 @@ import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-transla
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SortByPage } from '../pages/sort-by/sort-by';
 import { TransactionDetailsPage } from '../pages/transaction-details/transaction-details';
-import { TicketParamsPage } from '../pages/ticket-params/ticket-params';
 import { SearchPage } from '../pages/search/search';
 import { ReportPage } from '../pages/report/report';
 import { ParamsPage } from '../pages/params/params';
 import { EarningPageModule } from '../pages/earning/earning.module';
 import { AutoCompleteModule } from 'ionic2-auto-complete';
-import { CalendarModule } from 'ion2-calendar';
+import { TicketPageModule } from '../pages/ticket/ticket.module';
 import { ReportResultPage } from '../pages/report-result/report-result';
 import { KeysPipe } from '../pipes/keys-pipe';
 import { Keyboard } from '@ionic-native/keyboard';
@@ -44,8 +42,6 @@ export function createTranslateLoader(http: HttpClient) {
   declarations: [
     MyApp,
     TransactionsPage,
-    TicketPage,
-    TicketParamsPage,
     SettingsPage,
     LandingPage,
     LoginPage,
@@ -62,8 +58,8 @@ export function createTranslateLoader(http: HttpClient) {
     BrowserModule,
     AutoCompleteModule,
     HttpClientModule,
+    TicketPageModule,
     EarningPageModule,
-    CalendarModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -81,8 +77,6 @@ export function createTranslateLoader(http: HttpClient) {
   entryComponents: [
     MyApp,
     TransactionsPage,
-    TicketPage,
-    TicketParamsPage,
     LandingPage,
     LoginPage,
     TabsPage,
