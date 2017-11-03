@@ -1,5 +1,12 @@
 page-ticket-qr-scanner {
-  ion-content.content.content-md {
-    background: transparent !important;
+  .qrscanner {
+    background:none;
+
+    &-area {
+      width:100%;
+      height:90vh;
+      background: url(../assets/img/scanner.svg) no-repeat center center;
+      background-size: contain;
+    }
   }
 }
