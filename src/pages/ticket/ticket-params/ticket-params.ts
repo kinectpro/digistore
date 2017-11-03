@@ -22,11 +22,22 @@ export class TicketParamsPage {
   }
 
   dismiss() {
-
+    if (this.pageName == 'E-Ticket template') {
+      this.params.template.value = this.findValueInObjByKey(this.paramsFromServer.templates, this.params.template.key);
+    } else {
+      this.params.location.value = this.findValueInObjByKey(this.paramsFromServer.locations, this.params.location.key);
+    }
     this.viewCtrl.dismiss({
       params: this.params
     });
   }
 
+  findValueInObjByKey(obj: any, key: string): string {
+    let sumObj = {};
+    for (var prop in obj) {
+      sumObj = Object.assign(sumObj, obj[prop]);
+    }
+    return sumObj[key];
+  }
 
 }

@@ -38,12 +38,6 @@ export class TicketPage {
     const pageModal = this.modalCtrl.create(TicketParamsPage, { pageName: pageName, params: this.params, paramsFromServer: this.paramsFromServer });
     pageModal.onDidDismiss(res => {
       this.params = res.params;
-      console.log(this.params);
-      let sumObj = {};
-      for (var prop in this.paramsFromServer.templates) {
-        sumObj = Object.assign(sumObj, this.paramsFromServer.templates[prop]);
-      }
-      console.log(sumObj);
     });
     pageModal.present();
   }
