@@ -5,12 +5,16 @@ import { TicketDetailsPage } from './ticket-details/ticket-details';
 import { TicketParamsPage } from './ticket-params/ticket-params';
 import { TicketScanPage } from './ticket-scan/ticket-scan';
 import { CalendarModule } from 'ion2-calendar';
+import { TicketCheckPage } from './ticket-check/ticket-check';
+import { TicketSearchResultsPage } from './ticket-search-results/ticket-search-results';
 
 @NgModule({
   declarations: [
     TicketPage,
     TicketDetailsPage,
     TicketParamsPage,
+    TicketCheckPage,
+    TicketSearchResultsPage,
     TicketScanPage
   ],
   imports: [
@@ -20,7 +24,9 @@ import { CalendarModule } from 'ion2-calendar';
   entryComponents: [
     TicketParamsPage,
     TicketDetailsPage,
-    TicketScanPage
+    TicketScanPage,
+    TicketSearchResultsPage,
+    TicketCheckPage
   ],
   exports: [
     TicketPage

@@ -9,9 +9,11 @@ import { TicketDetailsPage } from '../ticket-details/ticket-details';
 export class TicketScanPage {
 
   barcodeData: any;
+  rootNav: NavController;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public loadingCtrl: LoadingController, public app: App) {
     this.barcodeData = navParams.get('barcodeData');
+    this.rootNav = navParams.get('rootNav');
     console.log(this.barcodeData);
   }
 
@@ -26,11 +28,11 @@ export class TicketScanPage {
     loading.present();
 
     setTimeout(() => {
-      this.navCtrl.push(TicketDetailsPage, {
+      this.rootNav.push(TicketDetailsPage, {
         result: {
           title: 'Title',
           message: 'Abrakadabre abrakadabra abrakadabra abrakadabra asdasd asd as dd daa daa',
-          status: 'success',  // success, invalid or cancel
+          status: 'invalid',  // success, invalid or cancel
           date: '2016-09-23',
           location_id: 3,
           template_id: 3,

@@ -1,0 +1,39 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Search results</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+
+  <ion-item-divider class="header">
+    <ion-label no-margin>
+      <ion-row text-uppercase margin-right>
+        <ion-col col-6 text-left><span class="col-name">Order ID</span></ion-col>
+        <ion-col col-6 text-right><span class="col-name">Status</span></ion-col>
+      </ion-row>
+    </ion-label>
+  </ion-item-divider>
+
+  <button no-padding ion-item *ngFor="let order of orders" (click)="changeStatus(order)">
+    <ion-label no-margin>
+      <ion-row margin-left align-items-center>
+        <ion-col col-6 text-left>
+          <span class="col-order">{{ order.id }}</span>
+        </ion-col>
+        <ion-col col-6 text-right>
+          <span class="col-status" [style.color]="order.status ? '#35ce76' : '#c1c4cb'">{{ order.status ? 'Valid' : 'Used' }}</span>
+          <ion-icon md="ios-arrow-forward" padding-left color="light"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-label>
+  </button>
+
+</ion-content>
+
+<section class="bottom-logo">
+  <img src="assets/img/logo-long.png">
+</section>

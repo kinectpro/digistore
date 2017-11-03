@@ -1,0 +1,34 @@
+page-ticket-search-results {
+  .scroll-content {
+    background: #fafafa;
+  }
+  .header {
+    background-color: #fafafa;
+    color: #c1c4cb;
+  }
+  .col-name {
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.18;
+    letter-spacing: normal;
+  }
+  .col-order {
+    font-family: SFProText;
+    font-size: 17px;
+    line-height: 1.29;
+    letter-spacing: -0.4px;
+    color: #414141;
+    text-transform: uppercase;
+  }
+  .col-status {
+    font-family: SFProText;
+    font-size: 17px;
+    line-height: 1.29;
+    letter-spacing: -0.4px;
+  }
+  button.item {
+    div.input-wrapper {
+      height: 56px;
+    }
+  }
+}

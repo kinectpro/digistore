@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { TicketCheckPage } from '../ticket-check/ticket-check';
 
 @Component({
   selector: 'page-ticket-details',
@@ -25,7 +26,7 @@ export class TicketDetailsPage {
   }
 
   checkWithNumber() {
-
+    this.navCtrl.push(TicketCheckPage);
   }
 
   markTicket(mark: boolean) {

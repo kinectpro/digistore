@@ -1,0 +1,65 @@
+page-ticket-check {
+  ion-content {
+    .item-input {
+      margin-bottom: 10px;
+      border: solid 1px #e3e3e3;
+      border-radius: 4px;
+      .item-inner {
+        border-bottom: none!important;
+        input {
+          margin: 0;
+          padding: 17px;
+          height: 56px;
+          font-family: SFProText;
+          font-size: 17px;
+          line-height: 1.29;
+          letter-spacing: -0.4px;
+          text-align: left;
+          color: #414141;
+        }
+      }
+    }
+    ion-grid {
+      margin-top: 24px;
+      ion-row {
+        padding: 0 6px;
+      }
+    }
+    ion-list {
+      padding: 0 29px;
+      ion-label.message {
+        padding: 5vh 5vw 0;
+        margin: 10vh 9vw;
+        font-family: SFProText;
+        font-size: 17px;
+        line-height: 1.29;
+        letter-spacing: -0.4px;
+        text-align: center;
+        color: #c1c4cb;
+      }
+      ion-label.comment {
+        font-family: SFProText;
+        font-size: 13px;
+        line-height: 1.31;
+        letter-spacing: -0.1px;
+        color: #687381;
+      }
+      a.item {
+        padding: 0;
+        margin: 10px 0;
+        font-family: SFProText;
+        font-size: 13px;
+        letter-spacing: -0.4px;
+        text-align: center;
+        color: #3247a1;
+      }
+    }
+  }
+  ion-footer {
+    bottom: 30px;
+    padding: 0 29px;
+  }
+  ion-footer.footer.footer-md::before {
+    background-image: none;
+  }
+}

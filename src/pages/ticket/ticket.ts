@@ -35,13 +35,14 @@ export class TicketPage {
   }
 
   scan() {
-    this.barcodeScanner.scan({ formats: 'QR_CODE'}).then((barcodeData) => {
-      const pageTicketScan = this.modalCtrl.create(TicketScanPage, { barcodeData: barcodeData.text });
-      pageTicketScan.present();
-    }, (err) => {
-      console.log(err);
-    });
+    // this.barcodeScanner.scan({ formats: 'QR_CODE'}).then((barcodeData) => {
+    //   const pageTicketScan = this.modalCtrl.create(TicketScanPage, { barcodeData: barcodeData.text });
+    //   pageTicketScan.present();
+    // }, (err) => {
+    //   console.log(err);
+    // });
 
-    // this.modalCtrl.create(TicketScanPage, { barcodeData: 'some barcode' }).present();  // for test
+
+    this.modalCtrl.create(TicketScanPage, { barcodeData: 'some barcode', rootNav: this.navCtrl }).present();  // for test
   }
 }
