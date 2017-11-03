@@ -19,6 +19,7 @@ import { EarningService } from '../providers/earning-service';
 import { SettingsService } from '../providers/settings-service';
 import { CompleteService } from '../providers/complete-service';
 import { TransactionService } from '../providers/transaction-service';
+import { TicketService } from '../providers/ticket-service';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SortByPage } from '../pages/sort-by/sort-by';
@@ -26,6 +27,7 @@ import { TransactionDetailsPage } from '../pages/transaction-details/transaction
 import { SearchPage } from '../pages/search/search';
 import { ReportPage } from '../pages/report/report';
 import { ParamsPage } from '../pages/params/params';
+import { TicketParamsPage } from '../pages/ticket/ticket-params/ticket-params';
 import { EarningPageModule } from '../pages/earning/earning.module';
 import { AutoCompleteModule } from 'ionic2-auto-complete';
 import { TicketPageModule } from '../pages/ticket/ticket.module';
@@ -42,6 +44,7 @@ export function createTranslateLoader(http: HttpClient) {
   declarations: [
     MyApp,
     TransactionsPage,
+    TicketParamsPage,
     SettingsPage,
     LandingPage,
     LoginPage,
@@ -77,6 +80,7 @@ export function createTranslateLoader(http: HttpClient) {
   entryComponents: [
     MyApp,
     TransactionsPage,
+    TicketParamsPage,
     LandingPage,
     LoginPage,
     TabsPage,
@@ -105,6 +109,7 @@ export function createTranslateLoader(http: HttpClient) {
     EarningService,
     CompleteService,
     SettingsService,
+    TicketService,
     TransactionService
   ]
 })

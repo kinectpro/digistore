@@ -13,7 +13,7 @@
         E-Ticket template
       </ion-label>
       <div item-content class="item-content">
-        Template 1
+        {{ params.template.value }}
         <ion-icon md="ios-arrow-forward" color="light"></ion-icon>
       </div>
     </button>
@@ -22,7 +22,7 @@
         Event location
       </ion-label>
       <div item-content class="item-content">
-        Hamburg
+        {{ params.location.value }}
         <ion-icon md="ios-arrow-forward" color="light"></ion-icon>
       </div>
     </button>
@@ -31,13 +31,13 @@
         Date
       </ion-label>
       <div item-content class="item-content">
-        {{ date | date:'d MMM, y' }}
+        {{ params.date | date:'d MMM, y' }}
       </div>
     </button>
   </ion-list>
 
   <ion-calendar [hidden]="!showedCalendar"
-                [(ngModel)]="date"
+                [(ngModel)]="params.date"
                 (onChange)="onChange()"
                 [type]="'string'"
                 [format]="'YYYY-MM-DD'"

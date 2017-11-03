@@ -8,20 +8,13 @@ import { NavController, NavParams, ViewController } from 'ionic-angular';
 export class TicketParamsPage {
 
   pageName: string;
-  currentTemplate = 't2';
-  templates = [
-    {value: 't1'},
-    {value: 't2'},
-    {value: 't3'}
-  ];
-  templates2 = [
-    {value: 'tt1'},
-    {value: 'tt2'},
-    {value: 'tt3'}
-  ];
+  params: any;
+  paramsFromServer: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController) {
     this.pageName = navParams.get('pageName');
+    this.params = navParams.get('params');
+    this.paramsFromServer = navParams.get('paramsFromServer');
   }
 
   ionViewDidLoad() {
@@ -29,9 +22,11 @@ export class TicketParamsPage {
   }
 
   dismiss() {
+
     this.viewCtrl.dismiss({
-      value: this.currentTemplate
+      params: this.params
     });
   }
+
 
 }

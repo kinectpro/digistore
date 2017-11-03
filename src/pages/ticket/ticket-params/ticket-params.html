@@ -15,38 +15,28 @@
 
 <ion-content>
 
-  <ion-list radio-group [(ngModel)]="currentTemplate" no-padding *ngIf="pageName == 'E-Ticket template'">
-    <ion-item-divider>
-      DS 24 ACCOUNT ID 1
-    </ion-item-divider>
-    <ion-item mode="ios" *ngFor="let template of templates, let i = index" [class.last]="i == templates.length - 1">
-      <ion-label color="dark">template {{ i + 1 }}</ion-label>
-      <ion-radio mode="ios" value="{{ template.value }}"></ion-radio>
-    </ion-item>
-    <ion-item-divider>
-      DS 24 ACCOUNT ID 2
-    </ion-item-divider>
-    <ion-item mode="ios" *ngFor="let template of templates2, let i = index" [class.last]="i == templates2.length - 1">
-      <ion-label color="dark">template {{ i + 1 }}</ion-label>
-      <ion-radio mode="ios" value="{{ template.value }}"></ion-radio>
-    </ion-item>
+  <ion-list radio-group [(ngModel)]="params.template.key" no-padding *ngIf="pageName == 'E-Ticket template'">
+    <div *ngFor="let account of paramsFromServer.templates | keys">
+      <ion-item-divider>
+        DS 24 ACCOUNT ID {{ account.key }}
+      </ion-item-divider>
+      <ion-item mode="ios" *ngFor="let template of account.value | keys, let i = index" [class.last]="i == template.num - 1">
+        <ion-label color="dark">{{ template.value }}</ion-label>
+        <ion-radio mode="ios" value="{{ template.key }}"></ion-radio>
+      </ion-item>
+    </div>
   </ion-list>
 
-  <ion-list radio-group [(ngModel)]="currentTemplate" no-padding *ngIf="pageName == 'Event location'">
-    <ion-item-divider>
-      DS 24 ACCOUNT ID 1
-    </ion-item-divider>
-    <ion-item mode="ios" *ngFor="let template of templates, let i = index" [class.last]="i == templates.length - 1">
-      <ion-label color="dark">location {{ i + 1 }}</ion-label>
-      <ion-radio mode="ios" value="{{ template.value }}"></ion-radio>
-    </ion-item>
-    <ion-item-divider>
-      DS 24 ACCOUNT ID 2
-    </ion-item-divider>
-    <ion-item mode="ios" *ngFor="let template of templates2, let i = index" [class.last]="i == templates2.length - 1">
-      <ion-label color="dark">location {{ i + 1 }}</ion-label>
-      <ion-radio mode="ios" value="{{ template.value }}"></ion-radio>
-    </ion-item>
+  <ion-list radio-group [(ngModel)]="params.location.key" no-padding *ngIf="pageName == 'Event location'">
+    <div *ngFor="let account of paramsFromServer.locations | keys">
+      <ion-item-divider>
+        DS 24 ACCOUNT ID {{ account.key }}
+      </ion-item-divider>
+      <ion-item mode="ios" *ngFor="let location of account.value | keys, let i = index" [class.last]="i == location.num - 1">
+        <ion-label color="dark">{{ location.value }}</ion-label>
+        <ion-radio mode="ios" value="{{ location.key }}"></ion-radio>
+      </ion-item>
+    </div>
   </ion-list>
 
 </ion-content>
