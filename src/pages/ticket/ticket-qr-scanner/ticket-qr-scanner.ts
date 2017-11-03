@@ -15,14 +15,17 @@ export class TicketQrScannerPage {
 
   ionViewDidLoad() {
 
+    console.log('ionViewDidLoad TicketQrScannerPage');
+
     document.body.classList.add('hidden-tabbar');
 
-    console.log('ionViewDidLoad TicketQrScannerPage');
+    let stoppedTimer: boolean = false;
 
     this.qrScanner.prepare().then((status: QRScannerStatus) => {
       if (status.authorized) {
         let scanSub = this.qrScanner.scan().subscribe((code: string) => {
 
+          stoppedTimer = true;
           this.navCtrl.push(TicketScanPage, { barcodeData: code });
           scanSub.unsubscribe();    // stop scanning
           this.qrScanner.destroy(); // hide camera preview
@@ -33,9 +36,9 @@ export class TicketQrScannerPage {
         // show camera preview
         this.qrScanner.show();
 
-        // setTimeout(() => {
-        //   this.cancel();
-        // }, 10000)
+        setTimeout(() => {
+          if (!stoppedTimer) this.cancel();
+        }, 10000)
       }
       else if (status.denied) {
         console.log('status.denied');

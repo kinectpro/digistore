@@ -16,7 +16,10 @@ export class TicketScanPage {
   }
 
   ionViewDidLoad() {
+
     console.log('ionViewDidLoad TicketScanPage');
+
+    document.body.classList.add('hidden-tabbar-when-scan');
 
     let loading = this.loadingCtrl.create({
       content: 'loading',
@@ -51,6 +54,10 @@ export class TicketScanPage {
 
   dismiss() {
     this.viewCtrl.dismiss();    
+  }
+
+  ionViewWillLeave() {
+    document.body.classList.remove('hidden-tabbar-when-scan');
   }
 
 }
