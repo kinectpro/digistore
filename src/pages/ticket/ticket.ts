@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController } from 'ionic-angular';
+import { NavController, NavParams, ModalController, App } from 'ionic-angular';
 import { TicketParamsPage } from './ticket-params/ticket-params';
-import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { TicketScanPage } from './ticket-scan/ticket-scan';
+import { TicketQrScannerPage } from './ticket-qr-scanner/ticket-qr-scanner';
 
 @Component({
   selector: 'page-ticket',
@@ -13,7 +13,7 @@ export class TicketPage {
   date: any = new Date();
   showedCalendar: boolean = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public barcodeScanner: BarcodeScanner) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public app: App) {
 
   }
 
@@ -43,6 +43,6 @@ export class TicketPage {
     // });
 
 
-    this.modalCtrl.create(TicketScanPage, { barcodeData: 'some barcode', rootNav: this.navCtrl }).present();  // for test
+    this.navCtrl.push(TicketQrScannerPage);
   }
 }

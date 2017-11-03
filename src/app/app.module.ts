@@ -32,7 +32,7 @@ import { TicketPageModule } from '../pages/ticket/ticket.module';
 import { ReportResultPage } from '../pages/report-result/report-result';
 import { KeysPipe } from '../pipes/keys-pipe';
 import { Keyboard } from '@ionic-native/keyboard';
-import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { QRScanner } from '@ionic-native/qr-scanner';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -91,7 +91,7 @@ export function createTranslateLoader(http: HttpClient) {
   providers: [
     StatusBar,
     SplashScreen,
-    BarcodeScanner,
+    QRScanner,
     InAppBrowser,
     TranslateService,
     Keyboard,

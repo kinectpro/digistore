@@ -7,6 +7,7 @@ import { TicketScanPage } from './ticket-scan/ticket-scan';
 import { CalendarModule } from 'ion2-calendar';
 import { TicketCheckPage } from './ticket-check/ticket-check';
 import { TicketSearchResultsPage } from './ticket-search-results/ticket-search-results';
+import { TicketQrScannerPage } from './ticket-qr-scanner/ticket-qr-scanner';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { TicketSearchResultsPage } from './ticket-search-results/ticket-search-r
     TicketParamsPage,
     TicketCheckPage,
     TicketSearchResultsPage,
+    TicketQrScannerPage,
     TicketScanPage
   ],
   imports: [
@@ -26,6 +28,7 @@ import { TicketSearchResultsPage } from './ticket-search-results/ticket-search-r
     TicketDetailsPage,
     TicketScanPage,
     TicketSearchResultsPage,
+    TicketQrScannerPage,
     TicketCheckPage
   ],
   exports: [
