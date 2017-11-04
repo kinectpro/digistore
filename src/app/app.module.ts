@@ -27,12 +27,11 @@ import { TransactionDetailsPage } from '../pages/transaction-details/transaction
 import { SearchPage } from '../pages/search/search';
 import { ReportPage } from '../pages/report/report';
 import { ParamsPage } from '../pages/params/params';
-import { TicketParamsPage } from '../pages/ticket/ticket-params/ticket-params';
 import { EarningPageModule } from '../pages/earning/earning.module';
 import { AutoCompleteModule } from 'ionic2-auto-complete';
 import { TicketPageModule } from '../pages/ticket/ticket.module';
+import { SharedModule } from '../shared/shared.module';
 import { ReportResultPage } from '../pages/report-result/report-result';
-import { KeysPipe } from '../pipes/keys-pipe';
 import { Keyboard } from '@ionic-native/keyboard';
 import { QRScanner } from '@ionic-native/qr-scanner';
 
@@ -44,7 +43,6 @@ export function createTranslateLoader(http: HttpClient) {
   declarations: [
     MyApp,
     TransactionsPage,
-    TicketParamsPage,
     SettingsPage,
     LandingPage,
     LoginPage,
@@ -53,12 +51,12 @@ export function createTranslateLoader(http: HttpClient) {
     SortByPage,
     SearchPage,
     ReportPage,
-    KeysPipe,
     ReportResultPage,
     TransactionDetailsPage
   ],
   imports: [
     BrowserModule,
+    SharedModule,
     AutoCompleteModule,
     HttpClientModule,
     TicketPageModule,
@@ -80,7 +78,6 @@ export function createTranslateLoader(http: HttpClient) {
   entryComponents: [
     MyApp,
     TransactionsPage,
-    TicketParamsPage,
     LandingPage,
     LoginPage,
     TabsPage,
