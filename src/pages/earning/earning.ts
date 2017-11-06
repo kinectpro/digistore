@@ -76,7 +76,7 @@ export class EarningPage {
   changeCurrency() {
     let prompt = this.alertCtrl.create({
       title: 'Currency',
-      mode: 'ios',
+      // mode: 'ios',
       message: 'Please choose currency for data to be displayed',
       inputs: this.currenciesFromServer.map((val: any) => {
         return {

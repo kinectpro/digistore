@@ -162,3 +162,18 @@ body.hidden-tabbar .tabbar{
 body.hidden-tabbar-when-scan .tabbar{
   display: none;
 }
+
+// alert message
+ion-alert.alert-md {
+  div.alert-wrapper {
+    div.alert-head {
+      text-align: center;
+      padding: 12px 16px 7px;
+    }
+    div.alert-message {
+      text-align: center;
+      font-size: 13px;
+      padding: 0 16px 21px;
+    }
+  }
+}
