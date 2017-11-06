@@ -3,6 +3,7 @@ import { NavController, NavParams, ViewController } from 'ionic-angular';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
 import { TicketScanPage } from '../ticket-scan/ticket-scan';
 import { TicketParams } from '../../../models/params';
+import { TicketDetailsPage } from '../ticket-details/ticket-details';
 
 @Component({
   selector: 'page-ticket-qr-scanner',
@@ -29,7 +30,7 @@ export class TicketQrScannerPage {
         let scanSub = this.qrScanner.scan().subscribe((code: string) => {
 
           stoppedTimer = true;
-          this.params.eticket_id = code;
+          this.params.ticket = code;
           this.navCtrl.push(TicketScanPage, { params: this.params });
           scanSub.unsubscribe();    // stop scanning
           this.qrScanner.destroy(); // hide camera preview
@@ -41,7 +42,18 @@ export class TicketQrScannerPage {
         this.qrScanner.show();
 
         setTimeout(() => {
-          if (!stoppedTimer) this.cancel();
+          if (!stoppedTimer) {
+            this.qrScanner.destroy(); // hide camera preview
+            this.navCtrl.push(TicketDetailsPage, {
+              params: this.params,
+              result: {
+                status: 'Failure',
+                msg: 'QR code could not be read'
+              }
+            }).then( () => {
+              this.viewCtrl.dismiss();  //drop page
+            });
+          }
         }, 10000)
       }
       else if (status.denied) {

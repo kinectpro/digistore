@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController } from 'ionic-angular';
 import { TicketParams } from '../../../models/params';
+import { TicketService } from '../../../providers/ticket-service';
 
 @Component({
   selector: 'page-ticket-params',
@@ -12,7 +13,7 @@ export class TicketParamsPage {
   params: TicketParams;
   paramsFromServer: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public ticketSrv: TicketService) {
     this.pageName = navParams.get('pageName');
     this.params = navParams.get('params');
     this.paramsFromServer = navParams.get('paramsFromServer');
@@ -24,9 +25,11 @@ export class TicketParamsPage {
 
   dismiss() {
     if (this.pageName == 'E-Ticket template') {
-      this.params.template_id.value = this.findValueInObjByKey(this.paramsFromServer.templates, this.params.template_id.key);
+      this.params.template.value = this.findValueInObjByKey(this.paramsFromServer.templates, this.params.template.key);
+      this.ticketSrv.template = this.params.template;  // save to LocalStorage
     } else {
-      this.params.location_id.value = this.findValueInObjByKey(this.paramsFromServer.locations, this.params.location_id.key);
+      this.params.location.value = this.findValueInObjByKey(this.paramsFromServer.locations, this.params.location.key);
+      this.ticketSrv.location = this.params.location;  // save to LocalStorage
     }
     this.viewCtrl.dismiss({
       params: this.params

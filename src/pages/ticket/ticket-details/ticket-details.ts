@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { TicketCheckPage } from '../ticket-check/ticket-check';
+import { TicketParams } from '../../../models/params';
 
 @Component({
   selector: 'page-ticket-details',
@@ -8,9 +9,11 @@ import { TicketCheckPage } from '../ticket-check/ticket-check';
 })
 export class TicketDetailsPage {
   result: any;
+  params: TicketParams;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
     this.result = navParams.get('result');
+    this.params = navParams.get('params');
   }
 
   ionViewDidLoad() {
@@ -26,7 +29,7 @@ export class TicketDetailsPage {
   }
 
   checkWithNumber() {
-    this.navCtrl.push(TicketCheckPage);
+    this.navCtrl.push(TicketCheckPage, { params: this.params });
   }
 
   markTicket(mark: boolean) {

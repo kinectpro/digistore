@@ -40,27 +40,31 @@
 
   <ng-template #withNumber>
 
-    <ion-list>
+    <form [formGroup]="numberForm">
 
-      <ion-label text-wrap class="message">
-        Enter E-Ticket number below to check if it is valid
-      </ion-label>
+      <ion-list>
 
-      <ion-item  no-margin no-padding>
-        <ion-input type="text" [(ngModel)]="number"></ion-input>
-      </ion-item>
+        <ion-label text-wrap class="message">
+          Enter E-Ticket number below to check if it is valid
+        </ion-label>
 
-      <ion-label text-wrap class="comment">
-        E-Ticket will be marked as used
-      </ion-label>
+        <ion-item  no-margin no-padding>
+          <ion-input formControlName="number" type="text"></ion-input>
+        </ion-item>
 
-      <button (click)="check()" ion-button block color="primary" text-capitalize>Check E-Ticket</button>
+        <ion-label text-wrap class="comment">
+          E-Ticket will be marked as used
+        </ion-label>
 
-      <a ion-item (click)="findWithoutNumber()">
-        Don't have E-Ticket number?
-      </a>
+        <button (click)="check()" ion-button block color="primary" text-capitalize>Check E-Ticket</button>
 
-    </ion-list>
+        <a ion-item (click)="findWithoutNumber()">
+          Don't have E-Ticket number?
+        </a>
+
+      </ion-list>
+
+    </form>
 
   </ng-template>
 

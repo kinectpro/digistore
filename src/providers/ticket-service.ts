@@ -10,9 +10,30 @@ import { TicketParams } from '../models/params';
 @Injectable()
 export class TicketService {
 
+  private _location: {[key: string]: string};
+  private _template: {[key: string]: string};
+
   constructor(public http: HttpClient, public auth: AuthService) {
     console.log('Init TicketServiceProvider');
+    this._location = JSON.parse(localStorage.getItem('location')) || { key: '', value: '' };
+    this._template = JSON.parse(localStorage.getItem('template')) || { key: '', value: '' };
   }
+
+  get location(): {[key: string]: string} {
+    return this._location;
+  }
+  set location(value: {[key: string]: string}) {
+    localStorage.setItem('location', JSON.stringify(value));
+    this._location = value;
+  }
+  get template(): {[key: string]: string} {
+    return this._template;
+  }
+  set template(value: {[key: string]: string}) {
+    localStorage.setItem('template', JSON.stringify(value));
+    this._template = value;
+  }
+
 
   getTicketParams(): Promise<any> {
     return new Promise((resolve, reject) => {
@@ -36,9 +57,9 @@ export class TicketService {
   validateTicket(params: TicketParams): Promise<any> {
     return new Promise((resolve, reject) => {
       let ticketParams = new HttpParams();
-      ticketParams = ticketParams.append('location_id', params.location_id.key);
-      ticketParams = ticketParams.append('template_id', params.template_id.key);
-      ticketParams = ticketParams.append('eticket_id', params.eticket_id);
+      ticketParams = ticketParams.append('location_id', params.location.key);
+      ticketParams = ticketParams.append('template_id', params.template.key);
+      ticketParams = ticketParams.append('eticket_id', params.ticket);
       ticketParams = ticketParams.append('date', params.date);
       this.http.get(`${Settings.BASE_URL}${this.auth.apiKey}/json/validateEticket?language=en`, {
         params: ticketParams

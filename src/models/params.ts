@@ -29,8 +29,8 @@ export interface Params {
 }
 
 export interface TicketParams {
-  eticket_id: any,
-  template_id: any,
-  location_id: any,
+  ticket: any,
+  template: any,
+  location: any,
   date: any
 }
