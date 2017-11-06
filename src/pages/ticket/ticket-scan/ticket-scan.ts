@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController, LoadingController, App } from 'ionic-angular';
+import { NavController, NavParams, ViewController, LoadingController } from 'ionic-angular';
 import { TicketDetailsPage } from '../ticket-details/ticket-details';
+import { TicketParams } from '../../../models/params';
 
 @Component({
   selector: 'page-ticket-scan',
@@ -8,11 +9,14 @@ import { TicketDetailsPage } from '../ticket-details/ticket-details';
 })
 export class TicketScanPage {
 
-  barcodeData: any;
+  params: TicketParams;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public loadingCtrl: LoadingController, public app: App) {
-    this.barcodeData = navParams.get('barcodeData');
-    console.log(this.barcodeData);
+  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public loadingCtrl: LoadingController) {
+    this.params = navParams.get('params');
+    console.log(this.params.eticket_id);
+    console.log(this.params.date);
+    console.log(this.params.template_id.key);
+    console.log(this.params.location_id.key);
   }
 
   ionViewDidLoad() {

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController } from 'ionic-angular';
+import { TicketParams } from '../../../models/params';
 
 @Component({
   selector: 'page-ticket-params',
@@ -8,7 +9,7 @@ import { NavController, NavParams, ViewController } from 'ionic-angular';
 export class TicketParamsPage {
 
   pageName: string;
-  params: any;
+  params: TicketParams;
   paramsFromServer: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController) {
@@ -23,9 +24,9 @@ export class TicketParamsPage {
 
   dismiss() {
     if (this.pageName == 'E-Ticket template') {
-      this.params.template.value = this.findValueInObjByKey(this.paramsFromServer.templates, this.params.template.key);
+      this.params.template_id.value = this.findValueInObjByKey(this.paramsFromServer.templates, this.params.template_id.key);
     } else {
-      this.params.location.value = this.findValueInObjByKey(this.paramsFromServer.locations, this.params.location.key);
+      this.params.location_id.value = this.findValueInObjByKey(this.paramsFromServer.locations, this.params.location_id.key);
     }
     this.viewCtrl.dismiss({
       params: this.params

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController } from 'ionic-angular';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
 import { TicketScanPage } from '../ticket-scan/ticket-scan';
+import { TicketParams } from '../../../models/params';
 
 @Component({
   selector: 'page-ticket-qr-scanner',
@@ -9,8 +10,10 @@ import { TicketScanPage } from '../ticket-scan/ticket-scan';
 })
 export class TicketQrScannerPage {
 
+  params: TicketParams;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public qrScanner: QRScanner, public viewCtrl: ViewController) {
+    this.params = navParams.get('params');
   }
 
   ionViewDidLoad() {
@@ -26,7 +29,8 @@ export class TicketQrScannerPage {
         let scanSub = this.qrScanner.scan().subscribe((code: string) => {
 
           stoppedTimer = true;
-          this.navCtrl.push(TicketScanPage, { barcodeData: code });
+          this.params.eticket_id = code;
+          this.navCtrl.push(TicketScanPage, { params: this.params });
           scanSub.unsubscribe();    // stop scanning
           this.qrScanner.destroy(); // hide camera preview
           this.viewCtrl.dismiss();  //drop page

@@ -27,3 +27,10 @@ export interface Params {
   search: Search,
   sort: Sort
 }
+
+export interface TicketParams {
+  eticket_id: any,
+  template_id: any,
+  location_id: any,
+  date: any
+}

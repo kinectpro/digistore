@@ -15,7 +15,7 @@
 
 <ion-content>
 
-  <ion-list radio-group [(ngModel)]="params.template.key" no-padding *ngIf="pageName == 'E-Ticket template'">
+  <ion-list radio-group [(ngModel)]="params.template_id.key" no-padding *ngIf="pageName == 'E-Ticket template'">
     <div *ngFor="let account of paramsFromServer.templates | keys">
       <ion-item-divider>
         DS 24 ACCOUNT ID {{ account.key }}
@@ -27,7 +27,7 @@
     </div>
   </ion-list>
 
-  <ion-list radio-group [(ngModel)]="params.location.key" no-padding *ngIf="pageName == 'Event location'">
+  <ion-list radio-group [(ngModel)]="params.location_id.key" no-padding *ngIf="pageName == 'Event location'">
     <div *ngFor="let account of paramsFromServer.locations | keys">
       <ion-item-divider>
         DS 24 ACCOUNT ID {{ account.key }}
