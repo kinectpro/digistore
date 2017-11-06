@@ -28,18 +28,18 @@
         Product Name
       </ion-label>
       <div item-content class="item-content">
-        {{ sort == 'product_desc' ? 'Z-A' : 'A-Z' }}
+        {{ sort == 'product_name-desc' ? 'Z-A' : sort == 'product_name-asc' ? 'A-Z' : '' }}
         <ion-icon md="ios-arrow-forward" color="light"></ion-icon>
       </div>
     </button>
     <ion-list class="sublist" [hidden]="!options.product_name" padding-left>
       <ion-item mode="ios">
         <ion-label color="dark">A-Z</ion-label>
-        <ion-radio mode="ios" value="product_asc"></ion-radio>
+        <ion-radio mode="ios" value="product_name-asc"></ion-radio>
       </ion-item>
       <ion-item mode="ios">
         <ion-label color="dark">Z-A</ion-label>
-        <ion-radio mode="ios" value="product_desc"></ion-radio>
+        <ion-radio mode="ios" value="product_name-desc"></ion-radio>
       </ion-item>
     </ion-list>
 
@@ -48,18 +48,18 @@
         Earning Amount
       </ion-label>
       <div item-content class="item-content">
-        {{ sort == 'earning_desc' ? 'Lowest first' : 'Highest first' }}
+        {{ sort == 'earning-desc' ? 'Lowest first' : sort == 'earning-asc' ? 'Highest first' : '' }}
         <ion-icon md="ios-arrow-forward" color="light"></ion-icon>
       </div>
     </button>
     <ion-list class="sublist" [hidden]="!options.earning" padding-left>
       <ion-item mode="ios">
         <ion-label color="dark">Highest first</ion-label>
-        <ion-radio mode="ios" value="earning_asc"></ion-radio>
+        <ion-radio mode="ios" value="earning-asc"></ion-radio>
       </ion-item>
       <ion-item mode="ios">
         <ion-label color="dark">Lowest first</ion-label>
-        <ion-radio mode="ios" value="earning_desc"></ion-radio>
+        <ion-radio mode="ios" value="earning-desc"></ion-radio>
       </ion-item>
     </ion-list>
 
@@ -68,18 +68,18 @@
         Date
       </ion-label>
       <div item-content class="item-content">
-        {{ sort == 'date_desc' ? 'Descending' : 'Ascending' }}
+        {{ sort == 'date-desc' ? 'Descending' : sort == 'date-asc' ? 'Ascending' : '' }}
         <ion-icon md="ios-arrow-forward" color="light"></ion-icon>
       </div>
     </button>
     <ion-list class="sublist" [hidden]="!options.date" padding-left>
       <ion-item mode="ios">
         <ion-label color="dark">Ascending</ion-label>
-        <ion-radio mode="ios" value="date_asc"></ion-radio>
+        <ion-radio mode="ios" value="date-asc"></ion-radio>
       </ion-item>
       <ion-item mode="ios">
         <ion-label color="dark">Descending</ion-label>
-        <ion-radio mode="ios" value="date_desc"></ion-radio>
+        <ion-radio mode="ios" value="date-desc"></ion-radio>
       </ion-item>
     </ion-list>
 

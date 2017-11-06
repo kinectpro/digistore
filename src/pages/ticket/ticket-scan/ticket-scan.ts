@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController, LoadingController } from 'ionic-angular';
 import { TicketDetailsPage } from '../ticket-details/ticket-details';
 import { TicketParams } from '../../../models/params';
+import { TicketService } from '../../../providers/ticket-service';
 
 @Component({
   selector: 'page-ticket-scan',
@@ -11,7 +12,7 @@ export class TicketScanPage {
 
   params: TicketParams;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public loadingCtrl: LoadingController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public loadingCtrl: LoadingController, public ticketSrv: TicketService) {
     this.params = navParams.get('params');
     console.log(this.params.eticket_id);
     console.log(this.params.date);
@@ -24,6 +25,21 @@ export class TicketScanPage {
     console.log('ionViewDidLoad TicketScanPage');
 
     document.body.classList.add('hidden-tabbar-when-scan');
+    //
+    // this.ticketSrv.validateTicket(this.params).then(
+    //   res => {
+    //     let result: any;
+    //     if (res.status == 'success') {
+    //       result = {
+    //         title: 'E-Ticket valid!',
+    //       }
+    //     }
+    //
+    //   },
+    //   err => {
+    //     console.log(err);
+    //   }
+    // );
 
     let loading = this.loadingCtrl.create({
       content: 'loading',

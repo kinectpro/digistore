@@ -17,7 +17,7 @@ export class SortByPage {
 
   constructor(public viewCtrl: ViewController, public params: NavParams) {
     let sortObj = params.get('params_sort');
-    this.sort = sortObj.sort_by + '_' + sortObj.sort_order;
+    this.sort = sortObj.sort_by + '-' + sortObj.sort_order;
   }
 
   ionViewDidLoad() {
@@ -31,7 +31,7 @@ export class SortByPage {
   }
 
   submit() {
-    let params_sort = this.sort.split('_');
+    let params_sort = this.sort.split('-');
     this.viewCtrl.dismiss({
       params_changed: true,
       params_sort: {

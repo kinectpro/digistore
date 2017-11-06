@@ -4,6 +4,7 @@ import { TicketParamsPage } from './ticket-params/ticket-params';
 import { TicketQrScannerPage } from './ticket-qr-scanner/ticket-qr-scanner';
 import { TicketService } from '../../providers/ticket-service';
 import { TicketParams } from '../../models/params';
+import { TicketScanPage } from './ticket-scan/ticket-scan';
 
 @Component({
   selector: 'page-ticket',
@@ -50,7 +51,10 @@ export class TicketPage {
 
   scan() {
     if (this.params.template_id.key && this.params.location_id.key) {
-      this.navCtrl.push(TicketQrScannerPage, { params: this.params });
+      // this.navCtrl.push(TicketQrScannerPage, { params: this.params });
+      // ------------------------- for test without scanner ------------------
+      this.params.eticket_id = '38428864604555194810';
+      this.navCtrl.push(TicketScanPage, { params: this.params });
     }
     else {
       this.toastCtrl.create({
