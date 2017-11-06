@@ -12,6 +12,7 @@ import { TicketDetailsPage } from '../ticket-details/ticket-details';
 export class TicketQrScannerPage {
 
   params: TicketParams;
+  stoppedTimer: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public qrScanner: QRScanner, public viewCtrl: ViewController) {
     this.params = navParams.get('params');
@@ -23,13 +24,11 @@ export class TicketQrScannerPage {
 
     document.body.classList.add('hidden-tabbar');
 
-    let stoppedTimer: boolean = false;
-
     this.qrScanner.prepare().then((status: QRScannerStatus) => {
       if (status.authorized) {
         let scanSub = this.qrScanner.scan().subscribe((code: string) => {
 
-          stoppedTimer = true;
+          this.stoppedTimer = true;
           this.params.ticket = code;
           this.navCtrl.push(TicketScanPage, { params: this.params });
           scanSub.unsubscribe();    // stop scanning
@@ -42,7 +41,7 @@ export class TicketQrScannerPage {
         this.qrScanner.show();
 
         setTimeout(() => {
-          if (!stoppedTimer) {
+          if (!this.stoppedTimer) {
             this.qrScanner.destroy(); // hide camera preview
             this.navCtrl.push(TicketDetailsPage, {
               params: this.params,
@@ -73,6 +72,7 @@ export class TicketQrScannerPage {
   }
 
   cancel() {
+    this.stoppedTimer = true;
     this.qrScanner.destroy();
     this.navCtrl.pop();
   }
