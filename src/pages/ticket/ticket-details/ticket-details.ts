@@ -37,7 +37,7 @@ export class TicketDetailsPage {
 
   downloadPdf() {
     const fileTransfer: FileTransferObject = this.transfer.create();
-    fileTransfer.download(this.result.download_url, this.file.dataDirectory + 'file.pdf').then((entry) => {
+    fileTransfer.download(this.result.download_url, this.file.externalDataDirectory + 'file.pdf').then((entry) => {
       console.log('download complete: ' + entry.toURL());
     }, (error) => {
       console.log(error);
