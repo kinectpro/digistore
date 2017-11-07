@@ -34,6 +34,8 @@ import { SharedModule } from '../shared/shared.module';
 import { ReportResultPage } from '../pages/report-result/report-result';
 import { Keyboard } from '@ionic-native/keyboard';
 import { QRScanner } from '@ionic-native/qr-scanner';
+import { FileTransfer } from '@ionic-native/file-transfer';
+import { File } from '@ionic-native/file';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -94,6 +96,8 @@ export function createTranslateLoader(http: HttpClient) {
     SplashScreen,
     QRScanner,
     InAppBrowser,
+    FileTransfer,
+    File,
     TranslateService,
     Keyboard,
     {provide: ErrorHandler, useClass: IonicErrorHandler},

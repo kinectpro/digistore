@@ -3,6 +3,8 @@ import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { TicketCheckPage } from '../ticket-check/ticket-check';
 import { TicketParams } from '../../../models/params';
 import { TicketQrScannerPage } from '../ticket-qr-scanner/ticket-qr-scanner';
+import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
+import { File } from '@ionic-native/file';
 
 @Component({
   selector: 'page-ticket-details',
@@ -12,7 +14,7 @@ export class TicketDetailsPage {
   result: any;
   params: TicketParams;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public transfer: FileTransfer, public file: File) {
     this.result = navParams.get('result');
     this.params = navParams.get('params');
   }
@@ -31,6 +33,15 @@ export class TicketDetailsPage {
 
   checkWithNumber() {
     this.navCtrl.push(TicketCheckPage, { params: this.params });
+  }
+
+  downloadPdf() {
+    const fileTransfer: FileTransferObject = this.transfer.create();
+    fileTransfer.download(this.result.download_url, this.file.dataDirectory + 'file.pdf').then((entry) => {
+      console.log('download complete: ' + entry.toURL());
+    }, (error) => {
+      console.log(error);
+    });
   }
 
   markTicket(mark: boolean) {

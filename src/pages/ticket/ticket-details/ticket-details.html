@@ -79,7 +79,7 @@
 
   </ion-list>
 
-  <button ion-button full outline text-capitalize class="pdf-btn" *ngIf="result.status == 'success' || result.mode == 'modal'">
+  <button ion-button full outline text-capitalize class="pdf-btn" *ngIf="result.status == 'success' || result.mode == 'modal'" (click)="downloadPdf()">
     <img src="assets/img/ic-download-pdf@2x.png" class="ic_download_pdf">Download E-Ticket
   </button>
 

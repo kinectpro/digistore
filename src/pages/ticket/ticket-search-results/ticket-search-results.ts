@@ -34,6 +34,7 @@ export class TicketSearchResultsPage {
         first_name: ticket.first_name,
         last_name: ticket.last_name,
         email: ticket.email,
+        download_url: ticket.download_url,
         id: ticket.id
       }
     });

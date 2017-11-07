@@ -76,7 +76,9 @@ export class TicketService {
                   'msg': res.data.msg,
                   'first_name': rez.first_name,
                   'last_name': rez.last_name,
-                  'email': rez.email
+                  'email': rez.email,
+                  'download_url': rez.download_url,
+                  'id': rez.id
                 }),
                 err => reject(err)
               );

@@ -21,6 +21,8 @@
         "@angular/platform-browser": "4.4.3",
         "@angular/platform-browser-dynamic": "4.4.3",
         "@ionic-native/core": "4.3.0",
+        "@ionic-native/file": "^4.3.3",
+        "@ionic-native/file-transfer": "^4.3.3",
         "@ionic-native/in-app-browser": "^4.3.1",
         "@ionic-native/keyboard": "^4.3.2",
         "@ionic-native/qr-scanner": "^4.3.3",
@@ -33,6 +35,8 @@
         "cordova-android": "^6.3.0",
         "cordova-plugin-compat": "^1.2.0",
         "cordova-plugin-device": "^1.1.6",
+        "cordova-plugin-file": "^4.3.3",
+        "cordova-plugin-file-transfer": "^1.6.3",
         "cordova-plugin-inappbrowser": "^1.7.1",
         "cordova-plugin-ionic-webview": "^1.1.16",
         "cordova-plugin-qrscanner": "^2.5.0",
@@ -64,7 +68,9 @@
             "cordova-plugin-device": {},
             "cordova-plugin-splashscreen": {},
             "cordova-plugin-ionic-webview": {},
-            "cordova-plugin-qrscanner": {}
+            "cordova-plugin-qrscanner": {},
+            "cordova-plugin-file-transfer": {},
+            "cordova-plugin-file": {}
         },
         "platforms": [
             "android"
