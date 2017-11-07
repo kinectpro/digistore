@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Settings } from '../../config/settings';
 import { HttpClient } from '@angular/common/http';
 import { ReportResultPage } from '../report-result/report-result';
+import { AuthService } from '../../providers/auth-service';
 
 @Component({
   selector: 'page-report',
@@ -11,11 +12,11 @@ import { ReportResultPage } from '../report-result/report-result';
 })
 export class ReportPage {
   private reportForm: FormGroup;
-  // affiliate: boolean = false;
+  affiliate: boolean = false;
   transaction: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, public http: HttpClient,
-              public modalCtrl: ModalController) {
+              public modalCtrl: ModalController, public auth: AuthService) {
     this.transaction = this.navParams.get('transaction');
     this.reportForm = fb.group({
       'description': ['', [
@@ -30,9 +31,14 @@ export class ReportPage {
   }
 
   sendReport() {
-    this.http.get(Settings.BASE_URL + Settings.API_KEY + '/json/reportFraud?transaction_id=' + this.transaction.transaction_id + '&comment=' + this.reportForm.get('description').value + '&language=en').subscribe(
+    let affiliate = this.reportForm.get('affiliate').value ? 'buyer,affiliate' : 'buyer';
+    this.http.get(`${Settings.BASE_URL}${this.auth.apiKey}/json/reportFraud?transaction_id=${this.transaction.transaction_id}&comment=${this.reportForm.get('description').value}&who=${affiliate}&language=en`).subscribe(
       (res: any) => {
-          let ReportDetailsPageModal = this.modalCtrl.create(ReportResultPage, { status: res.result, message: res.message });
+          let ReportDetailsPageModal = this.modalCtrl.create(ReportResultPage, {
+            status: res.result,
+            message: res.result == 'error' ? res.message : res.data.buyer_message,
+            order_id:this.transaction.order_id
+          });
           ReportDetailsPageModal.onDidDismiss(res => {
           });
           ReportDetailsPageModal.present();

@@ -8,10 +8,12 @@ import { NavParams, ViewController } from 'ionic-angular';
 export class ReportResultPage {
   status: string;
   message: string;
+  order_id: string;
 
   constructor(public viewCtrl: ViewController, public navParams: NavParams) {
     this.status = this.navParams.get('status');
     this.message = this.navParams.get('message');
+    this.message = this.navParams.get('order_id');
   }
 
   ionViewDidLoad() {

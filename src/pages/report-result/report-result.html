@@ -19,15 +19,9 @@
 
   <h3 class="result-status" text-capitalize>{{status}}!</h3>
 
-  <section *ngIf="status == 'error'">
+  <section>
     <p class="result-message">{{message}}</p>
-  </section>
-
-  <section *ngIf="status != 'error'">
-    <p class="result-message">The buyer was put on your blacklist</p>
-    <p class="result-message">The buyer can't purchase any of your products</p>
-    <p class="result-message">We will now verify if the buyer should be blocked from purchasing other vendor's products</p>
-    <p class="result-message"><strong>Order ID: #######</strong></p>
+    <p *ngIf="order_id" class="result-message"><strong>Order ID: {{order_id}}</strong></p>
   </section>
 
 </ion-content>
