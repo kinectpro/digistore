@@ -65,10 +65,22 @@ export class TicketService {
       this.http.get(`${Settings.BASE_URL}${this.auth.apiKey}/json/validateEticket?language=en`, { params: ticketParams }).subscribe(
         (res: any) => {
           if (res.result === 'success') {
-            resolve({
-              'status': res.data.status,
+            if (res.data.status == 'failure') resolve({
+              'status': 'failure',
               'msg': res.data.msg
             });
+            else {
+              this.getTicket(params.ticket).then(
+                (rez: any) => resolve({
+                  'status': 'success',
+                  'msg': res.data.msg,
+                  'first_name': rez.first_name,
+                  'last_name': rez.last_name,
+                  'email': rez.email
+                }),
+                err => reject(err)
+              );
+            }
           }
           else {
             reject(res.message);
@@ -93,6 +105,22 @@ export class TicketService {
         (res: any) => {
           if (res.result === 'success') {
             resolve(res.data.etickets);
+          }
+          else {
+            reject(res.message);
+          }
+        },
+        err => reject(err)
+      );
+    });
+  }
+
+  getTicket(number: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.http.get(`${Settings.BASE_URL}${this.auth.apiKey}/json/getEticket?eticket_id=${number}&language=en`).subscribe(
+        (res: any) => {
+          if (res.result === 'success') {
+            resolve(res.data.eticket);
           }
           else {
             reject(res.message);
