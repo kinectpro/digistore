@@ -5,6 +5,7 @@ import { TicketQrScannerPage } from './ticket-qr-scanner/ticket-qr-scanner';
 import { TicketService } from '../../providers/ticket-service';
 import { TicketParams } from '../../models/params';
 import { TicketScanPage } from './ticket-scan/ticket-scan';
+import { TicketCheckPage } from './ticket-check/ticket-check';
 
 @Component({
   selector: 'page-ticket',
@@ -14,7 +15,6 @@ export class TicketPage {
 
   showedCalendar: boolean = false;
   params: TicketParams = {
-    ticket: '',
     template: this.tickServ.template,
     location: this.tickServ.location,
     date: this.getFormatDate(new Date())
@@ -51,10 +51,10 @@ export class TicketPage {
 
   scan() {
     if (this.params.template.key && this.params.location.key) {
-      this.navCtrl.push(TicketQrScannerPage, { params: this.params });
+      // this.navCtrl.push(TicketQrScannerPage, { params: this.params });
       // ------------------------- for test without scanner ------------------
-      // this.params.ticket = '38428864604555194810';
-      // this.navCtrl.push(TicketScanPage, { params: this.params });
+      this.params.ticket = '38428864604555194810';
+      this.navCtrl.push(TicketScanPage, { params: this.params });
     }
     else {
       this.toastCtrl.create({
@@ -63,6 +63,10 @@ export class TicketPage {
         position: 'bottom'
       }).present();
     }
+  }
+
+  findWithoutNumber() {
+    this.navCtrl.push(TicketCheckPage, { params: this.params, withoutNumber: true });
   }
 
   /**

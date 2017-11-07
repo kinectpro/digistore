@@ -29,8 +29,11 @@ export interface Params {
 }
 
 export interface TicketParams {
-  ticket: any,
+  ticket?: any,
   template: any,
   location: any,
-  date: any
+  date: any,
+  firstName?: string,
+  lastName?: string,
+  email?: string
 }

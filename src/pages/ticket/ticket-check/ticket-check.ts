@@ -15,11 +15,6 @@ export class TicketCheckPage {
   private numberForm : FormGroup;
   withoutNumber: boolean;
   params: TicketParams;
-  searchObj: any = {
-    first_name: '',
-    last_name: '',
-    email: ''
-  };
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController, public ticketSrv: TicketService, public fb: FormBuilder) {
     this.withoutNumber = navParams.get('withoutNumber');
@@ -40,17 +35,18 @@ export class TicketCheckPage {
   }
 
   findWithoutNumber() {
-    this.navCtrl.push(TicketCheckPage, { withoutNumber: true });
+    this.navCtrl.push(TicketCheckPage, { params: this.params, withoutNumber: true });
   }
 
   search() {
-    this.navCtrl.push(TicketSearchResultsPage);
+    this.navCtrl.push(TicketSearchResultsPage, { params: this.params });
   }
 
   check() {
     if (this.numberForm.valid) {
+      this.params.ticket = this.numberForm.get('number').value;
       this.ticketSrv.validateTicket(this.params).then(
-        res => this.navCtrl.push(TicketDetailsPage, {params: this.params, result: res}),
+        res => this.navCtrl.push(TicketDetailsPage, { params: this.params, result: res }),
         err => console.log(err)
       );
     }

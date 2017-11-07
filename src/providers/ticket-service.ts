@@ -57,19 +57,42 @@ export class TicketService {
   validateTicket(params: TicketParams): Promise<any> {
     return new Promise((resolve, reject) => {
       let ticketParams = new HttpParams();
-      ticketParams = ticketParams.append('location_id', params.location.key);
-      ticketParams = ticketParams.append('template_id', params.template.key);
-      ticketParams = ticketParams.append('eticket_id', params.ticket);
-      ticketParams = ticketParams.append('date', params.date);
-      this.http.get(`${Settings.BASE_URL}${this.auth.apiKey}/json/validateEticket?language=en`, {
-        params: ticketParams
-      }).subscribe(
+      ticketParams = ticketParams
+        .append('location_id', params.location.key)
+        .append('template_id', params.template.key)
+        .append('eticket_id', params.ticket)
+        .append('date', params.date);
+      this.http.get(`${Settings.BASE_URL}${this.auth.apiKey}/json/validateEticket?language=en`, { params: ticketParams }).subscribe(
         (res: any) => {
           if (res.result === 'success') {
             resolve({
               'status': res.data.status,
               'msg': res.data.msg
             });
+          }
+          else {
+            reject(res.message);
+          }
+        },
+        err => reject(err)
+      );
+    });
+  }
+
+  listTickets(params: TicketParams): Promise<any> {
+    return new Promise((resolve, reject) => {
+      let ticketParams = new HttpParams();
+      ticketParams = ticketParams
+        .append('search[location_id]', params.location.key)
+        .append('search[template_id]', params.template.key)
+        .append('search[first_name]', params.firstName || '')
+        .append('search[last_name]', params.lastName || '')
+        .append('search[email]', params.email || '')
+        .append('search[date]', params.date);
+      this.http.get(`${Settings.BASE_URL}${this.auth.apiKey}/json/listEtickets?language=en`, { params: ticketParams }).subscribe(
+        (res: any) => {
+          if (res.result === 'success') {
+            resolve(res.data.etickets);
           }
           else {
             reject(res.message);

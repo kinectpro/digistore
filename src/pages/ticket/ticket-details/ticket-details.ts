@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { TicketCheckPage } from '../ticket-check/ticket-check';
 import { TicketParams } from '../../../models/params';
+import { TicketQrScannerPage } from '../ticket-qr-scanner/ticket-qr-scanner';
 
 @Component({
   selector: 'page-ticket-details',
@@ -25,7 +26,7 @@ export class TicketDetailsPage {
   }
 
   retry() {
-
+    this.navCtrl.push(TicketQrScannerPage, { params: this.params });
   }
 
   checkWithNumber() {

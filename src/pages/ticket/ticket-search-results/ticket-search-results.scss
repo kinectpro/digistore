@@ -31,4 +31,16 @@ page-ticket-search-results {
       height: 56px;
     }
   }
+  ion-row.empty-result {
+    margin-top: 20vh;
+    ion-item {
+      background-color: inherit;
+      text-align: center;
+      font-family: SFProText;
+      font-size: 17px;
+      line-height: 1.65;
+      letter-spacing: -0.4px;
+      color: #c1c4cb;
+    }
+  }
 }

@@ -7,4 +7,19 @@ page-ticket {
     position: relative;
     padding-left: 4px;
   }
+  .btn-question {
+    height: 48px;
+    margin-bottom: 43px;
+    background-color: #ffffff;
+    border-color: #d1d1d6;
+    font-family: SFProText;
+    text-transform: none;
+    font-size: 17px;
+    line-height: 1.29;
+    letter-spacing: -0.4px;
+    color: #3247a1;
+  }
+  ion-footer.footer.footer-md::before {
+    background-image: none;
+  }
 }
