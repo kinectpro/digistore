@@ -51,10 +51,10 @@ export class TicketPage {
 
   scan() {
     if (this.params.template.key && this.params.location.key) {
-      // this.navCtrl.push(TicketQrScannerPage, { params: this.params });
+      this.navCtrl.push(TicketQrScannerPage, { params: this.params });
       // ------------------------- for test without scanner ------------------
-      this.params.ticket = '38428864604555194810';
-      this.navCtrl.push(TicketScanPage, { params: this.params });
+      // this.params.ticket = '38428864604555194810';
+      // this.navCtrl.push(TicketScanPage, { params: this.params });
     }
     else {
       this.toastCtrl.create({
