@@ -5,6 +5,7 @@ import { TicketParams } from '../../../models/params';
 import { TicketQrScannerPage } from '../ticket-qr-scanner/ticket-qr-scanner';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
+import { FileOpener } from '@ionic-native/file-opener';
 
 @Component({
   selector: 'page-ticket-details',
@@ -14,7 +15,7 @@ export class TicketDetailsPage {
   result: any;
   params: TicketParams;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public transfer: FileTransfer, public file: File) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public transfer: FileTransfer, public file: File, public fileOpener: FileOpener) {
     this.result = navParams.get('result');
     this.params = navParams.get('params');
   }
@@ -38,7 +39,9 @@ export class TicketDetailsPage {
   downloadPdf() {
     const fileTransfer: FileTransferObject = this.transfer.create();
     fileTransfer.download(this.result.download_url, this.file.externalDataDirectory + 'file.pdf').then((entry) => {
-      console.log('download complete: ' + entry.toURL());
+      this.fileOpener.open(entry.toURL(), 'application/pdf')
+      .then(() => console.log('File is opened'))
+      .catch(e => console.log('Error openening file', e));
     }, (error) => {
       console.log(error);
     });
