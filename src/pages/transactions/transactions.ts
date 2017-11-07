@@ -86,7 +86,7 @@ export class TransactionsPage {
   sortBy() {
     const sortByPageModal = this.modalCtrl.create(SortByPage, { params_sort: this.params.sort });
     sortByPageModal.onDidDismiss(res => {
-      if (res.params_changed) {
+      if (res && res.params_changed) {
         this.params.sort = res.params_sort;
         this.getTransactions();
       }
@@ -97,7 +97,7 @@ export class TransactionsPage {
   openSearch() {
     const searchPageModal = this.modalCtrl.create(SearchPage, { params_search: this.params.search });
     searchPageModal.onDidDismiss(res => {
-      if (res.params_changed) {
+      if (res && res.params_changed) {
         this.params.search = res.params_search;
         this.getTransactions();
       }

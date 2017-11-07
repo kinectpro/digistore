@@ -66,7 +66,15 @@ export class TicketPage {
   }
 
   findWithoutNumber() {
-    this.navCtrl.push(TicketCheckPage, { params: this.params, withoutNumber: true });
+    if (this.params.template.key && this.params.location.key)
+      this.navCtrl.push(TicketCheckPage, { params: this.params, withoutNumber: true });
+    else {
+      this.toastCtrl.create({
+        message: 'No "E-Ticket template" or "Event location" field is selected!',
+        duration: 3000,
+        position: 'bottom'
+      }).present();
+    }
   }
 
   /**
