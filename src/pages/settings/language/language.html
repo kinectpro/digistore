@@ -1,0 +1,29 @@
+<ion-header>
+
+  <ion-navbar>
+
+    <ion-buttons left>
+      <button class="arrow" text-capitalize ion-button clear color="clear" (click)="dismiss()" icon-left><ion-icon name="ios-arrow-back"></ion-icon></button>
+    </ion-buttons>
+
+    <ion-title padding-right text-center><b>{{ 'SETTINGS_PAGE.LANGUAGE' | translate }}</b></ion-title>
+
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+
+  <ion-list radio-group [(ngModel)]="lang" no-padding>
+    <ion-item mode="ios">
+      <ion-label>English</ion-label>
+      <ion-radio mode="ios" value="en" (ionSelect)="changeLang()"></ion-radio>
+    </ion-item>
+    <ion-item mode="ios">
+      <ion-label>German</ion-label>
+      <ion-radio mode="ios" value="de" (ionSelect)="changeLang()"></ion-radio>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

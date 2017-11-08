@@ -3,7 +3,7 @@
     <name>DigiStore</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
-    <content original-src="index.html" src="http://192.168.1.123:8101" />
+    <content original-src="index.html" src="http://192.168.1.123:8100" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -78,7 +78,6 @@
     </platform>
     <allow-navigation href="http://192.168.1.123:8100" />
     <allow-navigation href="http://192.168.1.123:8102" />
-    <allow-navigation href="http://192.168.1.123:8101" />
     <engine name="android" spec="^6.3.0" />
     <plugin name="cordova-plugin-device" spec="^1.1.6" />
     <plugin name="cordova-plugin-file" spec="^4.3.3" />

@@ -1,0 +1,74 @@
+page-account {
+  button.arrow {
+    padding-left: 2px;
+    padding-right: 20px;
+    ion-icon.ion-ios-arrow-back {
+      font-size: 2.3em;
+    }
+  }
+  button.edit {
+    font-family: SFProText;
+    font-size: 17px;
+    line-height: 1.29;
+    letter-spacing: -0.4px;
+    text-align: right;
+    color: #ffffff;
+  }
+  ion-content.content {
+    background-color: #fafafa;
+    ion-list {
+      border-bottom: 1px solid #dedede;
+      ion-item {
+        ion-label {
+          font-family: SFProText;
+          font-size: 17px;
+          line-height: 1.29;
+          letter-spacing: -0.4px;
+          text-align: left;
+          color: #c1c4cb;
+        }
+      }
+      ion-item.item-radio-checked {
+        .radio-ios .radio-checked .radio-inner {
+          border-color: #3247a1;
+          background-color: #fff;
+        }
+        ion-label {
+          font-family: SFProText;
+          font-size: 17px;
+          line-height: 1.29;
+          letter-spacing: -0.4px;
+          text-align: left;
+          color: #687381!important;
+        }
+      }
+      .mail {
+        font-family: SFProText;
+        font-size: 11px;
+        line-height: 1.18;
+        letter-spacing: 0.1px;
+        text-align: left;
+        color: #c1c4cb;
+      }
+      ion-item.last {
+        div.item-inner {
+          border-bottom: none!important;
+        }
+      }
+      button.trash {
+        width: 74px;
+      }
+      span.new-account {
+        font-family: SFUIText;
+        font-size: 17px;
+        letter-spacing: -0.4px;
+        text-align: left;
+        color: #3247a1;
+      }
+    }
+    ion-item-divider {
+      height: 42px;
+      background-color: #fafafa;
+    }
+  }
+}

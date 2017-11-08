@@ -2,5 +2,13 @@
   "LOGIN_PAGE": {
     "CONNECTION_PROBLEM": "Connection problem"
   },
-  "LOADING_TEXT": "Please wait..."
+  "LOADING_TEXT": "Please wait...",
+  "SETTINGS_PAGE": {
+    "HEADER": "Settings",
+    "LANGUAGE": "Language",
+    "SOUND": "Sound",
+    "NOTIFY": "Notify on sale",
+    "ACCOUNT": "Account",
+    "LOGOUT": "Log out"
+  }
 }

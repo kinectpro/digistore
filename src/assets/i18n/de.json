@@ -2,5 +2,13 @@
   "LOGIN_PAGE": {
     "CONNECTION_PROBLEM": "Verbindungsproblem"
   },
-  "LOADING_TEXT": "Warten Sie mal..."
+  "LOADING_TEXT": "Warten Sie mal...",
+  "SETTINGS_PAGE": {
+    "HEADER": "Einstellungen",
+    "LANGUAGE": "Sprache",
+    "SOUND": "Klingen",
+    "NOTIFY": "Beim Verkauf benachrichtigen",
+    "ACCOUNT": "Konto",
+    "LOGOUT": "Ausloggen"
+  }
 }

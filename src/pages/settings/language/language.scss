@@ -1,4 +1,4 @@
-page-ticket-params {
+page-language {
   button.arrow {
     padding-left: 2px;
     padding-right: 20px;
@@ -6,33 +6,12 @@ page-ticket-params {
       font-size: 2.3em;
     }
   }
-  .toolbar-title-md {
-    padding: 0 26px 0 0;
-  }
   ion-content.content {
     background-color: #fafafa;
   }
-  .bottom-logo {
-    bottom: 0;
-  }
   ion-list {
     border-bottom: 1px solid #dedede;
-    ion-item-divider.item.item-divider.item-md.item-divider-md {
-      background-color: #fafafa;
-      border-top: 1px solid #dedede;
-      height: 31px;
-      ion-label.label.label-md {
-        height: 19px;
-        font-family: SFProText;
-        font-size: 13px;
-        font-weight: 500;
-        line-height: 1.38;
-        letter-spacing: -0.1px;
-        text-align: left;
-        color: #c1c4cb;
-      }
-    }
-    ion-item.item {
+    ion-item {
       ion-label {
         font-family: SFProText;
         font-size: 17px;

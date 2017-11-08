@@ -1,11 +1,76 @@
 <ion-header>
   <ion-navbar>
     <ion-title text-center>
-      Settings
+      <b>{{ 'SETTINGS_PAGE.HEADER' | translate }}</b>
     </ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <button ion-button block color="danger" (click)="logout()">Logout</button>
+<ion-content>
+
+  <ion-list mode="ios" no-margin>
+
+    <ion-item>
+      <ion-icon class="icon-language" item-start></ion-icon>
+      <ion-label>
+        {{ 'SETTINGS_PAGE.LANGUAGE' | translate }}
+      </ion-label>
+      <ion-note item-end (click)="changeLang()">{{ translate.currentLang == 'en' ? 'English' : 'German' }}<ion-icon md="ios-arrow-forward" color="light"></ion-icon></ion-note>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon class="icon-sound" item-start></ion-icon>
+      <ion-toggle mode="ios" [(ngModel)]="sound" (ionChange)="toggleSound()" color="secondary"></ion-toggle>
+      <ion-label>
+        {{ 'SETTINGS_PAGE.SOUND' | translate }}
+      </ion-label>
+    </ion-item>
+
+  </ion-list>
+
+  <ion-item-divider no-lines>
+  </ion-item-divider>
+
+  <ion-list mode="ios" no-margin>
+
+    <ion-item>
+      <ion-icon class="icon-notify" item-start></ion-icon>
+      <ion-toggle mode="ios" [(ngModel)]="notify" (ionChange)="toggleNotify()" color="secondary"></ion-toggle>
+      <ion-label>
+        {{ 'SETTINGS_PAGE.NOTIFY' | translate }}
+      </ion-label>
+    </ion-item>
+
+  </ion-list>
+
+  <ion-item-divider no-lines>
+  </ion-item-divider>
+
+  <ion-list mode="ios" no-margin>
+
+    <button no-padding ion-item (click)="openAccountPage()">
+      <ion-label padding-left>
+        {{ 'SETTINGS_PAGE.ACCOUNT' | translate }}
+      </ion-label>
+      <div item-content class="item-content">
+        larsrieger
+        <ion-icon md="ios-arrow-forward" color="light"></ion-icon>
+      </div>
+    </button>
+
+  </ion-list>
+
+  <ion-item-divider no-lines>
+  </ion-item-divider>
+
+  <ion-list mode="ios" no-margin>
+
+    <button no-padding ion-item (click)="logout()">
+      <ion-label padding-left>
+        <span class="logout">{{ 'SETTINGS_PAGE.LOGOUT' | translate }}</span>
+      </ion-label>
+    </button>
+
+  </ion-list>
+
 </ion-content>

@@ -7,7 +7,6 @@ import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { SettingsPage } from '../pages/settings/settings';
 import { LandingPage } from '../pages/landing/landing';
 import { LoginPage } from '../pages/login/login';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
@@ -37,6 +36,7 @@ import { QRScanner } from '@ionic-native/qr-scanner';
 import { FileTransfer } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
 import { FileOpener } from '@ionic-native/file-opener';
+import { SettingsPageModule } from '../pages/settings/settings.module';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -46,7 +46,6 @@ export function createTranslateLoader(http: HttpClient) {
   declarations: [
     MyApp,
     TransactionsPage,
-    SettingsPage,
     LandingPage,
     LoginPage,
     TabsPage,
@@ -64,6 +63,7 @@ export function createTranslateLoader(http: HttpClient) {
     HttpClientModule,
     TicketPageModule,
     EarningPageModule,
+    SettingsPageModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -89,7 +89,6 @@ export function createTranslateLoader(http: HttpClient) {
     ReportPage,
     ParamsPage,
     ReportResultPage,
-    SettingsPage,
     TransactionDetailsPage
   ],
   providers: [

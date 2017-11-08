@@ -1,3 +1,74 @@
 page-settings {
-
+  ion-content.content {
+    background-color: #fafafa;
+    ion-list {
+      background-color: #ffffff;
+      ion-item {
+        div.item-inner {
+          margin-left: 15px !important;
+        }
+        .icon-language {
+          content: url(/assets/img/ic-language.svg);
+          margin: 0 !important;
+        }
+        .icon-sound {
+          content: url(/assets/img/ic-sound.svg);
+          margin: 0 !important;
+        }
+        .icon-notify {
+          content: url(/assets/img/ic-notify-on-sale.svg);
+          margin: 0 !important;
+        }
+        ion-label {
+          font-family: SFProText;
+          font-size: 17px;
+          line-height: 1.29;
+          letter-spacing: -0.4px;
+          text-align: left;
+          color: #414141;
+        }
+        ion-note {
+          font-family: SFProText;
+          font-size: 17px;
+          line-height: 1.29;
+          letter-spacing: -0.4px;
+          text-align: right;
+          color: #687381;
+          ion-icon {
+            top: 2px;
+            position: relative;
+            padding-left: 12px;
+          }
+        }
+        ion-toggle {
+          margin-right: 8px;
+        }
+      }
+      button {
+        div.item-inner {
+          padding-right: 16px!important;
+        }
+        ion-label {
+          font-family: SFProText;
+          font-size: 17px;
+          line-height: 1.29;
+          letter-spacing: -0.4px;
+          text-align: left;
+          color: #414141;
+        }
+        ion-icon {
+          top: 2px;
+          position: relative;
+          padding-left: 10px;
+        }
+        span.logout {
+          color: #ed1c24;
+        }
+      }
+    }
+    ion-item-divider {
+      height: 35px;
+      background-color: #fafafa;
+    }
+  }
 }
