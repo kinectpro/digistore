@@ -10,12 +10,12 @@
 
   <ion-list mode="ios" no-margin>
 
-    <ion-item>
+    <ion-item (click)="changeLang()">
       <ion-icon class="icon-language" item-start></ion-icon>
       <ion-label>
         {{ 'SETTINGS_PAGE.LANGUAGE' | translate }}
       </ion-label>
-      <ion-note item-end (click)="changeLang()">{{ translate.currentLang == 'en' ? 'English' : 'German' }}<ion-icon md="ios-arrow-forward" color="light"></ion-icon></ion-note>
+      <ion-note item-end>{{ translate.currentLang == 'en' ? 'English' : 'German' }}<ion-icon md="ios-arrow-forward" color="light"></ion-icon></ion-note>
     </ion-item>
 
     <ion-item>
