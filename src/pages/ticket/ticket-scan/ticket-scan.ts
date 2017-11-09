@@ -24,12 +24,16 @@ export class TicketScanPage {
 
     this.ticketSrv.validateTicket(this.params).then(
       res => {
-        this.navCtrl.push(TicketDetailsPage, { params: this.params, result: res }).then( () => {
-          this.viewCtrl.dismiss();
-        });
+        this.navCtrl.push(TicketDetailsPage, { params: this.params, result: res }).then( () => this.dismiss() );
       },
       err => {
-        console.log(err);
+        this.navCtrl.push(TicketDetailsPage, {
+          params: this.params,
+          result: {
+            status: 'failure',
+            msg: err
+          }
+        }).then( () => this.dismiss() );
       }
     );
 
