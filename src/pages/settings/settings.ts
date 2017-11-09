@@ -5,6 +5,7 @@ import { AuthService } from '../../providers/auth-service';
 import { LanguagePage } from './language/language';
 import { TranslateService } from '@ngx-translate/core';
 import { AccountPage } from './account/account';
+import { PushwooshService } from '../../providers/pushwoosh-service';
 
 @Component({
   selector: 'page-settings',
@@ -15,7 +16,8 @@ export class SettingsPage {
   sound: boolean = false;
   notify: boolean = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public app: App, public authService: AuthService, public modalCtrl: ModalController, public translate: TranslateService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public app: App, public authService: AuthService, public modalCtrl: ModalController, public translate: TranslateService,
+              public pushService: PushwooshService) {
   }
 
   ionViewDidLoad() {
@@ -41,6 +43,10 @@ export class SettingsPage {
 
   openAccountPage() {
     this.modalCtrl.create(AccountPage).present();
+  }
+
+  testPush() {
+    this.pushService.generateNotification();
   }
 
 }

@@ -33,7 +33,7 @@
     "@ngx-translate/core": "^8.0.0",
     "@ngx-translate/http-loader": "^2.0.0",
     "call-number": "^1.0.1",
-    "cordova-android": "^6.3.0",
+    "cordova-android": "6.3.0",
     "cordova-plugin-compat": "^1.2.0",
     "cordova-plugin-device": "^1.1.6",
     "cordova-plugin-file": "^4.3.3",
@@ -51,6 +51,7 @@
     "ionic2-auto-complete": "^1.5.3-beta",
     "ionicons": "3.0.0",
     "moment": "^2.19.1",
+    "pushwoosh-cordova-plugin": "^7.0.8",
     "rxjs": "5.4.3",
     "sw-toolbox": "3.6.0",
     "zone.js": "0.8.18"
@@ -73,7 +74,12 @@
       "cordova-plugin-qrscanner": {},
       "cordova-plugin-file-transfer": {},
       "cordova-plugin-file": {},
-      "cordova-plugin-file-opener2": {}
+      "cordova-plugin-file-opener2": {},
+      "pushwoosh-cordova-plugin": {
+        "LOG_LEVEL": "DEBUG",
+        "IOS_FOREGROUND_ALERT_TYPE": "NONE",
+        "ANDROID_FOREGROUND_PUSH": "false"
+      }
     },
     "platforms": [
       "android"
