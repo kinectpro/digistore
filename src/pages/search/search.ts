@@ -22,7 +22,7 @@ export class SearchPage {
   globalTypesFromServer: any;
   currenciesFromServer: string[];
   extended: boolean = false;
-  
+
   @ViewChild('searchbar')
   searchbar: AutoCompleteComponent;
 
@@ -82,14 +82,21 @@ export class SearchPage {
   }
 
   getAffiliateValue(): string {
-    if (this.searchObj.has_affiliate == 'Y') return 'With Affiliate';
-    if (this.searchObj.has_affiliate == 'N') return 'Without Affiliate';
+    let with_affiliate, without_affiliate, all :string = '';
+    this.translate.get('SEARCH_FILTERS_PAGE.WITH_AFFILIATE').subscribe(val => with_affiliate = val);
+    this.translate.get('SEARCH_FILTERS_PAGE.WITHOUT_AFFILIATE').subscribe(val => without_affiliate = val);
+    this.translate.get('ALL').subscribe(val => all = val);
+
+    if (this.searchObj.has_affiliate == 'Y') return with_affiliate;
+    if (this.searchObj.has_affiliate == 'N') return without_affiliate;
     if (this.searchObj.affiliate_name) return this.searchObj.affiliate_name;
-    return 'All';
+    return all;
   }
 
   getTypesValue(value: string): string {
-    if (!value) return 'Any';
+    let any: string = '';
+    this.translate.get('ANY').subscribe(val => any = val);
+    if (!value) return any;
     return value.split(',').map(obj => (obj[0].toUpperCase() + obj.slice(1)).replace('_', ' ')).join(', ');
   }
 
@@ -132,9 +139,12 @@ export class SearchPage {
   }
 
   submit() {
+    let validation: string = '';
+    this.translate.get('SEARCH_FILTERS_PAGE.AT_LEAST_SYMBOL').subscribe(val => validation = val);
+
     if (!this.extended) {
       if (!this.searchForm.valid) {
-        this.showError('At least one symbol should be entered');
+        this.showError(validation);
         return;
       }
       this.searchObj.purchase_id = this.searchForm.get('purchase_id').value;

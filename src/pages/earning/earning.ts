@@ -74,34 +74,42 @@ export class EarningPage {
   }
 
   changeCurrency() {
-    let prompt = this.alertCtrl.create({
-      title: 'Currency',
-      // mode: 'ios',
-      message: 'Please choose currency for data to be displayed',
-      inputs: this.currenciesFromServer.map((val: any) => {
-        return {
-          type: 'radio',
-          label: val.symbol + ' ' + val.name,
-          value: val.code,
-          checked: this.currentCurrency == val.code
-        }
-      }),
-      buttons: [
-        {
-          text: 'Cancel',
-          handler: data => {
-            console.log('Cancel clicked');
-          }
-        },
-        {
-          text: 'Choose',
-          handler: data => {
-            this.currentCurrency = data;
-          }
-        }
-      ]
+    this.translate.get('GENERAL.CURRENCY').subscribe((title: string) => {
+      this.translate.get('EARNINGS_PAGE.CURRENCY_DESCRIPTION').subscribe((msg: string) => {
+        this.translate.get('CANCEL').subscribe((cancel: string) => {
+          this.translate.get('CHOOSE').subscribe((choose: string) => {
+            let prompt = this.alertCtrl.create({
+              title: title,
+              // mode: 'ios',
+              message: msg,
+              inputs: this.currenciesFromServer.map((val: any) => {
+                return {
+                  type: 'radio',
+                  label: val.symbol + ' ' + val.name,
+                  value: val.code,
+                  checked: this.currentCurrency == val.code
+                }
+              }),
+              buttons: [
+                {
+                  text: cancel,
+                  handler: data => {
+                    console.log('Cancel clicked');
+                  }
+                },
+                {
+                  text: choose,
+                  handler: data => {
+                    this.currentCurrency = data;
+                  }
+                }
+              ]
+            });
+            prompt.present();
+          });
+        });
+      });
     });
-    prompt.present();
   }
 
 }

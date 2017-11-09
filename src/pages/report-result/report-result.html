@@ -2,10 +2,10 @@
 
   <ion-navbar>
 
-    <ion-title>Report</ion-title>
+    <ion-title>{{ 'REPORT_PAGE.REPORT' | translate }}</ion-title>
 
     <ion-buttons end>
-      <button clear color="clear" ion-button (click)="dismiss()">Done</button>
+      <button clear color="clear" ion-button (click)="dismiss()">{{ 'DONE' | translate }}</button>
     </ion-buttons>
 
   </ion-navbar>
@@ -21,7 +21,7 @@
 
   <section>
     <p class="result-message">{{message}}</p>
-    <p *ngIf="order_id" class="result-message"><strong>Order ID: {{order_id}}</strong></p>
+    <p *ngIf="order_id" class="result-message"><strong>{{ 'REPORT_PAGE.ORDER_ID' | translate }}: {{order_id}}</strong></p>
   </section>
 
 </ion-content>

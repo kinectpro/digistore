@@ -1,7 +1,7 @@
 <ion-content padding>
 
   <section class="navBar">
-    <button (click)="cancel()" ion-button clear icon-left color="light"><ion-icon name="ios-arrow-back"></ion-icon>Cancel</button>
+    <button (click)="cancel()" ion-button clear icon-left color="light"><ion-icon name="ios-arrow-back"></ion-icon>{{ 'CANCEL' | translate }}</button>
   </section>
 
   <section class="logo" text-center>
@@ -9,7 +9,7 @@
   </section>
 
   <section class="login-text">
-    <p class="color-light" text-center>Login to continue</p>
+    <p class="color-light" text-center>{{ 'LOGIN_PAGE.LOGIN_TO_CONTINUE' | translate }}</p>
   </section>
 
   <form [formGroup]="loginForm">
@@ -21,11 +21,11 @@
       </ion-label>
 
       <ion-item no-margin no-padding>
-        <ion-input formControlName="username" type="email" placeholder="Digistore24-ID/Email"></ion-input>
+        <ion-input formControlName="username" type="email" placeholder="{{ 'LOGIN_PAGE.DIGISTORE_ID_EMAIL' | translate }}"></ion-input>
       </ion-item>
       <ion-row *ngIf="loginForm.controls['username'].invalid && loginForm.controls['username'].touched && !loginForm.controls['username'].pristine">
         <ion-col>
-          <sup ion-text color="danger">Digistore24-ID/Email is required</sup>
+          <sup ion-text color="danger">{{ 'LOGIN_PAGE.DIGISTROE_ID_REQUIRED' | translate }}</sup>
         </ion-col>
       </ion-row>
 
@@ -46,12 +46,12 @@
   </form>
 
   <section>
-    <button ion-button block [disabled]="!loginForm.valid" (click)="login()">Login</button>
+    <button ion-button block [disabled]="!loginForm.valid" (click)="login()">{{ 'LOGIN' | translate }}</button>
 
     <section class="footer" text-center>
-      <a (click)="openBrowser('/extern/login/new_password')">Forgot Password?</a>
+      <a (click)="openBrowser('/extern/login/new_password')">{{ 'LOGIN_PAGE.FORGOT_PASSWORD' | translate }}</a>
       <br/>
-      <p class="color-light" text-center>Not a member yet? <a (click)="openBrowser('/signup')">Register</a></p>
+      <p class="color-light" text-center>{{ 'LOGIN_PAGE.NOT_A_MEMBER' | translate }}&nbsp;<a (click)="openBrowser('/signup')">{{ 'LOGIN_PAGE.REGISTER' | translate }}</a></p>
     </section>
 
   </section>

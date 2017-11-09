@@ -61,16 +61,22 @@ export class LoginPage {
   }
 
   checkValid(field: string): void {
-    let f = this.loginForm.get(field);
-    if (f.errors) {
-      if (f.errors.required) {
-        this.showedErrorPass = field + ' is required';
-        return;
-      }
-      if (f.errors.minlength) {
-        this.showedErrorPass = 'min length of ' + field + ' is ' + f.errors.minlength.requiredLength;
-      }
-    }
+    this.translate.get('LOGIN_PAGE.IS_REQUIRED').subscribe(is_required => {
+      this.translate.get('LOGIN_PAGE.MIN_LENGTH').subscribe(min_length => {
+        this.translate.get('LOGIN_PAGE.IS').subscribe(is => {
+          let f = this.loginForm.get(field);
+          if (f.errors) {
+            if (f.errors.required) {
+              this.showedErrorPass = field + is_required;
+              return;
+            }
+            if (f.errors.minlength) {
+              this.showedErrorPass = min_length + " " + field + ' ' + is + ' ' +f.errors.minlength.requiredLength;
+            }
+          }
+        });
+      });
+    });
   }
 
   showError(mess: string) {

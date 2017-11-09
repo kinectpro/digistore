@@ -6,6 +6,7 @@ import { TicketService } from '../../providers/ticket-service';
 import { TicketParams } from '../../models/params';
 import { TicketScanPage } from './ticket-scan/ticket-scan';
 import { TicketCheckPage } from './ticket-check/ticket-check';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'page-ticket',
@@ -22,7 +23,7 @@ export class TicketPage {
   paramsFromServer: any = {};
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public app: App,
-              public tickServ: TicketService, public toastCtrl: ToastController, public events: Events) {
+              public tickServ: TicketService, public toastCtrl: ToastController, public events: Events, public translate: TranslateService) {
 
     this.events.subscribe('ticket-params:changed', params => this.params = params);
 
@@ -54,6 +55,8 @@ export class TicketPage {
   }
 
   scan() {
+    let params_empty: string = '';
+    this.translate.get('E_TICKET_PAGE.NO_PARAMS').subscribe(val => params_empty = val);
     if (this.params.template.key && this.params.location.key) {
       this.navCtrl.push(TicketQrScannerPage, { params: this.params });
       // ------------------------- for test without scanner ------------------
@@ -62,7 +65,7 @@ export class TicketPage {
     }
     else {
       this.toastCtrl.create({
-        message: 'No "E-Ticket template" or "Event location" field is selected!',
+        message: params_empty,
         duration: 3000,
         position: 'bottom'
       }).present();

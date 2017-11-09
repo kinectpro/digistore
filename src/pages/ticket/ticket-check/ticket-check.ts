@@ -5,6 +5,7 @@ import { TicketParams } from '../../../models/params';
 import { TicketService } from '../../../providers/ticket-service';
 import { TicketDetailsPage } from '../ticket-details/ticket-details';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'page-ticket-check',
@@ -16,7 +17,8 @@ export class TicketCheckPage {
   withoutNumber: boolean;
   params: TicketParams;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController, public ticketSrv: TicketService, public fb: FormBuilder) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController, public ticketSrv: TicketService, public fb: FormBuilder,
+              public translate: TranslateService) {
     this.withoutNumber = navParams.get('withoutNumber');
     this.params = navParams.get('params');
 
@@ -25,7 +27,7 @@ export class TicketCheckPage {
         Validators.required,
         Validators.minLength(20),
         Validators.maxLength(20),
-        Validators.pattern('[0-9]+')        
+        Validators.pattern('[0-9]+')
       ]]
     });
   }
@@ -43,6 +45,11 @@ export class TicketCheckPage {
   }
 
   check() {
+    let not_entered, wrong_length, only_digits: string = '';
+    this.translate.get('E_TICKET_PAGE.20_NUMBER_LIMIT').subscribe(val => wrong_length = val);
+    this.translate.get('E_TICKET_PAGE.ONLY_DIGITS').subscribe(val => only_digits = val);
+    this.translate.get('E_TICKET_PAGE.EMPTY_NUMBER').subscribe(val => not_entered = val);
+
     if (this.numberForm.valid) {
       this.params.ticket = this.numberForm.get('number').value;
       this.ticketSrv.validateTicket(this.params).then(
@@ -53,11 +60,11 @@ export class TicketCheckPage {
     else {
       let msg: string;
       if (this.numberForm.get('number').errors.required)
-        msg = 'Not entered E-Ticket number!';
+        msg = not_entered;
       else if (this.numberForm.get('number').errors.minlength || this.numberForm.get('number').errors.maxlength)
-        msg = 'E-Ticket number must be 20 symbols!';
+        msg = wrong_length;
       else {
-        msg = 'E-Ticket number must include only digits!';
+        msg = only_digits;
       }
 
       this.toastCtrl.create({

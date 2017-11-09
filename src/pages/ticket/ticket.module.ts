@@ -9,6 +9,7 @@ import { TicketParamsPage } from './ticket-params/ticket-params';
 import { TicketSearchResultsPage } from './ticket-search-results/ticket-search-results';
 import { TicketQrScannerPage } from './ticket-qr-scanner/ticket-qr-scanner';
 import { SharedModule } from '../../shared/shared.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { SharedModule } from '../../shared/shared.module';
   imports: [
     CalendarModule,
     SharedModule,
+    TranslateModule,
     IonicPageModule.forChild(TicketPage),
   ],
   entryComponents: [

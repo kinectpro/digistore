@@ -2,7 +2,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title text-center>Transactions</ion-title>
+    <ion-title text-center>{{ 'TRANSACTION_DETAILS_PAGE.TRANSACTIONS' | translate }}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -17,14 +17,14 @@
         <ion-row>
           <ion-col col-7>
             <div *ngFor="let obj of transaction.products; let i = index">
-              <label class="label">{{ transaction.products.length > 1 && i == 0 ? 'Main' : ''}} Product Name / ID</label>
+              <label class="label">{{ transaction.products.length > 1 && i == 0 ? 'Main' : ''}} {{ 'TRANSACTION_DETAILS_PAGE.PRODUCT_NAME' | translate }}</label>
               <p class="product_name">{{ obj.name }} / {{ obj.id }}</p>
             </div>
           </ion-col>
           <ion-col col-5 text-right>
-            <label class="label" >Order ID</label>
+            <label class="label" >{{ 'TRANSACTION_DETAILS_PAGE.ORDER_ID' | translate }}</label>
             <p>{{ transaction.order_id }}</p>
-            <label class="label">Transaction ID</label>
+            <label class="label">{{ 'TRANSACTION_DETAILS_PAGE.TRANSACTION_ID' | translate }}</label>
             <p>{{ transaction.transaction_id }}</p>
           </ion-col>
         </ion-row>
@@ -34,17 +34,17 @@
         <ion-grid no-padding>
           <ion-row class="products-header">
             <ion-col col-6>
-              <label class="label">Order ID</label>
+              <label class="label">{{ 'TRANSACTION_DETAILS_PAGE.ORDER_ID' | translate }}</label>
               <p>{{ transaction.order_id }}</p>
             </ion-col>
             <ion-col col-6 padding>
-              <label class="label">Transaction ID</label>
+              <label class="label">{{ 'TRANSACTION_DETAILS_PAGE.TRANSACTION_ID' | translate }}</label>
               <p>{{ transaction.transaction_id }}</p>
             </ion-col>
           </ion-row>
           <ion-row class="products-body">
             <ion-col col-12>
-              <label class="label">Product Name / ID</label>
+              <label class="label">{{ 'TRANSACTION_DETAILS_PAGE.PRODUCT_NAME' | translate }}</label>
               <p class="product_name" *ngFor="let obj of transaction.products">{{ obj.name }} / {{ obj.id }}</p>
             </ion-col>
           </ion-row>
@@ -54,11 +54,11 @@
       <ion-grid class="bordered">
         <ion-row>
           <ion-col col-6>
-            <label class="label">Gross amount</label>
+            <label class="label">{{ 'TRANSACTION_DETAILS_PAGE.GROSS_AMOUNT' | translate }}</label>
             <p>{{ transaction.currency }} {{ transaction.brutto }}</p>
           </ion-col>
           <ion-col col-6 >
-            <label class="label">Net commission</label>
+            <label class="label">{{ 'TRANSACTION_DETAILS_PAGE.NET_COMMISSION' | translate }}</label>
             <p>{{ transaction.currency }} {{ transaction.netto }}</p>
           </ion-col>
         </ion-row>
@@ -67,15 +67,15 @@
       <ion-grid padding>
         <ion-row align-items-center>
           <ion-col col-4>
-            <label class="label">Transaction type</label>
+            <label class="label">{{ 'TRANSACTION_DETAILS_PAGE.TRANSACTION_TYPE' | translate }}</label>
             <p>{{ transaction.type }}</p>
           </ion-col>
           <ion-col col-4>
-            <label class="label">Payment method</label>
+            <label class="label">{{ 'TRANSACTION_DETAILS_PAGE.PAYMENT_METHOD' | translate }}</label>
             <p>{{ transaction.method }}</p>
           </ion-col>
           <ion-col col-4>
-            <label class="label">Currency</label>
+            <label class="label">{{ 'TRANSACTION_DETAILS_PAGE.CURRENCY' | translate }}</label>
             <p>{{ transaction.currency }}</p>
           </ion-col>
         </ion-row>
@@ -84,11 +84,11 @@
 
     <ion-list class="list">
       <ion-list-header>
-        Customer details
+        {{ 'TRANSACTION_DETAILS_PAGE.CUSTOMER_DETAILS' | translate }}
       </ion-list-header>
       <ion-item no-padding>
         <ion-label padding-left>
-          Name
+          {{ 'TRANSACTION_DETAILS_PAGE.NAME' | translate }}
         </ion-label>
         <div item-content class="item-content" padding-right>
           {{ transaction.customer.name  || '-' }}
@@ -96,7 +96,7 @@
       </ion-item>
       <ion-item no-padding>
         <ion-label padding-left>
-          Email
+          {{ 'TRANSACTION_DETAILS_PAGE.EMAIL' | translate }}
         </ion-label>
         <div item-content class="item-content" padding-right>
           <div *ngIf="transaction.customer.email; else no_email">
@@ -109,7 +109,7 @@
       </ion-item>
       <ion-item no-padding>
         <ion-label padding-left>
-          Phone number
+          {{ 'TRANSACTION_DETAILS_PAGE.PHONE_NUMBER' | translate }}
         </ion-label>
         <div item-content class="item-content" padding-right>
           <div *ngIf="transaction.customer.phone; else no_phone">
@@ -122,7 +122,7 @@
       </ion-item>
       <ion-item no-padding>
         <ion-label padding-left>
-          Affiliate
+          {{ 'TRANSACTION_DETAILS_PAGE.AFFILIATE' | translate }}
         </ion-label>
         <div item-content class="item-content" padding-right>
           {{ transaction.customer.affiliate  || '-' }}
@@ -134,7 +134,7 @@
 
     <button class="report-customer-btn" ion-item no-border (click)="report()">
       <ion-icon name="ios-alert-outline" color="danger" item-start></ion-icon>
-      Report customer
+      {{ 'TRANSACTION_DETAILS_PAGE.REPORT_CUSTOMER' | translate }}
     </button>
 
   </div>
