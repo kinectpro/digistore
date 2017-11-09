@@ -28,9 +28,7 @@ export class TransactionService {
           params_search = params_search.append(`search[${key}]`, params.search[key]);
       }
     }
-    return this.http.get(`${Settings.BASE_URL}${this.auth.apiKey}/json/listPurchases?from=${from}&to=${to}&sort_by=${params.sort.sort_by}&sort_order=${params.sort.sort_order}&language=en`, {
-      params: params_search
-    });
+    return this.http.get(`${Settings.BASE_URL}${this.auth.apiKey}/json/listPurchases?from=${from}&to=${to}&sort_by=${params.sort.sort_by}&sort_order=${params.sort.sort_order}&${decodeURIComponent(params_search.toString())}&language=en`);
   }
 
   getTransactionByOrderId(orderId: string): Observable<{[key: string]: any}> {

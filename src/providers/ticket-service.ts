@@ -103,7 +103,7 @@ export class TicketService {
         .append('search[last_name]', params.lastName || '')
         .append('search[email]', params.email || '')
         .append('search[date]', params.date);
-      this.http.get(`${Settings.BASE_URL}${this.auth.apiKey}/json/listEtickets?language=en`, { params: ticketParams }).subscribe(
+      this.http.get(`${Settings.BASE_URL}${this.auth.apiKey}/json/listEtickets?${decodeURIComponent(ticketParams.toString())}&language=en`).subscribe(
         (res: any) => {
           if (res.result === 'success') {
             resolve(res.data.etickets);
