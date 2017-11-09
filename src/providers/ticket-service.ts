@@ -6,6 +6,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Settings } from '../config/settings';
 import { AuthService } from './auth-service';
 import { TicketParams } from '../models/params';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable()
 export class TicketService {
@@ -13,7 +14,7 @@ export class TicketService {
   private _location: {[key: string]: string};
   private _template: {[key: string]: string};
 
-  constructor(public http: HttpClient, public auth: AuthService) {
+  constructor(public http: HttpClient, public auth: AuthService, public translate: TranslateService) {
     console.log('Init TicketServiceProvider');
     this._location = JSON.parse(localStorage.getItem('location')) || { key: '', value: '' };
     this._template = JSON.parse(localStorage.getItem('template')) || { key: '', value: '' };
@@ -37,7 +38,7 @@ export class TicketService {
 
   getTicketParams(): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.http.get(`${Settings.BASE_URL}${this.auth.apiKey}/json/getEticketSettings?language=en`).subscribe(
+      this.http.get(`${Settings.BASE_URL}${this.auth.apiKey}/json/getEticketSettings?language=${this.translate.currentLang}`).subscribe(
         (res: any) => {
           if (res.result === 'success') {
             resolve({
@@ -62,7 +63,7 @@ export class TicketService {
         .append('template_id', params.template.key)
         .append('eticket_id', params.ticket)
         .append('date', params.date);
-      this.http.get(`${Settings.BASE_URL}${this.auth.apiKey}/json/validateEticket?language=en`, { params: ticketParams }).subscribe(
+      this.http.get(`${Settings.BASE_URL}${this.auth.apiKey}/json/validateEticket?language=${this.translate.currentLang}`, { params: ticketParams }).subscribe(
         (res: any) => {
           if (res.result === 'success') {
             if (res.data.status == 'failure') resolve({
@@ -103,7 +104,7 @@ export class TicketService {
         .append('search[last_name]', params.lastName || '')
         .append('search[email]', params.email || '')
         .append('search[date]', params.date);
-      this.http.get(`${Settings.BASE_URL}${this.auth.apiKey}/json/listEtickets?${decodeURIComponent(ticketParams.toString())}&language=en`).subscribe(
+      this.http.get(`${Settings.BASE_URL}${this.auth.apiKey}/json/listEtickets?${decodeURIComponent(ticketParams.toString())}&language=${this.translate.currentLang}`).subscribe(
         (res: any) => {
           if (res.result === 'success') {
             resolve(res.data.etickets);
@@ -119,7 +120,7 @@ export class TicketService {
 
   getTicket(number: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.http.get(`${Settings.BASE_URL}${this.auth.apiKey}/json/getEticket?eticket_id=${number}&language=en`).subscribe(
+      this.http.get(`${Settings.BASE_URL}${this.auth.apiKey}/json/getEticket?eticket_id=${number}&language=${this.translate.currentLang}`).subscribe(
         (res: any) => {
           if (res.result === 'success') {
             resolve(res.data.eticket);

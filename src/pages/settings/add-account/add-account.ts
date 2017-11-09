@@ -41,7 +41,7 @@ export class AddAccountPage {
 
   login() {
     this.translate.get('LOGIN_PAGE.CONNECTION_PROBLEM').subscribe(value => this.mesConnProblem = value);
-    this.http.get(Settings.BASE_URL + Settings.API_KEY + '/json/createApiKey?username=' + this.loginForm.get('username').value + '&password=' + this.loginForm.get('password').value + '&language=en').subscribe(
+    this.http.get(Settings.BASE_URL + Settings.API_KEY + '/json/createApiKey?username=' + this.loginForm.get('username').value + '&password=' + this.loginForm.get('password').value + '&language=' + this.translate.currentLang).subscribe(
       (res: any) => {
         if (res.result === 'error') {
           this.showError(res.message);

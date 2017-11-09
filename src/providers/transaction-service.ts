@@ -7,12 +7,13 @@ import { Settings } from '../config/settings';
 import { AuthService } from './auth-service';
 import { Observable } from 'rxjs/Observable';
 import { Params } from '../models/params';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Injectable()
 export class TransactionService {
 
-  constructor(public http: HttpClient, public auth: AuthService) {
+  constructor(public http: HttpClient, public auth: AuthService, public translate: TranslateService) {
     console.log('Init TransactionServiceProvider');
   }
 
@@ -28,11 +29,11 @@ export class TransactionService {
           params_search = params_search.append(`search[${key}]`, params.search[key]);
       }
     }
-    return this.http.get(`${Settings.BASE_URL}${this.auth.apiKey}/json/listPurchases?from=${from}&to=${to}&sort_by=${params.sort.sort_by}&sort_order=${params.sort.sort_order}&${decodeURIComponent(params_search.toString())}&language=en`);
+    return this.http.get(`${Settings.BASE_URL}${this.auth.apiKey}/json/listPurchases?from=${from}&to=${to}&sort_by=${params.sort.sort_by}&sort_order=${params.sort.sort_order}&${decodeURIComponent(params_search.toString())}&language=${this.translate.currentLang}`);
   }
 
   getTransactionByOrderId(orderId: string): Observable<{[key: string]: any}> {
-    return this.http.get(`${Settings.BASE_URL}${this.auth.apiKey}/json/getPurchase?purchase_id=${orderId}&language=en`);
+    return this.http.get(`${Settings.BASE_URL}${this.auth.apiKey}/json/getPurchase?purchase_id=${orderId}&language=${this.translate.currentLang}`);
   }
 
   getTransactionList(period: string, params: Params): Promise<any> {
