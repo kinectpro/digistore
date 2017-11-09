@@ -1,0 +1,55 @@
+<ion-header>
+
+  <ion-navbar>
+
+    <ion-buttons left>
+      <button class="arrow" text-capitalize ion-button clear color="clear" (click)="dismiss()" icon-left><ion-icon name="ios-arrow-back"></ion-icon></button>
+    </ion-buttons>
+
+    <ion-title padding-right text-center><b>Add new account</b></ion-title>
+
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <form [formGroup]="loginForm">
+
+    <ion-list>
+
+      <ion-label *ngIf="showedError" class="err-message" no-margin>
+        {{ showedError }}
+      </ion-label>
+
+      <ion-item no-margin no-padding>
+        <ion-input formControlName="username" type="email" placeholder="Digistore24-ID/Email"></ion-input>
+      </ion-item>
+      <ion-row *ngIf="loginForm.controls['username'].invalid && loginForm.controls['username'].touched && !loginForm.controls['username'].pristine">
+        <ion-col>
+          <sup ion-text color="danger">Digistore24-ID/Email is required</sup>
+        </ion-col>
+      </ion-row>
+
+      <ion-item no-margin no-padding>
+        <ion-input formControlName="password" #password type="{{pwdType}}" placeholder="Password" (ionBlur)="checkValid('password')"></ion-input>
+        <button ion-button clear icon-only item-right (click)="showPassword()">
+          <ion-icon name="ios-eye-outline" color="{{pwdType === 'password' ? 'light' : 'secondary' }}"></ion-icon>
+        </button>
+      </ion-item>
+      <ion-row *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched && !loginForm.controls['password'].pristine">
+        <ion-col>
+          <sup ion-text color="danger">{{ showedErrorPass }}</sup>
+        </ion-col>
+      </ion-row>
+
+    </ion-list>
+
+  </form>
+
+  <section>
+    <button ion-button block [disabled]="!loginForm.valid" (click)="login()">Add</button>
+  </section>
+
+</ion-content>

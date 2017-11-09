@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController, ModalController } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
 import { EditPage } from '../edit/edit';
+import { AddAccountPage } from '../add-account/add-account';
 
 @Component({
   selector: 'page-account',
@@ -35,7 +36,7 @@ export class AccountPage {
   }
 
   addAccount() {
-
+    this.modalCtrl.create(AddAccountPage).present();
   }
 
 }

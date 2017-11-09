@@ -16,5 +16,28 @@ page-edit {
   }
   ion-content.content {
     background-color: #fafafa;
+    ion-list {
+      font-family: SFProText;
+      text-align: left;
+      margin: 0;
+      ion-label {
+        padding-left: 12px;
+        font-size: 17px;
+        line-height: 1.29;
+        letter-spacing: -0.4px;
+        color: #414141;
+        p.mail {
+          font-size: 11px;
+          line-height: 1.18;
+          letter-spacing: 0.1px;
+          color: #c1c4cb;
+        }
+      }
+      button {
+        margin: 0!important;
+        padding: 15px!important;
+        color: #3247a1;
+      }
+    }
   }
 }
