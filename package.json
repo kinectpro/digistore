@@ -41,7 +41,6 @@
     "cordova-plugin-file-transfer": "^1.6.3",
     "cordova-plugin-inappbrowser": "^1.7.1",
     "cordova-plugin-ionic-webview": "^1.1.16",
-    "cordova-plugin-ios-longpress-fix": "^1.1.0",
     "cordova-plugin-qrscanner": "^2.5.0",
     "cordova-plugin-splashscreen": "^4.0.3",
     "cordova-plugin-statusbar": "^2.2.3",
@@ -74,8 +73,7 @@
       "cordova-plugin-qrscanner": {},
       "cordova-plugin-file-transfer": {},
       "cordova-plugin-file": {},
-      "cordova-plugin-file-opener2": {},
-      "cordova-plugin-ios-longpress-fix": {}
+      "cordova-plugin-file-opener2": {}
     },
     "platforms": [
       "android"

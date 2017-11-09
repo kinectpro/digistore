@@ -5,10 +5,12 @@ import { Injectable } from '@angular/core';
 export class AuthService {
 
   private _apiKey: string;
+  private _lang: string;
 
   constructor() {
     console.log('Hello AuthServiceProvider Provider');
     this._apiKey = localStorage.getItem('api-key') || '';
+    this._lang = localStorage.getItem('lang') || 'de';
   }
 
   get apiKey(): string {
@@ -18,6 +20,15 @@ export class AuthService {
   set apiKey(value: string) {
     localStorage.setItem('api-key', value);
     this._apiKey = value;
+  }
+
+  get lang(): string {
+    return this._lang;
+  }
+
+  set lang(value: string) {
+    localStorage.setItem('lang', value);
+    this._lang = value;
   }
 
   isLoggedIn(): boolean {

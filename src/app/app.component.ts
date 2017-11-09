@@ -35,7 +35,7 @@ export class MyApp {
     // Set the root page
     this.rootPage = this.authService.isLoggedIn() ? TabsPage : LandingPage;
     // Set the default language for translation strings, and the current language.
-    this.translate.setDefaultLang('en');
-    this.translate.use('en');
+    this.translate.setDefaultLang(this.authService.lang);
+    this.translate.use(this.authService.lang);
   }
 }

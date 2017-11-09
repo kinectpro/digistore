@@ -90,5 +90,4 @@
     <plugin name="cordova-plugin-file-transfer" spec="^1.6.3" />
     <plugin name="cordova-plugin-file" spec="^4.3.3" />
     <plugin name="cordova-plugin-file-opener2" spec="^2.0.19" />
-    <plugin name="cordova-plugin-ios-longpress-fix" spec="^1.1.0" />
 </widget>

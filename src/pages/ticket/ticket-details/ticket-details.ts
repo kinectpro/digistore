@@ -37,12 +37,7 @@ export class TicketDetailsPage {
   }
 
   downloadPdf() {
-    let path: string;
-    if (this.platform.is('ios')) {
-      path = this.file.documentsDirectory;
-    } else {
-      path = this.file.externalDataDirectory;
-    }
+    const path: string = this.platform.is('ios') ? this.file.documentsDirectory : this.file.externalDataDirectory;
     const fileTransfer: FileTransferObject = this.transfer.create();
     fileTransfer.download(this.result.download_url, path + 'file.pdf').then((entry) => {
       this.fileOpener.open(entry.toURL(), 'application/pdf')
