@@ -22,7 +22,7 @@
       </ion-item-divider>
       <ion-item mode="ios" *ngFor="let template of account.value | keys, let i = index" [class.last]="i == template.num - 1">
         <ion-label color="dark">{{ template.value }}</ion-label>
-        <ion-radio mode="ios" value="{{ template.key }}"></ion-radio>
+        <ion-radio mode="ios" value="{{ template.key }}" (ionSelect)="changeParam('template', template)"></ion-radio>
       </ion-item>
     </div>
   </ion-list>
@@ -34,7 +34,7 @@
       </ion-item-divider>
       <ion-item mode="ios" *ngFor="let location of account.value | keys, let i = index" [class.last]="i == location.num - 1">
         <ion-label color="dark">{{ location.value }}</ion-label>
-        <ion-radio mode="ios" value="{{ location.key }}"></ion-radio>
+        <ion-radio mode="ios" value="{{ location.key }}" (ionSelect)="changeParam('location', location)"></ion-radio>
       </ion-item>
     </div>
   </ion-list>

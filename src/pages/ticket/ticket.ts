@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController, App, ToastController } from 'ionic-angular';
+import { NavController, NavParams, ModalController, App, ToastController, Events } from 'ionic-angular';
 import { TicketParamsPage } from './ticket-params/ticket-params';
 import { TicketQrScannerPage } from './ticket-qr-scanner/ticket-qr-scanner';
 import { TicketService } from '../../providers/ticket-service';
@@ -21,7 +21,11 @@ export class TicketPage {
   };
   paramsFromServer: any = {};
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public app: App, public tickServ: TicketService, public toastCtrl: ToastController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public app: App,
+              public tickServ: TicketService, public toastCtrl: ToastController, public events: Events) {
+
+    this.events.subscribe('ticket-params:changed', params => this.params = params);
+
     this.tickServ.getTicketParams().then(
       res => {
         this.paramsFromServer.templates = res.templates;
@@ -38,11 +42,11 @@ export class TicketPage {
   }
 
   openPageParams(pageName: string) {
-    const pageModal = this.modalCtrl.create(TicketParamsPage, { pageName: pageName, params: this.params, paramsFromServer: this.paramsFromServer });
-    pageModal.onDidDismiss(res => {
-      this.params = res.params;
-    });
-    pageModal.present();
+    this.modalCtrl.create(TicketParamsPage, {
+      pageName: pageName,
+      params: this.params,
+      paramsFromServer: this.paramsFromServer
+    }).present();
   }
 
   onChange() {

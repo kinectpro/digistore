@@ -10,9 +10,9 @@
         <ion-col text-center col-6>
           <ion-title><b>Edit</b></ion-title>
         </ion-col>
-        <ion-col text-right col-3>
-          <button class="done" ion-button float-end text-capitalize clear color="clear" (click)="done()">Done</button>
-        </ion-col>
+        <!--<ion-col text-right col-3>-->
+          <!--<button class="done" ion-button float-end text-capitalize clear color="clear" (click)="done()">Done</button>-->
+        <!--</ion-col>-->
       </ion-row>
     </ion-grid>
 
@@ -22,5 +22,20 @@
 
 
 <ion-content>
+
+  <ion-list mode="ios">
+    <ion-item>
+      <ion-label>larsrieger<p class="mail">larsrieger@digistore24.com</p></ion-label>
+      <button ion-button item-end clear icon-only (click)="delAccount()"><ion-icon name="ios-trash-outline"></ion-icon></button>
+    </ion-item>
+    <ion-item>
+      <ion-label>max<p class="mail">max@digistore24.com</p></ion-label>
+      <button ion-button clear item-end icon-only (click)="delAccount()"><ion-icon name="ios-trash-outline"></ion-icon></button>
+    </ion-item>
+    <ion-item>
+      <ion-label>FBI<p class="mail">hunter1984@digistore24.com</p></ion-label>
+      <button ion-button clear item-end icon-only (click)="delAccount()"><ion-icon name="ios-trash-outline"></ion-icon></button>
+    </ion-item>
+  </ion-list>
 
 </ion-content>

@@ -1,16 +1,19 @@
+<ion-header>
+
+  <ion-navbar>
+
+    <ion-buttons left>
+      <button class="arrow" text-capitalize ion-button clear color="clear" (click)="dismiss()" icon-left><ion-icon name="ios-arrow-back"></ion-icon></button>
+    </ion-buttons>
+
+    <ion-title padding-right text-center><b>Add new account</b></ion-title>
+
+  </ion-navbar>
+
+</ion-header>
+
+
 <ion-content padding>
-
-  <section class="navBar">
-    <button (click)="cancel()" ion-button clear icon-left color="light"><ion-icon name="ios-arrow-back"></ion-icon>Cancel</button>
-  </section>
-
-  <section class="logo" text-center>
-    <img class="logo-img" src="assets/img/logo-square.png">
-  </section>
-
-  <section class="login-text">
-    <p class="color-light" text-center>Login to continue</p>
-  </section>
 
   <form [formGroup]="loginForm">
 
@@ -46,14 +49,7 @@
   </form>
 
   <section>
-    <button ion-button block [disabled]="!loginForm.valid" (click)="login()">Login</button>
-
-    <section class="footer" text-center>
-      <a (click)="openBrowser('/extern/login/new_password')">Forgot Password?</a>
-      <br/>
-      <p class="color-light" text-center>Not a member yet? <a (click)="openBrowser('/signup')">Register</a></p>
-    </section>
-
+    <button ion-button block [disabled]="!loginForm.valid" (click)="login()">Add</button>
   </section>
 
 </ion-content>
