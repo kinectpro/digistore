@@ -128,7 +128,7 @@
     "AT_LEAST_SYMBOL": "Mindestens ein Symbol sollte eingegeben werden"
   },
   "E_TICKET_PAGE": {
-    "E_TICKET_SCAN": "E-Ticket-Scan",
+    "E_TICKET_SCAN": "E-Ticket scan",
     "TEMPLATE": "E-Ticketvorlage",
     "LOCATION": "E-Ticket Ort",
     "DATE": "Datum",

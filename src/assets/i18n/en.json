@@ -128,7 +128,7 @@
     "AT_LEAST_SYMBOL": "At least one symbol should be entered"
   },
   "E_TICKET_PAGE": {
-    "E_TICKET_SCAN": "E-Ticket Scan",
+    "E_TICKET_SCAN": "E-Ticket scan",
     "TEMPLATE": "E-Ticket template",
     "LOCATION": "E-Ticket location",
     "DATE": "Date",
