@@ -12,6 +12,10 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class TabsPage {
   tabID: number = 0;
+  earnings: string = ' ';
+  transactions: string = ' ';
+  eticket: string = ' ';
+  settings: string = ' ';
 
   tabEarning = EarningPage;
   tabTransactions = TransactionsPage;
@@ -20,5 +24,11 @@ export class TabsPage {
 
   constructor(public navParams: NavParams, public translate: TranslateService) {
     this.tabID = this.navParams.get('tab');
+    this.translate.onLangChange.subscribe(params => {
+      this.translate.get('GENERAL.EARNINGS').subscribe(val => this.earnings = val);
+      this.translate.get('GENERAL.TRANSACTIONS').subscribe(val => this.transactions = val);
+      this.translate.get('GENERAL.E_TICKET').subscribe(val => this.eticket = val);
+      this.translate.get('GENERAL.SETTINGS').subscribe(val => this.settings = val);
+    });
   }
 }
