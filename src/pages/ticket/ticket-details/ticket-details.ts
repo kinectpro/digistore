@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, Platform } from 'ionic-angular';
 import { TicketCheckPage } from '../ticket-check/ticket-check';
 import { TicketParams } from '../../../models/params';
 import { TicketQrScannerPage } from '../ticket-qr-scanner/ticket-qr-scanner';
@@ -15,7 +15,7 @@ export class TicketDetailsPage {
   result: any;
   params: TicketParams;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public transfer: FileTransfer, public file: File, public fileOpener: FileOpener) {
+  constructor(public navCtrl: NavController, public platform: Platform, public navParams: NavParams, public alertCtrl: AlertController, public transfer: FileTransfer, public file: File, public fileOpener: FileOpener) {
     this.result = navParams.get('result');
     this.params = navParams.get('params');
   }
@@ -37,8 +37,14 @@ export class TicketDetailsPage {
   }
 
   downloadPdf() {
+    let path: string;
+    if (this.platform.is('ios')) {
+      path = this.file.documentsDirectory;
+    } else {
+      path = this.file.externalDataDirectory;
+    }
     const fileTransfer: FileTransferObject = this.transfer.create();
-    fileTransfer.download(this.result.download_url, this.file.externalDataDirectory + 'file.pdf').then((entry) => {
+    fileTransfer.download(this.result.download_url, path + 'file.pdf').then((entry) => {
       this.fileOpener.open(entry.toURL(), 'application/pdf')
       .then(() => console.log('File is opened'))
       .catch(e => console.log('Error openening file', e));
