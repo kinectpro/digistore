@@ -6,6 +6,9 @@ page-ticket-search-results {
     background-color: #fafafa;
     color: #c1c4cb;
   }
+  .toolbar-title-md {
+    padding: 0 26px 0 0;
+  }
   .col-name {
     font-size: 11px;
     font-weight: 500;
@@ -25,6 +28,7 @@ page-ticket-search-results {
     font-size: 17px;
     line-height: 1.29;
     letter-spacing: -0.4px;
+    text-transform: capitalize;
   }
   button.item {
     div.input-wrapper {

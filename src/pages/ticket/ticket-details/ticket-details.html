@@ -5,7 +5,7 @@
     <ion-grid [style.background-color]="result.status == 'success' ? '#35ce76' : '#ed1c24'">
       <ion-row align-items-center>
         <ion-col text-left col-2>
-          <button no-padding text-capitalize ion-button clear color="clear" (click)="redirect()" icon-left><ion-icon name="ios-arrow-back"></ion-icon>{{'E_TICKET_PAGE.BACK' | translate}}</button>
+          <button no-padding text-capitalize ion-button clear color="clear" (click)="redirect()" icon-left><ion-icon name="ios-arrow-back"></ion-icon>{{'BACK' | translate}}</button>
         </ion-col>
         <ion-col text-center col-8>
           <ion-title><b>{{'E_TICKET_PAGE.E_TICKET_DETAILS' | translate}}</b></ion-title>
@@ -92,6 +92,6 @@
 
 <ion-footer *ngIf="result.mode == 'modal'">
   <button large ion-button full [style.background-color]="result.status == 'success' ? '#35ce76' : '#ed1c24'" no-margin (click)="markTicket(result.status == 'success')">
-    <b>{{'E_TICKET_PAGE.MARK_AS' | translate}} {{ result.status == 'success' ? ('E_TICKET_PAGE.USED' | translate) : ('E_TICKET_PAGE.UNUSED' | translate)}}</b>
+    <b>{{'E_TICKET_PAGE.MARK_AS' | translate}} {{ result.status == 'success' ? 'E_TICKET_PAGE.USED' : 'E_TICKET_PAGE.UNUSED' | translate }}</b>
   </button>
 </ion-footer>

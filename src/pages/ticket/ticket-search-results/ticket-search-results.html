@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{'E_TICKET_PAGE.SEARCH_RESULTS' | translate}}</ion-title>
+    <ion-title text-center margin-right padding-right>{{'E_TICKET_PAGE.SEARCH_RESULTS' | translate}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -27,7 +27,7 @@
             <span class="col-order">{{ ticket.id }}</span>
           </ion-col>
           <ion-col col-6 text-right>
-            <span class="col-status" [style.color]="ticket.used_at ? '#c1c4cb' : '#35ce76'">{{ ticket.used_at ? ('E_TICKET_PAGE.USED' | translate) : ('E_TICKET_PAGE.VALID' | translate) }}</span>
+            <span class="col-status" [style.color]="ticket.used_at ? '#c1c4cb' : '#35ce76'">{{ (ticket.used_at ? 'E_TICKET_PAGE.USED' : 'E_TICKET_PAGE.VALID') | translate }}</span>
             <ion-icon md="ios-arrow-forward" padding-left color="light"></ion-icon>
           </ion-col>
         </ion-row>
