@@ -29,7 +29,7 @@
           {{ 'GENERAL.TODAY' | translate }}
         </div>
         <ng-template #notToday>
-          {{ 'TRANSACTIONS_PAGE.THIS' | translate }} <span text-capitalize>{{currentPeriod}}</span>
+          {{ 'TRANSACTIONS_PAGE.THIS' | translate }} <span text-capitalize>{{ 'TRANSACTIONS_PAGE.' + currentPeriod.toUpperCase() | translate }}</span>
         </ng-template>
       </ion-col>
       <ion-col col-2>
