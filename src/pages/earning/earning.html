@@ -1,23 +1,23 @@
 <ion-header>
   <ion-navbar no-border-bottom>
     <ion-title text-center>
-      <b>Earnings</b>
+      <b>{{ 'GENERAL.EARNINGS' | translate }}</b>
     </ion-title>
   </ion-navbar>
 
   <ion-toolbar no-border-top>
     <ion-segment [(ngModel)]="segment">
       <ion-segment-button value="total">
-        Total
+        {{ 'EARNINGS_PAGE.TOTAL' | translate }}
       </ion-segment-button>
       <ion-segment-button value="month">
-        Month
+        {{ 'EARNINGS_PAGE.MONTH' | translate }}
       </ion-segment-button>
       <ion-segment-button value="quarter">
-        Quarter
+        {{ 'EARNINGS_PAGE.QUARTER' | translate }}
       </ion-segment-button>
       <ion-segment-button value="year">
-        Year
+        {{ 'EARNINGS_PAGE.YEAR' | translate }}
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
@@ -28,10 +28,10 @@
 
     <ion-segment mode="ios" [(ngModel)]="toggle" class="toogle">
       <ion-segment-button value='brutto'>
-        Gross
+        {{ 'EARNINGS_PAGE.GROSS' | translate }}
       </ion-segment-button>
       <ion-segment-button value='netto'>
-        Net Commision
+        {{ 'EARNINGS_PAGE.NET_COMMISSION' | translate }}
       </ion-segment-button>
     </ion-segment>
 
@@ -43,7 +43,7 @@
 
         <ion-list-header text-center no-margin>
           <ion-label>
-            {{ toggle == 'brutto' ? "Total Gross" : "Total Net" }}
+            {{ toggle == 'brutto' ? ('EARNINGS_PAGE.TOTAL_GROSS' | translate) : ('EARNINGS_PAGE.TOTAL_NET' | translate) }}
           </ion-label>
         </ion-list-header>
         <ion-list-header text-center no-margin>
@@ -64,7 +64,7 @@
 
         <button ion-item no-padding (click)="goToTransaction('day')">
           <ion-label>
-            Today
+            {{ 'GENERAL.TODAY' | translate }}
           </ion-label>
           <div item-content class="total">
             {{ totalData[currentCurrency][toggle].today | currency:currentCurrency:true }} <ion-icon md="ios-arrow-forward" padding-left color="light"></ion-icon>
@@ -73,7 +73,7 @@
 
         <button ion-item no-padding (click)="goToTransaction('week')">
           <ion-label>
-            This week
+            {{ 'GENERAL.THIS_WEEK' | translate }}
           </ion-label>
           <div item-content class="total">
             {{ totalData[currentCurrency][toggle].week | currency:currentCurrency:true }} <ion-icon md="ios-arrow-forward" padding-left color="light"></ion-icon>
@@ -82,7 +82,7 @@
 
         <button ion-item no-padding (click)="goToTransaction('month')">
           <ion-label>
-            This month
+            {{ 'GENERAL.THIS_MONTH' | translate }}
           </ion-label>
           <div item-content class="total">
             {{ totalData[currentCurrency][toggle].month | currency:currentCurrency:true }} <ion-icon md="ios-arrow-forward" padding-left color="light"></ion-icon>
@@ -91,7 +91,7 @@
 
         <button ion-item no-padding (click)="goToTransaction('year')">
           <ion-label>
-            This year
+            {{ 'GENERAL.THIS_YEAR' | translate }}
           </ion-label>
           <div item-content class="total">
             {{ totalData[currentCurrency][toggle].year | currency:currentCurrency:true }} <ion-icon md="ios-arrow-forward" padding-left color="light"></ion-icon>
@@ -188,7 +188,7 @@
       <ion-row class="empty-result">
         <ion-col col-8 offset-2>
           <ion-item no-lines no-padding>
-            <p>No results found.</p>
+            <p>{{ 'GENERAL.NO_RESULTS_FOUND' | translate }}</p>
           </ion-item>
         </ion-col>
       </ion-row>

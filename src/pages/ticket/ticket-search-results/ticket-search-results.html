@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Search results</ion-title>
+    <ion-title>{{'E_TICKET_PAGE.SEARCH_RESULTS' | translate}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -14,8 +14,8 @@
     <ion-item-divider class="header">
       <ion-label no-margin>
         <ion-row text-uppercase margin-right>
-          <ion-col col-6 text-left><span class="col-name">Ticket ID</span></ion-col>
-          <ion-col col-6 text-right><span class="col-name">Status</span></ion-col>
+          <ion-col col-6 text-left><span class="col-name">{{'E_TICKET_PAGE.TICKET_ID' | translate}}</span></ion-col>
+          <ion-col col-6 text-right><span class="col-name">{{'E_TICKET_PAGE.STATUS' | translate}}</span></ion-col>
         </ion-row>
       </ion-label>
     </ion-item-divider>
@@ -27,7 +27,7 @@
             <span class="col-order">{{ ticket.id }}</span>
           </ion-col>
           <ion-col col-6 text-right>
-            <span class="col-status" [style.color]="ticket.used_at ? '#c1c4cb' : '#35ce76'">{{ ticket.used_at ? 'Used' : 'Valid' }}</span>
+            <span class="col-status" [style.color]="ticket.used_at ? '#c1c4cb' : '#35ce76'">{{ ticket.used_at ? ('E_TICKET_PAGE.USED' | translate) : ('E_TICKET_PAGE.VALID' | translate) }}</span>
             <ion-icon md="ios-arrow-forward" padding-left color="light"></ion-icon>
           </ion-col>
         </ion-row>
@@ -40,7 +40,7 @@
     <ion-row class="empty-result">
       <ion-col col-8 offset-2>
         <ion-item no-lines no-padding>
-          <p>No tickets found.</p>
+          <p>{{'E_TICKET_PAGE.NOT_FOUND' | translate}}</p>
         </ion-item>
       </ion-col>
     </ion-row>

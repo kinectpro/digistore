@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <ion-title text-center>
-      <b>E-Ticket Scan</b>
+      <b>{{'E_TICKET_PAGE.E_TICKET_SCAN' | translate}}</b>
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -10,7 +10,7 @@
   <ion-list no-padding no-margin>
     <button no-padding ion-item (click)="openPageParams('E-Ticket template')">
       <ion-label padding-left>
-        E-Ticket template
+        {{'E_TICKET_PAGE.TEMPLATE' | translate}}
       </ion-label>
       <div item-content class="item-content">
         {{ params.template.value }}
@@ -19,7 +19,7 @@
     </button>
     <button no-padding ion-item (click)="openPageParams('Event location')">
       <ion-label padding-left>
-        Event location
+        {{'E_TICKET_PAGE.LOCATION' | translate}}
       </ion-label>
       <div item-content class="item-content">
         {{ params.location.value }}
@@ -28,7 +28,7 @@
     </button>
     <button no-padding ion-item (click)="showedCalendar = !showedCalendar">
       <ion-label padding-left>
-        Date
+        {{'E_TICKET_PAGE.DATE' | translate}}
       </ion-label>
       <div item-content class="item-content">
         {{ params.date | date:'d MMM, y' }}
@@ -44,10 +44,10 @@
                 [options]="{ monthFormat: 'MMMM y' }">
   </ion-calendar>
 
-  <button ion-button full outline class="btn-question" (click)="findWithoutNumber()">Don't have E-Ticket number?</button>
+  <button ion-button full outline class="btn-question" (click)="findWithoutNumber()">{{'E_TICKET_PAGE.HAVE_NO_NUMBER' | translate}}</button>
 
 </ion-content>
 
 <ion-footer>
-  <button large text-capitalize ion-button full color="secondary" no-margin (click)="scan()">Scan</button>
+  <button large text-capitalize ion-button full color="secondary" no-margin (click)="scan()">{{'E_TICKET_PAGE.SCAN' | translate}}</button>
 </ion-footer>

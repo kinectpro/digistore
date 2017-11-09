@@ -5,13 +5,13 @@
     <ion-grid [style.background-color]="result.status == 'success' ? '#35ce76' : '#ed1c24'">
       <ion-row align-items-center>
         <ion-col text-left col-2>
-          <button no-padding text-capitalize ion-button clear color="clear" (click)="redirect()" icon-left><ion-icon name="ios-arrow-back"></ion-icon>Back</button>
+          <button no-padding text-capitalize ion-button clear color="clear" (click)="redirect()" icon-left><ion-icon name="ios-arrow-back"></ion-icon>{{'E_TICKET_PAGE.BACK' | translate}}</button>
         </ion-col>
         <ion-col text-center col-8>
-          <ion-title><b>E-Ticket details</b></ion-title>
+          <ion-title><b>{{'E_TICKET_PAGE.E_TICKET_DETAILS' | translate}}</b></ion-title>
         </ion-col>
         <ion-col text-right col-2 *ngIf="result.status == 'success' && result.mode != 'modal'">
-          <button no-padding text-capitalize clear color="clear" ion-button (click)="redirect()">Done</button>
+          <button no-padding text-capitalize clear color="clear" ion-button (click)="redirect()">{{'DONE' | translate}}</button>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -26,7 +26,7 @@
   <ion-list>
 
     <ion-list-header text-center no-margin text-capitalize [style.color]="result.status == 'success' ? '#35ce76' : '#ed1c24'">
-      {{ result.mode != 'modal' ? result.status : result.status == 'success' ? 'E-Ticket valid!' : 'Already used' }}
+      {{ result.mode != 'modal' ? result.status : result.status == 'success' ? ('E_TICKET_PAGE.E_TICKET_VALID' | translate) : ('E_TICKET_PAGE.ALREADY_USED' | translate) }}
     </ion-list-header>
 
     <ion-label text-wrap class="message" margin>
@@ -36,7 +36,7 @@
     <ion-grid>
       <ion-row align-items-center *ngIf="result.mode != 'modal' && result.status == 'success'">
         <ion-col col-3 class="first-col">
-          Number
+          {{'E_TICKET_PAGE.NUMBER' | translate}}
         </ion-col>
         <ion-col col-9 class="second-col">
           {{ params.ticket }}
@@ -44,7 +44,7 @@
       </ion-row>
       <ion-row align-items-center *ngIf="result.id">
         <ion-col col-3 class="first-col">
-          Ticket ID
+          {{'E_TICKET_PAGE.TICKET_ID' | translate}}
         </ion-col>
         <ion-col col-9 class="second-col">
           {{ result.id }}
@@ -53,7 +53,7 @@
       <br>
       <ion-row align-items-center *ngIf="result.first_name">
         <ion-col col-3 class="first-col">
-          First name
+          {{'E_TICKET_PAGE.FIRSTNAME' | translate}}
         </ion-col>
         <ion-col col-9 class="second-col">
           {{ result.first_name }}
@@ -61,7 +61,7 @@
       </ion-row>
       <ion-row align-items-center *ngIf="result.last_name">
         <ion-col col-3 class="first-col">
-          Last name
+          {{'E_TICKET_PAGE.LASTNAME' | translate}}
         </ion-col>
         <ion-col col-9 class="second-col">
           {{ result.last_name }}
@@ -69,7 +69,7 @@
       </ion-row>
       <ion-row align-items-center *ngIf="result.email">
         <ion-col col-3 class="first-col">
-          Email
+          {{'E_TICKET_PAGE.EMAIL' | translate}}
         </ion-col>
         <ion-col col-9 class="second-col">
           {{ result.email }}
@@ -80,18 +80,18 @@
   </ion-list>
 
   <button ion-button full outline text-capitalize class="pdf-btn" *ngIf="result.status == 'success' || result.mode == 'modal'" (click)="downloadPdf()">
-    <img src="assets/img/ic-download-pdf@2x.png" class="ic_download_pdf">Download E-Ticket
+    <img src="assets/img/ic-download-pdf@2x.png" class="ic_download_pdf">{{'E_TICKET_PAGE.DOWNLOAD_E_TICKET' | translate}}
   </button>
 
   <section padding class="ctrl-buttons" *ngIf="result.status == 'failure' && result.mode != 'modal'">
-    <button (click)="retry()" ion-button block color="primary" text-capitalize>Retry</button>
-    <button (click)="checkWithNumber()" ion-button block outline text-capitalize>Check with number</button>
+    <button (click)="retry()" ion-button block color="primary" text-capitalize>{{'E_TICKET_PAGE.RETRY' | translate}}</button>
+    <button (click)="checkWithNumber()" ion-button block outline text-capitalize>{{'E_TICKET_PAGE.CHECK_WITH_NUMBER' | translate}}</button>
   </section>
 
 </ion-content>
 
 <ion-footer *ngIf="result.mode == 'modal'">
   <button large ion-button full [style.background-color]="result.status == 'success' ? '#35ce76' : '#ed1c24'" no-margin (click)="markTicket(result.status == 'success')">
-    <b>Mark as {{ result.status == 'success' ? 'used' : 'unused'}}</b>
+    <b>{{'E_TICKET_PAGE.MARK_AS' | translate}} {{ result.status == 'success' ? ('E_TICKET_PAGE.USED' | translate) : ('E_TICKET_PAGE.UNUSED' | translate)}}</b>
   </button>
 </ion-footer>

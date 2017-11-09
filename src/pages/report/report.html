@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title text-center>Report</ion-title>
+    <ion-title text-center>{{ 'REPORT_PAGE.REPORT' | translate }}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -9,37 +9,37 @@
 
 <ion-content no-padding>
   <form [formGroup]="reportForm">
-    <ion-label no-padding [color]="reportForm.controls['description'].invalid ? 'danger' : 'light'" class="textarea-status" float-end>Required</ion-label>
+    <ion-label no-padding [color]="reportForm.controls['description'].invalid ? 'danger' : 'light'" class="textarea-status" float-end>{{ 'REPORT_PAGE.REQUIRED' | translate }}</ion-label>
     <section padding-top margin-bottom class="white-bg">
-      <ion-textarea formControlName="description" placeholder="Why do you think that this is a fraud order?" rows="7" id="thoughtsBox"></ion-textarea>
+      <ion-textarea formControlName="description" placeholder="{{ 'REPORT_PAGE.COMMENT_PLACEHOLDER' | translate }}" rows="7" id="thoughtsBox"></ion-textarea>
     </section>
     <section class="white-bg">
         <ion-list>
 
           <ion-item>
-            <ion-label fixed>Name</ion-label>
+            <ion-label fixed>{{ 'REPORT_PAGE.NAME' | translate }}</ion-label>
             <ion-input readonly text-right type="text" placeholder="Enter here" value="{{transaction ? transaction.customer.name : '-'}}"></ion-input>
           </ion-item>
 
           <ion-item>
-            <ion-label fixed>Email</ion-label>
+            <ion-label fixed>{{ 'REPORT_PAGE.EMAIL' | translate }}</ion-label>
             <ion-input readonly text-right type="email" placeholder="Enter here" value="{{transaction ? transaction.customer.email : '-'}}"></ion-input>
           </ion-item>
 
         </ion-list>
     </section>
-    <span *ngIf="!reportForm.get('affiliate').value" class="no-affiliate-text" padding-left>This purchase was made without affiliate</span>
+    <span *ngIf="!reportForm.get('affiliate').value" class="no-affiliate-text" padding-left>{{ 'REPORT_PAGE.AFFILIATE_DESC' | translate }}</span>
     <section margin-top class="white-bg">
       <ion-item-group>
         <ion-item>
-          <ion-label>Report affiliate</ion-label>
+          <ion-label>{{ 'REPORT_PAGE.REPORT_AFFILIATE' | translate }}</ion-label>
           <ion-toggle formControlName="affiliate" color="secondary"></ion-toggle>
         </ion-item>
       </ion-item-group>
     </section>
 
     <section padding>
-      <button [disabled]="!reportForm.valid" (click)="sendReport()" ion-button block color="danger" text-capitalize>Report</button>
+      <button [disabled]="!reportForm.valid" (click)="sendReport()" ion-button block color="danger" text-capitalize>{{ 'REPORT_PAGE.REPORT_BUTTON' | translate }}</button>
     </section>
   </form>
 </ion-content>
