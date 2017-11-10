@@ -150,7 +150,7 @@
   "E_TICKET_PAGE": {
     "E_TICKET_SCAN": "E-Ticket scan",
     "TEMPLATE": "E-Ticket template",
-    "LOCATION": "E-Ticket location",
+    "LOCATION": "Event location",
     "DATE": "Date",
     "HAVE_NO_NUMBER": "Don't have E-Ticket number?",
     "SCAN": "Scan",

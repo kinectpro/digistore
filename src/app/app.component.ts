@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Platform } from 'ionic-angular';
+import { Platform, Config } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -17,7 +17,7 @@ export class MyApp {
   rootPage: any;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public translate: TranslateService, public authService: AuthService,
-              public keyboard: Keyboard, public pushWoosh: PushwooshService) {
+              public keyboard: Keyboard, public pushWoosh: PushwooshService, public config: Config) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -39,6 +39,14 @@ export class MyApp {
     this.translate.setDefaultLang(this.authService.lang);
     this.translate.use(this.authService.lang);
 
+    this.initTextBackBtn();
+
+    this.translate.onLangChange.subscribe( _ => this.initTextBackBtn() );
+
     this.pushWoosh.init();
+  }
+
+  initTextBackBtn() {
+    this.translate.get('BACK').subscribe(res => this.config.set('backButtonText', res));
   }
 }
