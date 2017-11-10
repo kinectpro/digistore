@@ -119,7 +119,7 @@
 
           <button ion-item no-padding *ngFor="let month of obj.months">
             <ion-label>
-              {{ month.name }}
+              {{ 'MONTHS.' + month.name | translate }}
             </ion-label>
             <div item-content class="total">
               {{ month[toggle] | currency:currentCurrency:true }} <ion-icon md="ios-arrow-forward" color="light"></ion-icon>
@@ -149,7 +149,7 @@
 
           <button ion-item no-padding *ngFor="let quarter of obj.quarters">
             <ion-label>
-              Q{{ quarter.number }} <span>{{ quarter.name }}</span>
+              Q{{ quarter.number }} <span>{{ 'QUARTERS.Q' + quarter.number | translate }}</span>
             </ion-label>
             <div item-content class="total">
               {{ quarter[toggle] | currency:currentCurrency:true }} <ion-icon md="ios-arrow-forward" color="light"></ion-icon>

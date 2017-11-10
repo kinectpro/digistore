@@ -1,3 +1,4 @@
+if (window.cordova)
 cordova.define("pushwoosh-cordova-plugin.PushNotification", function(require, exports, module) {
 //
 //  PushNotification.js

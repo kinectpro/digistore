@@ -12,6 +12,26 @@
     "MIN_LENGTH": "Mindestlänge von",
     "IS": "ist"
   },
+  "MONTHS": {
+    "January": "Januar",
+    "February": "Februar",
+    "March": "März",
+    "April:": "April",
+    "May": "Mai",
+    "June": "Juni",
+    "July": "Juli",
+    "August": "August",
+    "September": "September",
+    "October": "Oktober",
+    "November": "November",
+    "December": "Dezember"
+  },
+  "QUARTERS": {
+    "Q1": "Januar, Februar, März",
+    "Q2": "April, Mai, Juni",
+    "Q3": "Juli, August, September",
+    "Q4": "Oktober, November, Dezember"
+  },
   "CANCEL": "Stornieren",
   "LOGIN": "Anmeldung",
   "BACK": "Zurück",

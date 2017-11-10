@@ -90,8 +90,8 @@
 
 </ion-content>
 
-<ion-footer *ngIf="result.mode == 'modal'">
-  <button large ion-button full [style.background-color]="result.status == 'success' ? '#35ce76' : '#ed1c24'" no-margin (click)="markTicket(result.status == 'success')">
-    <b>{{'E_TICKET_PAGE.MARK_AS' | translate}} {{ result.status == 'success' ? 'E_TICKET_PAGE.USED' : 'E_TICKET_PAGE.UNUSED' | translate }}</b>
+<ion-footer *ngIf="result.mode == 'modal' && result.status == 'success'">
+  <button large ion-button full [style.background-color]="'#35ce76'" no-margin (click)="markTicket()">
+    <b>{{'E_TICKET_PAGE.MARK_AS' | translate}} {{ 'E_TICKET_PAGE.USED' | translate }}</b>
   </button>
 </ion-footer>

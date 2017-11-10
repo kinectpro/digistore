@@ -1,4 +1,4 @@
-import {Injectable} from "@angular/core";
+import { Injectable } from "@angular/core";
 import { Platform } from 'ionic-angular';
 
 declare let cordova: any;
@@ -21,12 +21,14 @@ export class PushwooshService {
   init() {
     console.log("PushwooshService init");
 
-    if (this.platform.is('ios')) {
-      console.log('Starting iOS Pushwoosh initialization');
-      this.initIOS();
-    } else if (this.platform.is('android')) {
-      console.log('Starting Android Pushwoosh initialization');
-      this.initAndroid();
+    if (this.platform.is('cordova')) {
+      if (this.platform.is('ios')) {
+        console.log('Starting iOS Pushwoosh initialization');
+        this.initIOS();
+      } else {
+        console.log('Starting Android Pushwoosh initialization');
+        this.initAndroid();
+      }
     } else {
       console.log('Unknown Cordova platform. Skipping Pushwoosh initialization');
     }

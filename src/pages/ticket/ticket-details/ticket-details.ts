@@ -50,10 +50,10 @@ export class TicketDetailsPage {
     });
   }
 
-  markTicket(mark: boolean) {
-    const message = 'The E-Ticket will be marked as ' +  (mark ? 'used': 'unused (and can be used again, if it is not blocked)');
+  markTicket() {
+    const message = 'The E-Ticket will be marked as used';
     const prompt = this.alertCtrl.create({
-      title: 'Mark as ' + (mark ? 'used?' : 'unused?'),
+      title: 'Mark as used?',
       mode: 'ios',
       message: message,
       buttons: [
@@ -67,6 +67,7 @@ export class TicketDetailsPage {
           text: 'Mark',
           handler: () => {
             console.log('change mark');
+            this.navCtrl.pop();
           }
         }
       ]
