@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController, Platform } from 'ionic-angular';
+import { NavController, NavParams, AlertController, Platform, ViewController } from 'ionic-angular';
 import { TicketCheckPage } from '../ticket-check/ticket-check';
 import { TicketParams } from '../../../models/params';
 import { TicketQrScannerPage } from '../ticket-qr-scanner/ticket-qr-scanner';
@@ -15,7 +15,8 @@ export class TicketDetailsPage {
   result: any;
   params: TicketParams;
 
-  constructor(public navCtrl: NavController, public platform: Platform, public navParams: NavParams, public alertCtrl: AlertController, public transfer: FileTransfer, public file: File, public fileOpener: FileOpener) {
+  constructor(public navCtrl: NavController, public platform: Platform, public navParams: NavParams, public alertCtrl: AlertController,
+              public transfer: FileTransfer, public file: File, public fileOpener: FileOpener, public viewCtrl: ViewController) {
     this.result = navParams.get('result');
     this.params = navParams.get('params');
   }
@@ -30,6 +31,7 @@ export class TicketDetailsPage {
 
   retry() {
     this.navCtrl.push(TicketQrScannerPage, { params: this.params });
+    this.viewCtrl.dismiss();
   }
 
   checkWithNumber() {

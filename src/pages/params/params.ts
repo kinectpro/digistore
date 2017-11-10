@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController } from 'ionic-angular';
+import { NavController, NavParams, ViewController, Events } from 'ionic-angular';
 import { Search } from '../../models/params';
 import { SettingsService } from '../../providers/settings-service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'page-params',
@@ -18,8 +19,9 @@ export class ParamsPage {
   // variables for transactionTypePage and billingTypePage
   types: any[] = [];
   anyValue: boolean;
+  private field: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public settingsServ: SettingsService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public settingsServ: SettingsService, public events: Events, public translate: TranslateService) {
     this.pageName = navParams.get('pageName');
     this.search = navParams.get('search');
     const globalTypesFromServer = navParams.get('globalTypesFromServer');
@@ -40,13 +42,13 @@ export class ParamsPage {
     }
 
     if (this.pageName == 'Transaction type' || this.pageName == 'Billing type') {
-      const field = this.pageName.toLowerCase().replace(' ', '_');
-      let values = this.search[field] ? this.search[field].split(',') : [];
+      this.field = this.pageName.toLowerCase().replace(' ', '_');
+      let values = this.search[this.field] ? this.search[this.field].split(',') : [];
       this.anyValue = !values.length;
-      for (let key in globalTypesFromServer['search_' + field]) {
+      for (let key in globalTypesFromServer['search_' + this.field]) {
         this.types.push({
           key: key,
-          name: globalTypesFromServer['search_' + field][key],
+          name: globalTypesFromServer['search_' + this.field][key],
           value: !!values.find(obj => obj === key)
         });
       }
@@ -55,6 +57,28 @@ export class ParamsPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ParamsPage');
+  }
+
+  ionViewWillLeave() {
+    // Affiliate Page
+    if (this.pageName == 'Affiliate') {
+      if (this.affiliate == 'name') {
+        console.log('this.affiliate == name');
+        this.search.affiliate_name = this.affiliateName;
+        this.search.has_affiliate = '';
+      }
+      else {
+        console.log('this.affiliate !== name');
+        this.search.has_affiliate = this.affiliate;
+        this.search.affiliate_name = '';
+      }
+    }
+    // Transaction Type Page or Billing Type Page
+    if (this.pageName == 'Transaction type' || this.pageName == 'Billing type') {
+      this.search[this.field] = this.getSearchParams();
+    }
+
+    this.events.publish('transactions-params:changed', this.search);
   }
 
   showInputAffiliateName(flag: boolean) {
@@ -74,35 +98,18 @@ export class ParamsPage {
     if (flag) this.anyValue = false;
   }
 
-
   dismiss() {
-    // Affiliate Page
-    if (this.pageName == 'Affiliate') {
-      if (this.affiliate == 'name') {
-        console.log('this.affiliate == name');
-        this.search.affiliate_name = this.affiliateName;
-        this.search.has_affiliate = '';
-      }
-      else {
-        console.log('this.affiliate !== name');
-        this.search.has_affiliate = this.affiliate;
-        this.search.affiliate_name = '';
-      }
-    }
-    // Transaction Type Page or Billing Type Page
-    if (this.pageName == 'Transaction type' || this.pageName == 'Billing type') {
-      const field = this.pageName.toLowerCase().replace(' ', '_');
-      this.search[field] = '';
-      this.types.forEach(obj => {
-        if (obj.value)  {
-          this.search[field] += (this.search[field] ? ',' : '') + obj.key;
-        }
-      });
-    }
+    this.viewCtrl.dismiss();
+  }
 
-    this.viewCtrl.dismiss({
-      search: this.search
+  getSearchParams(): string {
+    let res: string = '';
+    this.types.forEach(obj => {
+      if (obj.value)  {
+        res += (res ? ',' : '') + obj.key;
+      }
     });
+    return res;
   }
 
 }

@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavParams, ViewController, ModalController, LoadingController } from 'ionic-angular';
+import { NavParams, ViewController, ModalController, LoadingController, Events } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Search } from '../../models/params';
 import { ParamsPage } from '../params/params';
@@ -28,7 +28,7 @@ export class SearchPage {
 
   activeTab: string;
 
-  constructor(public navParams: NavParams, public fb: FormBuilder, public viewCtrl: ViewController, public modalCtrl: ModalController,
+  constructor(public navParams: NavParams, public fb: FormBuilder, public viewCtrl: ViewController, public modalCtrl: ModalController, public events: Events,
               public settingsServ: SettingsService, public loadingCtrl: LoadingController, public translate: TranslateService, public complServ: CompleteService) {
 
     this.searchObj = navParams.get('params_search');
@@ -58,6 +58,8 @@ export class SearchPage {
 
     this.payments = this.searchObj.pay_method ? this.searchObj.pay_method.split(',') : [];
     this.currencies = this.searchObj.currency ? this.searchObj.currency.split(',') : [];
+
+    this.events.subscribe('transactions-params:changed', params => this.searchObj = params);
   }
 
   setActive(tab: string) {
@@ -116,15 +118,11 @@ export class SearchPage {
   }
 
   openPageParams(pageName: string) {
-    const pageModal = this.modalCtrl.create(ParamsPage, { pageName: pageName, search: this.searchObj, globalTypesFromServer: this.globalTypesFromServer });
-    pageModal.onDidDismiss(res => {
-      console.log('ПРИШЛИ ПАРАММЕТРЫ ИЗ ParamsPage');
-      console.log(res.search);
-      this.searchObj = res.search;
-      console.log('ТЕПЕРЬ ТАК ВЫГЛЯДИТ searchObj');
-      console.log(this.searchObj);
-    });
-    pageModal.present();
+    this.modalCtrl.create(ParamsPage, {
+      pageName: pageName,
+      search: this.searchObj,
+      globalTypesFromServer: this.globalTypesFromServer
+    }).present();
   }
 
   dismiss() {
