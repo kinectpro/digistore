@@ -8,7 +8,6 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../providers/auth-service';
 import { Keyboard } from '@ionic-native/keyboard';
-import { PushwooshService } from '../providers/pushwoosh-service';
 
 @Component({
   templateUrl: 'app.html'
@@ -17,7 +16,7 @@ export class MyApp {
   rootPage: any;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public translate: TranslateService, public authService: AuthService,
-              public keyboard: Keyboard, public pushWoosh: PushwooshService, public config: Config) {
+              public keyboard: Keyboard, public config: Config) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -43,7 +42,6 @@ export class MyApp {
 
     this.translate.onLangChange.subscribe( _ => this.initTextBackBtn() );
 
-    this.pushWoosh.init();
   }
 
   initTextBackBtn() {

@@ -37,7 +37,6 @@ import { FileTransfer } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
 import { FileOpener } from '@ionic-native/file-opener';
 import { SettingsPageModule } from '../pages/settings/settings.module';
-import { PushwooshService } from '../providers/pushwoosh-service';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -113,8 +112,7 @@ export function createTranslateLoader(http: HttpClient) {
     CompleteService,
     SettingsService,
     TicketService,
-    TransactionService,
-    PushwooshService
+    TransactionService
   ]
 })
 export class AppModule {}

@@ -26,6 +26,7 @@
         "@ionic-native/file-transfer": "^4.3.3",
         "@ionic-native/in-app-browser": "^4.3.1",
         "@ionic-native/keyboard": "^4.3.2",
+        "@ionic-native/onesignal": "^4.4.0",
         "@ionic-native/qr-scanner": "^4.3.3",
         "@ionic-native/splash-screen": "4.3.0",
         "@ionic-native/status-bar": "^4.3.0",
@@ -33,7 +34,7 @@
         "@ngx-translate/core": "^8.0.0",
         "@ngx-translate/http-loader": "^2.0.0",
         "call-number": "^1.0.1",
-        "cordova-android": "^6.3.0",
+        "cordova-android": "^6.4.0",
         "cordova-plugin-compat": "^1.2.0",
         "cordova-plugin-file": "^4.3.3",
         "cordova-plugin-file-opener2": "^2.0.19",
@@ -50,7 +51,7 @@
         "ionic2-auto-complete": "^1.5.3-beta",
         "ionicons": "3.0.0",
         "moment": "^2.19.1",
-        "pushwoosh-cordova-plugin": "^7.0.8",
+        "onesignal-cordova-plugin": "^2.2.2",
         "rxjs": "5.4.3",
         "sw-toolbox": "3.6.0",
         "zone.js": "0.8.18"
@@ -73,11 +74,7 @@
             "cordova-plugin-file-transfer": {},
             "cordova-plugin-file": {},
             "cordova-plugin-file-opener2": {},
-            "pushwoosh-cordova-plugin": {
-                "LOG_LEVEL": "DEBUG",
-                "IOS_FOREGROUND_ALERT_TYPE": "NONE",
-                "ANDROID_FOREGROUND_PUSH": "false"
-            }
+            "onesignal-cordova-plugin": {}
         },
         "platforms": [
             "android"
