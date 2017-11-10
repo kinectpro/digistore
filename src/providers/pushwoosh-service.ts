@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import { Platform } from 'ionic-angular';
 
-declare let cordova : any;
+declare let cordova: any;
 
 let PUSHWOOSH_APP_ID = 'D8313-6774B';
 let GOOGLE_PROJECT_NUMBER = '340402504356';
@@ -23,17 +23,17 @@ export class PushwooshService {
 
     if (this.platform.is('ios')) {
       console.log('Starting iOS Pushwoosh initialization');
-      // this.initIOS();
+      this.initIOS();
     } else if (this.platform.is('android')) {
       console.log('Starting Android Pushwoosh initialization');
-      // this.initAndroid();
+      this.initAndroid();
     } else {
-      console.log('Unknown Cordova platform', this.device.platform, '. Skipping Pushwoosh initialization');
+      console.log('Unknown Cordova platform. Skipping Pushwoosh initialization');
     }
   }
 
   initIOS() {
-    let pushNotification = cordova.require("pushwoosh-cordova-plugin.PushNotification");
+    let PushNotification = cordova.require("pushwoosh-cordova-plugin.PushNotification");
     //set push notification callback before we initialize the plugin
     document.addEventListener('push-notification', function (event:any) {
       //get the notification payload
@@ -43,14 +43,14 @@ export class PushwooshService {
       alert(notification.aps.alert);
 
       //clear the app badge
-      pushNotification.setApplicationIconBadgeNumber(0);
+      PushNotification.setApplicationIconBadgeNumber(0);
     });
 
     //initialize the plugin
-    pushNotification.onDeviceReady({pw_appid: PUSHWOOSH_APP_ID});
+    PushNotification.onDeviceReady({pw_appid: PUSHWOOSH_APP_ID});
 
     //register for pushes
-    pushNotification.registerDevice(
+    PushNotification.registerDevice(
       function (status) {
         let deviceToken = status['deviceToken'];
         console.warn('registerDevice: ' + deviceToken);
@@ -62,11 +62,11 @@ export class PushwooshService {
     );
 
     //reset badges on app start
-    pushNotification.setApplicationIconBadgeNumber(0);
+    PushNotification.setApplicationIconBadgeNumber(0);
   }
 
   initAndroid() {
-    let pushNotification = cordova.require("pushwoosh-cordova-plugin.PushNotification");
+    let PushNotification = cordova.require("pushwoosh-cordova-plugin.PushNotification");
     //set push notifications handler
     document.addEventListener('push-notification', function (event:any) {
       let title    = event.notification.title;
@@ -80,14 +80,14 @@ export class PushwooshService {
     });
 
     //initialize Pushwoosh with projectid: GOOGLE_PROJECT_NUMBER, pw_appid : PUSHWOOSH_APP_ID. This will trigger all pending push notifications on start.
-    pushNotification.onDeviceReady({projectid: GOOGLE_PROJECT_NUMBER, pw_appid: PUSHWOOSH_APP_ID});
+    PushNotification.onDeviceReady({projectid: GOOGLE_PROJECT_NUMBER, pw_appid: PUSHWOOSH_APP_ID});
 
     //register for pushes
-    pushNotification.registerDevice(
+    PushNotification.registerDevice(
       function (status) {
         let pushToken = status;
         console.warn('push token: ' + pushToken);
-        console.log(pushToken);
+        console.log(JSON.stringify(pushToken));
       },
       function (status) {
         console.warn(JSON.stringify(['failed to register ', status]));
@@ -96,8 +96,9 @@ export class PushwooshService {
   }
 
   generateNotification() {
-    let pushNotification = cordova.require("pushwoosh-cordova-plugin.PushNotification");
-    pushNotification.createLocalNotification({ msg: "Your pumpkins are ready!", seconds: 1, userData: "optional" }, function () { console.log('success') }, function () { console.log('fail'); });
+    let PushNotification = cordova.require("pushwoosh-cordova-plugin.PushNotification");
+    console.log('LocalNotification');
+    PushNotification.createLocalNotification({ msg: "Your pumpkins are ready!", seconds: 1, userData: "optional" }, function () { console.log('success') }, function () { console.log('fail'); });
   }
 
 }
