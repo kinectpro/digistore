@@ -13,6 +13,9 @@ export class Settings {
   // static SITE_URL = 'https://www.digistore24.com';
   // static BASE_URL = 'https://www.digistore24.com/api/call/';
   // static API_KEY = '25273-ZgMA3G5FMlhTvLa6WzAST9DwDVPMi6u65ecTepLX';
+
+  static ONE_SIGNAL_APPID = "14745566-6bc8-4857-ba8b-25187a918f21";
+  static GOOGLE_PROJECT_NUMBER = "project-254132814053";
 }
 
 

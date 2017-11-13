@@ -33,6 +33,7 @@ import { SharedModule } from '../shared/shared.module';
 import { ReportResultPage } from '../pages/report-result/report-result';
 import { Keyboard } from '@ionic-native/keyboard';
 import { QRScanner } from '@ionic-native/qr-scanner';
+import { OneSignal } from '@ionic-native/onesignal';
 import { FileTransfer } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
 import { FileOpener } from '@ionic-native/file-opener';
@@ -100,6 +101,7 @@ export function createTranslateLoader(http: HttpClient) {
     File,
     FileOpener,
     TranslateService,
+    OneSignal,
     Keyboard,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     {

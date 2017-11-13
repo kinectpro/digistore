@@ -5,6 +5,7 @@ import { AuthService } from '../../providers/auth-service';
 import { LanguagePage } from './language/language';
 import { TranslateService } from '@ngx-translate/core';
 import { AccountPage } from './account/account';
+import { OneSignal } from '@ionic-native/onesignal';
 
 @Component({
   selector: 'page-settings',
@@ -12,10 +13,11 @@ import { AccountPage } from './account/account';
 })
 export class SettingsPage {
 
-  sound: boolean = false;
-  notify: boolean = false;
+  sound: boolean = true;
+  notify: boolean = true;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public app: App, public authService: AuthService, public modalCtrl: ModalController, public translate: TranslateService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public app: App, public authService: AuthService,
+              public modalCtrl: ModalController, public translate: TranslateService, public oneSignal: OneSignal) {
   }
 
   ionViewDidLoad() {
@@ -28,11 +30,11 @@ export class SettingsPage {
   }
 
   toggleSound() {
-    console.log(this.sound);
+    this.oneSignal.enableSound(this.sound);
   }
 
   toggleNotify() {
-    console.log(this.notify);
+    this.oneSignal.setSubscription(this.notify);
   }
 
   changeLang() {
