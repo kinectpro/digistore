@@ -17,14 +17,13 @@ import { Settings } from '../config/settings';
 export class MyApp {
   rootPage: any;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public translate: TranslateService, public authService: AuthService,
+  constructor(platform: Platform, statusBar: StatusBar, public splashScreen: SplashScreen, public translate: TranslateService, public authService: AuthService,
               public keyboard: Keyboard, public config: Config, public oneSignal: OneSignal) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       // statusBar.styleDefault();
       statusBar.backgroundColorByHexString('#1998db');
-      splashScreen.hide();
 
       this.keyboard.onKeyboardShow().subscribe(() => {
         document.body.classList.add('keyboard-is-open');
@@ -48,6 +47,10 @@ export class MyApp {
 
     this.translate.onLangChange.subscribe( _ => this.initTextBackBtn() );
 
+  }
+
+  ionViewDidLoad() {
+    this.splashScreen.hide();
   }
 
   initTextBackBtn() {

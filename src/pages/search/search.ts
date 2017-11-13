@@ -40,7 +40,7 @@ export class SearchPage {
     });
 
     this.searchFormExtended = fb.group({
-      'purchase_id': [this.searchObj.purchase_id],
+      //'purchase_id': [this.searchObj.purchase_id],
       'product_id': [this.searchObj.product_id],
       'first_name': [this.searchObj.first_name],
       'last_name': [this.searchObj.last_name],
@@ -148,7 +148,7 @@ export class SearchPage {
       this.searchObj.purchase_id = this.searchForm.get('purchase_id').value;
     }
     else {
-      this.searchObj.purchase_id = this.searchFormExtended.get('purchase_id').value;
+      //this.searchObj.purchase_id = this.searchFormExtended.get('purchase_id').value;
       this.searchObj.product_id = this.searchFormExtended.get('product_id').value;
       this.searchObj.first_name = this.searchFormExtended.get('first_name').value;
       this.searchObj.last_name = this.searchFormExtended.get('last_name').value;
