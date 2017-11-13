@@ -60,13 +60,13 @@ export class LoginPage {
   }
 
   checkValid(field: string): void {
-    this.translate.get('LOGIN_PAGE.IS_REQUIRED').subscribe(is_required => {
+    this.translate.get('LOGIN_PAGE.IS_REQUIRED', {field: field}).subscribe(is_required => {
       this.translate.get('LOGIN_PAGE.MIN_LENGTH').subscribe(min_length => {
         this.translate.get('LOGIN_PAGE.IS').subscribe(is => {
           let f = this.loginForm.get(field);
           if (f.errors) {
             if (f.errors.required) {
-              this.showedErrorPass = field + is_required;
+              this.showedErrorPass = is_required;
               return;
             }
             if (f.errors.minlength) {

@@ -8,7 +8,7 @@
     "FORGOT_PASSWORD": "Forgot password?",
     "NOT_A_MEMBER": "Not a member yet?",
     "REGISTER": "Register",
-    "IS_REUQIRED": "is required",
+    "IS_REQUIRED": "{{field}} is required",
     "MIN_LENGTH": "Min length of",
     "IS": "is"
   },
