@@ -48,7 +48,7 @@ export class TicketQrScannerPage {
               this.navCtrl.push(TicketDetailsPage, {
                 params: this.params,
                 result: {
-                  status: 'Failure',
+                  status: 'failure',
                   msg: message
                 }
               }).then( () => {

@@ -75,7 +75,9 @@ export function createTranslateLoader(http: HttpClient) {
     IonicModule.forRoot(MyApp, {
       mode: 'md',
       backButtonText: 'Back',
-      backButtonIcon: 'ios-arrow-back'
+      backButtonIcon: 'ios-arrow-back',
+      scrollAssist: false,    // Valid options appear to be [true, false]
+      autoFocusAssist: false  // Valid options appear to be ['instant', 'delay', false]
     })
   ],
   bootstrap: [IonicApp],
