@@ -39,6 +39,9 @@
   "OK": "Ok",
   "DONE": "Done",
   "CHOOSE": "Choose",
+  "EDIT": "Edit",
+  "YES": "Yes",
+  "NO": "No",
   "ALL": "All",
   "ANY": "Any",
   "WITHIN": "Within",
@@ -195,6 +198,13 @@
     "SOUND": "Sound",
     "NOTIFY": "Notify on sale",
     "ACCOUNT": "Account",
-    "LOGOUT": "Log out"
+    "ADD_NEW_ACCOUNT": "Add new account",
+    "ADD": "Add",
+    "LOGOUT": "Log out",
+    "MESSAGES": {
+      "LOG_OUT": "This will log you out from all connected accounts",
+      "USER_WAS_ADDED_EARLIER": "Account was added earlier",
+      "DELETE_ACCOUNT": "Delete account?"
+    }
   }
 }

@@ -15,7 +15,7 @@
       <ion-label>
         {{ 'SETTINGS_PAGE.LANGUAGE' | translate }}
       </ion-label>
-      <ion-note item-end>{{ translate.currentLang == 'en' ? 'English' : 'German' }}<ion-icon md="ios-arrow-forward" color="light"></ion-icon></ion-note>
+      <ion-note item-end>{{ translate.currentLang == 'en' ? 'English' : 'Deutsch' }}<ion-icon md="ios-arrow-forward" color="light"></ion-icon></ion-note>
     </ion-item>
 
     <ion-item>
@@ -53,7 +53,7 @@
         {{ 'SETTINGS_PAGE.ACCOUNT' | translate }}
       </ion-label>
       <div item-content class="item-content">
-        larsrieger
+        {{ authService.user ? authService.user.user_name : '' }}
         <ion-icon md="ios-arrow-forward" color="light"></ion-icon>
       </div>
     </button>

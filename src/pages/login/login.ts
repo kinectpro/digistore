@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../../providers/auth-service';
+import 'rxjs/add/operator/toPromise';
 
 @Component({
   selector: 'page-login',
@@ -49,7 +50,14 @@ export class LoginPage {
         if (res.result === 'error') {
           this.showError(res.message);
         } else {
-          this.authService.apiKey = res.data.api_key;
+          this.authService.user = {
+            api_key: res.data.api_key,
+            user_id: res.data.user_id,
+            user_name: res.data.user_name,
+            user_email: res.data.user_email,
+            first_name: res.data.first_name,
+            last_name: res.data.last_name
+          };
           this.navCtrl.setRoot(TabsPage);
         }
       },
@@ -59,23 +67,22 @@ export class LoginPage {
       })
   }
 
-  checkValid(field: string): void {
-    this.translate.get('LOGIN_PAGE.IS_REQUIRED', {field: field}).subscribe(is_required => {
-      this.translate.get('LOGIN_PAGE.MIN_LENGTH').subscribe(min_length => {
-        this.translate.get('LOGIN_PAGE.IS').subscribe(is => {
-          let f = this.loginForm.get(field);
-          if (f.errors) {
-            if (f.errors.required) {
-              this.showedErrorPass = is_required;
-              return;
-            }
-            if (f.errors.minlength) {
-              this.showedErrorPass = min_length + " " + field + ' ' + is + ' ' +f.errors.minlength.requiredLength;
-            }
-          }
-        });
-      });
-    });
+  async checkValid(field: string) {
+
+    let is_required: string = await this.translate.get('LOGIN_PAGE.IS_REQUIRED', { field: field }).toPromise();
+    let min_length: string = await this.translate.get('LOGIN_PAGE.MIN_LENGTH').toPromise();
+    let is: string = await this.translate.get('LOGIN_PAGE.IS').toPromise();
+
+    let f = this.loginForm.get(field);
+    if (f.errors) {
+      if (f.errors.required) {
+        this.showedErrorPass = is_required;
+        return;
+      }
+      if (f.errors.minlength) {
+        this.showedErrorPass = `${min_length} "${field}" ${is} ${f.errors.minlength.requiredLength}`;
+      }
+    }
   }
 
   showError(mess: string) {

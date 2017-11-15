@@ -12,6 +12,7 @@ import { EarningService } from "../../providers/earning-service";
   templateUrl: 'transactions.html',
 })
 export class TransactionsPage {
+  needDataUpdate: boolean = false;
   periods: string[] = [
     'day', 'week', 'month', 'year'
   ];
@@ -34,12 +35,20 @@ export class TransactionsPage {
       this.currentPeriod = period;
       this.getTransactions();
     });
+    this.events.subscribe('user:changed', () => this.needDataUpdate = true);
     this.currentPeriod = this.eServ.currentPeriod;
     this.getTransactions();
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TransactionsPage');
+  }
+
+  ionViewWillEnter() {
+    if (this.needDataUpdate) {
+      this.showAll();
+      this.needDataUpdate = false;
+    }
   }
 
   openTransaction(transaction: any) {

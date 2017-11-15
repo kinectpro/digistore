@@ -6,7 +6,7 @@
       <button class="arrow" text-capitalize ion-button clear color="clear" (click)="dismiss()" icon-left><ion-icon name="ios-arrow-back"></ion-icon></button>
     </ion-buttons>
 
-    <ion-title padding-right text-center><b>Add new account</b></ion-title>
+    <ion-title padding-right text-center><b>{{ 'SETTINGS_PAGE.ADD_NEW_ACCOUNT' | translate }}</b></ion-title>
 
   </ion-navbar>
 
@@ -24,16 +24,16 @@
       </ion-label>
 
       <ion-item no-margin no-padding>
-        <ion-input formControlName="username" type="email" placeholder="Digistore24-ID/Email"></ion-input>
+        <ion-input formControlName="username" type="email" placeholder="{{ 'LOGIN_PAGE.DIGISTORE_ID_EMAIL' | translate }}"></ion-input>
       </ion-item>
       <ion-row *ngIf="loginForm.controls['username'].invalid && loginForm.controls['username'].touched && !loginForm.controls['username'].pristine">
         <ion-col>
-          <sup ion-text color="danger">Digistore24-ID/Email is required</sup>
+          <sup ion-text color="danger">{{ 'LOGIN_PAGE.DIGISTROE_ID_REQUIRED' | translate }}</sup>
         </ion-col>
       </ion-row>
 
       <ion-item no-margin no-padding>
-        <ion-input formControlName="password" #password type="{{pwdType}}" placeholder="Password" (ionBlur)="checkValid('password')"></ion-input>
+        <ion-input formControlName="password" #password type="{{pwdType}}" placeholder="{{ 'LOGIN_PAGE.PASSWORD' | translate }}" (ionBlur)="checkValid('password')"></ion-input>
         <button ion-button clear icon-only item-right (click)="showPassword()">
           <ion-icon name="ios-eye-outline" color="{{pwdType === 'password' ? 'light' : 'secondary' }}"></ion-icon>
         </button>
@@ -49,7 +49,7 @@
   </form>
 
   <section>
-    <button ion-button block [disabled]="!loginForm.valid" (click)="login()">Add</button>
+    <button ion-button block [disabled]="!loginForm.valid" (click)="login()">{{ 'SETTINGS_PAGE.ADD' | translate }}</button>
   </section>
 
 </ion-content>

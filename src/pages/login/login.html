@@ -30,7 +30,7 @@
       </ion-row>
 
       <ion-item no-margin no-padding>
-        <ion-input formControlName="password" #password type="{{pwdType}}" placeholder="Password" (ionBlur)="checkValid('password')"></ion-input>
+        <ion-input formControlName="password" #password type="{{pwdType}}" placeholder="{{ 'LOGIN_PAGE.PASSWORD' | translate }}" (ionBlur)="checkValid('password')"></ion-input>
         <button ion-button clear icon-only item-right (click)="showPassword()">
           <ion-icon name="ios-eye-outline" color="{{pwdType === 'password' ? 'light' : 'secondary' }}"></ion-icon>
         </button>

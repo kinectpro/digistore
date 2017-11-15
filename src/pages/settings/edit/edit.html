@@ -8,7 +8,7 @@
           <button class="arrow" ion-button clear color="clear" (click)="dismiss()" icon-left><ion-icon name="ios-arrow-back"></ion-icon></button>
         </ion-col>
         <ion-col text-center col-6>
-          <ion-title><b>Edit</b></ion-title>
+          <ion-title><b>{{ 'EDIT' | translate }}</b></ion-title>
         </ion-col>
         <!--<ion-col text-right col-3>-->
           <!--<button class="done" ion-button float-end text-capitalize clear color="clear" (click)="done()">Done</button>-->
@@ -24,17 +24,9 @@
 <ion-content>
 
   <ion-list mode="ios">
-    <ion-item>
-      <ion-label>larsrieger<p class="mail">larsrieger@digistore24.com</p></ion-label>
-      <button ion-button item-end clear icon-only (click)="delAccount()"><ion-icon name="ios-trash-outline"></ion-icon></button>
-    </ion-item>
-    <ion-item>
-      <ion-label>max<p class="mail">max@digistore24.com</p></ion-label>
-      <button ion-button clear item-end icon-only (click)="delAccount()"><ion-icon name="ios-trash-outline"></ion-icon></button>
-    </ion-item>
-    <ion-item>
-      <ion-label>FBI<p class="mail">hunter1984@digistore24.com</p></ion-label>
-      <button ion-button clear item-end icon-only (click)="delAccount()"><ion-icon name="ios-trash-outline"></ion-icon></button>
+    <ion-item *ngFor="let user of authSrv.accounts">
+      <ion-label>{{ user.user_name }}<p class="mail">{{ user.user_email }}</p></ion-label>
+      <button [disabled]="user.user_id == authSrv.user.user_id" ion-button item-end clear icon-only (click)="delAccount(user)"><ion-icon name="ios-trash-outline"></ion-icon></button>
     </ion-item>
   </ion-list>
 

@@ -11,7 +11,7 @@
           <ion-title><b>{{ 'SETTINGS_PAGE.ACCOUNT' | translate }}</b></ion-title>
         </ion-col>
         <ion-col text-right col-3>
-          <button class="edit" ion-button float-end text-capitalize clear color="clear" (click)="edit()">Edit</button>
+          <button class="edit" ion-button float-end text-capitalize clear color="clear" (click)="edit()">{{ 'EDIT' | translate }}</button>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -24,31 +24,13 @@
 <ion-content>
 
   <ion-list radio-group [(ngModel)]="account" no-padding no-margin>
-    <ion-item-sliding>
+    <ion-item-sliding *ngFor="let user of authSrv.accounts">
       <ion-item mode="ios">
-        <ion-label>larsrieger<p class="mail">larsrieger@digistore24.com</p></ion-label>
-        <ion-radio mode="ios" value="lars" (ionSelect)="changeAccount()"></ion-radio>
+        <ion-label>{{ user.user_name }}<p class="mail">{{ user.user_email }}</p></ion-label>
+        <ion-radio mode="ios" value="{{ user.user_id }}" (ionSelect)="authSrv.changeUser(user)"></ion-radio>
       </ion-item>
-      <ion-item-options side="right">
-        <button class="trash" ion-button icon-only color="danger" (click)="delAccount('lars')"><ion-icon name="ios-trash"></ion-icon></button>
-      </ion-item-options>
-    </ion-item-sliding>
-    <ion-item-sliding>
-      <ion-item mode="ios">
-        <ion-label>Max<p class="mail">max@digistore24.com</p></ion-label>
-        <ion-radio mode="ios" value="max" (ionSelect)="changeAccount()"></ion-radio>
-      </ion-item>
-      <ion-item-options side="right">
-        <button class="trash" ion-button icon-only color="danger" (click)="delAccount('max')"><ion-icon name="ios-trash"></ion-icon></button>
-      </ion-item-options>
-    </ion-item-sliding>
-    <ion-item-sliding>
-      <ion-item mode="ios">
-        <ion-label>FBI<p class="mail">hunter1984@digistore24.com</p></ion-label>
-        <ion-radio mode="ios" value="fbi" (ionSelect)="changeAccount()"></ion-radio>
-      </ion-item>
-      <ion-item-options side="right">
-        <button class="trash" ion-button icon-only color="danger" (click)="delAccount('fbi')"><ion-icon name="ios-trash"></ion-icon></button>
+      <ion-item-options side="right" *ngIf="authSrv.user.user_id != user.user_id">
+        <button class="trash" ion-button icon-only color="danger" (click)="delAccount(user)"><ion-icon name="ios-trash"></ion-icon></button>
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
@@ -60,7 +42,7 @@
 
     <button no-padding ion-item (click)="addAccount()">
       <ion-label padding-left>
-        <span class="new-account">Add new account</span>
+        <span class="new-account">{{ 'SETTINGS_PAGE.ADD_NEW_ACCOUNT' | translate }}</span>
       </ion-label>
     </button>
 

@@ -4,9 +4,9 @@ import { TicketParamsPage } from './ticket-params/ticket-params';
 import { TicketQrScannerPage } from './ticket-qr-scanner/ticket-qr-scanner';
 import { TicketService } from '../../providers/ticket-service';
 import { TicketParams } from '../../models/params';
-import { TicketScanPage } from './ticket-scan/ticket-scan';
 import { TicketCheckPage } from './ticket-check/ticket-check';
 import { TranslateService } from '@ngx-translate/core';
+// import { TicketScanPage } from './ticket-scan/ticket-scan';  // for test without scanner
 
 @Component({
   selector: 'page-ticket',
@@ -14,6 +14,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class TicketPage {
 
+  needDataUpdate: boolean = false;
   showedCalendar: boolean = false;
   params: TicketParams = {
     template: this.tickServ.template,
@@ -26,7 +27,25 @@ export class TicketPage {
               public tickServ: TicketService, public toastCtrl: ToastController, public events: Events, public translate: TranslateService) {
 
     this.events.subscribe('ticket-params:changed', params => this.params = params);
+    this.events.subscribe('user:changed', () => this.needDataUpdate = true);
 
+    this.initTicketParams();
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad TicketPage');
+  }
+
+  ionViewWillEnter() {
+    if (this.needDataUpdate) {
+      this.initTicketParams();
+      this.params.template = { key: '', value: '' };
+      this.params.location = { key: '', value: '' };
+      this.needDataUpdate = false;
+    }
+  }
+
+  initTicketParams() {
     this.tickServ.getTicketParams().then(
       res => {
         this.paramsFromServer.templates = res.templates;
@@ -36,10 +55,6 @@ export class TicketPage {
         console.log(err);
       }
     );
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad TicketPage');
   }
 
   openPageParams(pageName: string) {
@@ -55,8 +70,6 @@ export class TicketPage {
   }
 
   scan() {
-    let params_empty: string = '';
-    this.translate.get('E_TICKET_PAGE.NO_PARAMS').subscribe(val => params_empty = val);
     if (this.params.template.key && this.params.location.key) {
       this.navCtrl.push(TicketQrScannerPage, { params: this.params });
       // ------------------------- for test without scanner ------------------
@@ -64,11 +77,11 @@ export class TicketPage {
       // this.navCtrl.push(TicketScanPage, { params: this.params });
     }
     else {
-      this.toastCtrl.create({
-        message: params_empty,
+      this.translate.get('E_TICKET_PAGE.NO_PARAMS').subscribe(mess => this.toastCtrl.create({
+        message: mess,
         duration: 3000,
         position: 'bottom'
-      }).present();
+      }).present());
     }
   }
 
@@ -76,11 +89,11 @@ export class TicketPage {
     if (this.params.template.key && this.params.location.key)
       this.navCtrl.push(TicketCheckPage, { params: this.params, withoutNumber: true });
     else {
-      this.toastCtrl.create({
-        message: 'No "E-Ticket template" or "Event location" field is selected!',
+      this.translate.get('E_TICKET_PAGE.NO_PARAMS').subscribe(mess => this.toastCtrl.create({
+        message: mess,
         duration: 3000,
         position: 'bottom'
-      }).present();
+      }).present());
     }
   }
 

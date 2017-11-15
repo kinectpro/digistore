@@ -3,6 +3,8 @@ import { NavController, NavParams, ViewController, ModalController } from 'ionic
 import { TranslateService } from '@ngx-translate/core';
 import { EditPage } from '../edit/edit';
 import { AddAccountPage } from '../add-account/add-account';
+import { AuthService } from '../../../providers/auth-service';
+import { User } from '../../../models/user';
 
 @Component({
   selector: 'page-account',
@@ -10,9 +12,11 @@ import { AddAccountPage } from '../add-account/add-account';
 })
 export class AccountPage {
 
-  account: string = 'lars';
+  account: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public translate: TranslateService, public viewCtrl: ViewController, public modalCtrl: ModalController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public translate: TranslateService,
+              public viewCtrl: ViewController, public modalCtrl: ModalController, public authSrv: AuthService) {
+    this.account = authSrv.user.user_id;
   }
 
   ionViewDidLoad() {
@@ -27,16 +31,14 @@ export class AccountPage {
     this.modalCtrl.create(EditPage).present();
   }
 
-  delAccount(account: any): void {
-    console.log(account);
-  }
-
-  changeAccount() {
-    console.log(this.account);
+  delAccount(account: User): void {
+    this.authSrv.deleteUser(account);
   }
 
   addAccount() {
-    this.modalCtrl.create(AddAccountPage).present();
+    const modalPage = this.modalCtrl.create(AddAccountPage);
+    modalPage.onDidDismiss(account => this.account = account);
+    modalPage.present();
   }
 
 }

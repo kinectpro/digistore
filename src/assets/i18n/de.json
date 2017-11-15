@@ -39,6 +39,9 @@
   "OK": "OK",
   "DONE": "Erledigt",
   "CHOOSE": "Wählen",
+  "EDIT": "Bearbeiten",
+  "YES": "Ja",
+  "NO": "Nein",
   "ALL": "Alle",
   "ANY": "Irgendein",
   "WITHIN": "Innerhalb",
@@ -195,6 +198,13 @@
     "SOUND": "Klingen",
     "NOTIFY": "Beim Verkauf benachrichtigen",
     "ACCOUNT": "Konto",
-    "LOGOUT": "Ausloggen"
+    "ADD_NEW_ACCOUNT": "Neues Konto hinzufügen",
+    "ADD": "Hinzufügen",
+    "LOGOUT": "Ausloggen",
+    "MESSAGES": {
+      "LOG_OUT": "Dadurch werden Sie von allen verbundenen Konten abgemeldet",
+      "USER_WAS_ADDED_EARLIER": "Konto wurde früher hinzugefügt",
+      "DELETE_ACCOUNT": "Konto löschen?"
+    }
   }
 }

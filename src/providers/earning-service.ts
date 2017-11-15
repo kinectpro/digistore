@@ -98,6 +98,8 @@ export class EarningService {
           res => {
             if (res.result === 'success') {
 
+              this.statsSalesMonthly = {};
+
               this.settingsServ.currencies.forEach(currency => {
 
                 let monthlyTotals = res.data.amounts[currency];
@@ -140,6 +142,8 @@ export class EarningService {
         this.getStatsSalesByPeriod('quarter', 'now', '2010-01-01', noSpinner).subscribe(
           res => {
             if (res.result === 'success') {
+
+              this.statsSalesQuarterly = {};
 
               this.settingsServ.currencies.forEach(currency => {
 

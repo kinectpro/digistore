@@ -9,6 +9,7 @@ import { SettingsService } from '../../providers/settings-service';
   templateUrl: 'earning.html'
 })
 export class EarningPage {
+  needDataUpdate: boolean = false;
   currenciesFromServer: string[];
   currentCurrency: string = 'EUR';
   segment: string = "total";
@@ -25,9 +26,9 @@ export class EarningPage {
               public events: Events, public alertCtrl: AlertController, public settingsServ: SettingsService) {
 
     console.log('Init EarningPage');
-    this.translate.get('LOADING_TEXT').subscribe(loadingText => {
-      this.init(loadingText);
-    });
+    this.translate.get('LOADING_TEXT').subscribe(loadingText => this.init(loadingText));
+
+    events.subscribe('user:changed', () => this.needDataUpdate = true);
   }
 
   async init(loadingText: string) {
@@ -65,6 +66,13 @@ export class EarningPage {
 
   ionViewDidEnter() {
     this.content.scrollToTop();
+  }
+
+  ionViewWillEnter() {
+    if (this.needDataUpdate) {
+      this.translate.get('LOADING_TEXT').subscribe(loadingText => this.init(loadingText));
+      this.needDataUpdate = false;
+    }
   }
 
   goToTransaction(period: string): void {
