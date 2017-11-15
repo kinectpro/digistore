@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController, Platform, ViewController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, Platform, ViewController, App } from 'ionic-angular';
 import { TicketCheckPage } from '../ticket-check/ticket-check';
 import { TicketParams } from '../../../models/params';
 import { TicketQrScannerPage } from '../ticket-qr-scanner/ticket-qr-scanner';
@@ -19,7 +19,7 @@ export class TicketDetailsPage {
   params: TicketParams;
 
   constructor(public navCtrl: NavController, public fileOpener: FileOpener, public platform: Platform, public alertCtrl: AlertController, public translate: TranslateService,
-              public transfer: FileTransfer, public viewCtrl: ViewController, public ticketSrv: TicketService, public navParams: NavParams, public file: File) {
+              public transfer: FileTransfer, public viewCtrl: ViewController, public ticketSrv: TicketService, public navParams: NavParams, public file: File, public app: App) {
     this.result = navParams.get('result');
     this.params = navParams.get('params');
   }
@@ -32,8 +32,13 @@ export class TicketDetailsPage {
     this.navCtrl.pop();
   }
 
-  redirect() {
-    this.navCtrl.popAll();
+  done() {
+    if (!this.result.nav)
+      this.back();
+    else {
+      this.result.nav.parent.select(2);
+      this.viewCtrl.dismiss();
+    }
   }
 
   retry() {
@@ -79,6 +84,7 @@ export class TicketDetailsPage {
             this.params.ticket = this.result.id;
             this.ticketSrv.validateTicket(this.params).then(
               res => {
+                res.nav = this.result.nav;  // pass parent nav
                 this.navCtrl.push(TicketDetailsPage, { params: this.params, result: res }).then( () => this.viewCtrl.dismiss() );
               },
               err => {

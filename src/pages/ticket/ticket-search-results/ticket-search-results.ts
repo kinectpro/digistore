@@ -35,7 +35,8 @@ export class TicketSearchResultsPage {
         last_name: ticket.last_name,
         email: ticket.email,
         download_url: ticket.download_url,
-        id: ticket.id
+        id: ticket.id,
+        nav: this.navCtrl // pass parent nav
       }
     });
     pageModal.onDidDismiss(res => {
