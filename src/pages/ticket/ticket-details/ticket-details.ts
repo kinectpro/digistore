@@ -6,6 +6,9 @@ import { TicketQrScannerPage } from '../ticket-qr-scanner/ticket-qr-scanner';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
 import { FileOpener } from '@ionic-native/file-opener';
+import { TicketService } from '../../../providers/ticket-service';
+import { TranslateService } from '@ngx-translate/core';
+import 'rxjs/add/operator/toPromise';
 
 @Component({
   selector: 'page-ticket-details',
@@ -15,8 +18,8 @@ export class TicketDetailsPage {
   result: any;
   params: TicketParams;
 
-  constructor(public navCtrl: NavController, public platform: Platform, public navParams: NavParams, public alertCtrl: AlertController,
-              public transfer: FileTransfer, public file: File, public fileOpener: FileOpener, public viewCtrl: ViewController) {
+  constructor(public navCtrl: NavController, public fileOpener: FileOpener, public platform: Platform, public alertCtrl: AlertController, public translate: TranslateService,
+              public transfer: FileTransfer, public viewCtrl: ViewController, public ticketSrv: TicketService, public navParams: NavParams, public file: File) {
     this.result = navParams.get('result');
     this.params = navParams.get('params');
   }
@@ -25,8 +28,12 @@ export class TicketDetailsPage {
     console.log('ionViewDidLoad TicketDetailsPage');
   }
 
-  redirect() {
+  back() {
     this.navCtrl.pop();
+  }
+
+  redirect() {
+    this.navCtrl.popAll();
   }
 
   retry() {
@@ -50,24 +57,40 @@ export class TicketDetailsPage {
     });
   }
 
-  markTicket() {
-    const message = 'The E-Ticket will be marked as used';
+  async markTicket() {
+
+    let message = await this.translate.get('E_TICKET_PAGE.POPUP_MARK_AS_USED_TEXT').toPromise();
+    let title = await this.translate.get('E_TICKET_PAGE.POPUP_MARK_AS_USED_TITLE').toPromise();
+    let cancel = await this.translate.get('CANCEL').toPromise();
+    let mark = await this.translate.get('E_TICKET_PAGE.MARK').toPromise();
+
     const prompt = this.alertCtrl.create({
-      title: 'Mark as used?',
+      title: title,
       mode: 'ios',
       message: message,
       buttons: [
         {
-          text: 'Cancel',
-          handler: () => {
-            console.log('Cancel clicked');
-          }
+          text: cancel,
+          handler: () => console.log('Cancel clicked')
         },
         {
-          text: 'Mark',
+          text: mark,
           handler: () => {
-            console.log('change mark');
-            this.navCtrl.pop();
+            this.params.ticket = this.result.id;
+            this.ticketSrv.validateTicket(this.params).then(
+              res => {
+                this.navCtrl.push(TicketDetailsPage, { params: this.params, result: res }).then( () => this.viewCtrl.dismiss() );
+              },
+              err => {
+                this.navCtrl.push(TicketDetailsPage, {
+                  params: this.params,
+                  result: {
+                    status: 'failure',
+                    msg: err
+                  }
+                }).then( () => this.viewCtrl.dismiss() );
+              }
+            );
           }
         }
       ]

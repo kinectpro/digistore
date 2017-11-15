@@ -4,6 +4,7 @@ import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
 import { TicketScanPage } from '../ticket-scan/ticket-scan';
 import { TicketParams } from '../../../models/params';
 import { TicketDetailsPage } from '../ticket-details/ticket-details';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'page-ticket-qr-scanner',
@@ -14,7 +15,7 @@ export class TicketQrScannerPage {
   params: TicketParams;
   stoppedTimer: boolean = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public qrScanner: QRScanner, public viewCtrl: ViewController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public qrScanner: QRScanner, public viewCtrl: ViewController, public translate: TranslateService) {
     this.params = navParams.get('params');
   }
 
@@ -43,14 +44,16 @@ export class TicketQrScannerPage {
         setTimeout(() => {
           if (!this.stoppedTimer) {
             this.qrScanner.destroy(); // hide camera preview
-            this.navCtrl.push(TicketDetailsPage, {
-              params: this.params,
-              result: {
-                status: 'Failure',
-                msg: 'QR code could not be read'
-              }
-            }).then( () => {
-              this.viewCtrl.dismiss();  //drop page
+            this.translate.get('E_TICKET_PAGE.QR_CODE_NOT_READ').subscribe(message => {
+              this.navCtrl.push(TicketDetailsPage, {
+                params: this.params,
+                result: {
+                  status: 'Failure',
+                  msg: message
+                }
+              }).then( () => {
+                this.viewCtrl.dismiss();  //drop page
+              });
             });
           }
         }, 10000)

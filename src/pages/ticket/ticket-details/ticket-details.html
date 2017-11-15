@@ -5,7 +5,9 @@
     <ion-grid [style.background-color]="result.status == 'success' ? '#35ce76' : '#ed1c24'">
       <ion-row align-items-center>
         <ion-col text-left col-2>
-          <button no-padding text-capitalize ion-button clear color="clear" (click)="redirect()" icon-left><ion-icon name="ios-arrow-back"></ion-icon>{{'BACK' | translate}}</button>
+          <button no-padding text-capitalize ion-button clear color="clear" (click)="back()" icon-left [hidden]="result.status == 'success' && result.mode == 'modal'">
+            <ion-icon name="ios-arrow-back"></ion-icon>{{'BACK' | translate}}
+          </button>
         </ion-col>
         <ion-col text-center col-8>
           <ion-title><b>{{'E_TICKET_PAGE.E_TICKET_DETAILS' | translate}}</b></ion-title>

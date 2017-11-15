@@ -79,7 +79,7 @@ export class TicketService {
                   'last_name': rez.last_name,
                   'email': rez.email,
                   'download_url': rez.download_url,
-                  'id': rez.id
+                  // 'id': rez.id
                 }),
                 err => reject(err)
               );

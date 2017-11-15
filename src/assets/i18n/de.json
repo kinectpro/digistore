@@ -190,7 +190,8 @@
     "E_TICKET_VALID": "E-Ticket gültig",
     "ALREADY_USED": "Schon benutzt",
     "ACCOUNT_ID": "DS 24 KONTO-ID",
-    "NOT_FOUND": "Keine Tickets gefunden"
+    "NOT_FOUND": "Keine Tickets gefunden",
+    "QR_CODE_NOT_READ": "QR-Code konnte nicht gelesen werden"
   },
   "SETTINGS_PAGE": {
     "HEADER": "Einstellungen",
