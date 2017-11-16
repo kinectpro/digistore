@@ -16,7 +16,7 @@ export class MonthsTranslateDirective implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.title = this.el.nativeElement.querySelector('ion-calendar .title .switch-btn span.button-inner');
+    this.title = this.el.nativeElement.querySelector('ion-calendar .title .switch-btn');
     this.setTitleCalendar(new Date(this.date));
   }
 

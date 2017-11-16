@@ -18,7 +18,8 @@ export class TicketPage {
   needDataUpdate: boolean = false;
   showedCalendar: boolean = false;
   options: CalendarComponentOptions = {
-    monthFormat: 'MMMM YYYY'
+    monthFormat: 'MMMM YYYY',
+    showMonthPicker: false
   };
   params: TicketParams = {
     template: this.tickServ.template,
