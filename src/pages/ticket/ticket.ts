@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ModalController, App, ToastController, Events } from 'ionic-angular';
+
 import { TicketParamsPage } from './ticket-params/ticket-params';
 import { TicketQrScannerPage } from './ticket-qr-scanner/ticket-qr-scanner';
 import { TicketService } from '../../providers/ticket-service';
 import { TicketParams } from '../../models/params';
 import { TicketCheckPage } from './ticket-check/ticket-check';
 import { TranslateService } from '@ngx-translate/core';
-// import { TicketScanPage } from './ticket-scan/ticket-scan';  // for test without scanner
+import { CalendarComponentOptions } from 'ion2-calendar';
 
 @Component({
   selector: 'page-ticket',
@@ -16,6 +17,9 @@ export class TicketPage {
 
   needDataUpdate: boolean = false;
   showedCalendar: boolean = false;
+  options: CalendarComponentOptions = {
+    monthFormat: 'MMMM YYYY'
+  };
   params: TicketParams = {
     template: this.tickServ.template,
     location: this.tickServ.location,
@@ -29,11 +33,16 @@ export class TicketPage {
     this.events.subscribe('ticket-params:changed', params => this.params = params);
     this.events.subscribe('user:changed', () => this.needDataUpdate = true);
 
+    this.translate.onLangChange.subscribe(() => {
+      this.translate.get('SHORT_MONTHS').subscribe((val: string) => this.options.monthPickerFormat = val.split(','));
+    });
+
     this.initTicketParams();
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TicketPage');
+    this.translate.get('SHORT_MONTHS').subscribe((val: string) => this.options.monthPickerFormat = val.split(','));
   }
 
   ionViewWillEnter() {
@@ -72,16 +81,9 @@ export class TicketPage {
   scan() {
     if (this.params.template.key && this.params.location.key) {
       this.navCtrl.push(TicketQrScannerPage, { params: this.params });
-      // ------------------------- for test without scanner ------------------
-      // this.params.ticket = '38428864604555194810';
-      // this.navCtrl.push(TicketScanPage, { params: this.params });
     }
     else {
-      this.translate.get('E_TICKET_PAGE.NO_PARAMS').subscribe(mess => this.toastCtrl.create({
-        message: mess,
-        duration: 3000,
-        position: 'bottom'
-      }).present());
+      this.showNoParams();
     }
   }
 
@@ -89,12 +91,16 @@ export class TicketPage {
     if (this.params.template.key && this.params.location.key)
       this.navCtrl.push(TicketCheckPage, { params: this.params, withoutNumber: true });
     else {
-      this.translate.get('E_TICKET_PAGE.NO_PARAMS').subscribe(mess => this.toastCtrl.create({
-        message: mess,
-        duration: 3000,
-        position: 'bottom'
-      }).present());
+      this.showNoParams();
     }
+  }
+
+  showNoParams() {
+    this.translate.get('E_TICKET_PAGE.NO_PARAMS').subscribe(mess => this.toastCtrl.create({
+      message: mess,
+      duration: 3000,
+      position: 'bottom'
+    }).present());
   }
 
   /**

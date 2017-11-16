@@ -12,6 +12,7 @@
     "MIN_LENGTH": "Mindestlänge von",
     "IS": "ist"
   },
+  "SHORT_MONTHS": "JAN,FEB,MÄR,APR,MAI,JUN,JUL,AUG,SEP,OKT,NOV,DEZ",
   "MONTHS": {
     "January": "Januar",
     "February": "Februar",

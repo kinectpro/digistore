@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavController, LoadingController, Events, Content, AlertController } from 'ionic-angular';
+
 import { EarningService } from '../../providers/earning-service';
 import { TranslateService } from '@ngx-translate/core';
 import { SettingsService } from '../../providers/settings-service';

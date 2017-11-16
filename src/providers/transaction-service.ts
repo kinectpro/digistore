@@ -41,17 +41,19 @@ export class TransactionService {
       let from: string;
       let date = new Date();
 
-      if (period === 'day') {
-        from = this.getFormatDate(date);
-      }
-      else if (period === 'week') {
-        from = this.getFormatDate(this.getDateAfterSubtractedDays(date, this.getDayOfWeek(date)));  //  get the date for Monday
-      }
-      else if (period === 'month') {
-        from = this.getFirstDayOfMonth(date);
-      }
-      else if (period === 'year') {
-        from = date.getFullYear() + '-01-01';
+      switch (period) {
+        case 'day':
+          from = this.getFormatDate(date);
+          break;
+        case 'week':
+          from = this.getFormatDate(this.getDateAfterSubtractedDays(date, this.getDayOfWeek(date)));  //  get the date for Monday
+          break;
+        case 'month':
+          from = this.getFirstDayOfMonth(date);
+          break;
+        case 'year':
+          from = date.getFullYear() + '-01-01';
+          break;
       }
 
       this.getTransactionListByPeriod(params, from).subscribe(

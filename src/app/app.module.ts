@@ -105,7 +105,7 @@ export function createTranslateLoader(http: HttpClient) {
     TranslateService,
     OneSignal,
     Keyboard,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoadingInterceptor,

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
+
 import { TicketPage } from './ticket';
 import { TicketDetailsPage } from './ticket-details/ticket-details';
 import { TicketScanPage } from './ticket-scan/ticket-scan';

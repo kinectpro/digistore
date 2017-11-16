@@ -3,10 +3,11 @@
  */
 import { NgModule } from '@angular/core';
 import { KeysPipe } from './pipes/keys-pipe';
+import { MonthsTranslateDirective } from './directives/months-translate';
 
 @NgModule({
   imports:      [ ],
-  declarations: [ KeysPipe ],
-  exports:      [ KeysPipe ]
+  declarations: [ KeysPipe, MonthsTranslateDirective ],
+  exports:      [ KeysPipe, MonthsTranslateDirective ]
 })
 export class SharedModule { }

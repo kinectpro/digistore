@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { App, ModalController, NavController, NavParams, Events } from 'ionic-angular';
+
 import { SortByPage } from '../sort-by/sort-by';
 import { TransactionDetailsPage } from '../transaction-details/transaction-details';
 import { SearchPage } from '../search/search';

@@ -36,12 +36,12 @@
     </button>
   </ion-list>
 
-  <ion-calendar [hidden]="!showedCalendar"
+  <ion-calendar [months-translate]="params.date" [hidden]="!showedCalendar"
                 [(ngModel)]="params.date"
                 (onChange)="onChange()"
                 [type]="'string'"
                 [format]="'YYYY-MM-DD'"
-                [options]="{ monthFormat: 'MMMM YYYY' }">
+                [options]="options">
   </ion-calendar>
 
   <button ion-button full outline class="btn-question" (click)="findWithoutNumber()">{{'E_TICKET_PAGE.HAVE_NO_NUMBER' | translate}}</button>
