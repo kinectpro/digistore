@@ -61,7 +61,7 @@ export class TransactionService {
           if (res.result === 'success') {
             resolve(res.data.purchase_list.map(obj => {
               return {
-                date: new Date(obj.created_at),
+                date: new Date(obj.created_at.replace(' ', 'T')), // wrong response format for ios
                 name: obj.main_product_name,
                 order_id: obj.id,
                 earning: obj.amount - obj.vat_amount
