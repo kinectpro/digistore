@@ -27,10 +27,7 @@ export class MonthsTranslateDirective implements AfterViewInit {
 
   private setTitleCalendar(date: Date): void {
     this.currentDate = date;
-    this.title.innerHTML = `
-        ${date.toLocaleString(this.translate.currentLang, { month: "long", year: "numeric" })}
-        <ion-icon class="arrow-dropdown icon icon-md ion-md-arrow-dropdown" role="img" aria-label="arrow dropdown" ng-reflect-name="md-arrow-dropdown"></ion-icon>
-    `;
+    this.title.innerHTML = date.toLocaleString(this.translate.currentLang, { month: "long", year: "numeric" });
   }
 
 }
