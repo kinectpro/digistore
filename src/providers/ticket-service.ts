@@ -3,6 +3,7 @@
  */
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
+
 import { Settings } from '../config/settings';
 import { AuthService } from './auth-service';
 import { TicketParams } from '../models/params';

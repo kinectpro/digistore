@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { User } from '../models/user';
+import { Events } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
+
+import { User } from '../models/user';
 import { Settings } from '../config/settings';
 import { TranslateService } from '@ngx-translate/core';
-import { Events } from 'ionic-angular';
 
 @Injectable()
 export class AuthService {

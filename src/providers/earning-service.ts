@@ -3,12 +3,13 @@
  */
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
+
 import { Settings } from '../config/settings';
 import { AuthService } from './auth-service';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
 import { SettingsService } from './settings-service';
 import { TranslateService } from '@ngx-translate/core';
+import 'rxjs/add/operator/map';
 
 
 @Injectable()

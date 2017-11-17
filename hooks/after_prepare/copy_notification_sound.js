@@ -11,7 +11,7 @@ const mkdirSync = function (dirPath) {
   try {
 	fs.mkdirSync(dirPath);
   } catch (err) {
-    console.log(err);
+    // console.log(err);
   }
 };
 

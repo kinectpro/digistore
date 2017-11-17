@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { NavController, NavParams, ViewController, LoadingController } from 'ionic-angular';
+import { DOCUMENT } from '@angular/common';
 
 import { TicketDetailsPage } from '../ticket-details/ticket-details';
 import { TicketParams } from '../../../models/params';
@@ -13,7 +14,8 @@ export class TicketScanPage {
 
   params: TicketParams;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public loadingCtrl: LoadingController, public ticketSrv: TicketService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public loadingCtrl: LoadingController,
+              public ticketSrv: TicketService, @Inject(DOCUMENT) private document: any) {
     this.params = navParams.get('params');
   }
 
@@ -21,7 +23,7 @@ export class TicketScanPage {
 
     console.log('ionViewDidLoad TicketScanPage');
 
-    document.body.classList.add('hidden-tabbar-when-scan');
+    this.document.body.classList.add('hidden-tabbar-when-scan');
 
     this.ticketSrv.validateTicket(this.params).then(
       res => {
@@ -45,7 +47,7 @@ export class TicketScanPage {
   }
 
   ionViewWillLeave() {
-    document.body.classList.remove('hidden-tabbar-when-scan');
+    this.document.body.classList.remove('hidden-tabbar-when-scan');
   }
 
 }

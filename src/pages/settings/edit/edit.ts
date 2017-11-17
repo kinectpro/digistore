@@ -20,10 +20,6 @@ export class EditPage {
     console.log('ionViewDidLoad EditPage');
   }
 
-  // done() {
-  //   console.log('Done');
-  // }
-
   dismiss() {
     this.viewCtrl.dismiss();
   }
