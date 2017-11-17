@@ -29,7 +29,7 @@ export class EarningService {
     }
 
     getStatsSalesSummary(noSpinner: boolean = false): Observable<{[key: string]: any}> {
-      return this.http.get(Settings.BASE_URL + this.auth.apiKey + '/json/statsSalesSummary?language=' + this.translate.currentLang,  {
+      return this.http.get(`${Settings.BASE_URL}${this.auth.apiKey}/json/statsSalesSummary?language=${this.translate.currentLang}`,  {
         params: new HttpParams().set('no-spinner', noSpinner ? 'true' : ''),
       }).map((res: any) => {
         this.periods.forEach(period => {

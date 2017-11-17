@@ -80,7 +80,7 @@ export class AuthService {
 
   unregister(api_key: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.http.get(Settings.BASE_URL + api_key + '/json/unregister?language=' + this.translate.currentLang).subscribe(
+      this.http.get(`${Settings.BASE_URL}${api_key}/json/unregister?language=${this.translate.currentLang}`).subscribe(
         (res: any) => {
           if (res.result === 'success') {
             resolve();
