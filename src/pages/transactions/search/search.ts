@@ -33,8 +33,6 @@ export class SearchPage {
               public settingsServ: SettingsService, public loadingCtrl: LoadingController, public translate: TranslateService, public complServ: CompleteService) {
 
     this.searchObj = navParams.get('params_search');
-    console.log('-------------search parameters is there-----------------');
-    console.log(this.searchObj);
 
     this.searchForm = fb.group({
       'purchase_id': [this.searchObj.purchase_id, [Validators.required]]
