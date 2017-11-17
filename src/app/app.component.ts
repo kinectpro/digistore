@@ -1,14 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import { Platform, Config } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { Keyboard } from '@ionic-native/keyboard';
+import { OneSignal } from '@ionic-native/onesignal';
 
 import { LandingPage } from '../pages/landing/landing';
 import { TabsPage } from '../pages/tabs/tabs';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../providers/auth-service';
-import { Keyboard } from '@ionic-native/keyboard';
-import { OneSignal } from '@ionic-native/onesignal';
 import { Settings } from '../config/settings';
 
 @Component({
@@ -18,7 +19,7 @@ export class MyApp {
   rootPage: any;
 
   constructor(platform: Platform, statusBar: StatusBar, public splashScreen: SplashScreen, public translate: TranslateService, public authService: AuthService,
-              public keyboard: Keyboard, public config: Config, public oneSignal: OneSignal) {
+              public keyboard: Keyboard, public config: Config, public oneSignal: OneSignal, @Inject(DOCUMENT) private document: any) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -26,11 +27,11 @@ export class MyApp {
       statusBar.backgroundColorByHexString('#1998db');
 
       this.keyboard.onKeyboardShow().subscribe(() => {
-        document.body.classList.add('keyboard-is-open');
+        this.document.body.classList.add('keyboard-is-open');
       });
 
       this.keyboard.onKeyboardHide().subscribe(() => {
-        document.body.classList.remove('keyboard-is-open');
+        this.document.body.classList.remove('keyboard-is-open');
       });
 
       if (platform.is("cordova")) {

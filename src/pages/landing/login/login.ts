@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { TabsPage } from '../tabs/tabs';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
-import { LandingPage } from '../landing/landing';
-import { Settings } from '../../config/settings';
 import { HttpClient } from '@angular/common/http';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+
 import { TranslateService } from '@ngx-translate/core';
-import { AuthService } from '../../providers/auth-service';
+import { AuthService } from '../../../providers/auth-service';
+import { TabsPage } from '../../tabs/tabs';
+import { Settings } from '../../../config/settings';
+import { LandingPage } from '../landing';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
@@ -45,7 +46,7 @@ export class LoginPage {
 
   login() {
     this.translate.get('LOGIN_PAGE.CONNECTION_PROBLEM').subscribe(value => this.mesConnProblem = value);
-    this.http.get(Settings.BASE_URL + Settings.API_KEY + '/json/createApiKey?username=' + this.loginForm.get('username').value + '&password=' + this.loginForm.get('password').value + '&language=' + this.translate.currentLang).subscribe(
+    this.http.get(`${Settings.BASE_URL}${Settings.API_KEY}/json/createApiKey?username=${this.loginForm.get('username').value}&password=${this.loginForm.get('password').value}&language=${this.translate.currentLang}`).subscribe(
       (res: any) => {
         if (res.result === 'error') {
           this.showError(res.message);

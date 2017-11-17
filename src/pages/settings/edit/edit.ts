@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController, AlertController } from 'ionic-angular';
+
 import { AuthService } from '../../../providers/auth-service';
 import { TranslateService } from '@ngx-translate/core';
 import { User } from '../../../models/user';
@@ -18,10 +19,6 @@ export class EditPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad EditPage');
   }
-
-  // done() {
-  //   console.log('Done');
-  // }
 
   dismiss() {
     this.viewCtrl.dismiss();

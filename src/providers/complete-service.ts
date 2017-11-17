@@ -3,11 +3,12 @@
  */
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
+
 import { Settings } from '../config/settings';
 import { AuthService } from './auth-service';
 import { AutoCompleteService } from 'ionic2-auto-complete';
-import 'rxjs/add/operator/map';
 import { TranslateService } from '@ngx-translate/core';
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class CompleteService implements AutoCompleteService {

@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { User } from '../models/user';
+import { Events } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
+
+import { User } from '../models/user';
 import { Settings } from '../config/settings';
 import { TranslateService } from '@ngx-translate/core';
-import { Events } from 'ionic-angular';
 
 @Injectable()
 export class AuthService {
@@ -79,7 +80,7 @@ export class AuthService {
 
   unregister(api_key: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.http.get(Settings.BASE_URL + api_key + '/json/unregister?language=' + this.translate.currentLang).subscribe(
+      this.http.get(`${Settings.BASE_URL}${api_key}/json/unregister?language=${this.translate.currentLang}`).subscribe(
         (res: any) => {
           if (res.result === 'success') {
             resolve();

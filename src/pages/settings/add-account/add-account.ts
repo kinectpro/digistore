@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController, ToastController } from 'ionic-angular';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+
 import { TranslateService } from '@ngx-translate/core';
 import { Settings } from '../../../config/settings';
-import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../../providers/auth-service';
 import { User } from '../../../models/user';
 import 'rxjs/add/operator/toPromise';
@@ -52,7 +53,7 @@ export class AddAccountPage {
       return;
     }
     this.translate.get('LOGIN_PAGE.CONNECTION_PROBLEM').subscribe(value => this.mesConnProblem = value);
-    this.http.get(Settings.BASE_URL + Settings.API_KEY + '/json/createApiKey?username=' + this.loginForm.get('username').value + '&password=' + this.loginForm.get('password').value + '&language=' + this.translate.currentLang).subscribe(
+    this.http.get(`${Settings.BASE_URL}${Settings.API_KEY}/json/createApiKey?username=${this.loginForm.get('username').value}&password=${this.loginForm.get('password').value}&language=${this.translate.currentLang}`).subscribe(
       (res: any) => {
         if (res.result === 'error') {
           this.showError(res.message);

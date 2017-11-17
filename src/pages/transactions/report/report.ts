@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { ModalController, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Settings } from '../../config/settings';
 import { HttpClient } from '@angular/common/http';
+
 import { ReportResultPage } from '../report-result/report-result';
-import { AuthService } from '../../providers/auth-service';
+import { AuthService } from '../../../providers/auth-service';
+import { Settings } from '../../../config/settings';
 
 @Component({
   selector: 'page-report',

@@ -34,16 +34,11 @@ export class TicketPage {
     this.events.subscribe('ticket-params:changed', params => this.params = params);
     this.events.subscribe('user:changed', () => this.needDataUpdate = true);
 
-    this.translate.onLangChange.subscribe(() => {
-      this.translate.get('SHORT_MONTHS').subscribe((val: string) => this.options.monthPickerFormat = val.split(','));
-    });
-
     this.initTicketParams();
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TicketPage');
-    this.translate.get('SHORT_MONTHS').subscribe((val: string) => this.options.monthPickerFormat = val.split(','));
   }
 
   ionViewWillEnter() {
@@ -102,6 +97,10 @@ export class TicketPage {
       duration: 3000,
       position: 'bottom'
     }).present());
+  }
+
+  getLocaleDate() {
+    return new Date(this.params.date).toLocaleString(this.translate.currentLang, { day: "numeric", month: "short", year: "numeric" });
   }
 
   /**

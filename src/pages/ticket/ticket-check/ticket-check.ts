@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController } from 'ionic-angular';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+
 import { TicketSearchResultsPage } from '../ticket-search-results/ticket-search-results';
 import { TicketParams } from '../../../models/params';
 import { TicketService } from '../../../providers/ticket-service';
 import { TicketDetailsPage } from '../ticket-details/ticket-details';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({

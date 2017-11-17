@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController } from 'ionic-angular';
+
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../../../providers/auth-service';
 

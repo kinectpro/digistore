@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ModalController } from 'ionic-angular';
+
 import { TicketDetailsPage } from '../ticket-details/ticket-details';
 import { TicketParams } from '../../../models/params';
 import { TicketService } from '../../../providers/ticket-service';
@@ -38,9 +39,6 @@ export class TicketSearchResultsPage {
         id: ticket.id,
         nav: this.navCtrl // pass parent nav
       }
-    });
-    pageModal.onDidDismiss(res => {
-      //this.params = res.params;
     });
     pageModal.present();
   }

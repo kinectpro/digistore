@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
+import { NavParams } from 'ionic-angular';
 
 import { EarningPage } from '../earning/earning';
 import { SettingsPage } from '../settings/settings';
 import { TicketPage } from '../ticket/ticket';
 import { TransactionsPage } from '../transactions/transactions';
-import { NavParams } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({

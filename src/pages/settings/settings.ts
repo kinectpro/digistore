@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { App, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
+import { OneSignal } from '@ionic-native/onesignal';
+
 import { LandingPage } from '../landing/landing';
 import { AuthService } from '../../providers/auth-service';
 import { LanguagePage } from './language/language';
 import { TranslateService } from '@ngx-translate/core';
 import { AccountPage } from './account/account';
-import { OneSignal } from '@ionic-native/onesignal';
 import 'rxjs/add/operator/toPromise';
 
 @Component({

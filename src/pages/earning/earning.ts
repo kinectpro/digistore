@@ -4,6 +4,8 @@ import { NavController, LoadingController, Events, Content, AlertController } fr
 import { EarningService } from '../../providers/earning-service';
 import { TranslateService } from '@ngx-translate/core';
 import { SettingsService } from '../../providers/settings-service';
+import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/do';
 
 @Component({
   selector: 'earning-home',
@@ -83,42 +85,46 @@ export class EarningPage {
   }
 
   changeCurrency() {
-    this.translate.get('GENERAL.CURRENCY').subscribe((title: string) => {
-      this.translate.get('EARNINGS_PAGE.CURRENCY_DESCRIPTION').subscribe((msg: string) => {
-        this.translate.get('CANCEL').subscribe((cancel: string) => {
-          this.translate.get('CHOOSE').subscribe((choose: string) => {
-            let prompt = this.alertCtrl.create({
-              title: title,
-              // mode: 'ios',
-              message: msg,
-              inputs: this.currenciesFromServer.map((val: any) => {
-                return {
-                  type: 'radio',
-                  label: val.symbol + ' ' + val.name,
-                  value: val.code,
-                  checked: this.currentCurrency == val.code
-                }
-              }),
-              buttons: [
-                {
-                  text: cancel,
-                  handler: data => {
-                    console.log('Cancel clicked');
-                  }
-                },
-                {
-                  text: choose,
-                  handler: data => {
-                    this.currentCurrency = data;
-                  }
-                }
-              ]
-            });
-            prompt.present();
-          });
-        });
+
+    let title, msg, cancel : string = '';
+
+    this.translate.get('GENERAL.CURRENCY')
+      .do(val => title = val)
+      .switchMap(() => this.translate.get('EARNINGS_PAGE.CURRENCY_DESCRIPTION'))
+      .do(val => msg = val)
+      .switchMap(() => this.translate.get('CANCEL'))
+      .do(val => cancel = val)
+      .switchMap(() => this.translate.get('CHOOSE')).subscribe(choose => {
+
+        this.alertCtrl.create({
+          title: title,
+          // mode: 'ios',
+          message: msg,
+          inputs: this.currenciesFromServer.map((val: any) => {
+            return {
+              type: 'radio',
+              label: val.symbol + ' ' + val.name,
+              value: val.code,
+              checked: this.currentCurrency == val.code
+            }
+          }),
+          buttons: [
+            {
+              text: cancel,
+              handler: data => {
+                console.log('Cancel clicked');
+              }
+            },
+            {
+              text: choose,
+              handler: data => {
+                this.currentCurrency = data;
+              }
+            }
+          ]
+        }).present();
+
       });
-    });
   }
 
 }

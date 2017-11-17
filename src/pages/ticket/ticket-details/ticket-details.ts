@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, Platform, ViewController, App } from 'ionic-angular';
-import { TicketCheckPage } from '../ticket-check/ticket-check';
-import { TicketParams } from '../../../models/params';
-import { TicketQrScannerPage } from '../ticket-qr-scanner/ticket-qr-scanner';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
 import { FileOpener } from '@ionic-native/file-opener';
+
+import { TicketCheckPage } from '../ticket-check/ticket-check';
+import { TicketParams } from '../../../models/params';
+import { TicketQrScannerPage } from '../ticket-qr-scanner/ticket-qr-scanner';
 import { TicketService } from '../../../providers/ticket-service';
 import { TranslateService } from '@ngx-translate/core';
 import 'rxjs/add/operator/toPromise';
