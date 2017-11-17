@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { NavController, NavParams, ViewController, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, ViewController } from 'ionic-angular';
 import { DOCUMENT } from '@angular/common';
 
 import { TicketDetailsPage } from '../ticket-details/ticket-details';
@@ -14,7 +14,7 @@ export class TicketScanPage {
 
   params: TicketParams;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public loadingCtrl: LoadingController,
+  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController,
               public ticketSrv: TicketService, @Inject(DOCUMENT) private document: any) {
     this.params = navParams.get('params');
   }

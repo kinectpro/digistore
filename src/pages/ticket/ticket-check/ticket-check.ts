@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController } from 'ionic-angular';
+import { NavController, NavParams, ToastController, ViewController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { TicketSearchResultsPage } from '../ticket-search-results/ticket-search-results';
@@ -19,7 +19,7 @@ export class TicketCheckPage {
   params: TicketParams;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController, public ticketSrv: TicketService, public fb: FormBuilder,
-              public translate: TranslateService) {
+              public translate: TranslateService, public viewCtrl: ViewController) {
     this.withoutNumber = navParams.get('withoutNumber');
     this.params = navParams.get('params');
 
@@ -50,7 +50,15 @@ export class TicketCheckPage {
       this.params.ticket = this.numberForm.get('number').value;
       this.ticketSrv.validateTicket(this.params).then(
         res => this.navCtrl.push(TicketDetailsPage, { params: this.params, result: res }),
-        err => console.log(err)
+        err => {
+          this.navCtrl.push(TicketDetailsPage, {
+            params: this.params,
+            result: {
+              status: 'failure',
+              msg: err
+            }
+          }).then( () => this.viewCtrl.dismiss() );
+        }
       );
     }
     else {

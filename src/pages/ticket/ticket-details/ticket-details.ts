@@ -49,6 +49,7 @@ export class TicketDetailsPage {
 
   checkWithNumber() {
     this.navCtrl.push(TicketCheckPage, { params: this.params });
+    this.viewCtrl.dismiss();
   }
 
   downloadPdf() {
