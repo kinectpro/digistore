@@ -29,9 +29,11 @@ export class TabsPage {
   }
 
   initVariables() {
-    this.translate.get('GENERAL.EARNINGS').subscribe(val => this.earnings = val);
-    this.translate.get('GENERAL.TRANSACTIONS').subscribe(val => this.transactions = val);
-    this.translate.get('GENERAL.E_TICKET').subscribe(val => this.eticket = val);
-    this.translate.get('GENERAL.SETTINGS').subscribe(val => this.settings = val);
+    this.translate.get(['GENERAL.EARNINGS', 'GENERAL.TRANSACTIONS', 'GENERAL.E_TICKET', 'GENERAL.SETTINGS']).subscribe( obj => {
+      this.earnings = obj['GENERAL.EARNINGS'];
+      this.transactions = obj['GENERAL.TRANSACTIONS'];
+      this.eticket = obj['GENERAL.E_TICKET'];
+      this.settings = obj['GENERAL.SETTINGS'];
+    });
   }
 }

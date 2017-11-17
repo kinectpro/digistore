@@ -46,25 +46,19 @@ export class SettingsPage {
     console.log('ionViewDidLoad SettingsPage');
   }
 
-  async logout() {
-
-    try {
-
-      let message = await this.translate.get('SETTINGS_PAGE.MESSAGES.LOG_OUT').toPromise();
-      let title = await this.translate.get('SETTINGS_PAGE.LOGOUT').toPromise();
-      let cancel = await this.translate.get('CANCEL').toPromise();
-
+  logout() {
+    this.translate.get(['SETTINGS_PAGE.MESSAGES.LOG_OUT', 'SETTINGS_PAGE.LOGOUT', 'CANCEL']).subscribe(obj => {
       this.alertCtrl.create({
-        title: title + '?',
+        title: obj['SETTINGS_PAGE.LOGOUT'] + '?',
         mode: 'ios',
-        message: message,
+        message: obj['SETTINGS_PAGE.MESSAGES.LOG_OUT'],
         buttons: [
           {
-            text: cancel,
+            text: obj['CANCEL'],
             handler: () => console.log('Cancel clicked')
           },
           {
-            text: title,
+            text: obj['SETTINGS_PAGE.LOGOUT'],
             cssClass: 'btn-logout',
             handler: () => {
               this.authService.logout();
@@ -73,11 +67,7 @@ export class SettingsPage {
           }
         ]
       }).present();
-
-    } catch (err) {
-      console.log(err);
-    }
-
+    });
   }
 
   toggleSound() {

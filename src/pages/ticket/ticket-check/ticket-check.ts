@@ -46,11 +46,6 @@ export class TicketCheckPage {
   }
 
   check() {
-    let not_entered, wrong_length, only_digits: string = '';
-    this.translate.get('E_TICKET_PAGE.20_NUMBER_LIMIT').subscribe(val => wrong_length = val);
-    this.translate.get('E_TICKET_PAGE.ONLY_DIGITS').subscribe(val => only_digits = val);
-    this.translate.get('E_TICKET_PAGE.EMPTY_NUMBER').subscribe(val => not_entered = val);
-
     if (this.numberForm.valid) {
       this.params.ticket = this.numberForm.get('number').value;
       this.ticketSrv.validateTicket(this.params).then(
@@ -59,21 +54,22 @@ export class TicketCheckPage {
       );
     }
     else {
-      let msg: string;
-      if (this.numberForm.get('number').errors.required)
-        msg = not_entered;
-      else if (this.numberForm.get('number').errors.minlength || this.numberForm.get('number').errors.maxlength)
-        msg = wrong_length;
-      else {
-        msg = only_digits;
-      }
+      this.translate.get(['E_TICKET_PAGE.20_NUMBER_LIMIT', 'E_TICKET_PAGE.ONLY_DIGITS', 'E_TICKET_PAGE.EMPTY_NUMBER']).subscribe(obj => {
+        let msg: string;
+        if (this.numberForm.get('number').errors.required)
+          msg = obj['E_TICKET_PAGE.EMPTY_NUMBER'];
+        else if (this.numberForm.get('number').errors.minlength || this.numberForm.get('number').errors.maxlength)
+          msg = obj['E_TICKET_PAGE.20_NUMBER_LIMIT'];
+        else {
+          msg = obj['E_TICKET_PAGE.ONLY_DIGITS'];
+        }
 
-      this.toastCtrl.create({
-        message: msg,
-        duration: 3000,
-        position: 'bottom'
-      }).present();
-
+        this.toastCtrl.create({
+          message: msg,
+          duration: 3000,
+          position: 'bottom'
+        }).present();
+      });
     }
   }
 

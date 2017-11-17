@@ -26,8 +26,6 @@ export class ParamsPage {
     this.pageName = navParams.get('pageName');
     this.search = navParams.get('search');
     const globalTypesFromServer = navParams.get('globalTypesFromServer');
-    console.log('ПРИШЛИ ПАРАММЕТРЫ В ParamsPage');
-    console.log(this.search);
 
     if (this.pageName == 'Affiliate') {
       if (this.search.has_affiliate) {
