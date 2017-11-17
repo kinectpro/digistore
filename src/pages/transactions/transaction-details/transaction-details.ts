@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { ReportPage } from '../report/report';
-import { TransactionService } from '../../providers/transaction-service';
+import { NavController, NavParams } from 'ionic-angular';
 
-@IonicPage()
+import { ReportPage } from '../report/report';
+import { TransactionService } from '../../../providers/transaction-service';
+
 @Component({
   selector: 'page-transaction-details',
   templateUrl: 'transaction-details.html',

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController, LoadingController } from 'ionic-angular';
+
 import { TicketDetailsPage } from '../ticket-details/ticket-details';
 import { TicketParams } from '../../../models/params';
 import { TicketService } from '../../../providers/ticket-service';

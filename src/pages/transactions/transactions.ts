@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { App, ModalController, NavController, NavParams, Events } from 'ionic-angular';
 
-import { SortByPage } from '../sort-by/sort-by';
-import { TransactionDetailsPage } from '../transaction-details/transaction-details';
-import { SearchPage } from '../search/search';
 import { TransactionService } from '../../providers/transaction-service';
 import { Params } from '../../models/params';
 import { EarningService } from "../../providers/earning-service";
+import { TransactionDetailsPage } from './transaction-details/transaction-details';
+import { SortByPage } from './sort-by/sort-by';
+import { SearchPage } from './search/search';
 
 @Component({
   selector: 'page-transactions',

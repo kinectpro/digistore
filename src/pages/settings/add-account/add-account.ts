@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController, ToastController } from 'ionic-angular';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+
 import { TranslateService } from '@ngx-translate/core';
 import { Settings } from '../../../config/settings';
-import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../../providers/auth-service';
 import { User } from '../../../models/user';
 import 'rxjs/add/operator/toPromise';

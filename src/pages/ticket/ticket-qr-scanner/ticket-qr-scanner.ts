@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController } from 'ionic-angular';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
+
 import { TicketScanPage } from '../ticket-scan/ticket-scan';
 import { TicketParams } from '../../../models/params';
 import { TicketDetailsPage } from '../ticket-details/ticket-details';

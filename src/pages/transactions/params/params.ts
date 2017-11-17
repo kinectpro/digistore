@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController, Events } from 'ionic-angular';
-import { Search } from '../../models/params';
-import { SettingsService } from '../../providers/settings-service';
+
+import { Search } from '../../../models/params';
+import { SettingsService } from '../../../providers/settings-service';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({

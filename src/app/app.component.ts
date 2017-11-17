@@ -2,13 +2,13 @@ import { Component } from '@angular/core';
 import { Platform, Config } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { Keyboard } from '@ionic-native/keyboard';
+import { OneSignal } from '@ionic-native/onesignal';
 
 import { LandingPage } from '../pages/landing/landing';
 import { TabsPage } from '../pages/tabs/tabs';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../providers/auth-service';
-import { Keyboard } from '@ionic-native/keyboard';
-import { OneSignal } from '@ionic-native/onesignal';
 import { Settings } from '../config/settings';
 
 @Component({

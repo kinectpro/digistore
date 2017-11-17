@@ -1,12 +1,13 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavParams, ViewController, ModalController, LoadingController, Events } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Search } from '../../models/params';
+
 import { ParamsPage } from '../params/params';
-import { SettingsService } from '../../providers/settings-service';
 import { TranslateService } from '@ngx-translate/core';
-import { CompleteService } from '../../providers/complete-service';
 import { AutoCompleteComponent } from 'ionic2-auto-complete';
+import { Search } from '../../../models/params';
+import { SettingsService } from '../../../providers/settings-service';
+import { CompleteService } from '../../../providers/complete-service';
 
 @Component({
   selector: 'page-search',

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { LoginPage } from '../login/login';
-import { TranslateService } from '@ngx-translate/core';
+
+import { LoginPage } from './login/login';
 
 @Component({
   selector: 'page-landing',
@@ -9,7 +9,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class LandingPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public translate: TranslateService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
