@@ -70,7 +70,15 @@
   height: 3rem;
   margin: 1rem 0;
 }
-body.keyboard-is-open .hideElementOnKeyboardShown{
+body.keyboard-is-open .hideElementOnKeyboardShown {
+  display: none;
+}
+body.keyboard-is-open .position-block-onKeyboard-show {
+  position: relative;
+  bottom: 0;
+}
+
+body.keyboard-is-open .tabbar {
   display: none;
 }
 
@@ -160,10 +168,10 @@ page-report .scroll-content, page-search .scroll-content, page-transactions .scr
   }
 }
 
-body.hidden-tabbar .tabbar{
+body.hidden-tabbar .tabbar {
   display: none;
 }
-body.hidden-tabbar-when-scan .tabbar{
+body.hidden-tabbar-when-scan .tabbar {
   display: none;
 }
 

@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController, ViewController } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { NavController, NavParams, ToastController, ViewController, Content } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Keyboard } from '@ionic-native/keyboard';
+import { Subscription } from 'rxjs/Subscription';
 
 import { TicketSearchResultsPage } from '../ticket-search-results/ticket-search-results';
 import { TicketParams } from '../../../models/params';
@@ -17,11 +19,19 @@ export class TicketCheckPage {
   private numberForm : FormGroup;
   withoutNumber: boolean;
   params: TicketParams;
+  keyboardShowSubscription: Subscription;
+  keyboardHideSubscription: Subscription;
+
+  @ViewChild(Content)
+  content: Content;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController, public ticketSrv: TicketService, public fb: FormBuilder,
-              public translate: TranslateService, public viewCtrl: ViewController) {
+              public translate: TranslateService, public viewCtrl: ViewController, public keyboard: Keyboard) {
     this.withoutNumber = navParams.get('withoutNumber');
     this.params = navParams.get('params');
+
+    this.keyboardShowSubscription = this.keyboard.onKeyboardShow().subscribe(() => this.content.resize());
+    this.keyboardHideSubscription = this.keyboard.onKeyboardHide().subscribe(() => this.content.resize());
 
     this.numberForm = fb.group({
       'number': ['', [
@@ -35,6 +45,11 @@ export class TicketCheckPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TicketCheckPage');
+  }
+
+  ionViewDidLeave() {
+    this.keyboardShowSubscription.unsubscribe();
+    this.keyboardHideSubscription.unsubscribe();
   }
 
   findWithoutNumber() {
