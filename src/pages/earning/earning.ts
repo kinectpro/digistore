@@ -86,45 +86,36 @@ export class EarningPage {
 
   changeCurrency() {
 
-    let title, msg, cancel : string = '';
-
-    this.translate.get('GENERAL.CURRENCY')
-      .do(val => title = val)
-      .switchMap(() => this.translate.get('EARNINGS_PAGE.CURRENCY_DESCRIPTION'))
-      .do(val => msg = val)
-      .switchMap(() => this.translate.get('CANCEL'))
-      .do(val => cancel = val)
-      .switchMap(() => this.translate.get('CHOOSE')).subscribe(choose => {
-
-        this.alertCtrl.create({
-          title: title,
-          // mode: 'ios',
-          message: msg,
-          inputs: this.currenciesFromServer.map((val: any) => {
-            return {
-              type: 'radio',
-              label: val.symbol + ' ' + val.name,
-              value: val.code,
-              checked: this.currentCurrency == val.code
+    this.translate.get(['GENERAL.CURRENCY', 'EARNINGS_PAGE.CURRENCY_DESCRIPTION', 'CANCEL', 'CHOOSE']).subscribe(obj => {
+      this.alertCtrl.create({
+        title: obj['GENERAL.CURRENCY'],
+        // mode: 'ios',
+        message: obj['EARNINGS_PAGE.CURRENCY_DESCRIPTION'],
+        inputs: this.currenciesFromServer.map((val: any) => {
+          return {
+            type: 'radio',
+            label: val.symbol + ' ' + val.name,
+            value: val.code,
+            checked: this.currentCurrency == val.code
+          }
+        }),
+        buttons: [
+          {
+            text: obj['CANCEL'],
+            handler: data => {
+              console.log('Cancel clicked');
             }
-          }),
-          buttons: [
-            {
-              text: cancel,
-              handler: data => {
-                console.log('Cancel clicked');
-              }
-            },
-            {
-              text: choose,
-              handler: data => {
-                this.currentCurrency = data;
-              }
+          },
+          {
+            text: obj['CHOOSE'],
+            handler: data => {
+              this.currentCurrency = data;
             }
-          ]
-        }).present();
+          }
+        ]
+      }).present();
+    });
 
-      });
   }
 
 }

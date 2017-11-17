@@ -24,34 +24,25 @@ export class EditPage {
     this.viewCtrl.dismiss();
   }
 
-  async delAccount(user: User) {
-
-    try {
-
-      let title = await this.translate.get('SETTINGS_PAGE.MESSAGES.DELETE_ACCOUNT').toPromise();
-      let yes = await this.translate.get('YES').toPromise();
-      let no = await this.translate.get('NO').toPromise();
-
+  delAccount(user: User) {
+    this.translate.get(['SETTINGS_PAGE.MESSAGES.DELETE_ACCOUNT', 'YES', 'NO']).subscribe(obj => {
       this.alertCtrl.create({
-        title: title,
+        title: obj['SETTINGS_PAGE.MESSAGES.DELETE_ACCOUNT'],
         mode: 'ios',
         buttons: [
           {
-            text: no,
+            text: obj['NO'],
             handler: () => console.log('No clicked')
           },
           {
-            text: yes,
+            text: obj['YES'],
             handler: () => {
               this.authSrv.deleteUser(user);
             }
           }
         ]
       }).present();
-
-    } catch (err) {
-      console.log(err);
-    }
+    });
   }
 
 }

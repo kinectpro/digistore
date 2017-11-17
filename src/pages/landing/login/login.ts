@@ -68,20 +68,19 @@ export class LoginPage {
       })
   }
 
-  async checkValid(field: string) {
-
-    let is_required: string = await this.translate.get('LOGIN_PAGE.IS_REQUIRED', { field: field }).toPromise();
-    let min_length: string = await this.translate.get('LOGIN_PAGE.MIN_LENGTH').toPromise();
-    let is: string = await this.translate.get('LOGIN_PAGE.IS').toPromise();
-
+  checkValid(field: string) {
     let f = this.loginForm.get(field);
     if (f.errors) {
       if (f.errors.required) {
-        this.showedErrorPass = is_required;
+        this.translate.get('LOGIN_PAGE.IS_REQUIRED', { field: field }).subscribe( val => {
+          this.showedErrorPass = val;
+        });
         return;
       }
       if (f.errors.minlength) {
-        this.showedErrorPass = `${min_length} "${field}" ${is} ${f.errors.minlength.requiredLength}`;
+        this.translate.get(['LOGIN_PAGE.MIN_LENGTH', 'LOGIN_PAGE.IS']).subscribe( obj => {
+          this.showedErrorPass = `${obj['LOGIN_PAGE.MIN_LENGTH']} "${field}" ${obj['LOGIN_PAGE.IS']} ${f.errors.minlength.requiredLength}`;
+        });
       }
     }
   }

@@ -46,7 +46,7 @@ export class ReportPage {
       },
       err => {
         console.log("Error: ", err);
-      })
+      });
   }
 
 }
