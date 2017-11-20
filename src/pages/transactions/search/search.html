@@ -135,12 +135,18 @@
               </div>
             </button>
             <button no-padding ion-item (click)="openPageParams('Transaction type')">
-              <ion-label padding-left>
+              <ion-label padding-left item-start class="label-types">
                 {{ 'SEARCH_FILTERS_PAGE.TRANSACTION_TYPE' | translate}}
               </ion-label>
-              <div item-content class="item-content">
-                {{ getTypesValue(searchObj.transaction_type) }}
-                <ion-icon md="ios-arrow-forward" color="light"></ion-icon>
+              <div item-end class="item-content content-types">
+                <ion-row align-items-center>
+                  <ion-col class="col-content">
+                    {{ getTypesValue(searchObj.transaction_type) }}
+                  </ion-col>
+                  <ion-col class="col-arrow">
+                    <ion-icon md="ios-arrow-forward" color="light"></ion-icon>
+                  </ion-col>
+                </ion-row>
               </div>
             </button>
           </ion-list>
@@ -177,12 +183,18 @@
           <ion-list>
             <ion-item-divider></ion-item-divider>
             <button ion-item (click)="openPageParams('Billing type')">
-              <ion-label>
+              <ion-label item-start class="label-types">
                 {{ 'SEARCH_FILTERS_PAGE.BILLING_TYPE' | translate }}
               </ion-label>
-              <div item-content class="item-content">
-                {{ getTypesValue(searchObj.billing_type) }}
-                <ion-icon md="ios-arrow-forward" color="light"></ion-icon>
+              <div item-end class="item-content content-types">
+                <ion-row align-items-center>
+                  <ion-col class="col-content">
+                    {{ getTypesValue(searchObj.billing_type) }}
+                  </ion-col>
+                  <ion-col class="col-arrow">
+                    <ion-icon md="ios-arrow-forward" color="light"></ion-icon>
+                  </ion-col>
+                </ion-row>
               </div>
             </button>
           </ion-list>

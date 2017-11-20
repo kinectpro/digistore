@@ -150,6 +150,7 @@
     "SEARCH": "Search",
     "WITH_AFFILIATE": "With Affiliate",
     "WITHOUT_AFFILIATE": "Without Affiliate",
+    "ENTER_AFFILIATE": "Enter Affiliate",
     "AT_LEAST_SYMBOL": "At least one symbol should be entered",
     "MIN_LENGTH": "Minimum number of characters must be"
   },

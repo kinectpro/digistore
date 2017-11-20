@@ -7,6 +7,22 @@ page-search {
     bottom: 6rem;
   }
   ion-list {
+    .label-types {
+      margin-right: 0!important;
+    }
+    .content-types {
+      margin-right: 0!important;
+      .col-content {
+        width: auto;
+        padding: 0;
+      }
+      .col-arrow {
+        padding: 0;
+        max-width: 10px;
+        width: 10px;
+        text-align: right;
+      }
+    }
     //--------- search-bar ---------
     .clearAC {
       color: #414141;
