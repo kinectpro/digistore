@@ -150,7 +150,8 @@
     "SEARCH": "Search",
     "WITH_AFFILIATE": "With Affiliate",
     "WITHOUT_AFFILIATE": "Without Affiliate",
-    "AT_LEAST_SYMBOL": "At least one symbol should be entered"
+    "AT_LEAST_SYMBOL": "At least one symbol should be entered",
+    "MIN_LENGTH": "Minimum number of characters must be"
   },
   "E_TICKET_PAGE": {
     "E_TICKET_SCAN": "E-Ticket scan",

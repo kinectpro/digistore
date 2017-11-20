@@ -8,6 +8,7 @@ import { AutoCompleteComponent } from 'ionic2-auto-complete';
 import { Search } from '../../../models/params';
 import { SettingsService } from '../../../providers/settings-service';
 import { CompleteService } from '../../../providers/complete-service';
+import { ErrorService } from '../../../providers/error.service';
 
 @Component({
   selector: 'page-search',
@@ -29,13 +30,16 @@ export class SearchPage {
 
   activeTab: string;
 
-  constructor(public navParams: NavParams, public fb: FormBuilder, public viewCtrl: ViewController, public modalCtrl: ModalController, public events: Events,
+  constructor(public navParams: NavParams, public fb: FormBuilder, public viewCtrl: ViewController, public modalCtrl: ModalController, public events: Events, public errSrv: ErrorService,
               public settingsServ: SettingsService, public loadingCtrl: LoadingController, public translate: TranslateService, public complServ: CompleteService) {
 
     this.searchObj = navParams.get('params_search');
 
     this.searchForm = fb.group({
-      'purchase_id': [this.searchObj.purchase_id, [Validators.required]]
+      'purchase_id': [this.searchObj.purchase_id, [
+        Validators.required,
+        Validators.minLength(8)
+      ]]
     });
 
     this.searchFormExtended = fb.group({
@@ -52,7 +56,7 @@ export class SearchPage {
 
     this.settingsServ.getGlobalSettings().then(
       res => this.globalTypesFromServer = res,
-      err => console.log(err)
+      err => this.errSrv.showMessage(err)
     );
 
     this.payments = this.searchObj.pay_method ? this.searchObj.pay_method.split(',') : [];
@@ -138,13 +142,18 @@ export class SearchPage {
   }
 
   submit() {
-    let validation: string = '';
-    this.translate.get('SEARCH_FILTERS_PAGE.AT_LEAST_SYMBOL').subscribe(val => validation = val);
 
     if (!this.extended) {
       if (!this.searchForm.valid) {
-        this.showError(validation);
-        return;
+        let err = this.searchForm.get('purchase_id').errors;
+        if (err.required) {
+          this.translate.get('SEARCH_FILTERS_PAGE.AT_LEAST_SYMBOL').subscribe(val => this.showError(val));
+          return;
+        }
+        if (err.minlength) {
+          this.translate.get('SEARCH_FILTERS_PAGE.MIN_LENGTH').subscribe(val => this.showError(`${val} ${err.minlength.requiredLength}`));
+          return;
+        }
       }
       this.searchObj.purchase_id = this.searchForm.get('purchase_id').value;
     }
