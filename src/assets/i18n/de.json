@@ -32,6 +32,8 @@
     "Q3": "Juli, August, September",
     "Q4": "Oktober, November, Dezember"
   },
+  "ERROR": "Etwas ist schief gelaufen",
+  "NET_ERROR": "Probleme mit dem Netzwerk oder mit dem Server",
   "CANCEL": "Stornieren",
   "LOGIN": "Anmeldung",
   "BACK": "Zurück",

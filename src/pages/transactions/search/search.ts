@@ -84,9 +84,11 @@ export class SearchPage {
 
   getAffiliateValue(): string {
     let with_affiliate, without_affiliate, all :string = '';
-    this.translate.get('SEARCH_FILTERS_PAGE.WITH_AFFILIATE').subscribe(val => with_affiliate = val);
-    this.translate.get('SEARCH_FILTERS_PAGE.WITHOUT_AFFILIATE').subscribe(val => without_affiliate = val);
-    this.translate.get('ALL').subscribe(val => all = val);
+    this.translate.get(['SEARCH_FILTERS_PAGE.WITH_AFFILIATE', 'SEARCH_FILTERS_PAGE.WITHOUT_AFFILIATE', 'ALL']).subscribe( obj => {
+      with_affiliate = obj['SEARCH_FILTERS_PAGE.WITH_AFFILIATE'];
+      without_affiliate = obj['SEARCH_FILTERS_PAGE.WITHOUT_AFFILIATE'];
+      all = obj['ALL'];
+    });
 
     if (this.searchObj.has_affiliate == 'Y') return with_affiliate;
     if (this.searchObj.has_affiliate == 'N') return without_affiliate;

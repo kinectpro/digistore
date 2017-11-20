@@ -32,6 +32,8 @@
     "Q3": "July, August, September",
     "Q4": "October, November, December"
   },
+  "ERROR": "Something went wrong",
+  "NET_ERROR": "Problems with the network or with the server",
   "CANCEL": "Cancel",
   "LOGIN": "Login",
   "BACK": "Back",
@@ -181,7 +183,7 @@
     "USED": "used",
     "UNUSED": "unused",
     "ENTER_E_TICKET_NUMBER_BELOW": "Enter E-Ticket number below to check if it is valid",
-    "E_TICKET_WILL_BE_MARKED": "E-Ticket will e marked as used",
+    "E_TICKET_WILL_BE_MARKED": "E-Ticket will be marked as used",
     "CHECK_E_TICKET": "Check E-Ticket",
     "20_NUMBER_LIMIT": "E-Ticket number must be 20 symbols!",
     "ONLY_DIGITS": "E-Ticket number must include only digits!",

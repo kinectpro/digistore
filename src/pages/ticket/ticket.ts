@@ -8,6 +8,7 @@ import { TicketParams } from '../../models/params';
 import { TicketCheckPage } from './ticket-check/ticket-check';
 import { TranslateService } from '@ngx-translate/core';
 import { CalendarComponentOptions } from 'ion2-calendar';
+import { ErrorService } from '../../providers/error.service';
 
 @Component({
   selector: 'page-ticket',
@@ -28,7 +29,7 @@ export class TicketPage {
   };
   paramsFromServer: any = {};
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public app: App,
+  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public app: App, public errSrv: ErrorService,
               public tickServ: TicketService, public toastCtrl: ToastController, public events: Events, public translate: TranslateService) {
 
     this.events.subscribe('ticket-params:changed', params => this.params = params);
@@ -56,9 +57,7 @@ export class TicketPage {
         this.paramsFromServer.templates = res.templates;
         this.paramsFromServer.locations = res.locations;
       },
-      err => {
-        console.log(err);
-      }
+      err => this.errSrv.showMessage(err)
     );
   }
 

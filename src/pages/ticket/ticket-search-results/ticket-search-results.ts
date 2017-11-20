@@ -4,6 +4,7 @@ import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { TicketDetailsPage } from '../ticket-details/ticket-details';
 import { TicketParams } from '../../../models/params';
 import { TicketService } from '../../../providers/ticket-service';
+import { ErrorService } from '../../../providers/error.service';
 
 @Component({
   selector: 'page-ticket-search-results',
@@ -14,11 +15,11 @@ export class TicketSearchResultsPage {
   listTickets: any = [];
   params: TicketParams;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public tickerSrv: TicketService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public tickerSrv: TicketService, public errSrv: ErrorService) {
     this.params = navParams.get('params');
     this.tickerSrv.listTickets(this.params).then(
       res => this.listTickets = res,
-      err => console.log(err)
+      err => this.errSrv.showMessage(err)
     );
   }
 

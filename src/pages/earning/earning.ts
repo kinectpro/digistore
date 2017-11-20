@@ -4,8 +4,7 @@ import { NavController, LoadingController, Events, Content, AlertController } fr
 import { EarningService } from '../../providers/earning-service';
 import { TranslateService } from '@ngx-translate/core';
 import { SettingsService } from '../../providers/settings-service';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/do';
+import { ErrorService } from '../../providers/error.service';
 
 @Component({
   selector: 'earning-home',
@@ -26,7 +25,7 @@ export class EarningPage {
   content: Content;
 
   constructor(public navCtrl: NavController, public eServ: EarningService, public loadingCtrl: LoadingController, public translate: TranslateService,
-              public events: Events, public alertCtrl: AlertController, public settingsServ: SettingsService) {
+              public events: Events, public alertCtrl: AlertController, public settingsServ: SettingsService, public errSrv: ErrorService) {
 
     console.log('Init EarningPage');
     this.translate.get('LOADING_TEXT').subscribe(loadingText => this.init(loadingText));
@@ -62,7 +61,7 @@ export class EarningPage {
       loading.dismiss();
 
     } catch (err) {
-      console.log(err);
+      this.errSrv.showMessage(err);
       loading.dismiss();
     }
   }

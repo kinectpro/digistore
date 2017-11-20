@@ -30,6 +30,7 @@ import { EarningService } from '../providers/earning-service';
 import { SettingsService } from '../providers/settings-service';
 import { CompleteService } from '../providers/complete-service';
 import { TransactionService } from '../providers/transaction-service';
+import { ErrorService } from '../providers/error.service';
 import { TicketService } from '../providers/ticket-service';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -94,6 +95,7 @@ export function createTranslateLoader(http: HttpClient) {
     CompleteService,
     SettingsService,
     TicketService,
+    ErrorService,
     TransactionService
   ]
 })

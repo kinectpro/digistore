@@ -9,7 +9,6 @@ import { AuthService } from '../../../providers/auth-service';
 import { TabsPage } from '../../tabs/tabs';
 import { Settings } from '../../../config/settings';
 import { LandingPage } from '../landing';
-import 'rxjs/add/operator/toPromise';
 
 @Component({
   selector: 'page-login',
@@ -20,7 +19,6 @@ export class LoginPage {
   showedError: string = ''; //  from server
   showedErrorPass: string;
   pwdType: string = 'password';
-  mesConnProblem: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public iab: InAppBrowser, public fb: FormBuilder,
               public http: HttpClient, public translate: TranslateService, public authService: AuthService) {
@@ -45,7 +43,6 @@ export class LoginPage {
   }
 
   login() {
-    this.translate.get('LOGIN_PAGE.CONNECTION_PROBLEM').subscribe(value => this.mesConnProblem = value);
     this.http.get(`${Settings.BASE_URL}${Settings.API_KEY}/json/createApiKey?username=${this.loginForm.get('username').value}&password=${this.loginForm.get('password').value}&language=${this.translate.currentLang}`).subscribe(
       (res: any) => {
         if (res.result === 'error') {
@@ -63,9 +60,9 @@ export class LoginPage {
         }
       },
       err => {
-        this.showError(this.mesConnProblem);
+        this.translate.get('LOGIN_PAGE.CONNECTION_PROBLEM').subscribe(value => this.showError(value));
         console.log('ERROR:', err);
-      })
+      });
   }
 
   checkValid(field: string) {

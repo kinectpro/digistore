@@ -7,6 +7,7 @@ import { EarningService } from "../../providers/earning-service";
 import { TransactionDetailsPage } from './transaction-details/transaction-details';
 import { SortByPage } from './sort-by/sort-by';
 import { SearchPage } from './search/search';
+import { ErrorService } from '../../providers/error.service';
 
 @Component({
   selector: 'page-transactions',
@@ -31,7 +32,8 @@ export class TransactionsPage {
   transactionsFromService: any[];
   transactions: any = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public app: App, public eServ: EarningService, public tranServ: TransactionService, public events: Events) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public app: App,
+              public eServ: EarningService, public tranServ: TransactionService, public events: Events, public errSrv: ErrorService) {
     this.events.subscribe('period:changed', period => {
       this.currentPeriod = period;
       this.getTransactions();
@@ -63,7 +65,7 @@ export class TransactionsPage {
         this.transactionsFromService = res;
         this.updateTransactions();
       },
-      err => console.log(err)
+      err => this.errSrv.showMessage(err)
     );
   }
 
