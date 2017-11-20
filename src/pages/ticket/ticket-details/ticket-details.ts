@@ -3,6 +3,7 @@ import { NavController, NavParams, AlertController, Platform, ViewController, Ap
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
 import { FileOpener } from '@ionic-native/file-opener';
+import { HttpErrorResponse } from '@angular/common/http';
 
 import { TicketCheckPage } from '../ticket-check/ticket-check';
 import { TicketParams } from '../../../models/params';
@@ -23,6 +24,9 @@ export class TicketDetailsPage {
               public transfer: FileTransfer, public viewCtrl: ViewController, public ticketSrv: TicketService, public navParams: NavParams, public file: File, public app: App) {
     this.result = navParams.get('result');
     this.params = navParams.get('params');
+    if (this.result && this.result.msg instanceof HttpErrorResponse) {
+      this.translate.get('NET_ERROR').subscribe( val => this.result.msg = val);
+    }
   }
 
   ionViewDidLoad() {
