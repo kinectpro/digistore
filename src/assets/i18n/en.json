@@ -152,7 +152,8 @@
     "WITHOUT_AFFILIATE": "Without Affiliate",
     "ENTER_AFFILIATE": "Enter Affiliate",
     "AT_LEAST_SYMBOL": "At least one symbol should be entered",
-    "MIN_LENGTH": "Minimum number of characters must be"
+    "MIN_LENGTH": "Minimum number of characters must be",
+    "PATTERN": "Only numbers and letters (must be at least 1 letter)"
   },
   "E_TICKET_PAGE": {
     "E_TICKET_SCAN": "E-Ticket scan",

@@ -38,7 +38,8 @@ export class SearchPage {
     this.searchForm = fb.group({
       'purchase_id': [this.searchObj.purchase_id, [
         Validators.required,
-        Validators.minLength(8)
+        Validators.minLength(8),
+        Validators.pattern('(?=.*[A-Za-z])[0-9A-Za-z]+')  // ?=  -  Continues the search only if to the right of the current position in the text is the bracketed expression.
       ]]
     });
 
@@ -152,6 +153,10 @@ export class SearchPage {
         }
         if (err.minlength) {
           this.translate.get('SEARCH_FILTERS_PAGE.MIN_LENGTH').subscribe(val => this.showError(`${val} ${err.minlength.requiredLength}`));
+          return;
+        }
+        if (err.pattern) {
+          this.translate.get('SEARCH_FILTERS_PAGE.PATTERN').subscribe(val => this.showError(val));
           return;
         }
       }
