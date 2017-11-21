@@ -18,7 +18,7 @@
   <ion-list radio-group [(ngModel)]="params.template.key" no-padding *ngIf="pageName == 'E-Ticket template'">
     <div *ngFor="let account of paramsFromServer.templates | keys">
       <ion-item-divider>
-        {{'E_TICKET_PAGE.ACCOUNT_ID' | translate}} {{ paramsFromServer.owners[account.key] }}
+        {{ paramsFromServer.owners[account.key] }}
       </ion-item-divider>
       <ion-item mode="ios" *ngFor="let template of account.value | keys, let i = index" [class.last]="i == template.num - 1">
         <ion-label color="dark">{{ template.value }}</ion-label>
@@ -30,7 +30,7 @@
   <ion-list radio-group [(ngModel)]="params.location.key" no-padding *ngIf="pageName == 'Event location'">
     <div *ngFor="let account of paramsFromServer.locations | keys">
       <ion-item-divider>
-        {{'E_TICKET_PAGE.ACCOUNT_ID' | translate}} {{ paramsFromServer.owners[account.key] }}
+        {{ paramsFromServer.owners[account.key] }}
       </ion-item-divider>
       <ion-item mode="ios" *ngFor="let location of account.value | keys, let i = index" [class.last]="i == location.num - 1">
         <ion-label color="dark">{{ location.value }}</ion-label>

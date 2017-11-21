@@ -176,6 +176,7 @@
     "RETRY": "Retry",
     "CHECK_WITH_NUMBER": "Check with number",
     "MARK_AS": "Mark as",
+    "MARK_AS_USED": "Mark as used",
     "POPUP_MARK_AS_USED_TITLE": "Mark as used?",
     "POPUP_MARK_AS_USED_TEXT": "The E-Ticket will be marked as used",
     "POPUP_MARK_AS_UNUSED_TITLE": "Mark as unused?",
