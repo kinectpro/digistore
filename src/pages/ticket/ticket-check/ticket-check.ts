@@ -21,6 +21,7 @@ export class TicketCheckPage {
   params: TicketParams;
   keyboardShowSubscription: Subscription;
   keyboardHideSubscription: Subscription;
+  showedError: string = '';
 
   @ViewChild(Content)
   content: Content;
@@ -56,6 +57,19 @@ export class TicketCheckPage {
     this.navCtrl.push(TicketCheckPage, { params: this.params, withoutNumber: true });
   }
 
+  checkValid(el: any) {
+    if (el.value && el.invalid) {
+      this.translate.get("SEARCH_FILTERS_PAGE.INVALID_EMAIL").subscribe( msg => this.showError(msg) );
+    }
+  }
+
+  showError(mess: string) {
+    this.showedError = mess;
+    setTimeout(() => {
+      this.showedError = '';
+    }, 3000);
+  }
+  
   search() {
     this.navCtrl.push(TicketSearchResultsPage, { params: this.params });
   }

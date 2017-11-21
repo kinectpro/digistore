@@ -54,8 +54,8 @@ export class TicketPage {
   initTicketParams() {
     this.tickServ.getTicketParams().then(
       res => {
-        this.paramsFromServer.templates = res.templates;
-        this.paramsFromServer.locations = res.locations;
+        this.paramsFromServer = res;
+        this.params.owners = Object.keys(res.owners).join(',');
       },
       err => this.errSrv.showMessage(err)
     );

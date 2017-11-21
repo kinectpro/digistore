@@ -133,6 +133,7 @@
     "SEARCH_FILTERS": "Search & Filters",
     "DETAILED_SEARCH": "Detailed search",
     "ORDER_ID": "Order ID",
+    "PRODUCT_ID": "Product ID",
     "CLEAR_ALL": "Clear all",
     "PRODUCT_NAME": "Product name",
     "CUSTOMER_INFO": "Customer info",
@@ -153,7 +154,8 @@
     "ENTER_AFFILIATE": "Enter Affiliate",
     "AT_LEAST_SYMBOL": "At least one symbol should be entered",
     "MIN_LENGTH": "Minimum number of characters must be",
-    "PATTERN": "Only numbers and letters (must be at least 1 letter)"
+    "PATTERN": "Only numbers and letters (must be at least 1 letter)",
+    "INVALID_EMAIL": "Invalid Email"
   },
   "E_TICKET_PAGE": {
     "E_TICKET_SCAN": "E-Ticket scan",
@@ -192,6 +194,7 @@
     "ONLY_DIGITS": "E-Ticket number must include only digits!",
     "EMPTY_NUMBER": "Not entered E-Ticket number!",
     "NO_PARAMS": "No 'E-Ticket template' or 'Event location' field is selected!",
+    "FAILURE": "Failure",
     "E_TICKET_VALID": "E-Ticket Valid",
     "ALREADY_USED": "Already Used",
     "ACCOUNT_ID": "DS 24 ACCOUNT ID",

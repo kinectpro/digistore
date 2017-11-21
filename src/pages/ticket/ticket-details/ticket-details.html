@@ -28,7 +28,7 @@
   <ion-list>
 
     <ion-list-header text-center no-margin text-capitalize [style.color]="result.status == 'success' ? '#35ce76' : '#ed1c24'">
-      {{ result.mode != 'modal' ? result.status : result.status == 'success' ? ('E_TICKET_PAGE.E_TICKET_VALID' | translate) : ('E_TICKET_PAGE.ALREADY_USED' | translate) }}
+      {{ result.status == 'success' ? ('E_TICKET_PAGE.E_TICKET_VALID' | translate) : result.mode != 'modal' ? ('E_TICKET_PAGE.FAILURE' | translate) : ('E_TICKET_PAGE.ALREADY_USED' | translate) }}
     </ion-list-header>
 
     <ion-label text-wrap class="message" margin>

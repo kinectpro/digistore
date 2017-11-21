@@ -36,7 +36,7 @@
     <form [formGroup]="searchForm">
 
       <ion-list>
-        <ion-item no-margin no-padding>
+        <ion-item no-margin no-padding [class.has-value]="searchForm.get('purchase_id').value">
           <ion-input formControlName="purchase_id" type="text" placeholder="{{ 'SEARCH_FILTERS_PAGE.ORDER_ID' | translate}}"></ion-input>
         </ion-item>
         <ion-label text-wrap *ngIf="showedError" class="err-message" no-margin>
@@ -66,7 +66,7 @@
             <!--</ion-item>-->
 
             <ion-item no-margin no-padding>
-              <ion-input formControlName="product_id" type="text" placeholder="Product ID"></ion-input>
+              <ion-input formControlName="product_id" type="text" placeholder="{{ 'SEARCH_FILTERS_PAGE.PRODUCT_ID' | translate}}"></ion-input>
             </ion-item>
 
             <ion-auto-complete [dataProvider]="complServ" #searchbar (itemSelected)="selectedProduct($event)" [options]="{ placeholder : ('SEARCH_FILTERS_PAGE.PRODUCT_NAME' | translate) }"></ion-auto-complete>
@@ -93,9 +93,12 @@
               </ion-row>
               <ion-row>
                 <ion-col col-12>
-                  <ion-item no-margin no-padding>
+                  <ion-item no-margin no-padding [class.has-value]="searchFormExtended.get('email').value">
                     <ion-input formControlName="email" type="email" placeholder="{{ 'SEARCH_FILTERS_PAGE.EMAIL' | translate}}"></ion-input>
                   </ion-item>
+                  <ion-label class="err-message" *ngIf="searchFormExtended.get('email').value && searchFormExtended.get('email').invalid && searchFormExtended.get('email').touched">
+                    {{ 'SEARCH_FILTERS_PAGE.INVALID_EMAIL' | translate}}
+                  </ion-label>
                 </ion-col>
               </ion-row>
             </ion-grid>

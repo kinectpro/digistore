@@ -48,7 +48,7 @@ export class SearchPage {
       'product_id': [this.searchObj.product_id],
       'first_name': [this.searchObj.first_name],
       'last_name': [this.searchObj.last_name],
-      'email': [this.searchObj.email],
+      'email': [this.searchObj.email, Validators.pattern("[a-zA-Z_]+@[a-zA-Z_]+?\.[a-zA-Z]{2,6}")],
       //'from': [this.searchObj.from],
       //'to': [this.searchObj.to]
     });
@@ -163,6 +163,10 @@ export class SearchPage {
       this.searchObj.purchase_id = this.searchForm.get('purchase_id').value;
     }
     else {
+      if (this.searchFormExtended.get('email').value && this.searchFormExtended.get('email').invalid) {
+        this.activeTab = 'customer';
+        return;
+      }
       //this.searchObj.purchase_id = this.searchFormExtended.get('purchase_id').value;
       this.searchObj.product_id = this.searchFormExtended.get('product_id').value;
       this.searchObj.first_name = this.searchFormExtended.get('first_name').value;
