@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { App, ModalController, NavController, NavParams, Events } from 'ionic-angular';
+import { App, ModalController, NavController, NavParams, Events, Refresher } from 'ionic-angular';
 
 import { TransactionService } from '../../providers/transaction-service';
 import { Params } from '../../models/params';
@@ -57,6 +57,11 @@ export class TransactionsPage {
   openTransaction(transaction: any) {
     // this.navCtrl.push(TransactionDetailsPage, {transaction: transaction});
     this.app.getRootNav().push(TransactionDetailsPage, {transaction: transaction});
+  }
+
+  doRefresh(refresher: Refresher) {
+    refresher.complete();
+    this.getTransactions();
   }
 
   getTransactions() {

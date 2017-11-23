@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController, App, ToastController, Events } from 'ionic-angular';
+import { NavController, NavParams, ModalController, App, ToastController, Events, Refresher } from 'ionic-angular';
 
 import { TicketParamsPage } from './ticket-params/ticket-params';
 import { TicketQrScannerPage } from './ticket-qr-scanner/ticket-qr-scanner';
@@ -49,6 +49,11 @@ export class TicketPage {
       this.params.location = { key: '', value: '' };
       this.needDataUpdate = false;
     }
+  }
+
+  doRefresh(refresher: Refresher) {
+    refresher.complete();
+    this.initTicketParams();
   }
 
   initTicketParams() {

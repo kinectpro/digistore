@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, LoadingController, Events, Content, AlertController } from 'ionic-angular';
+import { NavController, LoadingController, Events, Content, AlertController, Refresher } from 'ionic-angular';
 
 import { EarningService } from '../../providers/earning-service';
 import { TranslateService } from '@ngx-translate/core';
@@ -29,7 +29,8 @@ export class EarningPage {
               public events: Events, public alertCtrl: AlertController, public settingsServ: SettingsService, public errSrv: ErrorService) {
 
     console.log('Init EarningPage');
-    this.translate.get('LOADING_TEXT').subscribe(loadingText => this.init(loadingText));
+
+    this.getData();
 
     events.subscribe('user:changed', () => this.needDataUpdate = true);
   }
@@ -76,12 +77,17 @@ export class EarningPage {
 
   ionViewWillEnter() {
     if (this.needDataUpdate) {
-      this.translate.get('LOADING_TEXT').subscribe(loadingText => this.init(loadingText));
+      this.getData();
       this.needDataUpdate = false;
     }
   }
 
-  retry() {
+  doRefresh(refresher: Refresher) {
+    refresher.complete();
+    this.getData();
+  }
+
+  getData() {
     this.translate.get('LOADING_TEXT').subscribe(loadingText => this.init(loadingText));
   }
 

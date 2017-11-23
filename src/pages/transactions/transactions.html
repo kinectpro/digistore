@@ -19,6 +19,9 @@
 
 <ion-content no-padding>
 
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+  </ion-refresher>
+
   <ion-grid *ngIf="currentPeriod" class="period" text-center no-padding>
     <ion-row align-items-center>
       <ion-col col-2>

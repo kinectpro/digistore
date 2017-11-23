@@ -7,6 +7,10 @@
 </ion-header>
 
 <ion-content>
+
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+  </ion-refresher>
+
   <ion-list no-padding no-margin>
     <button no-padding ion-item (click)="openPageParams('E-Ticket template')">
       <ion-label padding-left>

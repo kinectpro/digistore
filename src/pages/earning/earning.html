@@ -25,14 +25,16 @@
 
 <ion-content>
 
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+  </ion-refresher>
+
   <div *ngIf="somethingWentWrong; else allRight">
     <ion-row class="empty-result">
       <ion-col col-8 offset-2>
         <ion-item no-lines no-padding text-wrap>
           <p>{{ 'ERROR' | translate }}</p>
-          <p>{{ 'NET_ERROR' | translate }}?</p>
         </ion-item>
-        <button (click)="retry()" ion-button block color="primary" text-capitalize>{{'E_TICKET_PAGE.RETRY' | translate}}</button>
+        <button (click)="getData()" ion-button block color="primary" text-capitalize>{{'E_TICKET_PAGE.RETRY' | translate}}</button>
       </ion-col>
     </ion-row>
   </div>
