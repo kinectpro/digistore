@@ -68,7 +68,7 @@
   </ion-grid>
 
   <ion-item-group *ngIf="transactions && transactions.length;else transactionsNotFound">
-    <ion-item-divider class="header">
+    <ion-item-divider class="header" sticky>
       <ion-label no-margin>
         <ion-row text-uppercase margin-right>
           <ion-col col-2><span class="col-name">{{ 'TRANSACTIONS_PAGE.DATE' | translate }}</span></ion-col>
