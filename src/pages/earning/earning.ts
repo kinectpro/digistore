@@ -12,6 +12,7 @@ import { ErrorService } from '../../providers/error.service';
 })
 export class EarningPage {
   needDataUpdate: boolean = false;
+  somethingWentWrong: boolean = false;
   currenciesFromServer: string[];
   currentCurrency: string = 'EUR';
   segment: string = "total";
@@ -34,6 +35,8 @@ export class EarningPage {
   }
 
   async init(loadingText: string) {
+
+    this.somethingWentWrong = false;
 
     let loading = this.loadingCtrl.create({
       content: loadingText,
@@ -61,6 +64,7 @@ export class EarningPage {
       loading.dismiss();
 
     } catch (err) {
+      this.somethingWentWrong = true;
       this.errSrv.showMessage(err);
       loading.dismiss();
     }
@@ -75,6 +79,10 @@ export class EarningPage {
       this.translate.get('LOADING_TEXT').subscribe(loadingText => this.init(loadingText));
       this.needDataUpdate = false;
     }
+  }
+
+  retry() {
+    this.translate.get('LOADING_TEXT').subscribe(loadingText => this.init(loadingText));
   }
 
   goToTransaction(period: string): void {

@@ -24,176 +24,193 @@
 </ion-header>
 
 <ion-content>
-  <div [ngSwitch]="segment">
 
-    <ion-segment mode="ios" [(ngModel)]="toggle" class="toogle">
-      <ion-segment-button value='brutto'>
-        {{ 'EARNINGS_PAGE.GROSS' | translate }}
-      </ion-segment-button>
-      <ion-segment-button value='netto'>
-        {{ 'EARNINGS_PAGE.NET_COMMISSION' | translate }}
-      </ion-segment-button>
-    </ion-segment>
+  <div *ngIf="somethingWentWrong; else allRight">
+    <ion-row class="empty-result">
+      <ion-col col-8 offset-2>
+        <ion-item no-lines no-padding text-wrap>
+          <p>{{ 'ERROR' | translate }}</p>
+          <p>{{ 'NET_ERROR' | translate }}?</p>
+        </ion-item>
+        <button (click)="retry()" ion-button block color="primary" text-capitalize>{{'E_TICKET_PAGE.RETRY' | translate}}</button>
+      </ion-col>
+    </ion-row>
+  </div>
 
-    <!--  ------------------------------------------- TOTAL AMOUNTS -----------------------------------------------  -->
+  <ng-template #allRight>
 
-    <ion-list class="list-total" *ngSwitchCase="'total'">
+    <div [ngSwitch]="segment">
 
-      <ion-list *ngIf="totalData">
+      <ion-segment mode="ios" [(ngModel)]="toggle" class="toogle">
+        <ion-segment-button value='brutto'>
+          {{ 'EARNINGS_PAGE.GROSS' | translate }}
+        </ion-segment-button>
+        <ion-segment-button value='netto'>
+          {{ 'EARNINGS_PAGE.NET_COMMISSION' | translate }}
+        </ion-segment-button>
+      </ion-segment>
 
-        <ion-list-header text-center no-margin>
-          <ion-label>
-            {{ toggle == 'brutto' ? ('EARNINGS_PAGE.TOTAL_GROSS' | translate) : ('EARNINGS_PAGE.TOTAL_NET' | translate) }}
-          </ion-label>
-        </ion-list-header>
-        <ion-list-header text-center no-margin>
-          <ion-label class="amount">
-            {{ totalData[currentCurrency][toggle].total | currency:currentCurrency:true }}
-          </ion-label>
-        </ion-list-header>
+      <!--  ------------------------------------------- TOTAL AMOUNTS -----------------------------------------------  -->
 
-        <button ion-item no-padding (click)="changeCurrency()">
-          <button class="btn-currency" ion-button icon-right clear>
-            {{ currentCurrency }}
-            <ion-icon name="ios-arrow-down"></ion-icon>
+      <ion-list class="list-total" *ngSwitchCase="'total'">
+
+        <ion-list *ngIf="totalData">
+
+          <ion-list-header text-center no-margin>
+            <ion-label>
+              {{ toggle == 'brutto' ? ('EARNINGS_PAGE.TOTAL_GROSS' | translate) : ('EARNINGS_PAGE.TOTAL_NET' | translate) }}
+            </ion-label>
+          </ion-list-header>
+          <ion-list-header text-center no-margin>
+            <ion-label class="amount">
+              {{ totalData[currentCurrency][toggle].total | currency:currentCurrency:true }}
+            </ion-label>
+          </ion-list-header>
+
+          <button ion-item no-padding (click)="changeCurrency()">
+            <button class="btn-currency" ion-button icon-right clear>
+              {{ currentCurrency }}
+              <ion-icon name="ios-arrow-down"></ion-icon>
+            </button>
+            <div item-content class="logo" text-end>
+              <img class="img-logo" src="assets/img/logo-long.png">
+            </div>
           </button>
-          <div item-content class="logo" text-end>
-            <img class="img-logo" src="assets/img/logo-long.png">
-          </div>
-        </button>
 
-        <button ion-item no-padding (click)="goToTransaction('day')">
-          <ion-label>
-            {{ 'GENERAL.TODAY' | translate }}
-          </ion-label>
-          <div item-content class="total">
-            {{ totalData[currentCurrency][toggle].today | currency:currentCurrency:true }} <ion-icon md="ios-arrow-forward" padding-left color="light"></ion-icon>
-          </div>
-        </button>
+          <button ion-item no-padding (click)="goToTransaction('day')">
+            <ion-label>
+              {{ 'GENERAL.TODAY' | translate }}
+            </ion-label>
+            <div item-content class="total">
+              {{ totalData[currentCurrency][toggle].today | currency:currentCurrency:true }} <ion-icon md="ios-arrow-forward" padding-left color="light"></ion-icon>
+            </div>
+          </button>
 
-        <button ion-item no-padding (click)="goToTransaction('week')">
-          <ion-label>
-            {{ 'GENERAL.THIS_WEEK' | translate }}
-          </ion-label>
-          <div item-content class="total">
-            {{ totalData[currentCurrency][toggle].week | currency:currentCurrency:true }} <ion-icon md="ios-arrow-forward" padding-left color="light"></ion-icon>
-          </div>
-        </button>
+          <button ion-item no-padding (click)="goToTransaction('week')">
+            <ion-label>
+              {{ 'GENERAL.THIS_WEEK' | translate }}
+            </ion-label>
+            <div item-content class="total">
+              {{ totalData[currentCurrency][toggle].week | currency:currentCurrency:true }} <ion-icon md="ios-arrow-forward" padding-left color="light"></ion-icon>
+            </div>
+          </button>
 
-        <button ion-item no-padding (click)="goToTransaction('month')">
-          <ion-label>
-            {{ 'GENERAL.THIS_MONTH' | translate }}
-          </ion-label>
-          <div item-content class="total">
-            {{ totalData[currentCurrency][toggle].month | currency:currentCurrency:true }} <ion-icon md="ios-arrow-forward" padding-left color="light"></ion-icon>
-          </div>
-        </button>
+          <button ion-item no-padding (click)="goToTransaction('month')">
+            <ion-label>
+              {{ 'GENERAL.THIS_MONTH' | translate }}
+            </ion-label>
+            <div item-content class="total">
+              {{ totalData[currentCurrency][toggle].month | currency:currentCurrency:true }} <ion-icon md="ios-arrow-forward" padding-left color="light"></ion-icon>
+            </div>
+          </button>
 
-        <button ion-item no-padding (click)="goToTransaction('year')">
-          <ion-label>
-            {{ 'GENERAL.THIS_YEAR' | translate }}
-          </ion-label>
-          <div item-content class="total">
-            {{ totalData[currentCurrency][toggle].year | currency:currentCurrency:true }} <ion-icon md="ios-arrow-forward" padding-left color="light"></ion-icon>
-          </div>
-        </button>
+          <button ion-item no-padding (click)="goToTransaction('year')">
+            <ion-label>
+              {{ 'GENERAL.THIS_YEAR' | translate }}
+            </ion-label>
+            <div item-content class="total">
+              {{ totalData[currentCurrency][toggle].year | currency:currentCurrency:true }} <ion-icon md="ios-arrow-forward" padding-left color="light"></ion-icon>
+            </div>
+          </button>
+
+        </ion-list>
 
       </ion-list>
 
-    </ion-list>
+      <!--  ------------------------------------------ MONTHLY AMOUNTS ----------------------------------------------  -->
 
-    <!--  ------------------------------------------ MONTHLY AMOUNTS ----------------------------------------------  -->
+      <ion-list class="list-month" *ngSwitchCase="'month'">
+        <ion-list-header>
+          <img class="img-logo" src="assets/img/logo-long.png">
+        </ion-list-header>
 
-    <ion-list class="list-month" *ngSwitchCase="'month'">
-      <ion-list-header>
-        <img class="img-logo" src="assets/img/logo-long.png">
-      </ion-list-header>
+        <div *ngIf="monthlyData[currentCurrency] && monthlyData[currentCurrency].length > 0; else emptyResult">
 
-      <div *ngIf="monthlyData[currentCurrency] && monthlyData[currentCurrency].length > 0; else emptyResult">
+          <div *ngFor="let obj of monthlyData[currentCurrency]">
 
-        <div *ngFor="let obj of monthlyData[currentCurrency]">
+            <ion-item-divider sticky>
+              {{ obj.year }}
+            </ion-item-divider>
 
-          <ion-item-divider sticky>
-            {{ obj.year }}
-          </ion-item-divider>
+            <button ion-item no-padding *ngFor="let month of obj.months">
+              <ion-label>
+                {{ 'MONTHS.' + month.name | translate }}
+              </ion-label>
+              <div item-content class="total">
+                {{ month[toggle] | currency:currentCurrency:true }} <ion-icon md="ios-arrow-forward" color="light"></ion-icon>
+              </div>
+            </button>
 
-          <button ion-item no-padding *ngFor="let month of obj.months">
-            <ion-label>
-              {{ 'MONTHS.' + month.name | translate }}
-            </ion-label>
-            <div item-content class="total">
-              {{ month[toggle] | currency:currentCurrency:true }} <ion-icon md="ios-arrow-forward" color="light"></ion-icon>
-            </div>
-          </button>
-
-        </div>
-
-      </div>
-
-    </ion-list>
-
-    <!--  ----------------------------------------- QUARTERLY AMOUNTS ---------------------------------------------  -->
-
-    <ion-list class="list-quarter" *ngSwitchCase="'quarter'">
-
-      <ion-list-header>
-        <img class="img-logo" src="assets/img/logo-long.png">
-      </ion-list-header>
-
-      <div *ngIf="quarterlyData[currentCurrency] && quarterlyData[currentCurrency].length > 0; else emptyResult">
-
-        <div *ngFor="let obj of quarterlyData[currentCurrency]">
-          <ion-item-divider sticky>
-            {{obj.year}}
-          </ion-item-divider>
-
-          <button ion-item no-padding *ngFor="let quarter of obj.quarters">
-            <ion-label>
-              Q{{ quarter.number }} <span>{{ 'QUARTERS.Q' + quarter.number | translate }}</span>
-            </ion-label>
-            <div item-content class="total">
-              {{ quarter[toggle] | currency:currentCurrency:true }} <ion-icon md="ios-arrow-forward" color="light"></ion-icon>
-            </div>
-          </button>
-        </div>
-
-      </div>
-
-    </ion-list>
-
-    <!--  ------------------------------------------- YEARLY AMOUNTS ----------------------------------------------  -->
-
-    <ion-list class="list-year" *ngSwitchCase="'year'">
-
-      <ion-list-header>
-        <img class="img-logo" src="assets/img/logo-long.png">
-      </ion-list-header>
-
-      <div *ngIf="yearlyData[currentCurrency].length > 0; else emptyResult">
-
-        <button ion-item no-padding *ngFor="let obj of yearlyData[currentCurrency]">
-          <ion-label>
-            {{ obj.year }}
-          </ion-label>
-          <div item-content class="total">
-            {{ obj[toggle] | currency:currentCurrency:true }} <ion-icon md="ios-arrow-forward" color="light"></ion-icon>
           </div>
-        </button>
 
-      </div>
+        </div>
 
-    </ion-list>
+      </ion-list>
 
-    <ng-template #emptyResult>
-      <ion-row class="empty-result">
-        <ion-col col-8 offset-2>
-          <ion-item no-lines no-padding>
-            <p>{{ 'GENERAL.NO_RESULTS_FOUND' | translate }}</p>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-    </ng-template>
+      <!--  ----------------------------------------- QUARTERLY AMOUNTS ---------------------------------------------  -->
 
-  </div>
+      <ion-list class="list-quarter" *ngSwitchCase="'quarter'">
+
+        <ion-list-header>
+          <img class="img-logo" src="assets/img/logo-long.png">
+        </ion-list-header>
+
+        <div *ngIf="quarterlyData[currentCurrency] && quarterlyData[currentCurrency].length > 0; else emptyResult">
+
+          <div *ngFor="let obj of quarterlyData[currentCurrency]">
+            <ion-item-divider sticky>
+              {{obj.year}}
+            </ion-item-divider>
+
+            <button ion-item no-padding *ngFor="let quarter of obj.quarters">
+              <ion-label>
+                Q{{ quarter.number }} <span>{{ 'QUARTERS.Q' + quarter.number | translate }}</span>
+              </ion-label>
+              <div item-content class="total">
+                {{ quarter[toggle] | currency:currentCurrency:true }} <ion-icon md="ios-arrow-forward" color="light"></ion-icon>
+              </div>
+            </button>
+          </div>
+
+        </div>
+
+      </ion-list>
+
+      <!--  ------------------------------------------- YEARLY AMOUNTS ----------------------------------------------  -->
+
+      <ion-list class="list-year" *ngSwitchCase="'year'">
+
+        <ion-list-header>
+          <img class="img-logo" src="assets/img/logo-long.png">
+        </ion-list-header>
+
+        <div *ngIf="yearlyData[currentCurrency].length > 0; else emptyResult">
+
+          <button ion-item no-padding *ngFor="let obj of yearlyData[currentCurrency]">
+            <ion-label>
+              {{ obj.year }}
+            </ion-label>
+            <div item-content class="total">
+              {{ obj[toggle] | currency:currentCurrency:true }} <ion-icon md="ios-arrow-forward" color="light"></ion-icon>
+            </div>
+          </button>
+
+        </div>
+
+      </ion-list>
+
+      <ng-template #emptyResult>
+        <ion-row class="empty-result">
+          <ion-col col-8 offset-2>
+            <ion-item no-lines no-padding>
+              <p>{{ 'GENERAL.NO_RESULTS_FOUND' | translate }}</p>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ng-template>
+
+    </div>
+
+  </ng-template>
 </ion-content>
 
