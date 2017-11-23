@@ -3,7 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 
 import { ReportPage } from '../report/report';
 import { TransactionService } from '../../../providers/transaction-service';
-import { ErrorService } from '../../../providers/error.service';
+import { ErrorService } from '../../../providers/error-service';
 
 @Component({
   selector: 'page-transaction-details',

@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { User } from '../models/user';
 import { Settings } from '../config/settings';
 import { TranslateService } from '@ngx-translate/core';
-import { ErrorService } from './error.service';
+import { ErrorService } from './error-service';
 
 @Injectable()
 export class AuthService {

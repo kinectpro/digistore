@@ -1,4 +1,7 @@
 page-transactions {
+  .scroll-content {
+    border-top: none!important;
+  }
   .period {
     color: #ffffff;
     background-color: color($colors, primary);

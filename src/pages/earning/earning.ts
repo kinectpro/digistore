@@ -4,7 +4,7 @@ import { NavController, LoadingController, Events, Content, AlertController, Ref
 import { EarningService } from '../../providers/earning-service';
 import { TranslateService } from '@ngx-translate/core';
 import { SettingsService } from '../../providers/settings-service';
-import { ErrorService } from '../../providers/error.service';
+import { ErrorService } from '../../providers/error-service';
 
 @Component({
   selector: 'earning-home',
@@ -37,8 +37,6 @@ export class EarningPage {
 
   async init(loadingText: string) {
 
-    this.somethingWentWrong = false;
-
     let loading = this.loadingCtrl.create({
       content: loadingText,
       spinner: 'dots'
@@ -61,6 +59,8 @@ export class EarningPage {
       this.monthlyData = result[1];
       this.quarterlyData = result[2];
       this.yearlyData = result[3];
+
+      this.somethingWentWrong = false;
 
       loading.dismiss();
 

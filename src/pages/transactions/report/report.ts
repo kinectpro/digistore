@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { ReportResultPage } from '../report-result/report-result';
 import { AuthService } from '../../../providers/auth-service';
 import { Settings } from '../../../config/settings';
-import { ErrorService } from '../../../providers/error.service';
+import { ErrorService } from '../../../providers/error-service';
 
 @Component({
   selector: 'page-report',

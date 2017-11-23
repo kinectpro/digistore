@@ -20,6 +20,7 @@
 <ion-content no-padding>
 
   <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown"></ion-refresher-content>
   </ion-refresher>
 
   <ion-grid *ngIf="currentPeriod" class="period" text-center no-padding>

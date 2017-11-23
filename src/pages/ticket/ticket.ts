@@ -8,7 +8,7 @@ import { TicketParams } from '../../models/params';
 import { TicketCheckPage } from './ticket-check/ticket-check';
 import { TranslateService } from '@ngx-translate/core';
 import { CalendarComponentOptions } from 'ion2-calendar';
-import { ErrorService } from '../../providers/error.service';
+import { ErrorService } from '../../providers/error-service';
 
 @Component({
   selector: 'page-ticket',

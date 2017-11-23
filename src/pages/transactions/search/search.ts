@@ -8,7 +8,7 @@ import { AutoCompleteComponent } from 'ionic2-auto-complete';
 import { Search } from '../../../models/params';
 import { SettingsService } from '../../../providers/settings-service';
 import { CompleteService } from '../../../providers/complete-service';
-import { ErrorService } from '../../../providers/error.service';
+import { ErrorService } from '../../../providers/error-service';
 
 @Component({
   selector: 'page-search',

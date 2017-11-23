@@ -4,7 +4,7 @@ import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { TicketDetailsPage } from '../ticket-details/ticket-details';
 import { TicketParams } from '../../../models/params';
 import { TicketService } from '../../../providers/ticket-service';
-import { ErrorService } from '../../../providers/error.service';
+import { ErrorService } from '../../../providers/error-service';
 
 @Component({
   selector: 'page-ticket-search-results',
