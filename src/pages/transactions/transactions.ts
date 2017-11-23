@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { App, ModalController, NavController, NavParams, Events, Refresher } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { App, ModalController, NavController, NavParams, Events, Refresher, Content } from 'ionic-angular';
 
 import { TransactionService } from '../../providers/transaction-service';
 import { Params } from '../../models/params';
@@ -31,6 +31,8 @@ export class TransactionsPage {
 
   transactionsFromService: any[];
   transactions: any = [];
+
+  @ViewChild(Content) content: Content;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public app: App,
               public eServ: EarningService, public tranServ: TransactionService, public events: Events, public errSrv: ErrorService) {
@@ -78,6 +80,7 @@ export class TransactionsPage {
     this.currentPeriod = '';
     this.params.search = {};
     this.getTransactions();
+    this.content.resize();
   }
 
   goNext() {

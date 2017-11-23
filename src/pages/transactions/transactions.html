@@ -15,14 +15,6 @@
 
   </ion-navbar>
 
-</ion-header>
-
-<ion-content no-padding>
-
-  <ion-refresher (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content pullingIcon="arrow-dropdown"></ion-refresher-content>
-  </ion-refresher>
-
   <ion-grid *ngIf="currentPeriod" class="period" text-center no-padding>
     <ion-row align-items-center>
       <ion-col col-2>
@@ -41,6 +33,14 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+
+</ion-header>
+
+<ion-content no-padding>
+
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown"></ion-refresher-content>
+  </ion-refresher>
 
   <ion-grid no-padding *ngIf="transactions">
     <ion-row *ngIf="!showedSearchInput;else searchInput">

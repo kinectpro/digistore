@@ -1,6 +1,9 @@
 page-ticket {
   ion-content.content {
     background-color: #fafafa;
+    .scroll-content {
+      border-top: none!important;
+    }
   }
   ion-icon {
     top: 1px;
