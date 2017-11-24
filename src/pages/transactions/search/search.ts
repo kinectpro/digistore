@@ -101,11 +101,11 @@ export class SearchPage {
     return all;
   }
 
-  getTypesValue(value: string): string {
+  getTypesValue(value: string, field: string): string {
     let any: string = '';
     this.translate.get('ANY').subscribe(val => any = val);
     if (!value) return any;
-    return value.split(',').map(obj => (obj[0].toUpperCase() + obj.slice(1)).replace('_', ' ')).join(', ');
+    return value.split(',').map(el => this.globalTypesFromServer[field][el]).map(el => el[0].toUpperCase() + el.slice(1)).join(', ');
   }
 
   toggleVal(collection: string, value: string, el: any) {
