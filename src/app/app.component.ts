@@ -6,7 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { Keyboard } from '@ionic-native/keyboard';
 import { OneSignal } from '@ionic-native/onesignal';
 
-import { LandingPage } from '../pages/landing/landing';
+import { LoginPage } from '../pages/login/login';
 import { TabsPage } from '../pages/tabs/tabs';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../providers/auth-service';
@@ -48,7 +48,7 @@ export class MyApp {
 
     });
     // Set the root page
-    this.rootPage = this.authService.isLoggedIn() ? TabsPage : LandingPage;
+    this.rootPage = this.authService.isLoggedIn() ? TabsPage : LoginPage;
     // Set the default language for translation strings, and the current language.
     this.translate.setDefaultLang(this.authService.lang);
     this.translate.use(this.authService.lang);

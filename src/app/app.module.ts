@@ -15,7 +15,7 @@ import { FileTransfer } from '@ionic-native/file-transfer';
 
 import { MyApp } from './app.component';
 
-import { LandingPageModule } from '../pages/landing/landing.module';
+import { LoginPageModule } from '../pages/login/login.module';
 import { EarningPageModule } from '../pages/earning/earning.module';
 import { TicketPageModule } from '../pages/ticket/ticket.module';
 import { SharedModule } from '../shared/shared.module';
@@ -48,7 +48,7 @@ export function createTranslateLoader(http: HttpClient) {
     BrowserModule,
     SharedModule,
     HttpClientModule,
-    LandingPageModule,
+    LoginPageModule,
     TransactionsPageModule,
     TicketPageModule,
     EarningPageModule,

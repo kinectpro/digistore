@@ -5,10 +5,9 @@ import { HttpClient } from '@angular/common/http';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { TranslateService } from '@ngx-translate/core';
-import { AuthService } from '../../../providers/auth-service';
-import { TabsPage } from '../../tabs/tabs';
-import { Settings } from '../../../config/settings';
-import { LandingPage } from '../landing';
+import { AuthService } from '../../providers/auth-service';
+import { Settings } from '../../config/settings';
+import { TabsPage } from '../tabs/tabs';
 
 @Component({
   selector: 'page-login',
@@ -91,10 +90,6 @@ export class LoginPage {
 
   openBrowser(url: string) {
     this.iab.create(Settings.SITE_URL + url, '_self', {location:'no'});
-  }
-
-  cancel() {
-    this.navCtrl.setRoot(LandingPage);
   }
 
 }
