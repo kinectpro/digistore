@@ -70,15 +70,15 @@
             </ion-label>
           </ion-list-header>
 
-          <button ion-item no-padding (click)="changeCurrency()">
-            <button class="btn-currency" ion-button icon-right clear>
+          <div ion-item no-padding>
+            <button class="btn-currency" ion-button icon-right clear (click)="changeCurrency()">
               {{ currentCurrency }}
               <ion-icon name="ios-arrow-down"></ion-icon>
             </button>
             <div item-content class="logo" text-end>
               <img class="img-logo" src="assets/img/logo-long.png">
             </div>
-          </button>
+          </div>
 
           <button ion-item no-padding (click)="goToTransaction('day')">
             <ion-label>
