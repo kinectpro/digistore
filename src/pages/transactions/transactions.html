@@ -94,9 +94,10 @@
 
   <ng-template #transactionsNotFound>
     <ion-row class="transactions-not-found">
-      <ion-col col-8 offset-2>
+      <ion-col col-10 offset-1>
         <ion-item no-lines no-padding>
-          <p>{{ 'TRANSACTIONS_PAGE.NO_RESULTS' | translate }}</p>
+          <p *ngIf="!currentPeriod">{{ 'TRANSACTIONS_PAGE.NO_RESULTS' | translate }}</p>
+          <p *ngIf="currentPeriod" translate [translateParams]="{period: ('GENERAL.' + (currentPeriod == 'day' ? 'TODAY' : 'THIS_' + currentPeriod.toUpperCase()) | translate).toLowerCase() }">TRANSACTIONS_PAGE.NO_RESULTS_FOR_PERIOD</p>
           <p text-wrap>{{ 'TRANSACTIONS_PAGE.SEE_ALL_TRANSACTIONS' | translate }}</p>
           <p><button no-margin ion-button clear (click)="openSearch()">{{ 'TRANSACTIONS_PAGE.SEARCH_FILTERS' | translate }}</button></p>
         </ion-item>

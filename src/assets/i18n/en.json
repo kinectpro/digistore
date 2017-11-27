@@ -91,6 +91,7 @@
     "YEAR": "year",
     "TEXT_INPUT": "Text input",
     "NO_RESULTS": "No results found.",
+    "NO_RESULTS_FOR_PERIOD": "No results for {{period}} found.",
     "SEE_ALL_TRANSACTIONS": "Try to go through all transactions."
   },
   "TRANSACTION_DETAILS_PAGE": {
