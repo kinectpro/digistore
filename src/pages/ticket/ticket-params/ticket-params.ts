@@ -40,6 +40,7 @@ export class TicketParamsPage {
     this.params[kind] = obj;
     this.ticketSrv[kind] = this.params[kind];  // save to LocalStorage
     this.events.publish('ticket-params:changed', this.params);
+    this.dismiss();
   }
 
 }

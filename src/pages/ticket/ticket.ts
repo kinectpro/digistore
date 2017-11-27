@@ -18,6 +18,7 @@ export class TicketPage {
 
   needDataUpdate: boolean = false;
   showedCalendar: boolean = false;
+  highlightFields: boolean = false;
   options: CalendarComponentOptions = {
     monthFormat: 'MMMM YYYY',
     showMonthPicker: false
@@ -96,6 +97,7 @@ export class TicketPage {
   }
 
   showNoParams() {
+    this.highlightFields = true;
     this.translate.get('E_TICKET_PAGE.NO_PARAMS').subscribe(mess => this.toastCtrl.create({
       message: mess,
       duration: 3000,

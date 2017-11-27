@@ -23,6 +23,13 @@ page-search {
         text-align: right;
       }
     }
+    .affiliate-content {
+      width: 50vw;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      text-align: end;
+    }
     //--------- search-bar ---------
     .clearAC {
       color: #414141;
