@@ -1,6 +1,6 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, ViewChild } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { Platform, Config } from 'ionic-angular';
+import { Platform, Config, Nav, App, Tab, AlertController, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Keyboard } from '@ionic-native/keyboard';
@@ -18,8 +18,12 @@ import { Settings } from '../config/settings';
 export class MyApp {
   rootPage: any;
 
-  constructor(platform: Platform, statusBar: StatusBar, public splashScreen: SplashScreen, public translate: TranslateService, public authService: AuthService,
-              public keyboard: Keyboard, public config: Config, public oneSignal: OneSignal, @Inject(DOCUMENT) private document: any) {
+  isModalPage: boolean = false;
+
+  @ViewChild(Nav) nav: Nav;
+
+  constructor(public platform: Platform, statusBar: StatusBar, public splashScreen: SplashScreen, public translate: TranslateService, public authService: AuthService, events: Events,
+              public keyboard: Keyboard, public config: Config, public oneSignal: OneSignal, @Inject(DOCUMENT) private document: any, public app: App, public alertCtrl: AlertController) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -37,6 +41,11 @@ export class MyApp {
       if (platform.is("cordova")) {
         this.initOneSignal();
       }
+      // Confirm exit
+      platform.registerBackButtonAction(this.backBtnAction);
+
+      events.subscribe('modalState:changed', val => this.isModalPage = val);
+
     });
     // Set the root page
     this.rootPage = this.authService.isLoggedIn() ? TabsPage : LandingPage;
@@ -81,5 +90,37 @@ export class MyApp {
     });
 
     this.oneSignal.endInit();
+  }
+
+  backBtnAction = () => {
+    if (!this.isModalPage && this.nav.getActive().component.name == "TabsPage") {
+      let prevTab: Tab = this.nav.getActiveChildNavs()[0].previousTab();
+      if (prevTab) {
+        let index = prevTab.index;
+        this.nav.getActiveChildNavs()[0]._selectHistory.pop();
+        this.nav.getActiveChildNavs()[0].select(index);
+      } else {
+
+        this.translate.get(['CANCEL', 'EXIT', 'EXIT_MSG']).subscribe(obj => this.alertCtrl.create({
+          title: obj['EXIT'],
+          message: obj['EXIT_MSG'],
+          mode: 'ios',
+          buttons: [
+            {
+              text: obj['CANCEL'],
+              role: 'cancel',
+              handler: () => console.log('choose Cancel')
+            },
+            {
+              text: obj['EXIT'],
+              handler: () => this.platform.exitApp()
+            }
+          ]
+        }).present());
+      }
+
+    } else {
+      this.app.goBack();
+    }
   }
 }

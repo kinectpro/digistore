@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavParams, ViewController } from 'ionic-angular';
+import { NavParams, ViewController, Events } from 'ionic-angular';
 
 @Component({
   selector: 'page-sort-by',
@@ -15,13 +15,21 @@ export class SortByPage {
 
   product_name:boolean = false;
 
-  constructor(public viewCtrl: ViewController, public params: NavParams) {
+  constructor(public viewCtrl: ViewController, public params: NavParams, public events: Events) {
     let sortObj = params.get('params_sort');
     this.sort = sortObj.sort_by + '-' + sortObj.sort_order;
   }
 
   ionViewDidLoad() {
     console.log('Init SortByPage');
+  }
+
+  ionViewDidEnter() {
+    this.events.publish('modalState:changed', true);
+  }
+
+  ionViewWillLeave() {
+    this.events.publish('modalState:changed', false);
   }
 
   dismiss() {

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavParams, ViewController } from 'ionic-angular';
+import { NavParams, ViewController, Events } from 'ionic-angular';
 
 @Component({
   selector: 'page-report-result',
@@ -10,14 +10,22 @@ export class ReportResultPage {
   message: string;
   order_id: string;
 
-  constructor(public viewCtrl: ViewController, public navParams: NavParams) {
+  constructor(public viewCtrl: ViewController, public navParams: NavParams, public events: Events) {
     this.status = this.navParams.get('status');
     this.message = this.navParams.get('message');
     this.message = this.navParams.get('order_id');
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ReportResultPage');
+    console.log('Init ReportResultPage');
+  }
+
+  ionViewDidEnter() {
+    this.events.publish('modalState:changed', true);
+  }
+
+  ionViewWillLeave() {
+    this.events.publish('modalState:changed', false);
   }
 
   dismiss() {

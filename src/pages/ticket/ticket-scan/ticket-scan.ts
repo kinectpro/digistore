@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { NavController, NavParams, ViewController } from 'ionic-angular';
+import { NavController, NavParams, ViewController, Events } from 'ionic-angular';
 import { DOCUMENT } from '@angular/common';
 
 import { TicketDetailsPage } from '../ticket-details/ticket-details';
@@ -15,13 +15,13 @@ export class TicketScanPage {
   params: TicketParams;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController,
-              public ticketSrv: TicketService, @Inject(DOCUMENT) private document: any) {
+              public ticketSrv: TicketService, @Inject(DOCUMENT) private document: any, public events: Events) {
     this.params = navParams.get('params');
   }
 
   ionViewDidLoad() {
 
-    console.log('ionViewDidLoad TicketScanPage');
+    console.log('Init TicketScanPage');
 
     this.document.body.classList.add('hidden-tabbar-when-scan');
 
@@ -46,8 +46,13 @@ export class TicketScanPage {
     this.viewCtrl.dismiss();    
   }
 
+  ionViewDidEnter() {
+    this.events.publish('modalState:changed', true);
+  }
+
   ionViewWillLeave() {
     this.document.body.classList.remove('hidden-tabbar-when-scan');
+    this.events.publish('modalState:changed', false);
   }
 
 }

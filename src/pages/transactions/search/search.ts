@@ -75,6 +75,14 @@ export class SearchPage {
     this.searchbar.setValue(this.searchObj.product_name);
   }
 
+  ionViewDidEnter() {
+    this.events.publish('modalState:changed', true);
+  }
+
+  ionViewWillLeave() {
+    this.events.publish('modalState:changed', false);
+  }
+
   switchType() {
     this.extended = !this.extended;
   }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController, ModalController } from 'ionic-angular';
+import { NavController, NavParams, ViewController, ModalController, Events } from 'ionic-angular';
 
 import { TranslateService } from '@ngx-translate/core';
 import { EditPage } from '../edit/edit';
@@ -15,13 +15,21 @@ export class AccountPage {
 
   account: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public translate: TranslateService,
+  constructor(public navCtrl: NavController, public navParams: NavParams, public translate: TranslateService, public events: Events,
               public viewCtrl: ViewController, public modalCtrl: ModalController, public authSrv: AuthService) {
     this.account = authSrv.user.user_id;
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad AccountPage');
+    console.log('Init AccountPage');
+  }
+
+  ionViewDidEnter() {
+    this.events.publish('modalState:changed', true);
+  }
+
+  ionViewWillLeave() {
+    this.events.publish('modalState:changed', false);
   }
 
   dismiss() {

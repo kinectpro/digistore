@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController, Platform, ViewController, App } from 'ionic-angular';
+import { NavController, NavParams, AlertController, Platform, ViewController, Events } from 'ionic-angular';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
 import { FileOpener } from '@ionic-native/file-opener';
@@ -21,7 +21,7 @@ export class TicketDetailsPage {
   params: TicketParams;
 
   constructor(public navCtrl: NavController, public fileOpener: FileOpener, public platform: Platform, public alertCtrl: AlertController, public translate: TranslateService,
-              public transfer: FileTransfer, public viewCtrl: ViewController, public ticketSrv: TicketService, public navParams: NavParams, public file: File, public app: App) {
+              public transfer: FileTransfer, public viewCtrl: ViewController, public ticketSrv: TicketService, public navParams: NavParams, public file: File, public events: Events) {
     this.result = navParams.get('result');
     this.params = navParams.get('params');
     if (this.result && this.result.msg instanceof HttpErrorResponse) {
@@ -30,7 +30,15 @@ export class TicketDetailsPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad TicketDetailsPage');
+    console.log('Init TicketDetailsPage');
+  }
+
+  ionViewDidEnter() {
+    this.events.publish('modalState:changed', true);
+  }
+
+  ionViewWillLeave() {
+    this.events.publish('modalState:changed', false);
   }
 
   back() {

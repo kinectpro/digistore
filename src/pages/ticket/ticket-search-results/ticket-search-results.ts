@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController } from 'ionic-angular';
+import { NavController, NavParams, ModalController, Events } from 'ionic-angular';
 
 import { TicketDetailsPage } from '../ticket-details/ticket-details';
 import { TicketParams } from '../../../models/params';
@@ -15,7 +15,7 @@ export class TicketSearchResultsPage {
   listTickets: any = [];
   params: TicketParams;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public tickerSrv: TicketService, public errSrv: ErrorService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public tickerSrv: TicketService, public errSrv: ErrorService, public events: Events) {
     this.params = navParams.get('params');
     this.tickerSrv.listTickets(this.params).then(
       res => this.listTickets = res,
@@ -24,7 +24,15 @@ export class TicketSearchResultsPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad TicketSearchResultsPage');
+    console.log('Init TicketSearchResultsPage');
+  }
+
+  ionViewDidEnter() {
+    this.events.publish('modalState:changed', true);
+  }
+
+  ionViewWillLeave() {
+    this.events.publish('modalState:changed', false);
   }
 
   changeStatus(ticket: any) {

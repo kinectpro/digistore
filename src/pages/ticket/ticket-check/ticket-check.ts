@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams, ToastController, ViewController, Content } from 'ionic-angular';
+import { NavController, NavParams, ToastController, ViewController, Content, Events } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Keyboard } from '@ionic-native/keyboard';
 import { Subscription } from 'rxjs/Subscription';
@@ -27,7 +27,7 @@ export class TicketCheckPage {
   content: Content;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController, public ticketSrv: TicketService, public fb: FormBuilder,
-              public translate: TranslateService, public viewCtrl: ViewController, public keyboard: Keyboard) {
+              public translate: TranslateService, public viewCtrl: ViewController, public keyboard: Keyboard, public events: Events) {
     this.withoutNumber = navParams.get('withoutNumber');
     this.params = navParams.get('params');
 
@@ -45,7 +45,15 @@ export class TicketCheckPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad TicketCheckPage');
+    console.log('Init TicketCheckPage');
+  }
+
+  ionViewDidEnter() {
+    this.events.publish('modalState:changed', true);
+  }
+
+  ionViewWillLeave() {
+    this.events.publish('modalState:changed', false);
   }
 
   ionViewDidLeave() {

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController } from 'ionic-angular';
+import { NavController, NavParams, ViewController, Events } from 'ionic-angular';
 
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../../../providers/auth-service';
@@ -12,12 +12,20 @@ export class LanguagePage {
 
   lang: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public translate: TranslateService, public authService: AuthService) {
+  constructor(public events: Events, public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public translate: TranslateService, public authService: AuthService) {
     this.lang = this.translate.currentLang;
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad LanguagePage');
+    console.log('Init LanguagePage');
+  }
+
+  ionViewDidEnter() {
+    this.events.publish('modalState:changed', true);
+  }
+
+  ionViewWillLeave() {
+    this.events.publish('modalState:changed', false);
   }
 
   dismiss() {

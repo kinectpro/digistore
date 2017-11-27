@@ -29,7 +29,7 @@ export class ReportPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ReportPage');
+    console.log('Init ReportPage');
   }
 
   sendReport() {

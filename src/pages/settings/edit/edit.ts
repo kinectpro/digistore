@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController, AlertController } from 'ionic-angular';
+import { NavController, NavParams, ViewController, AlertController, Events } from 'ionic-angular';
 
 import { AuthService } from '../../../providers/auth-service';
 import { TranslateService } from '@ngx-translate/core';
@@ -12,12 +12,20 @@ import 'rxjs/add/operator/toPromise';
 })
 export class EditPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController,
+  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public events: Events,
               public alertCtrl: AlertController, public authSrv: AuthService, public translate: TranslateService) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad EditPage');
+    console.log('Init EditPage');
+  }
+
+  ionViewDidEnter() {
+    this.events.publish('modalState:changed', true);
+  }
+
+  ionViewWillLeave() {
+    this.events.publish('modalState:changed', false);
   }
 
   dismiss() {

@@ -21,7 +21,15 @@ export class TicketParamsPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad TicketParamsPage');
+    console.log('Init TicketParamsPage');
+  }
+
+  ionViewDidEnter() {
+    this.events.publish('modalState:changed', true);
+  }
+
+  ionViewWillLeave() {
+    this.events.publish('modalState:changed', false);
   }
 
   dismiss() {

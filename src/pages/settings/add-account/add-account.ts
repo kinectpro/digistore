@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController, ToastController } from 'ionic-angular';
+import { NavController, NavParams, ViewController, ToastController, Events } from 'ionic-angular';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 
@@ -21,7 +21,7 @@ export class AddAccountPage {
   pwdType: string = 'password';
   mesConnProblem: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public fb: FormBuilder,
+  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public fb: FormBuilder, public events: Events,
               public translate: TranslateService, public http: HttpClient, public authService: AuthService, public toastCtrl: ToastController) {
     this.loginForm = fb.group({
       'username': ['', [
@@ -35,7 +35,15 @@ export class AddAccountPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad AddAccountPage');
+    console.log('Init AddAccountPage');
+  }
+
+  ionViewDidEnter() {
+    this.events.publish('modalState:changed', true);
+  }
+
+  ionViewWillLeave() {
+    this.events.publish('modalState:changed', false);
   }
 
   showPassword() {

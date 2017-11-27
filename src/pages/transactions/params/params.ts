@@ -55,7 +55,11 @@ export class ParamsPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ParamsPage');
+    console.log('Init ParamsPage');
+  }
+
+  ionViewDidEnter() {
+    this.events.publish('modalState:changed', true);
   }
 
   ionViewWillLeave() {
@@ -78,6 +82,7 @@ export class ParamsPage {
     }
 
     this.events.publish('transactions-params:changed', this.search);
+    this.events.publish('modalState:changed', false);
   }
 
   showInputAffiliateName(flag: boolean) {
