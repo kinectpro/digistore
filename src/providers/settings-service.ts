@@ -12,6 +12,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class SettingsService {
 
   currencies: string[];
+  currentCurrency: string;
 
   constructor(public http: HttpClient, public auth: AuthService, public translate: TranslateService) {
     console.log('Init SettingsServiceProvider');

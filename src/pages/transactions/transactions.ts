@@ -8,6 +8,7 @@ import { ErrorService } from '../../providers/error-service';
 import { TransactionDetailsPage } from './transaction-details/transaction-details';
 import { SortByPage } from './sort-by/sort-by';
 import { SearchPage } from './search/search';
+import { SettingsService } from '../../providers/settings-service';
 
 @Component({
   selector: 'page-transactions',
@@ -34,28 +35,36 @@ export class TransactionsPage {
 
   @ViewChild(Content) content: Content;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public app: App,
+  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public app: App, public settingsSrv: SettingsService,
               public eServ: EarningService, public tranServ: TransactionService, public events: Events, public errSrv: ErrorService) {
-    this.events.subscribe('period:changed', period => {
-      this.currentPeriod = period;
-      this.getTransactions();
-    });
-    this.events.subscribe('range:changed', (from, to) => {
-      this.params.search.from = from;
-      this.params.search.to = to;
-      this.getTransactions();
-    });
-    this.events.subscribe('user:changed', () => this.needDataUpdate = true);
     this.currentPeriod = this.eServ.currentPeriod;
     if (this.eServ.range) {
       this.params.search.from = this.eServ.range[0];
       this.params.search.to = this.eServ.range[1];
     }
+    if (this.settingsSrv.currentCurrency && this.currentPeriod || this.eServ.range) {
+      this.params.search.currency = this.settingsSrv.currentCurrency;
+    }
     this.getTransactions();
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad TransactionsPage');
+    console.log('Init TransactionsPage');
+
+    this.events.subscribe('period:changed', period => {
+      this.currentPeriod = period;
+      this.params.search = {};
+      this.params.search.currency = this.settingsSrv.currentCurrency;
+      this.getTransactions();
+    });
+    this.events.subscribe('range:changed', (from, to) => {
+      this.currentPeriod = '';
+      this.params.search.from = from;
+      this.params.search.to = to;
+      this.params.search.currency = this.settingsSrv.currentCurrency;
+      this.getTransactions();
+    });
+    this.events.subscribe('user:changed', () => this.needDataUpdate = true);
   }
 
   ionViewWillEnter() {

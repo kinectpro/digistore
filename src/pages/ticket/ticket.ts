@@ -40,7 +40,7 @@ export class TicketPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad TicketPage');
+    console.log('Init TicketPage');
   }
 
   ionViewWillEnter() {

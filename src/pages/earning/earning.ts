@@ -141,6 +141,7 @@ export class EarningPage {
             text: obj['CHOOSE'],
             handler: data => {
               this.currentCurrency = data;
+              this.settingsServ.currentCurrency = data;
             }
           }
         ]
