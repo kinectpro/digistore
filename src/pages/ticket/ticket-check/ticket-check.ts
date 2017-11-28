@@ -9,12 +9,13 @@ import { TicketParams } from '../../../models/params';
 import { TicketService } from '../../../providers/ticket-service';
 import { TicketDetailsPage } from '../ticket-details/ticket-details';
 import { TranslateService } from '@ngx-translate/core';
+import { EventsPage } from '../../../shared/classes/events-page';
 
 @Component({
   selector: 'page-ticket-check',
   templateUrl: 'ticket-check.html',
 })
-export class TicketCheckPage {
+export class TicketCheckPage extends EventsPage {
 
   private numberForm : FormGroup;
   withoutNumber: boolean;
@@ -28,6 +29,7 @@ export class TicketCheckPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController, public ticketSrv: TicketService, public fb: FormBuilder,
               public translate: TranslateService, public viewCtrl: ViewController, public keyboard: Keyboard, public events: Events) {
+    super(events);
     this.withoutNumber = navParams.get('withoutNumber');
     this.params = navParams.get('params');
 
@@ -46,14 +48,6 @@ export class TicketCheckPage {
 
   ionViewDidLoad() {
     console.log('Init TicketCheckPage');
-  }
-
-  ionViewDidEnter() {
-    this.events.publish('modalState:changed', true);
-  }
-
-  ionViewWillLeave() {
-    this.events.publish('modalState:changed', false);
   }
 
   ionViewDidLeave() {

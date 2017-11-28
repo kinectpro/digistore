@@ -135,7 +135,7 @@
               {{ obj.year }}
             </ion-item-divider>
 
-            <button ion-item no-padding *ngFor="let month of obj.months">
+            <button ion-item no-padding *ngFor="let month of obj.months" (click)="goToTransaction('', { year: obj.year, month: month.number })">
               <ion-label>
                 {{ 'MONTHS.' + month.name | translate }}
               </ion-label>
@@ -165,7 +165,7 @@
               {{obj.year}}
             </ion-item-divider>
 
-            <button ion-item no-padding *ngFor="let quarter of obj.quarters">
+            <button ion-item no-padding *ngFor="let quarter of obj.quarters" (click)="goToTransaction('', { year: obj.year, quarter: quarter.number })">
               <ion-label>
                 Q{{ quarter.number }} <span>{{ 'QUARTERS.Q' + quarter.number | translate }}</span>
               </ion-label>
@@ -189,7 +189,7 @@
 
         <div *ngIf="yearlyData[currentCurrency].length > 0; else emptyResult">
 
-          <button ion-item no-padding *ngFor="let obj of yearlyData[currentCurrency]">
+          <button ion-item no-padding *ngFor="let obj of yearlyData[currentCurrency]" (click)="goToTransaction('', { year: obj.year })">
             <ion-label>
               {{ obj.year }}
             </ion-label>

@@ -91,9 +91,27 @@ export class EarningPage {
     this.translate.get('LOADING_TEXT').subscribe(loadingText => this.init(loadingText));
   }
 
-  goToTransaction(period: string): void {
-    this.eServ.currentPeriod = period;
-    this.events.publish('period:changed', period);
+  goToTransaction(period: string, timeInterval?: {[key: string]: any}): void {
+    if (period) {
+      this.eServ.currentPeriod = period;
+      this.events.publish('period:changed', period);
+    }
+    else {
+      if (timeInterval.month) {
+        var from = this.getFormatData(timeInterval.year, timeInterval.month, 1);
+        var to = this.getFormatData(timeInterval.year, timeInterval.month, this.getLastDayOfMonth(timeInterval.year, timeInterval.month));
+      }
+      else if (timeInterval.quarter) {
+        var from = this.getDateFormat(new Date(timeInterval.year, timeInterval.quarter * 3 - 3, 1));
+        var to = this.getDateFormat(new Date(timeInterval.year, timeInterval.quarter * 3, 0));
+      }
+      else {
+        var from = this.getFormatData(timeInterval.year, 1, 1);
+        var to = this.getFormatData(timeInterval.year, 12, 31);
+      }
+      this.eServ.range = [from, to];
+      this.events.publish('range:changed', from, to);
+    }
     this.navCtrl.parent.select(1);
   }
 
@@ -129,6 +147,49 @@ export class EarningPage {
       }).present();
     });
 
+  }
+
+  /**
+   * The method returns the last day of the month
+   * @param year
+   * @param month
+   * @returns {number}
+   */
+  getLastDayOfMonth(year: number, month: number): number {
+    let date = new Date(year, month, 0);  // create a date from the next month, but the day isn't the first, but the "zero" (the previous one)
+    return date.getDate();
+  }
+
+  /**
+   * The method returns the date in the format YYYY-MM-DD
+   * @param year
+   * @param month
+   * @param day
+   * @returns {string}
+   */
+  getFormatData(year: number, month: number, day: number): string {
+    let MM = month < 10 ? '0' + month : month;
+    let DD = day < 10 ? '0' + day : day;
+
+    return year + '-' + MM + '-' + DD;
+  }
+
+  /**
+   * The method returns the date in the format YYYY-MM-DD
+   * @param date
+   * @returns {string}
+   */
+  getDateFormat(date: Date): string {
+
+    let DD: any = date.getDate();
+    if (DD < 10) DD = '0' + DD;
+
+    let MM: any = date.getMonth() + 1;
+    if (MM < 10) MM = '0' + MM;
+
+    let YYYY = date.getFullYear();
+
+    return YYYY + '-' + MM + '-' + DD;
   }
 
 }

@@ -7,13 +7,14 @@ import { TranslateService } from '@ngx-translate/core';
 import { Settings } from '../../../config/settings';
 import { AuthService } from '../../../providers/auth-service';
 import { User } from '../../../models/user';
+import { EventsPage } from '../../../shared/classes/events-page';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
   selector: 'page-add-account',
   templateUrl: 'add-account.html',
 })
-export class AddAccountPage {
+export class AddAccountPage extends EventsPage {
 
   private loginForm : FormGroup;
   showedError: string = ''; //  from server
@@ -23,6 +24,7 @@ export class AddAccountPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public fb: FormBuilder, public events: Events,
               public translate: TranslateService, public http: HttpClient, public authService: AuthService, public toastCtrl: ToastController) {
+    super(events);
     this.loginForm = fb.group({
       'username': ['', [
         Validators.required
@@ -36,14 +38,6 @@ export class AddAccountPage {
 
   ionViewDidLoad() {
     console.log('Init AddAccountPage');
-  }
-
-  ionViewDidEnter() {
-    this.events.publish('modalState:changed', true);
-  }
-
-  ionViewWillLeave() {
-    this.events.publish('modalState:changed', false);
   }
 
   showPassword() {

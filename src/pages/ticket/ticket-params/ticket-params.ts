@@ -3,18 +3,20 @@ import { NavController, NavParams, ViewController, Events } from 'ionic-angular'
 
 import { TicketParams } from '../../../models/params';
 import { TicketService } from '../../../providers/ticket-service';
+import { EventsPage } from '../../../shared/classes/events-page';
 
 @Component({
   selector: 'page-ticket-params',
   templateUrl: 'ticket-params.html',
 })
-export class TicketParamsPage {
+export class TicketParamsPage extends EventsPage {
 
   pageName: string;
   params: TicketParams;
   paramsFromServer: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public ticketSrv: TicketService, public events: Events) {
+    super(events);
     this.pageName = navParams.get('pageName');
     this.params = navParams.get('params');
     this.paramsFromServer = navParams.get('paramsFromServer');
@@ -22,14 +24,6 @@ export class TicketParamsPage {
 
   ionViewDidLoad() {
     console.log('Init TicketParamsPage');
-  }
-
-  ionViewDidEnter() {
-    this.events.publish('modalState:changed', true);
-  }
-
-  ionViewWillLeave() {
-    this.events.publish('modalState:changed', false);
   }
 
   dismiss() {

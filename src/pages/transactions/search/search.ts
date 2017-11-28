@@ -9,12 +9,13 @@ import { Search } from '../../../models/params';
 import { SettingsService } from '../../../providers/settings-service';
 import { CompleteService } from '../../../providers/complete-service';
 import { ErrorService } from '../../../providers/error-service';
+import { EventsPage } from '../../../shared/classes/events-page';
 
 @Component({
   selector: 'page-search',
   templateUrl: 'search.html',
 })
-export class SearchPage {
+export class SearchPage extends EventsPage {
   private searchForm : FormGroup;
   private searchFormExtended : FormGroup;
   private showedError: string = '';
@@ -32,6 +33,8 @@ export class SearchPage {
 
   constructor(public navParams: NavParams, public fb: FormBuilder, public viewCtrl: ViewController, public modalCtrl: ModalController, public events: Events, public errSrv: ErrorService,
               public settingsServ: SettingsService, public loadingCtrl: LoadingController, public translate: TranslateService, public complServ: CompleteService) {
+
+    super(events);
 
     this.searchObj = navParams.get('params_search');
 
@@ -73,14 +76,6 @@ export class SearchPage {
   ionViewDidLoad() {
     console.log('Init SearchPage');
     this.searchbar.setValue(this.searchObj.product_name);
-  }
-
-  ionViewDidEnter() {
-    this.events.publish('modalState:changed', true);
-  }
-
-  ionViewWillLeave() {
-    this.events.publish('modalState:changed', false);
   }
 
   switchType() {

@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { NavParams, ViewController, Events } from 'ionic-angular';
 
+import { EventsPage } from '../../../shared/classes/events-page';
+
 @Component({
   selector: 'page-sort-by',
   templateUrl: 'sort-by.html',
 })
-export class SortByPage {
+export class SortByPage extends EventsPage {
   options: any[] = [
     { product_name: false },
     { earning: false },
@@ -16,20 +18,13 @@ export class SortByPage {
   product_name:boolean = false;
 
   constructor(public viewCtrl: ViewController, public params: NavParams, public events: Events) {
+    super(events);
     let sortObj = params.get('params_sort');
     this.sort = sortObj.sort_by + '-' + sortObj.sort_order;
   }
 
   ionViewDidLoad() {
     console.log('Init SortByPage');
-  }
-
-  ionViewDidEnter() {
-    this.events.publish('modalState:changed', true);
-  }
-
-  ionViewWillLeave() {
-    this.events.publish('modalState:changed', false);
   }
 
   dismiss() {

@@ -5,17 +5,19 @@ import { TicketDetailsPage } from '../ticket-details/ticket-details';
 import { TicketParams } from '../../../models/params';
 import { TicketService } from '../../../providers/ticket-service';
 import { ErrorService } from '../../../providers/error-service';
+import { EventsPage } from '../../../shared/classes/events-page';
 
 @Component({
   selector: 'page-ticket-search-results',
   templateUrl: 'ticket-search-results.html',
 })
-export class TicketSearchResultsPage {
+export class TicketSearchResultsPage extends EventsPage {
 
   listTickets: any = [];
   params: TicketParams;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public tickerSrv: TicketService, public errSrv: ErrorService, public events: Events) {
+    super(events);
     this.params = navParams.get('params');
     this.tickerSrv.listTickets(this.params).then(
       res => this.listTickets = res,
@@ -25,14 +27,6 @@ export class TicketSearchResultsPage {
 
   ionViewDidLoad() {
     console.log('Init TicketSearchResultsPage');
-  }
-
-  ionViewDidEnter() {
-    this.events.publish('modalState:changed', true);
-  }
-
-  ionViewWillLeave() {
-    this.events.publish('modalState:changed', false);
   }
 
   changeStatus(ticket: any) {

@@ -5,17 +5,19 @@ import { DOCUMENT } from '@angular/common';
 import { TicketDetailsPage } from '../ticket-details/ticket-details';
 import { TicketParams } from '../../../models/params';
 import { TicketService } from '../../../providers/ticket-service';
+import { EventsPage } from '../../../shared/classes/events-page';
 
 @Component({
   selector: 'page-ticket-scan',
   templateUrl: 'ticket-scan.html',
 })
-export class TicketScanPage {
+export class TicketScanPage extends EventsPage {
 
   params: TicketParams;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController,
               public ticketSrv: TicketService, @Inject(DOCUMENT) private document: any, public events: Events) {
+    super(events);
     this.params = navParams.get('params');
   }
 
@@ -46,13 +48,9 @@ export class TicketScanPage {
     this.viewCtrl.dismiss();    
   }
 
-  ionViewDidEnter() {
-    this.events.publish('modalState:changed', true);
-  }
-
   ionViewWillLeave() {
     this.document.body.classList.remove('hidden-tabbar-when-scan');
-    this.events.publish('modalState:changed', false);
+    super.ionViewWillLeave();
   }
 
 }

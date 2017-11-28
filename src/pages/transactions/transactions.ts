@@ -40,8 +40,17 @@ export class TransactionsPage {
       this.currentPeriod = period;
       this.getTransactions();
     });
+    this.events.subscribe('range:changed', (from, to) => {
+      this.params.search.from = from;
+      this.params.search.to = to;
+      this.getTransactions();
+    });
     this.events.subscribe('user:changed', () => this.needDataUpdate = true);
     this.currentPeriod = this.eServ.currentPeriod;
+    if (this.eServ.range) {
+      this.params.search.from = this.eServ.range[0];
+      this.params.search.to = this.eServ.range[1];
+    }
     this.getTransactions();
   }
 

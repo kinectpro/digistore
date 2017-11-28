@@ -7,18 +7,20 @@ import { TicketScanPage } from '../ticket-scan/ticket-scan';
 import { TicketParams } from '../../../models/params';
 import { TicketDetailsPage } from '../ticket-details/ticket-details';
 import { TranslateService } from '@ngx-translate/core';
+import { EventsPage } from '../../../shared/classes/events-page';
 
 @Component({
   selector: 'page-ticket-qr-scanner',
   templateUrl: 'ticket-qr-scanner.html',
 })
-export class TicketQrScannerPage {
+export class TicketQrScannerPage extends EventsPage {
 
   params: TicketParams;
   stoppedTimer: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public qrScanner: QRScanner, public viewCtrl: ViewController,
               public translate: TranslateService, @Inject(DOCUMENT) private document: any, public events: Events) {
+    super(events);
     this.params = navParams.get('params');
   }
 
@@ -73,13 +75,9 @@ export class TicketQrScannerPage {
 
   }
 
-  ionViewDidEnter() {
-    this.events.publish('modalState:changed', true);
-  }
-
   ionViewWillLeave() {
     this.document.body.classList.remove('hidden-tabbar');
-    this.events.publish('modalState:changed', false);
+    super.ionViewWillLeave();
   }
 
   cancel() {

@@ -10,18 +10,20 @@ import { TicketParams } from '../../../models/params';
 import { TicketQrScannerPage } from '../ticket-qr-scanner/ticket-qr-scanner';
 import { TicketService } from '../../../providers/ticket-service';
 import { TranslateService } from '@ngx-translate/core';
+import { EventsPage } from '../../../shared/classes/events-page';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
   selector: 'page-ticket-details',
   templateUrl: 'ticket-details.html',
 })
-export class TicketDetailsPage {
+export class TicketDetailsPage extends EventsPage {
   result: any;
   params: TicketParams;
 
   constructor(public navCtrl: NavController, public fileOpener: FileOpener, public platform: Platform, public alertCtrl: AlertController, public translate: TranslateService,
               public transfer: FileTransfer, public viewCtrl: ViewController, public ticketSrv: TicketService, public navParams: NavParams, public file: File, public events: Events) {
+    super(events);
     this.result = navParams.get('result');
     this.params = navParams.get('params');
     if (this.result && this.result.msg instanceof HttpErrorResponse) {
@@ -31,14 +33,6 @@ export class TicketDetailsPage {
 
   ionViewDidLoad() {
     console.log('Init TicketDetailsPage');
-  }
-
-  ionViewDidEnter() {
-    this.events.publish('modalState:changed', true);
-  }
-
-  ionViewWillLeave() {
-    this.events.publish('modalState:changed', false);
   }
 
   back() {

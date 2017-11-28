@@ -15,7 +15,8 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class EarningService {
 
-    currentPeriod: string;
+    currentPeriod: string;  // for TransactionPage
+    range: string[];        // for TransactionPage
     statsSalesSummary: {[key: string]: any} = {};
     statsSalesMonthly: {[key: string]: any} = {};
     statsSalesQuarterly: {[key: string]: any} = {};
@@ -119,6 +120,7 @@ export class EarningService {
                   }
                   this.statsSalesMonthly[currency][this.statsSalesMonthly[currency].length - 1]['months'].push({
                     name: this.months[date.getMonth()],
+                    number: date.getMonth() + 1,
                     netto: monthlyTotals[i].total_netto_amount,
                     brutto: monthlyTotals[i].total_brutto_amount
                   });

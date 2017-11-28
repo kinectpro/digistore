@@ -6,30 +6,24 @@ import { EditPage } from '../edit/edit';
 import { AddAccountPage } from '../add-account/add-account';
 import { AuthService } from '../../../providers/auth-service';
 import { User } from '../../../models/user';
+import { EventsPage } from '../../../shared/classes/events-page';
 
 @Component({
   selector: 'page-account',
   templateUrl: 'account.html',
 })
-export class AccountPage {
+export class AccountPage extends EventsPage {
 
   account: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public translate: TranslateService, public events: Events,
               public viewCtrl: ViewController, public modalCtrl: ModalController, public authSrv: AuthService) {
+    super(events);
     this.account = authSrv.user.user_id;
   }
 
   ionViewDidLoad() {
     console.log('Init AccountPage');
-  }
-
-  ionViewDidEnter() {
-    this.events.publish('modalState:changed', true);
-  }
-
-  ionViewWillLeave() {
-    this.events.publish('modalState:changed', false);
   }
 
   dismiss() {

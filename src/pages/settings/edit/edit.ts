@@ -4,28 +4,22 @@ import { NavController, NavParams, ViewController, AlertController, Events } fro
 import { AuthService } from '../../../providers/auth-service';
 import { TranslateService } from '@ngx-translate/core';
 import { User } from '../../../models/user';
+import { EventsPage } from '../../../shared/classes/events-page';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
   selector: 'page-edit',
   templateUrl: 'edit.html',
 })
-export class EditPage {
+export class EditPage extends EventsPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public events: Events,
               public alertCtrl: AlertController, public authSrv: AuthService, public translate: TranslateService) {
+    super(events);
   }
 
   ionViewDidLoad() {
     console.log('Init EditPage');
-  }
-
-  ionViewDidEnter() {
-    this.events.publish('modalState:changed', true);
-  }
-
-  ionViewWillLeave() {
-    this.events.publish('modalState:changed', false);
   }
 
   dismiss() {

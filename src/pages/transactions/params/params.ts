@@ -4,12 +4,13 @@ import { NavController, NavParams, ViewController, Events } from 'ionic-angular'
 import { Search } from '../../../models/params';
 import { SettingsService } from '../../../providers/settings-service';
 import { TranslateService } from '@ngx-translate/core';
+import { EventsPage } from '../../../shared/classes/events-page';
 
 @Component({
   selector: 'page-params',
   templateUrl: 'params.html',
 })
-export class ParamsPage {
+export class ParamsPage extends EventsPage {
 
   pageName: string;
   search: Search;
@@ -23,6 +24,7 @@ export class ParamsPage {
   private field: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public settingsServ: SettingsService, public events: Events, public translate: TranslateService) {
+    super(events);
     this.pageName = navParams.get('pageName');
     this.search = navParams.get('search');
     const globalTypesFromServer = navParams.get('globalTypesFromServer');
@@ -58,10 +60,6 @@ export class ParamsPage {
     console.log('Init ParamsPage');
   }
 
-  ionViewDidEnter() {
-    this.events.publish('modalState:changed', true);
-  }
-
   ionViewWillLeave() {
     // Affiliate Page
     if (this.pageName == 'Affiliate') {
@@ -82,7 +80,7 @@ export class ParamsPage {
     }
 
     this.events.publish('transactions-params:changed', this.search);
-    this.events.publish('modalState:changed', false);
+    super.ionViewWillLeave();
   }
 
   showInputAffiliateName(flag: boolean) {
