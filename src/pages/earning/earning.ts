@@ -97,17 +97,18 @@ export class EarningPage {
       this.events.publish('period:changed', period);
     }
     else {
+      let from, to: string;
       if (timeInterval.month) {
-        var from = this.getFormatData(timeInterval.year, timeInterval.month, 1);
-        var to = this.getFormatData(timeInterval.year, timeInterval.month, this.getLastDayOfMonth(timeInterval.year, timeInterval.month));
+        from = this.getFormatData(timeInterval.year, timeInterval.month, 1);
+        to = this.getFormatData(timeInterval.year, timeInterval.month, this.getLastDayOfMonth(timeInterval.year, timeInterval.month));
       }
       else if (timeInterval.quarter) {
-        var from = this.getDateFormat(new Date(timeInterval.year, timeInterval.quarter * 3 - 3, 1));
-        var to = this.getDateFormat(new Date(timeInterval.year, timeInterval.quarter * 3, 0));
+        from = this.getDateFormat(new Date(timeInterval.year, timeInterval.quarter * 3 - 3, 1));
+        to = this.getDateFormat(new Date(timeInterval.year, timeInterval.quarter * 3, 0));
       }
       else {
-        var from = this.getFormatData(timeInterval.year, 1, 1);
-        var to = this.getFormatData(timeInterval.year, 12, 31);
+        from = this.getFormatData(timeInterval.year, 1, 1);
+        to = this.getFormatData(timeInterval.year, 12, 31);
       }
       this.eServ.range = [from, to];
       this.events.publish('range:changed', from, to);
