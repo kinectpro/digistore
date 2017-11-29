@@ -50,7 +50,7 @@ export class TicketCheckPage extends EventsPage {
     console.log('Init TicketCheckPage');
   }
 
-  ionViewDidLeave() {
+  ionViewWillUnload() {
     this.keyboardShowSubscription.unsubscribe();
     this.keyboardHideSubscription.unsubscribe();
   }

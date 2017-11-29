@@ -28,14 +28,14 @@
       <ion-label color="dark">{{ 'SEARCH_FILTERS_PAGE.WITHOUT_AFFILIATE' | translate }}</ion-label>
       <ion-radio mode="ios" value="N" (ionSelect)="showInputAffiliateName(false)"></ion-radio>
     </ion-item>
-    <ion-item mode="ios" no-lines>
+    <ion-item mode="ios" no-lines id="affiliate-name">
       <ion-label color="dark">{{ 'SEARCH_FILTERS_PAGE.ENTER_AFFILIATE' | translate }}</ion-label>
       <ion-radio mode="ios" value="name" (ionSelect)="showInputAffiliateName(true)"></ion-radio>
     </ion-item>
     <ion-row class="white-bg" *ngIf="showedInputAffiliateName">
       <ion-col col-12 padding>
         <ion-item mode="ios">
-          <ion-input mode="ios" [(ngModel)]="affiliateName"></ion-input>
+          <ion-input mode="ios" (ionFocus)="onFocused('affiliate-name')" [(ngModel)]="affiliateName"></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -52,8 +52,11 @@
     </ion-item>
   </ion-list>
 
+  <ion-item-divider *ngIf="pageName == 'Affiliate'" no-lines>
+  </ion-item-divider>
+
 </ion-content>
 
-<section class="bottom-logo">
+<section [hidden]="logoHidden" class="bottom-logo">
   <img src="assets/img/logo-long.png">
 </section>

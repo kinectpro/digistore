@@ -35,9 +35,9 @@
 
     <form [formGroup]="searchForm">
 
-      <ion-list>
+      <ion-list id="purchase-id">
         <ion-item no-margin no-padding [class.has-value]="searchForm.get('purchase_id').value">
-          <ion-input formControlName="purchase_id" type="text" placeholder="{{ 'SEARCH_FILTERS_PAGE.ORDER_ID' | translate}}"></ion-input>
+          <ion-input (ionFocus)="onFocused('purchase-id')" formControlName="purchase_id" type="text" placeholder="{{ 'SEARCH_FILTERS_PAGE.ORDER_ID' | translate}}"></ion-input>
         </ion-item>
         <ion-label text-wrap *ngIf="showedError" class="err-message" no-margin>
           {{ showedError }}
@@ -65,11 +65,11 @@
               <!--<ion-input formControlName="purchase_id" type="text" placeholder="{{ 'SEARCH_FILTERS_PAGE.ORDER_ID' | translate}}"></ion-input>-->
             <!--</ion-item>-->
 
-            <ion-item no-margin no-padding>
-              <ion-input formControlName="product_id" type="text" placeholder="{{ 'SEARCH_FILTERS_PAGE.PRODUCT_ID' | translate}}"></ion-input>
+            <ion-item no-margin no-padding id="product_id">
+              <ion-input (ionFocus)="onFocused('product_id')" formControlName="product_id" type="text" placeholder="{{ 'SEARCH_FILTERS_PAGE.PRODUCT_ID' | translate}}"></ion-input>
             </ion-item>
 
-            <ion-auto-complete [dataProvider]="complServ" #searchbar (itemSelected)="selectedProduct($event)" [options]="{ placeholder : ('SEARCH_FILTERS_PAGE.PRODUCT_NAME' | translate) }"></ion-auto-complete>
+            <ion-auto-complete id="product-name" (autoFocus)="onFocused('product-name')" [dataProvider]="complServ" #searchbar (itemSelected)="selectedProduct($event)" [options]="{ placeholder : ('SEARCH_FILTERS_PAGE.PRODUCT_NAME' | translate) }"></ion-auto-complete>
             <button no-margin ion-button icon-only clear (click)="clearProduct()" class="clearAC"><ion-icon name="ios-close"></ion-icon></button>
           </ion-list>
 
@@ -79,22 +79,22 @@
           </button>
           <ion-list *ngIf="activeTab === 'customer'">
             <ion-grid padding>
-              <ion-row>
+              <ion-row id="full-name">
                 <ion-col col-6>
                   <ion-item no-margin no-padding>
-                    <ion-input formControlName="first_name" type="text" placeholder="{{ 'SEARCH_FILTERS_PAGE.FIRSTNAME' | translate}}"></ion-input>
+                    <ion-input (ionFocus)="onFocused('full-name')" formControlName="first_name" type="text" placeholder="{{ 'SEARCH_FILTERS_PAGE.FIRSTNAME' | translate}}"></ion-input>
                   </ion-item>
                 </ion-col>
                 <ion-col col-6>
                   <ion-item no-margin no-padding>
-                    <ion-input formControlName="last_name" type="text" placeholder="{{ 'SEARCH_FILTERS_PAGE.LASTNAME' | translate}}"></ion-input>
+                    <ion-input (ionFocus)="onFocused('full-name')" formControlName="last_name" type="text" placeholder="{{ 'SEARCH_FILTERS_PAGE.LASTNAME' | translate}}"></ion-input>
                   </ion-item>
                 </ion-col>
               </ion-row>
-              <ion-row>
+              <ion-row id="e-mail">
                 <ion-col col-12>
                   <ion-item no-margin no-padding [class.has-value]="searchFormExtended.get('email').value">
-                    <ion-input formControlName="email" type="email" placeholder="{{ 'SEARCH_FILTERS_PAGE.EMAIL' | translate}}"></ion-input>
+                    <ion-input (ionFocus)="onFocused('e-mail')" formControlName="email" type="email" placeholder="{{ 'SEARCH_FILTERS_PAGE.EMAIL' | translate}}"></ion-input>
                   </ion-item>
                   <ion-label class="err-message" *ngIf="searchFormExtended.get('email').value && searchFormExtended.get('email').invalid && searchFormExtended.get('email').touched">
                     {{ 'SEARCH_FILTERS_PAGE.INVALID_EMAIL' | translate}}
@@ -212,6 +212,6 @@
 <ion-footer>
   <button large text-capitalize ion-button full color="secondary" no-margin (click)="submit()">{{ 'SEARCH_FILTERS_PAGE.SEARCH' | translate }}</button>
 </ion-footer>
-<section class="hideElementOnKeyboardShown bottom-logo">
+<section [hidden]="logoHidden" class="bottom-logo">
   <img src="assets/img/logo-long.png">
 </section>

@@ -1,6 +1,8 @@
-import { Component, ViewChild } from '@angular/core';
-import { NavParams, ViewController, ModalController, LoadingController, Events } from 'ionic-angular';
+import { Component, ViewChild, Inject } from '@angular/core';
+import { NavParams, ViewController, ModalController, LoadingController, Events, Content } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DOCUMENT } from '@angular/common';
+import { Keyboard } from '@ionic-native/keyboard';
 
 import { ParamsPage } from '../params/params';
 import { TranslateService } from '@ngx-translate/core';
@@ -10,6 +12,7 @@ import { SettingsService } from '../../../providers/settings-service';
 import { CompleteService } from '../../../providers/complete-service';
 import { ErrorService } from '../../../providers/error-service';
 import { EventsPage } from '../../../shared/classes/events-page';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'page-search',
@@ -29,10 +32,15 @@ export class SearchPage extends EventsPage {
   @ViewChild('searchbar')
   searchbar: AutoCompleteComponent;
 
-  activeTab: string;
+  @ViewChild(Content)
+  content: Content;
 
-  constructor(public navParams: NavParams, public fb: FormBuilder, public viewCtrl: ViewController, public modalCtrl: ModalController, public events: Events, public errSrv: ErrorService,
-              public settingsServ: SettingsService, public loadingCtrl: LoadingController, public translate: TranslateService, public complServ: CompleteService) {
+  activeTab: string;
+  private logoHidden: boolean = false;
+  keyboardHideSubscription: Subscription;
+
+  constructor(public navParams: NavParams, public fb: FormBuilder, public viewCtrl: ViewController, public modalCtrl: ModalController, public events: Events, public errSrv: ErrorService, public keyboard: Keyboard,
+              public settingsServ: SettingsService, public loadingCtrl: LoadingController, public translate: TranslateService, public complServ: CompleteService, @Inject(DOCUMENT) private document: any) {
 
     super(events);
 
@@ -76,6 +84,11 @@ export class SearchPage extends EventsPage {
   ionViewDidLoad() {
     console.log('Init SearchPage');
     this.searchbar.setValue(this.searchObj.product_name);
+    this.keyboardHideSubscription = this.keyboard.onKeyboardHide().subscribe(() => this.logoHidden = false);
+  }
+
+  ionViewWillUnload() {
+    this.keyboardHideSubscription.unsubscribe();
   }
 
   switchType() {
@@ -195,6 +208,11 @@ export class SearchPage extends EventsPage {
   clearProduct() {
     this.searchbar.setValue('');
     this.searchFormExtended.get('product_id').reset();
+  }
+
+  onFocused(id: string) {
+    this.logoHidden = true;
+    this.content.scrollTo(0, this.document.getElementById(id).offsetTop - 5);
   }
 
 }

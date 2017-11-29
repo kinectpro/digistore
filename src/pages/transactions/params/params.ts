@@ -1,10 +1,13 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController, Events } from 'ionic-angular';
+import { Component, ViewChild, Inject } from '@angular/core';
+import { NavController, NavParams, ViewController, Events, Content } from 'ionic-angular';
+import { DOCUMENT } from '@angular/common';
 
 import { Search } from '../../../models/params';
 import { SettingsService } from '../../../providers/settings-service';
 import { TranslateService } from '@ngx-translate/core';
 import { EventsPage } from '../../../shared/classes/events-page';
+import { Keyboard } from '@ionic-native/keyboard';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'page-params',
@@ -22,8 +25,13 @@ export class ParamsPage extends EventsPage {
   types: any[] = [];
   anyValue: boolean;
   private field: string;
+  private logoHidden: boolean = false;
+  keyboardHideSubscription: Subscription;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public settingsServ: SettingsService, public events: Events, public translate: TranslateService) {
+  @ViewChild(Content) content: Content;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public keyboard: Keyboard,
+              public settingsServ: SettingsService, public events: Events, public translate: TranslateService, @Inject(DOCUMENT) private document: any) {
     super(events);
     this.pageName = navParams.get('pageName');
     this.search = navParams.get('search');
@@ -58,18 +66,21 @@ export class ParamsPage extends EventsPage {
 
   ionViewDidLoad() {
     console.log('Init ParamsPage');
+    this.keyboardHideSubscription = this.keyboard.onKeyboardHide().subscribe(() => this.logoHidden = false);
+  }
+
+  ionViewWillUnload() {
+    this.keyboardHideSubscription.unsubscribe();
   }
 
   ionViewWillLeave() {
     // Affiliate Page
     if (this.pageName == 'Affiliate') {
       if (this.affiliate == 'name') {
-        console.log('this.affiliate == name');
         this.search.affiliate_name = this.affiliateName;
         this.search.has_affiliate = '';
       }
       else {
-        console.log('this.affiliate !== name');
         this.search.has_affiliate = this.affiliate;
         this.search.affiliate_name = '';
       }
@@ -112,6 +123,11 @@ export class ParamsPage extends EventsPage {
       }
     });
     return res;
+  }
+
+  onFocused(id: string) {
+    this.logoHidden = true;
+    this.content.scrollTo(0, this.document.getElementById(id).offsetTop);
   }
 
 }
