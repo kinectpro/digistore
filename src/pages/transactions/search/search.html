@@ -69,9 +69,17 @@
               <ion-input (ionFocus)="onFocused('product_id')" formControlName="product_id" type="text" placeholder="{{ 'SEARCH_FILTERS_PAGE.PRODUCT_ID' | translate}}"></ion-input>
             </ion-item>
 
-            <ion-auto-complete id="product-name" (autoFocus)="onFocused('product-name')" [dataProvider]="complServ" #searchbar (itemSelected)="selectedProduct($event)" [options]="{ placeholder : ('SEARCH_FILTERS_PAGE.PRODUCT_NAME' | translate) }"></ion-auto-complete>
+            <ion-auto-complete id="product-name" #searchbar
+                               (autoFocus)="onFocused('product-name')"
+                               (itemSelected)="selectedProduct($event)"
+                               (autoBlur)="blurProduct()"
+                               [dataProvider]="complServ"
+                               [options]="{ placeholder : ('SEARCH_FILTERS_PAGE.PRODUCT_NAME' | translate) }">
+            </ion-auto-complete>
             <button no-margin ion-button icon-only clear (click)="clearProduct()" class="clearAC"><ion-icon name="ios-close"></ion-icon></button>
           </ion-list>
+
+          <div *ngIf="showTransparentDiv" id="transparentDiv"></div>
 
           <button no-padding ion-item icon-end (click)="setActive('customer')">
             <ion-icon [color]="activeTab === 'customer' ? 'primary' : 'dark'" name="{{activeTab === 'customer' ? 'ios-arrow-up' :'ios-arrow-down'}}" item-end></ion-icon>

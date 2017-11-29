@@ -37,6 +37,7 @@ export class SearchPage extends EventsPage {
 
   activeTab: string;
   private logoHidden: boolean = false;
+  private showTransparentDiv: boolean = false;
   keyboardHideSubscription: Subscription;
 
   constructor(public navParams: NavParams, public fb: FormBuilder, public viewCtrl: ViewController, public modalCtrl: ModalController, public events: Events, public errSrv: ErrorService, public keyboard: Keyboard,
@@ -208,9 +209,21 @@ export class SearchPage extends EventsPage {
   clearProduct() {
     this.searchbar.setValue('');
     this.searchFormExtended.get('product_id').reset();
+    this.searchbar.suggestions = [];
+  }
+
+  blurProduct() {
+    this.showTransparentDiv = false;
+    if (!this.searchFormExtended.get('product_id').value && this.searchbar.suggestions[0]) {
+      this.searchbar.setValue(this.searchbar.suggestions[0]['name']);
+      this.searchFormExtended.get('product_id').setValue(this.searchbar.suggestions[0]['id']);
+    }
   }
 
   onFocused(id: string) {
+    if (id == 'product-name') {
+      this.showTransparentDiv = true;
+    }
     this.logoHidden = true;
     this.content.scrollTo(0, this.document.getElementById(id).offsetTop - 5);
   }
