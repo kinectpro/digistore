@@ -24,12 +24,9 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   constructor(public platform: Platform, statusBar: StatusBar, public splashScreen: SplashScreen, public translate: TranslateService,
-              public authService: AuthService, events: Events, public keyboard: Keyboard, public config: Config, public oneSignal: OneSignal,
+              public authService: AuthService, public events: Events, public keyboard: Keyboard, public config: Config, public oneSignal: OneSignal,
               @Inject(DOCUMENT) private document: any, public app: App, public alertCtrl: AlertController, public appMinimize: AppMinimize) {
     platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-      this.document.getElementById('custom-overlay').style.display = 'none';
 
       statusBar.backgroundColorByHexString('#1998db');
 
@@ -48,6 +45,8 @@ export class MyApp {
       platform.registerBackButtonAction(this.backBtnAction);
 
       events.subscribe('modalState:changed', val => this.isModalPage = val);
+
+      this.document.getElementById('custom-overlay').style.display = 'none';
 
     });
     // Set the root page
@@ -104,6 +103,8 @@ export class MyApp {
         this.nav.getActiveChildNavs()[0].select(index);
       } else {
 
+        this.events.publish('modalState:changed', true);
+
         this.translate.get(['CANCEL', 'EXIT', 'EXIT_MSG']).subscribe(obj => this.alertCtrl.create({
           title: obj['EXIT'],
           message: obj['EXIT_MSG'],
@@ -112,11 +113,14 @@ export class MyApp {
             {
               text: obj['CANCEL'],
               role: 'cancel',
-              handler: () => console.log('choose Cancel')
+              handler: () => {
+                this.events.publish('modalState:changed', false);
+              }
             },
             {
               text: obj['EXIT'],
               handler: () => {
+                this.events.publish('modalState:changed', false);
                 this.appMinimize.minimize();
               }
             }
