@@ -27,7 +27,7 @@ export class SearchPage extends EventsPage {
   searchObj: Search;
   globalTypesFromServer: any;
   currenciesFromServer: string[];
-  extended: boolean = false;
+  extended: string = 'N';
 
   @ViewChild('searchbar')
   searchbar: AutoCompleteComponent;
@@ -90,10 +90,6 @@ export class SearchPage extends EventsPage {
 
   ionViewWillUnload() {
     this.keyboardHideSubscription.unsubscribe();
-  }
-
-  switchType() {
-    this.extended = !this.extended;
   }
 
   clearSearchParams() {
@@ -161,7 +157,7 @@ export class SearchPage extends EventsPage {
 
   submit() {
 
-    if (!this.extended) {
+    if (this.extended == 'N') {
       if (!this.searchForm.valid) {
         let err = this.searchForm.get('purchase_id').errors;
         if (err.required) {

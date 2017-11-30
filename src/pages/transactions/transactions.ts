@@ -96,6 +96,8 @@ export class TransactionsPage {
 
   showAll() {
     this.currentPeriod = '';
+    this.searchInputValue = '';
+    this.showedSearchInput = false;
     this.params.search = {};
     this.getTransactions();
     this.content.resize();

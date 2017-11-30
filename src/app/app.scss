@@ -192,3 +192,24 @@ ion-alert.alert-md {
 .btn-logout {
   color: #ed1c24!important;
 }
+
+ion-segment.toogle {
+  background-color: #fafafa;
+  border-radius: 20px!important;
+  width: 260px;
+  margin: 20px auto 0;
+  border: none;
+  ion-segment-button.segment-button {
+    border: none;
+    font-family: SFProText;
+    font-size: 13px;
+    height: 28px;
+    line-height: 1.38;
+    letter-spacing: -0.1px;
+    padding: 5px;
+  }
+  ion-segment-button.segment-button.segment-activated {
+    border: none;
+    border-radius: 20px!important;
+  }
+}

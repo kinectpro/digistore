@@ -10,7 +10,7 @@
         <ion-col text-center col-8>
           <ion-title><b>{{ 'SEARCH_FILTERS_PAGE.SEARCH_FILTERS' | translate}}</b></ion-title>
         </ion-col>
-        <ion-col text-right col-2 *ngIf="extended">
+        <ion-col text-right col-2 *ngIf="extended == 'Y'">
           <button no-padding text-capitalize text-wrap clear color="clear" ion-button (click)="clearSearchParams()">{{ 'SEARCH_FILTERS_PAGE.CLEAR_ALL' | translate}}</button>
         </ion-col>
       </ion-row>
@@ -25,13 +25,20 @@
 
   <ion-grid padding>
     <ion-row>
-      <ion-col text-right>
-        <button small ion-button text-capitalize color="activated" (click)="switchType()">{{extended ? ('SEARCH_FILTERS_PAGE.ORDER_ID' | translate) : ('SEARCH_FILTERS_PAGE.DETAILED_SEARCH' | translate)}}</button>
+      <ion-col>
+        <ion-segment mode="ios" [(ngModel)]="extended" class="toogle">
+          <ion-segment-button value="N">
+            {{ 'SEARCH_FILTERS_PAGE.ORDER_ID' | translate }}
+          </ion-segment-button>
+          <ion-segment-button value="Y">
+            {{ 'SEARCH_FILTERS_PAGE.DETAILED_SEARCH' | translate }}
+          </ion-segment-button>
+        </ion-segment>
       </ion-col>
     </ion-row>
   </ion-grid>
 
-  <section padding *ngIf="!extended">
+  <section padding *ngIf="extended == 'N'">
 
     <form [formGroup]="searchForm">
 
@@ -48,7 +55,7 @@
 
   </section>
 
-  <section [hidden]="!extended" no-padding>
+  <section [hidden]="extended == 'N'" no-padding>
 
     <ion-list no-padding>
 
