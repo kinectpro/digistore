@@ -47,7 +47,7 @@
   "YES": "Ja",
   "NO": "Nein",
   "ALL": "Alle",
-  "ANY": "Irgendein",
+  "ANY": "Alle",
   "WITHIN": "Innerhalb",
   "WITHOUT": "Ohne",
   "ENTER": "Eingeben",
@@ -130,7 +130,7 @@
     "ASC": "Aufsteigend",
     "DESC": "Absteigend",
     "HIGHEST": "Höchster zuerst",
-    "LOWEST": "Niedrigste zuerst",
+    "LOWEST": "Niedrigster zuerst",
     "THIS": "Dies"
   },
   "SEARCH_FILTERS_PAGE": {

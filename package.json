@@ -20,6 +20,7 @@
         "@angular/http": "4.4.3",
         "@angular/platform-browser": "4.4.3",
         "@angular/platform-browser-dynamic": "4.4.3",
+        "@ionic-native/app-minimize": "^4.4.2",
         "@ionic-native/core": "4.3.0",
         "@ionic-native/file": "^4.3.3",
         "@ionic-native/file-opener": "^4.3.3",
@@ -35,6 +36,7 @@
         "@ngx-translate/http-loader": "^2.0.0",
         "call-number": "^1.0.1",
         "cordova-android": "^6.4.0",
+        "cordova-plugin-appminimize": "^1.0.0",
         "cordova-plugin-compat": "^1.2.0",
         "cordova-plugin-file": "^5.0.0",
         "cordova-plugin-file-opener2": "^2.0.19",
@@ -74,7 +76,8 @@
             "cordova-plugin-file-transfer": {},
             "cordova-plugin-file": {},
             "cordova-plugin-file-opener2": {},
-            "onesignal-cordova-plugin": {}
+            "onesignal-cordova-plugin": {},
+            "cordova-plugin-appminimize": {}
         },
         "platforms": [
             "android"

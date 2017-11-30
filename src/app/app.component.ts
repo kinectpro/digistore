@@ -5,6 +5,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Keyboard } from '@ionic-native/keyboard';
 import { OneSignal } from '@ionic-native/onesignal';
+import { AppMinimize } from '@ionic-native/app-minimize';
 
 import { LoginPage } from '../pages/login/login';
 import { TabsPage } from '../pages/tabs/tabs';
@@ -24,7 +25,7 @@ export class MyApp {
 
   constructor(public platform: Platform, statusBar: StatusBar, public splashScreen: SplashScreen, public translate: TranslateService,
               public authService: AuthService, events: Events, public keyboard: Keyboard, public config: Config, public oneSignal: OneSignal,
-              @Inject(DOCUMENT) private document: any, public app: App, public alertCtrl: AlertController) {
+              @Inject(DOCUMENT) private document: any, public app: App, public alertCtrl: AlertController, public appMinimize: AppMinimize) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -106,7 +107,7 @@ export class MyApp {
         this.translate.get(['CANCEL', 'EXIT', 'EXIT_MSG']).subscribe(obj => this.alertCtrl.create({
           title: obj['EXIT'],
           message: obj['EXIT_MSG'],
-          mode: 'ios',
+          mode: 'md',
           buttons: [
             {
               text: obj['CANCEL'],
@@ -115,7 +116,9 @@ export class MyApp {
             },
             {
               text: obj['EXIT'],
-              handler: () => this.platform.exitApp()
+              handler: () => {
+                this.appMinimize.minimize();
+              }
             }
           ]
         }).present());

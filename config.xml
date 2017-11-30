@@ -97,5 +97,6 @@
     <plugin name="cordova-plugin-file" spec="^4.3.3" />
     <plugin name="cordova-plugin-file-opener2" spec="^2.0.19" />
     <plugin name="onesignal-cordova-plugin" spec="^2.2.2" />
+    <plugin name="cordova-plugin-appminimize" spec="^1.0.0" />
     <engine name="android" spec="~6.4.0" />
 </widget>

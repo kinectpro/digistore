@@ -12,6 +12,7 @@ import { Keyboard } from '@ionic-native/keyboard';
 import { QRScanner } from '@ionic-native/qr-scanner';
 import { OneSignal } from '@ionic-native/onesignal';
 import { FileTransfer } from '@ionic-native/file-transfer';
+import { AppMinimize } from '@ionic-native/app-minimize';
 
 import { MyApp } from './app.component';
 
@@ -81,6 +82,7 @@ export function createTranslateLoader(http: HttpClient) {
     FileTransfer,
     File,
     FileOpener,
+    AppMinimize,
     TranslateService,
     OneSignal,
     Keyboard,
