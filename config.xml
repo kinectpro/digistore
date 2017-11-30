@@ -19,8 +19,10 @@
     <preference name="SplashMaintainAspectRatio" value="true" />
     <preference name="FadeSplashScreenDuration" value="300" />
     <preference name="SplashShowOnlyFirstTime" value="false" />
-    <preference name="SplashScreen" value="screen" />
-    <preference name="SplashScreenDelay" value="10000" />
+    <preference name="AutoHideSplashScreen" value="true" />
+    <preference name="ShowSplashScreen" value="false" />
+    <preference name="SplashScreen" value="none" />
+    <preference name="SplashScreenDelay" value="0" />
     <preference name="ShowSplashScreenSpinner" value="false" />
     <hook src="hooks/after_prepare/030_copy_android_notification_icons.js" type="after_prepare" />
     <hook src="hooks/after_prepare/copy_notification_sound.js" type="after_prepare" />

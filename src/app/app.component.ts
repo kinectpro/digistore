@@ -22,12 +22,14 @@ export class MyApp {
 
   @ViewChild(Nav) nav: Nav;
 
-  constructor(public platform: Platform, statusBar: StatusBar, public splashScreen: SplashScreen, public translate: TranslateService, public authService: AuthService, events: Events,
-              public keyboard: Keyboard, public config: Config, public oneSignal: OneSignal, @Inject(DOCUMENT) private document: any, public app: App, public alertCtrl: AlertController) {
+  constructor(public platform: Platform, statusBar: StatusBar, public splashScreen: SplashScreen, public translate: TranslateService,
+              public authService: AuthService, events: Events, public keyboard: Keyboard, public config: Config, public oneSignal: OneSignal,
+              @Inject(DOCUMENT) private document: any, public app: App, public alertCtrl: AlertController) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      // statusBar.styleDefault();
+      this.document.getElementById('custom-overlay').style.display = 'none';
+
       statusBar.backgroundColorByHexString('#1998db');
 
       this.keyboard.onKeyboardShow().subscribe(() => {
