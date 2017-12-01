@@ -2,20 +2,20 @@
   <ion-navbar>
 
     <ion-buttons left>
-      <button ion-button text-capitalize clear color="clear" (click)="dismiss()" icon-left><ion-icon name="ios-arrow-back"></ion-icon>{{ 'CANCEL' | translate}}</button>
+      <button ion-button text-capitalize clear color="clear" (click)="dismiss()" icon-left><ion-icon name="ios-arrow-back"></ion-icon>{{ 'CANCEL' | translate }}</button>
     </ion-buttons>
 
     <ion-title text-center>
-      <b>{{ 'SORT_BY_PAGE.SORT_BY' | translate}}</b>
+      <b>{{ 'SORT_BY_PAGE.SORT_BY' | translate }}</b>
     </ion-title>
 
     <ion-buttons end>
-      <button clear color="clear" ion-button text-capitalize (click)="submit()">{{ 'APPLY' | translate}}</button>
+      <button clear color="clear" ion-button text-capitalize (click)="submit()">{{ 'APPLY' | translate }}</button>
     </ion-buttons>
   </ion-navbar>
 
   <ion-toolbar *ngIf="period" no-padding text-center>
-    <span class="subtitle">{{ 'SORT_BY_PAGE.THIS' | translate}} <span text-capitalize>{{period}}</span></span>
+    <span class="subtitle">{{ 'SORT_BY_PAGE.THIS' | translate }} <span text-capitalize>{{ period }}</span></span>
   </ion-toolbar>
 
 </ion-header>
@@ -25,7 +25,7 @@
   <ion-list radio-group [(ngModel)]="sort">
     <button ion-item (click)="openOption('product_name')">
       <ion-label>
-        {{ 'SORT_BY_PAGE.PRODUCT_NAME' | translate}}
+        {{ 'SORT_BY_PAGE.PRODUCT_NAME' | translate }}
       </ion-label>
       <div item-content class="item-content">
         {{ sort == 'product_name-desc' ? 'Z-A' : sort == 'product_name-asc' ? 'A-Z' : '' }}
@@ -45,40 +45,40 @@
 
     <button ion-item (click)="openOption('earning')">
       <ion-label>
-        {{ 'SORT_BY_PAGE.EARNING_AMOUNT' | translate}}
+        {{ 'SORT_BY_PAGE.EARNING_AMOUNT' | translate }}
       </ion-label>
       <div item-content class="item-content">
-        {{ sort == 'earning-desc' ? 'Lowest first' : sort == 'earning-asc' ? 'Highest first' : '' }}
+        {{ sort == 'earning-desc' ? ('SORT_BY_PAGE.LOWEST' | translate) : sort == 'earning-asc' ? ('SORT_BY_PAGE.HIGHEST' | translate) : '' }}
         <ion-icon md="ios-arrow-forward" color="light"></ion-icon>
       </div>
     </button>
     <ion-list class="sublist" [hidden]="!options.earning" padding-left>
       <ion-item mode="ios">
-        <ion-label color="dark">{{ 'SORT_BY_PAGE.HIGHEST' | translate}}</ion-label>
+        <ion-label color="dark">{{ 'SORT_BY_PAGE.HIGHEST' | translate }}</ion-label>
         <ion-radio mode="ios" value="earning-asc"></ion-radio>
       </ion-item>
       <ion-item mode="ios">
-        <ion-label color="dark">{{ 'SORT_BY_PAGE.LOWEST' | translate}}</ion-label>
+        <ion-label color="dark">{{ 'SORT_BY_PAGE.LOWEST' | translate }}</ion-label>
         <ion-radio mode="ios" value="earning-desc"></ion-radio>
       </ion-item>
     </ion-list>
 
     <button ion-item (click)="openOption('date')">
       <ion-label>
-        {{ 'SORT_BY_PAGE.DATE' | translate}}
+        {{ 'SORT_BY_PAGE.DATE' | translate }}
       </ion-label>
       <div item-content class="item-content">
-        {{ sort == 'date-desc' ? 'Descending' : sort == 'date-asc' ? 'Ascending' : '' }}
+        {{ sort == 'date-desc' ? ('SORT_BY_PAGE.DESC' | translate) : sort == 'date-asc' ? ('SORT_BY_PAGE.ASC' | translate) : '' }}
         <ion-icon md="ios-arrow-forward" color="light"></ion-icon>
       </div>
     </button>
     <ion-list class="sublist" [hidden]="!options.date" padding-left>
       <ion-item mode="ios">
-        <ion-label color="dark">{{ 'SORT_BY_PAGE.ASC' | translate}}</ion-label>
+        <ion-label color="dark">{{ 'SORT_BY_PAGE.ASC' | translate }}</ion-label>
         <ion-radio mode="ios" value="date-asc"></ion-radio>
       </ion-item>
       <ion-item mode="ios">
-        <ion-label color="dark">{{ 'SORT_BY_PAGE.DESC' | translate}}</ion-label>
+        <ion-label color="dark">{{ 'SORT_BY_PAGE.DESC' | translate }}</ion-label>
         <ion-radio mode="ios" value="date-desc"></ion-radio>
       </ion-item>
     </ion-list>

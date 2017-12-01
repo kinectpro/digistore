@@ -28,7 +28,7 @@
   <ion-list>
 
     <ion-list-header text-center no-margin text-capitalize [style.color]="result.status == 'success' ? '#35ce76' : '#ed1c24'">
-      {{ result.mode != 'modal' ? result.status : result.status == 'success' ? ('E_TICKET_PAGE.E_TICKET_VALID' | translate) : ('E_TICKET_PAGE.ALREADY_USED' | translate) }}
+      {{ result.status == 'success' ? ('E_TICKET_PAGE.E_TICKET_VALID' | translate) : result.mode != 'modal' ? ('E_TICKET_PAGE.FAILURE' | translate) : ('E_TICKET_PAGE.ALREADY_USED' | translate) }}
     </ion-list-header>
 
     <ion-label text-wrap class="message" margin>
@@ -94,6 +94,6 @@
 
 <ion-footer *ngIf="result.mode == 'modal' && result.status == 'success'">
   <button large ion-button full [style.background-color]="'#35ce76'" no-margin (click)="markTicket()">
-    <b>{{'E_TICKET_PAGE.MARK_AS' | translate}} {{ 'E_TICKET_PAGE.USED' | translate }}</b>
+    <b>{{'E_TICKET_PAGE.MARK_AS_USED' | translate}}</b>
   </button>
 </ion-footer>

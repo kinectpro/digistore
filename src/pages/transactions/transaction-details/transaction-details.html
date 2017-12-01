@@ -45,7 +45,7 @@
           <ion-row class="products-body">
             <ion-col col-12>
               <label class="label">{{ 'TRANSACTION_DETAILS_PAGE.PRODUCT_NAME' | translate }}</label>
-              <p class="product_name" *ngFor="let obj of transaction.products">{{ obj.name }} / {{ obj.id }}</p>
+              <p class="product_name" [style.padding]="'5px 0'" *ngFor="let obj of transaction.products">{{ obj.name }} / {{ obj.id }}</p>
             </ion-col>
           </ion-row>
         </ion-grid>

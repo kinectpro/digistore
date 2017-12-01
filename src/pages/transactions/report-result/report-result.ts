@@ -1,23 +1,26 @@
 import { Component } from '@angular/core';
-import { NavParams, ViewController } from 'ionic-angular';
+import { NavParams, ViewController, Events } from 'ionic-angular';
+
+import { EventsPage } from '../../../shared/classes/events-page';
 
 @Component({
   selector: 'page-report-result',
   templateUrl: 'report-result.html',
 })
-export class ReportResultPage {
+export class ReportResultPage extends EventsPage {
   status: string;
   message: string;
   order_id: string;
 
-  constructor(public viewCtrl: ViewController, public navParams: NavParams) {
+  constructor(public viewCtrl: ViewController, public navParams: NavParams, public events: Events) {
+    super(events);
     this.status = this.navParams.get('status');
     this.message = this.navParams.get('message');
     this.message = this.navParams.get('order_id');
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ReportResultPage');
+    console.log('Init ReportResultPage');
   }
 
   dismiss() {

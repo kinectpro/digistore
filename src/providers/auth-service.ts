@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { User } from '../models/user';
 import { Settings } from '../config/settings';
 import { TranslateService } from '@ngx-translate/core';
+import { ErrorService } from './error-service';
 
 @Injectable()
 export class AuthService {
@@ -13,8 +14,8 @@ export class AuthService {
   private _user: User;
   private _accounts: User[];
 
-  constructor(public http: HttpClient, public translate: TranslateService, public events: Events) {
-    console.log('Hello AuthServiceProvider Provider');
+  constructor(public http: HttpClient, public translate: TranslateService, public events: Events, public errSrv: ErrorService) {
+    console.log('Init AuthServiceProvider');
     this._lang = localStorage.getItem('lang') || 'de';
     this._user = JSON.parse(localStorage.getItem('user')) || null;
     this._accounts = JSON.parse(localStorage.getItem('accounts')) || [];
@@ -52,7 +53,7 @@ export class AuthService {
         this._accounts = this._accounts.filter(item => item.user_id != user.user_id);
         localStorage.setItem('accounts', JSON.stringify(this._accounts));
       },
-      err => console.log(err)
+      err => this.errSrv.showMessage(err)
     );
   }
 

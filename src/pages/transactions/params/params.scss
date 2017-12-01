@@ -2,6 +2,10 @@ page-params {
   ion-content.content {
     background-color: #fafafa;
   }
+  ion-item-divider {
+    background-color: #fafafa!important;
+    height: 100px;
+  }
   .bottom-logo {
     bottom: 0;
   }
@@ -41,8 +45,15 @@ page-params {
     .checkbox-ios .checkbox-icon {
       border-style: none;
     }
-    div.checkbox-inner {
-
-    }
+  }
+  ion-item.item.item-block.item-input.item-ios.ng-untouched.ng-pristine.ng-valid.input-has-focus.item-input-has-focus {
+    border: solid 1px #3247a1;
+    box-shadow: inset 0 -1px 0 0 #3247a1;
+    border-radius: 4px;
+  }
+  ion-item.item.item-block.item-input.item-ios.ng-valid.ng-touched.ng-dirty.input-has-focus.item-input-has-focus {
+    border: solid 1px #3247a1;
+    box-shadow: inset 0 -1px 0 0 #3247a1;
+    border-radius: 4px;
   }
 }

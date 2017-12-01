@@ -33,6 +33,7 @@ export interface TicketParams {
   template: any,
   location: any,
   date: any,
+  owners?: string,
   firstName?: string,
   lastName?: string,
   email?: string

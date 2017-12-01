@@ -1,27 +1,40 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { NavController, NavParams, ToastController, ViewController, Content, Events } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Keyboard } from '@ionic-native/keyboard';
+import { Subscription } from 'rxjs/Subscription';
 
 import { TicketSearchResultsPage } from '../ticket-search-results/ticket-search-results';
 import { TicketParams } from '../../../models/params';
 import { TicketService } from '../../../providers/ticket-service';
 import { TicketDetailsPage } from '../ticket-details/ticket-details';
 import { TranslateService } from '@ngx-translate/core';
+import { EventsPage } from '../../../shared/classes/events-page';
 
 @Component({
   selector: 'page-ticket-check',
   templateUrl: 'ticket-check.html',
 })
-export class TicketCheckPage {
+export class TicketCheckPage extends EventsPage {
 
   private numberForm : FormGroup;
   withoutNumber: boolean;
   params: TicketParams;
+  keyboardShowSubscription: Subscription;
+  keyboardHideSubscription: Subscription;
+  showedError: string = '';
+
+  @ViewChild(Content)
+  content: Content;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController, public ticketSrv: TicketService, public fb: FormBuilder,
-              public translate: TranslateService) {
+              public translate: TranslateService, public viewCtrl: ViewController, public keyboard: Keyboard, public events: Events) {
+    super(events);
     this.withoutNumber = navParams.get('withoutNumber');
     this.params = navParams.get('params');
+
+    this.keyboardShowSubscription = this.keyboard.onKeyboardShow().subscribe(() => this.content.resize());
+    this.keyboardHideSubscription = this.keyboard.onKeyboardHide().subscribe(() => this.content.resize());
 
     this.numberForm = fb.group({
       'number': ['', [
@@ -34,13 +47,31 @@ export class TicketCheckPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad TicketCheckPage');
+    console.log('Init TicketCheckPage');
+  }
+
+  ionViewWillUnload() {
+    this.keyboardShowSubscription.unsubscribe();
+    this.keyboardHideSubscription.unsubscribe();
   }
 
   findWithoutNumber() {
     this.navCtrl.push(TicketCheckPage, { params: this.params, withoutNumber: true });
   }
 
+  checkValid(el: any) {
+    if (el.value && el.invalid) {
+      this.translate.get("SEARCH_FILTERS_PAGE.INVALID_EMAIL").subscribe( msg => this.showError(msg) );
+    }
+  }
+
+  showError(mess: string) {
+    this.showedError = mess;
+    setTimeout(() => {
+      this.showedError = '';
+    }, 3000);
+  }
+  
   search() {
     this.navCtrl.push(TicketSearchResultsPage, { params: this.params });
   }
@@ -50,7 +81,15 @@ export class TicketCheckPage {
       this.params.ticket = this.numberForm.get('number').value;
       this.ticketSrv.validateTicket(this.params).then(
         res => this.navCtrl.push(TicketDetailsPage, { params: this.params, result: res }),
-        err => console.log(err)
+        err => {
+          this.navCtrl.push(TicketDetailsPage, {
+            params: this.params,
+            result: {
+              status: 'failure',
+              msg: err
+            }
+          }).then( () => this.viewCtrl.dismiss() );
+        }
       );
     }
     else {

@@ -1,12 +1,14 @@
-import { Component } from '@angular/core';
-import { App, ModalController, NavController, NavParams, Events } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { App, ModalController, NavController, NavParams, Events, Refresher, Content } from 'ionic-angular';
 
 import { TransactionService } from '../../providers/transaction-service';
 import { Params } from '../../models/params';
 import { EarningService } from "../../providers/earning-service";
+import { ErrorService } from '../../providers/error-service';
 import { TransactionDetailsPage } from './transaction-details/transaction-details';
 import { SortByPage } from './sort-by/sort-by';
 import { SearchPage } from './search/search';
+import { SettingsService } from '../../providers/settings-service';
 
 @Component({
   selector: 'page-transactions',
@@ -31,18 +33,38 @@ export class TransactionsPage {
   transactionsFromService: any[];
   transactions: any = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public app: App, public eServ: EarningService, public tranServ: TransactionService, public events: Events) {
-    this.events.subscribe('period:changed', period => {
-      this.currentPeriod = period;
-      this.getTransactions();
-    });
-    this.events.subscribe('user:changed', () => this.needDataUpdate = true);
+  @ViewChild(Content) content: Content;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public app: App, public settingsSrv: SettingsService,
+              public eServ: EarningService, public tranServ: TransactionService, public events: Events, public errSrv: ErrorService) {
     this.currentPeriod = this.eServ.currentPeriod;
+    if (this.eServ.range) {
+      this.params.search.from = this.eServ.range[0];
+      this.params.search.to = this.eServ.range[1];
+    }
+    if (this.settingsSrv.currentCurrency && this.currentPeriod || this.eServ.range) {
+      this.params.search.currency = this.settingsSrv.currentCurrency;
+    }
     this.getTransactions();
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad TransactionsPage');
+    console.log('Init TransactionsPage');
+
+    this.events.subscribe('period:changed', period => {
+      this.currentPeriod = period;
+      this.params.search = {};
+      this.params.search.currency = this.settingsSrv.currentCurrency;
+      this.getTransactions();
+    });
+    this.events.subscribe('range:changed', (from, to) => {
+      this.currentPeriod = '';
+      this.params.search.from = from;
+      this.params.search.to = to;
+      this.params.search.currency = this.settingsSrv.currentCurrency;
+      this.getTransactions();
+    });
+    this.events.subscribe('user:changed', () => this.needDataUpdate = true);
   }
 
   ionViewWillEnter() {
@@ -57,20 +79,28 @@ export class TransactionsPage {
     this.app.getRootNav().push(TransactionDetailsPage, {transaction: transaction});
   }
 
+  doRefresh(refresher: Refresher) {
+    refresher.complete();
+    this.getTransactions();
+  }
+
   getTransactions() {
     this.tranServ.getTransactionList(this.currentPeriod, this.params).then(
       res => {
         this.transactionsFromService = res;
         this.updateTransactions();
       },
-      err => console.log(err)
+      err => this.errSrv.showMessage(err)
     );
   }
 
   showAll() {
     this.currentPeriod = '';
+    this.searchInputValue = '';
+    this.showedSearchInput = false;
     this.params.search = {};
     this.getTransactions();
+    this.content.resize();
   }
 
   goNext() {

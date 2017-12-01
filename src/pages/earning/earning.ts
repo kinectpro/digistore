@@ -1,11 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, LoadingController, Events, Content, AlertController } from 'ionic-angular';
+import { NavController, LoadingController, Events, Content, AlertController, Refresher } from 'ionic-angular';
 
 import { EarningService } from '../../providers/earning-service';
 import { TranslateService } from '@ngx-translate/core';
 import { SettingsService } from '../../providers/settings-service';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/do';
+import { ErrorService } from '../../providers/error-service';
 
 @Component({
   selector: 'earning-home',
@@ -13,6 +12,7 @@ import 'rxjs/add/operator/do';
 })
 export class EarningPage {
   needDataUpdate: boolean = false;
+  somethingWentWrong: boolean = false;
   currenciesFromServer: string[];
   currentCurrency: string = 'EUR';
   segment: string = "total";
@@ -26,10 +26,11 @@ export class EarningPage {
   content: Content;
 
   constructor(public navCtrl: NavController, public eServ: EarningService, public loadingCtrl: LoadingController, public translate: TranslateService,
-              public events: Events, public alertCtrl: AlertController, public settingsServ: SettingsService) {
+              public events: Events, public alertCtrl: AlertController, public settingsServ: SettingsService, public errSrv: ErrorService) {
 
     console.log('Init EarningPage');
-    this.translate.get('LOADING_TEXT').subscribe(loadingText => this.init(loadingText));
+
+    this.getData();
 
     events.subscribe('user:changed', () => this.needDataUpdate = true);
   }
@@ -59,10 +60,13 @@ export class EarningPage {
       this.quarterlyData = result[2];
       this.yearlyData = result[3];
 
+      this.somethingWentWrong = false;
+
       loading.dismiss();
 
     } catch (err) {
-      console.log(err);
+      this.somethingWentWrong = true;
+      this.errSrv.showMessage(err);
       loading.dismiss();
     }
   }
@@ -73,14 +77,42 @@ export class EarningPage {
 
   ionViewWillEnter() {
     if (this.needDataUpdate) {
-      this.translate.get('LOADING_TEXT').subscribe(loadingText => this.init(loadingText));
+      this.getData();
       this.needDataUpdate = false;
     }
   }
 
-  goToTransaction(period: string): void {
-    this.eServ.currentPeriod = period;
-    this.events.publish('period:changed', period);
+  doRefresh(refresher: Refresher) {
+    refresher.complete();
+    this.getData();
+  }
+
+  getData() {
+    this.translate.get('LOADING_TEXT').subscribe(loadingText => this.init(loadingText));
+  }
+
+  goToTransaction(period: string, timeInterval?: {[key: string]: any}): void {
+    if (period) {
+      this.eServ.currentPeriod = period;
+      this.events.publish('period:changed', period);
+    }
+    else {
+      let from, to: string;
+      if (timeInterval.month) {
+        from = this.getFormatData(timeInterval.year, timeInterval.month, 1);
+        to = this.getFormatData(timeInterval.year, timeInterval.month, this.getLastDayOfMonth(timeInterval.year, timeInterval.month));
+      }
+      else if (timeInterval.quarter) {
+        from = this.getDateFormat(new Date(timeInterval.year, timeInterval.quarter * 3 - 3, 1));
+        to = this.getDateFormat(new Date(timeInterval.year, timeInterval.quarter * 3, 0));
+      }
+      else {
+        from = this.getFormatData(timeInterval.year, 1, 1);
+        to = this.getFormatData(timeInterval.year, 12, 31);
+      }
+      this.eServ.range = [from, to];
+      this.events.publish('range:changed', from, to);
+    }
     this.navCtrl.parent.select(1);
   }
 
@@ -110,12 +142,56 @@ export class EarningPage {
             text: obj['CHOOSE'],
             handler: data => {
               this.currentCurrency = data;
+              this.settingsServ.currentCurrency = data;
             }
           }
         ]
       }).present();
     });
 
+  }
+
+  /**
+   * The method returns the last day of the month
+   * @param year
+   * @param month
+   * @returns {number}
+   */
+  getLastDayOfMonth(year: number, month: number): number {
+    let date = new Date(year, month, 0);  // create a date from the next month, but the day isn't the first, but the "zero" (the previous one)
+    return date.getDate();
+  }
+
+  /**
+   * The method returns the date in the format YYYY-MM-DD
+   * @param year
+   * @param month
+   * @param day
+   * @returns {string}
+   */
+  getFormatData(year: number, month: number, day: number): string {
+    let MM = month < 10 ? '0' + month : month;
+    let DD = day < 10 ? '0' + day : day;
+
+    return year + '-' + MM + '-' + DD;
+  }
+
+  /**
+   * The method returns the date in the format YYYY-MM-DD
+   * @param date
+   * @returns {string}
+   */
+  getDateFormat(date: Date): string {
+
+    let DD: any = date.getDate();
+    if (DD < 10) DD = '0' + DD;
+
+    let MM: any = date.getMonth() + 1;
+    if (MM < 10) MM = '0' + MM;
+
+    let YYYY = date.getFullYear();
+
+    return YYYY + '-' + MM + '-' + DD;
   }
 
 }

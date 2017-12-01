@@ -1,6 +1,8 @@
-import { Component, ViewChild } from '@angular/core';
-import { NavParams, ViewController, ModalController, LoadingController, Events } from 'ionic-angular';
+import { Component, ViewChild, Inject } from '@angular/core';
+import { NavParams, ViewController, ModalController, LoadingController, Events, Content } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DOCUMENT } from '@angular/common';
+import { Keyboard } from '@ionic-native/keyboard';
 
 import { ParamsPage } from '../params/params';
 import { TranslateService } from '@ngx-translate/core';
@@ -8,12 +10,15 @@ import { AutoCompleteComponent } from 'ionic2-auto-complete';
 import { Search } from '../../../models/params';
 import { SettingsService } from '../../../providers/settings-service';
 import { CompleteService } from '../../../providers/complete-service';
+import { ErrorService } from '../../../providers/error-service';
+import { EventsPage } from '../../../shared/classes/events-page';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'page-search',
   templateUrl: 'search.html',
 })
-export class SearchPage {
+export class SearchPage extends EventsPage {
   private searchForm : FormGroup;
   private searchFormExtended : FormGroup;
   private showedError: string = '';
@@ -22,22 +27,32 @@ export class SearchPage {
   searchObj: Search;
   globalTypesFromServer: any;
   currenciesFromServer: string[];
-  extended: boolean = false;
+  extended: string = 'N';
 
   @ViewChild('searchbar')
   searchbar: AutoCompleteComponent;
 
-  activeTab: string;
+  @ViewChild(Content)
+  content: Content;
 
-  constructor(public navParams: NavParams, public fb: FormBuilder, public viewCtrl: ViewController, public modalCtrl: ModalController, public events: Events,
-              public settingsServ: SettingsService, public loadingCtrl: LoadingController, public translate: TranslateService, public complServ: CompleteService) {
+  activeTab: string;
+  private logoHidden: boolean = false;
+  private showTransparentDiv: boolean = false;
+  keyboardHideSubscription: Subscription;
+
+  constructor(public navParams: NavParams, public fb: FormBuilder, public viewCtrl: ViewController, public modalCtrl: ModalController, public events: Events, public errSrv: ErrorService, public keyboard: Keyboard,
+              public settingsServ: SettingsService, public loadingCtrl: LoadingController, public translate: TranslateService, public complServ: CompleteService, @Inject(DOCUMENT) private document: any) {
+
+    super(events);
 
     this.searchObj = navParams.get('params_search');
-    console.log('-------------search parameters is there-----------------');
-    console.log(this.searchObj);
 
     this.searchForm = fb.group({
-      'purchase_id': [this.searchObj.purchase_id, [Validators.required]]
+      'purchase_id': [this.searchObj.purchase_id, [
+        Validators.required,
+        Validators.minLength(8),
+        Validators.pattern('(?=.*[A-Za-z])[0-9A-Za-z]+')  // ?=  -  Continues the search only if to the right of the current position in the text is the bracketed expression.
+      ]]
     });
 
     this.searchFormExtended = fb.group({
@@ -45,7 +60,7 @@ export class SearchPage {
       'product_id': [this.searchObj.product_id],
       'first_name': [this.searchObj.first_name],
       'last_name': [this.searchObj.last_name],
-      'email': [this.searchObj.email],
+      'email': [this.searchObj.email, Validators.pattern("[a-zA-Z_]+@[a-zA-Z_]+?\.[a-zA-Z]{2,6}")],
       //'from': [this.searchObj.from],
       //'to': [this.searchObj.to]
     });
@@ -54,7 +69,7 @@ export class SearchPage {
 
     this.settingsServ.getGlobalSettings().then(
       res => this.globalTypesFromServer = res,
-      err => console.log(err)
+      err => this.errSrv.showMessage(err)
     );
 
     this.payments = this.searchObj.pay_method ? this.searchObj.pay_method.split(',') : [];
@@ -70,10 +85,11 @@ export class SearchPage {
   ionViewDidLoad() {
     console.log('Init SearchPage');
     this.searchbar.setValue(this.searchObj.product_name);
+    this.keyboardHideSubscription = this.keyboard.onKeyboardHide().subscribe(() => this.logoHidden = false);
   }
 
-  switchType() {
-    this.extended = !this.extended;
+  ionViewWillUnload() {
+    this.keyboardHideSubscription.unsubscribe();
   }
 
   clearSearchParams() {
@@ -86,9 +102,11 @@ export class SearchPage {
 
   getAffiliateValue(): string {
     let with_affiliate, without_affiliate, all :string = '';
-    this.translate.get('SEARCH_FILTERS_PAGE.WITH_AFFILIATE').subscribe(val => with_affiliate = val);
-    this.translate.get('SEARCH_FILTERS_PAGE.WITHOUT_AFFILIATE').subscribe(val => without_affiliate = val);
-    this.translate.get('ALL').subscribe(val => all = val);
+    this.translate.get(['SEARCH_FILTERS_PAGE.WITH_AFFILIATE', 'SEARCH_FILTERS_PAGE.WITHOUT_AFFILIATE', 'ALL']).subscribe( obj => {
+      with_affiliate = obj['SEARCH_FILTERS_PAGE.WITH_AFFILIATE'];
+      without_affiliate = obj['SEARCH_FILTERS_PAGE.WITHOUT_AFFILIATE'];
+      all = obj['ALL'];
+    });
 
     if (this.searchObj.has_affiliate == 'Y') return with_affiliate;
     if (this.searchObj.has_affiliate == 'N') return without_affiliate;
@@ -96,11 +114,11 @@ export class SearchPage {
     return all;
   }
 
-  getTypesValue(value: string): string {
+  getTypesValue(value: string, field: string): string {
     let any: string = '';
     this.translate.get('ANY').subscribe(val => any = val);
     if (!value) return any;
-    return value.split(',').map(obj => (obj[0].toUpperCase() + obj.slice(1)).replace('_', ' ')).join(', ');
+    return value.split(',').map(el => this.globalTypesFromServer[field][el]).map(el => el[0].toUpperCase() + el.slice(1)).join(', ');
   }
 
   toggleVal(collection: string, value: string, el: any) {
@@ -138,17 +156,30 @@ export class SearchPage {
   }
 
   submit() {
-    let validation: string = '';
-    this.translate.get('SEARCH_FILTERS_PAGE.AT_LEAST_SYMBOL').subscribe(val => validation = val);
 
-    if (!this.extended) {
+    if (this.extended == 'N') {
       if (!this.searchForm.valid) {
-        this.showError(validation);
-        return;
+        let err = this.searchForm.get('purchase_id').errors;
+        if (err.required) {
+          this.translate.get('SEARCH_FILTERS_PAGE.AT_LEAST_SYMBOL').subscribe(val => this.showError(val));
+          return;
+        }
+        if (err.minlength) {
+          this.translate.get('SEARCH_FILTERS_PAGE.MIN_LENGTH').subscribe(val => this.showError(`${val} ${err.minlength.requiredLength}`));
+          return;
+        }
+        if (err.pattern) {
+          this.translate.get('SEARCH_FILTERS_PAGE.PATTERN').subscribe(val => this.showError(val));
+          return;
+        }
       }
       this.searchObj.purchase_id = this.searchForm.get('purchase_id').value;
     }
     else {
+      if (this.searchFormExtended.get('email').value && this.searchFormExtended.get('email').invalid) {
+        this.activeTab = 'customer';
+        return;
+      }
       //this.searchObj.purchase_id = this.searchFormExtended.get('purchase_id').value;
       this.searchObj.product_id = this.searchFormExtended.get('product_id').value;
       this.searchObj.first_name = this.searchFormExtended.get('first_name').value;
@@ -174,6 +205,23 @@ export class SearchPage {
   clearProduct() {
     this.searchbar.setValue('');
     this.searchFormExtended.get('product_id').reset();
+    this.searchbar.suggestions = [];
+  }
+
+  blurProduct() {
+    this.showTransparentDiv = false;
+    if (!this.searchFormExtended.get('product_id').value && this.searchbar.suggestions[0]) {
+      this.searchbar.setValue(this.searchbar.suggestions[0]['name']);
+      this.searchFormExtended.get('product_id').setValue(this.searchbar.suggestions[0]['id']);
+    }
+  }
+
+  onFocused(id: string) {
+    if (id == 'product-name') {
+      this.showTransparentDiv = true;
+    }
+    this.logoHidden = true;
+    this.content.scrollTo(0, this.document.getElementById(id).offsetTop - 5);
   }
 
 }

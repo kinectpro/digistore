@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { App, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
 import { OneSignal } from '@ionic-native/onesignal';
 
-import { LandingPage } from '../landing/landing';
+import { LoginPage } from '../login/login';
 import { AuthService } from '../../providers/auth-service';
 import { LanguagePage } from './language/language';
 import { TranslateService } from '@ngx-translate/core';
@@ -43,7 +43,7 @@ export class SettingsPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad SettingsPage');
+    console.log('Init SettingsPage');
   }
 
   logout() {
@@ -62,7 +62,7 @@ export class SettingsPage {
             cssClass: 'btn-logout',
             handler: () => {
               this.authService.logout();
-              this.app.getRootNav().setRoot(LandingPage);
+              this.app.getRootNav().setRoot(LoginPage);
             }
           }
         ]

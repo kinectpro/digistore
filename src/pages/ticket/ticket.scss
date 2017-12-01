@@ -1,6 +1,21 @@
 page-ticket {
   ion-content.content {
     background-color: #fafafa;
+    .scroll-content {
+      border-top: none!important;
+    }
+    ion-list {
+      .empty-param {
+        background-color: #FBD2D3;
+      }
+      .item-content {
+        width: 50vw;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        text-align: end;
+      }
+    }
   }
   ion-icon {
     top: 1px;

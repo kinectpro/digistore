@@ -1,29 +1,32 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController } from 'ionic-angular';
+import { NavController, NavParams, ModalController, Events } from 'ionic-angular';
 
 import { TicketDetailsPage } from '../ticket-details/ticket-details';
 import { TicketParams } from '../../../models/params';
 import { TicketService } from '../../../providers/ticket-service';
+import { ErrorService } from '../../../providers/error-service';
+import { EventsPage } from '../../../shared/classes/events-page';
 
 @Component({
   selector: 'page-ticket-search-results',
   templateUrl: 'ticket-search-results.html',
 })
-export class TicketSearchResultsPage {
+export class TicketSearchResultsPage extends EventsPage {
 
   listTickets: any = [];
   params: TicketParams;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public tickerSrv: TicketService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public tickerSrv: TicketService, public errSrv: ErrorService, public events: Events) {
+    super(events);
     this.params = navParams.get('params');
     this.tickerSrv.listTickets(this.params).then(
       res => this.listTickets = res,
-      err => console.log(err)
+      err => this.errSrv.showMessage(err)
     );
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad TicketSearchResultsPage');
+    console.log('Init TicketSearchResultsPage');
   }
 
   changeStatus(ticket: any) {

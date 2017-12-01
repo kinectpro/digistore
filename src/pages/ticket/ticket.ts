@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController, App, ToastController, Events } from 'ionic-angular';
+import { NavController, NavParams, ModalController, App, ToastController, Events, Refresher } from 'ionic-angular';
 
 import { TicketParamsPage } from './ticket-params/ticket-params';
 import { TicketQrScannerPage } from './ticket-qr-scanner/ticket-qr-scanner';
@@ -8,6 +8,7 @@ import { TicketParams } from '../../models/params';
 import { TicketCheckPage } from './ticket-check/ticket-check';
 import { TranslateService } from '@ngx-translate/core';
 import { CalendarComponentOptions } from 'ion2-calendar';
+import { ErrorService } from '../../providers/error-service';
 
 @Component({
   selector: 'page-ticket',
@@ -17,6 +18,7 @@ export class TicketPage {
 
   needDataUpdate: boolean = false;
   showedCalendar: boolean = false;
+  highlightFields: boolean = false;
   options: CalendarComponentOptions = {
     monthFormat: 'MMMM YYYY',
     showMonthPicker: false
@@ -28,7 +30,7 @@ export class TicketPage {
   };
   paramsFromServer: any = {};
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public app: App,
+  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public app: App, public errSrv: ErrorService,
               public tickServ: TicketService, public toastCtrl: ToastController, public events: Events, public translate: TranslateService) {
 
     this.events.subscribe('ticket-params:changed', params => this.params = params);
@@ -38,7 +40,7 @@ export class TicketPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad TicketPage');
+    console.log('Init TicketPage');
   }
 
   ionViewWillEnter() {
@@ -50,15 +52,18 @@ export class TicketPage {
     }
   }
 
+  doRefresh(refresher: Refresher) {
+    refresher.complete();
+    this.initTicketParams();
+  }
+
   initTicketParams() {
     this.tickServ.getTicketParams().then(
       res => {
-        this.paramsFromServer.templates = res.templates;
-        this.paramsFromServer.locations = res.locations;
+        this.paramsFromServer = res;
+        this.params.owners = Object.keys(res.owners).join(',');
       },
-      err => {
-        console.log(err);
-      }
+      err => this.errSrv.showMessage(err)
     );
   }
 
@@ -92,6 +97,7 @@ export class TicketPage {
   }
 
   showNoParams() {
+    this.highlightFields = true;
     this.translate.get('E_TICKET_PAGE.NO_PARAMS').subscribe(mess => this.toastCtrl.create({
       message: mess,
       duration: 3000,

@@ -7,8 +7,13 @@
 </ion-header>
 
 <ion-content>
+
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown"></ion-refresher-content>
+  </ion-refresher>
+
   <ion-list no-padding no-margin>
-    <button no-padding ion-item (click)="openPageParams('E-Ticket template')">
+    <button [class.empty-param]="highlightFields && !params.template.key" no-padding ion-item (click)="openPageParams('E-Ticket template')">
       <ion-label padding-left>
         {{'E_TICKET_PAGE.TEMPLATE' | translate}}
       </ion-label>
@@ -17,7 +22,7 @@
         <ion-icon md="ios-arrow-forward" color="light"></ion-icon>
       </div>
     </button>
-    <button no-padding ion-item (click)="openPageParams('Event location')">
+    <button [class.empty-param]="highlightFields && !params.location.key" no-padding ion-item (click)="openPageParams('Event location')">
       <ion-label padding-left>
         {{'E_TICKET_PAGE.LOCATION' | translate}}
       </ion-label>

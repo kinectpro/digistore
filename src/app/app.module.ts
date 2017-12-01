@@ -12,10 +12,11 @@ import { Keyboard } from '@ionic-native/keyboard';
 import { QRScanner } from '@ionic-native/qr-scanner';
 import { OneSignal } from '@ionic-native/onesignal';
 import { FileTransfer } from '@ionic-native/file-transfer';
+import { AppMinimize } from '@ionic-native/app-minimize';
 
 import { MyApp } from './app.component';
 
-import { LandingPageModule } from '../pages/landing/landing.module';
+import { LoginPageModule } from '../pages/login/login.module';
 import { EarningPageModule } from '../pages/earning/earning.module';
 import { TicketPageModule } from '../pages/ticket/ticket.module';
 import { SharedModule } from '../shared/shared.module';
@@ -30,6 +31,7 @@ import { EarningService } from '../providers/earning-service';
 import { SettingsService } from '../providers/settings-service';
 import { CompleteService } from '../providers/complete-service';
 import { TransactionService } from '../providers/transaction-service';
+import { ErrorService } from '../providers/error-service';
 import { TicketService } from '../providers/ticket-service';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -47,7 +49,7 @@ export function createTranslateLoader(http: HttpClient) {
     BrowserModule,
     SharedModule,
     HttpClientModule,
-    LandingPageModule,
+    LoginPageModule,
     TransactionsPageModule,
     TicketPageModule,
     EarningPageModule,
@@ -80,6 +82,7 @@ export function createTranslateLoader(http: HttpClient) {
     FileTransfer,
     File,
     FileOpener,
+    AppMinimize,
     TranslateService,
     OneSignal,
     Keyboard,
@@ -94,6 +97,7 @@ export function createTranslateLoader(http: HttpClient) {
     CompleteService,
     SettingsService,
     TicketService,
+    ErrorService,
     TransactionService
   ]
 })

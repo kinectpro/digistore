@@ -1,32 +1,38 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController, Platform, ViewController, App } from 'ionic-angular';
+import { NavController, NavParams, AlertController, Platform, ViewController, Events } from 'ionic-angular';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
 import { FileOpener } from '@ionic-native/file-opener';
+import { HttpErrorResponse } from '@angular/common/http';
 
 import { TicketCheckPage } from '../ticket-check/ticket-check';
 import { TicketParams } from '../../../models/params';
 import { TicketQrScannerPage } from '../ticket-qr-scanner/ticket-qr-scanner';
 import { TicketService } from '../../../providers/ticket-service';
 import { TranslateService } from '@ngx-translate/core';
+import { EventsPage } from '../../../shared/classes/events-page';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
   selector: 'page-ticket-details',
   templateUrl: 'ticket-details.html',
 })
-export class TicketDetailsPage {
+export class TicketDetailsPage extends EventsPage {
   result: any;
   params: TicketParams;
 
   constructor(public navCtrl: NavController, public fileOpener: FileOpener, public platform: Platform, public alertCtrl: AlertController, public translate: TranslateService,
-              public transfer: FileTransfer, public viewCtrl: ViewController, public ticketSrv: TicketService, public navParams: NavParams, public file: File, public app: App) {
+              public transfer: FileTransfer, public viewCtrl: ViewController, public ticketSrv: TicketService, public navParams: NavParams, public file: File, public events: Events) {
+    super(events);
     this.result = navParams.get('result');
     this.params = navParams.get('params');
+    if (this.result && this.result.msg instanceof HttpErrorResponse) {
+      this.translate.get('NET_ERROR').subscribe( val => this.result.msg = val);
+    }
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad TicketDetailsPage');
+    console.log('Init TicketDetailsPage');
   }
 
   back() {
@@ -49,6 +55,7 @@ export class TicketDetailsPage {
 
   checkWithNumber() {
     this.navCtrl.push(TicketCheckPage, { params: this.params });
+    this.viewCtrl.dismiss();
   }
 
   downloadPdf() {

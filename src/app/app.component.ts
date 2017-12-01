@@ -1,12 +1,13 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, ViewChild } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { Platform, Config } from 'ionic-angular';
+import { Platform, Config, Nav, App, Tab, AlertController, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Keyboard } from '@ionic-native/keyboard';
 import { OneSignal } from '@ionic-native/onesignal';
+import { AppMinimize } from '@ionic-native/app-minimize';
 
-import { LandingPage } from '../pages/landing/landing';
+import { LoginPage } from '../pages/login/login';
 import { TabsPage } from '../pages/tabs/tabs';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../providers/auth-service';
@@ -18,12 +19,15 @@ import { Settings } from '../config/settings';
 export class MyApp {
   rootPage: any;
 
-  constructor(platform: Platform, statusBar: StatusBar, public splashScreen: SplashScreen, public translate: TranslateService, public authService: AuthService,
-              public keyboard: Keyboard, public config: Config, public oneSignal: OneSignal, @Inject(DOCUMENT) private document: any) {
+  isModalPage: boolean = false;
+
+  @ViewChild(Nav) nav: Nav;
+
+  constructor(public platform: Platform, statusBar: StatusBar, public splashScreen: SplashScreen, public translate: TranslateService,
+              public authService: AuthService, public events: Events, public keyboard: Keyboard, public config: Config, public oneSignal: OneSignal,
+              @Inject(DOCUMENT) private document: any, public app: App, public alertCtrl: AlertController, public appMinimize: AppMinimize) {
     platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-      // statusBar.styleDefault();
+
       statusBar.backgroundColorByHexString('#1998db');
 
       this.keyboard.onKeyboardShow().subscribe(() => {
@@ -37,9 +41,16 @@ export class MyApp {
       if (platform.is("cordova")) {
         this.initOneSignal();
       }
+      // Confirm exit
+      platform.registerBackButtonAction(this.backBtnAction);
+
+      events.subscribe('modalState:changed', val => this.isModalPage = val);
+
+      this.document.getElementById('custom-overlay').style.display = 'none';
+
     });
     // Set the root page
-    this.rootPage = this.authService.isLoggedIn() ? TabsPage : LandingPage;
+    this.rootPage = this.authService.isLoggedIn() ? TabsPage : LoginPage;
     // Set the default language for translation strings, and the current language.
     this.translate.setDefaultLang(this.authService.lang);
     this.translate.use(this.authService.lang);
@@ -81,5 +92,44 @@ export class MyApp {
     });
 
     this.oneSignal.endInit();
+  }
+
+  backBtnAction = () => {
+    if (!this.isModalPage && this.nav.getActive().component.name == "TabsPage") {
+      let prevTab: Tab = this.nav.getActiveChildNavs()[0].previousTab();
+      if (prevTab) {
+        let index = prevTab.index;
+        this.nav.getActiveChildNavs()[0]._selectHistory.pop();
+        this.nav.getActiveChildNavs()[0].select(index);
+      } else {
+
+        this.events.publish('modalState:changed', true);
+
+        this.translate.get(['CANCEL', 'EXIT', 'EXIT_MSG']).subscribe(obj => this.alertCtrl.create({
+          title: obj['EXIT'],
+          message: obj['EXIT_MSG'],
+          mode: 'md',
+          buttons: [
+            {
+              text: obj['CANCEL'],
+              role: 'cancel',
+              handler: () => {
+                this.events.publish('modalState:changed', false);
+              }
+            },
+            {
+              text: obj['EXIT'],
+              handler: () => {
+                this.events.publish('modalState:changed', false);
+                this.appMinimize.minimize();
+              }
+            }
+          ]
+        }).present());
+      }
+
+    } else {
+      this.app.goBack();
+    }
   }
 }

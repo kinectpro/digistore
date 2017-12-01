@@ -43,6 +43,7 @@ export class TicketService {
         (res: any) => {
           if (res.result === 'success') {
             resolve({
+              owners: res.data.eticket_owners,
               templates: res.data.eticket_templates,
               locations: res.data.eticket_locations
             });
@@ -102,6 +103,7 @@ export class TicketService {
       ticketParams = ticketParams
         .append('search[location_id]', params.location.key)
         .append('search[template_id]', params.template.key)
+        .append('search[owner_id]', params.owners || '')
         .append('search[first_name]', params.firstName || '')
         .append('search[last_name]', params.lastName || '')
         .append('search[email]', params.email || '')

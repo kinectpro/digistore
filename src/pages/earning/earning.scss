@@ -1,4 +1,7 @@
 earning-home {
+  .scroll-content {
+    border-top: none!important;
+  }
   .toolbar-md {
     padding: 4px 4px 0 4px;
     min-height: 44px;
@@ -16,31 +19,11 @@ earning-home {
     }
   }
 
-  ion-segment.toogle {
-    background-color: #fafafa;
-    border-radius: 20px!important;
-    width: 260px;
-    margin: 20px auto 0;
-    border: none;
-    ion-segment-button.segment-button {
-      border: none;
-      font-family: SFProText;
-      font-size: 13px;
-      height: 28px;
-      line-height: 1.38;
-      letter-spacing: -0.1px;
-      padding: 4px 5px 6px 5px;
-    }
-    ion-segment-button.segment-button.segment-activated {
-      border: none;
-      border-radius: 20px!important;
-    }
-  }
   // ion-list common
   ion-list {
     .btn-currency {
       color: #414141;;
-      padding: 0!important;
+      padding: 0 16px!important;
       margin: 0;
       width: auto;
       height: 32px!important;

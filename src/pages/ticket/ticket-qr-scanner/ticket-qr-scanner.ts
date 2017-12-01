@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { NavController, NavParams, ViewController } from 'ionic-angular';
+import { NavController, NavParams, ViewController, Events } from 'ionic-angular';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
 import { DOCUMENT } from '@angular/common';
 
@@ -7,24 +7,26 @@ import { TicketScanPage } from '../ticket-scan/ticket-scan';
 import { TicketParams } from '../../../models/params';
 import { TicketDetailsPage } from '../ticket-details/ticket-details';
 import { TranslateService } from '@ngx-translate/core';
+import { EventsPage } from '../../../shared/classes/events-page';
 
 @Component({
   selector: 'page-ticket-qr-scanner',
   templateUrl: 'ticket-qr-scanner.html',
 })
-export class TicketQrScannerPage {
+export class TicketQrScannerPage extends EventsPage {
 
   params: TicketParams;
   stoppedTimer: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public qrScanner: QRScanner, public viewCtrl: ViewController,
-              public translate: TranslateService, @Inject(DOCUMENT) private document: any) {
+              public translate: TranslateService, @Inject(DOCUMENT) private document: any, public events: Events) {
+    super(events);
     this.params = navParams.get('params');
   }
 
   ionViewDidLoad() {
 
-    console.log('ionViewDidLoad TicketQrScannerPage');
+    console.log('Init TicketQrScannerPage');
 
     this.document.body.classList.add('hidden-tabbar');
 
@@ -75,6 +77,7 @@ export class TicketQrScannerPage {
 
   ionViewWillLeave() {
     this.document.body.classList.remove('hidden-tabbar');
+    super.ionViewWillLeave();
   }
 
   cancel() {

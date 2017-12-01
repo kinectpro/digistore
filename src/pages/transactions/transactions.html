@@ -15,10 +15,6 @@
 
   </ion-navbar>
 
-</ion-header>
-
-<ion-content no-padding>
-
   <ion-grid *ngIf="currentPeriod" class="period" text-center no-padding>
     <ion-row align-items-center>
       <ion-col col-2>
@@ -29,7 +25,7 @@
           {{ 'GENERAL.TODAY' | translate }}
         </div>
         <ng-template #notToday>
-          {{ 'TRANSACTIONS_PAGE.THIS' | translate }} <span text-capitalize>{{ 'TRANSACTIONS_PAGE.' + currentPeriod.toUpperCase() | translate }}</span>
+          <span text-capitalize>{{ 'GENERAL.THIS_' + currentPeriod.toUpperCase() | translate }}</span>
         </ng-template>
       </ion-col>
       <ion-col col-2>
@@ -37,6 +33,14 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+
+</ion-header>
+
+<ion-content no-padding>
+
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown"></ion-refresher-content>
+  </ion-refresher>
 
   <ion-grid no-padding *ngIf="transactions">
     <ion-row *ngIf="!showedSearchInput;else searchInput">
@@ -55,7 +59,7 @@
         <ion-col col-12>
           <ion-item no-padding>
             <ion-label><ion-icon name="search"></ion-icon></ion-label>
-            <ion-input placeholder="Text Input" [(ngModel)]="searchInputValue" (input)="updateTransactions()"></ion-input>
+            <ion-input placeholder="{{ 'TRANSACTIONS_PAGE.TEXT_INPUT' | translate }}" [(ngModel)]="searchInputValue" (input)="updateTransactions()"></ion-input>
             <button ion-button class="btn-cancel" clear item-end (click)="showSearchInput(false)">{{ 'CANCEL' | translate }}</button>
           </ion-item>
         </ion-col>
@@ -64,7 +68,7 @@
   </ion-grid>
 
   <ion-item-group *ngIf="transactions && transactions.length;else transactionsNotFound">
-    <ion-item-divider class="header">
+    <ion-item-divider class="header" sticky>
       <ion-label no-margin>
         <ion-row text-uppercase margin-right>
           <ion-col col-2><span class="col-name">{{ 'TRANSACTIONS_PAGE.DATE' | translate }}</span></ion-col>
@@ -90,10 +94,11 @@
 
   <ng-template #transactionsNotFound>
     <ion-row class="transactions-not-found">
-      <ion-col col-8 offset-2>
+      <ion-col col-10 offset-1 no-padding>
         <ion-item no-lines no-padding>
-          <p>{{ 'TRANSACTIONS_PAGE.NO_RESULTS' | translate }}</p>
-          <p>{{ 'TRANSACTIONS_PAGE.SEE_ALL_TRANSACTIONS' | translate }}</p>
+          <p *ngIf="!currentPeriod">{{ 'TRANSACTIONS_PAGE.NO_RESULTS' | translate }}</p>
+          <p *ngIf="currentPeriod" translate [translateParams]="{period: ('GENERAL.' + (currentPeriod == 'day' ? 'TODAY' : 'THIS_' + currentPeriod.toUpperCase()) | translate).toLowerCase() }">TRANSACTIONS_PAGE.NO_RESULTS_FOR_PERIOD</p>
+          <p text-wrap>{{ 'TRANSACTIONS_PAGE.SEE_ALL_TRANSACTIONS' | translate }}</p>
           <p><button no-margin ion-button clear (click)="openSearch()">{{ 'TRANSACTIONS_PAGE.SEARCH_FILTERS' | translate }}</button></p>
         </ion-item>
       </ion-col>
