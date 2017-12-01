@@ -46,6 +46,8 @@ export class MyApp {
 
       events.subscribe('modalState:changed', val => this.isModalPage = val);
 
+      this.document.getElementById('custom-overlay').style.display = 'none';
+
     });
     // Set the root page
     this.rootPage = this.authService.isLoggedIn() ? TabsPage : LoginPage;
@@ -61,7 +63,6 @@ export class MyApp {
 
   ionViewDidLoad() {
     this.splashScreen.hide();
-    this.document.getElementById('custom-overlay').style.display = 'none';
   }
 
   initTextBackBtn() {
