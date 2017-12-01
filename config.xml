@@ -24,9 +24,9 @@
     <preference name="SplashScreen" value="none" />
     <preference name="SplashScreenDelay" value="0" />
     <preference name="ShowSplashScreenSpinner" value="false" />
-    <preference name="loadUrlTimeoutValue" value="700000" />
-    <hook src="hooks/after_prepare/030_copy_android_notification_icons.js" type="after_prepare" />
-    <hook src="hooks/after_prepare/copy_notification_sound.js" type="after_prepare" />
+    <preference name="webviewbounce" value="false" />
+    <preference name="UIWebViewBounce" value="false" />
+    <preference name="DisallowOverscroll" value="true" />
     <platform name="android">
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />

@@ -174,8 +174,8 @@
                 {{ 'SEARCH_FILTERS_PAGE.PAYMENT_METHOD' | translate}}
               </ion-list-header>
             </ion-row>
-            <ion-row>
-              <ion-col *ngFor="let payment of globalTypesFromServer.pay_method | keys">
+            <ion-row justify-content-center>
+              <ion-col col-auto *ngFor="let payment of globalTypesFromServer.pay_method | keys">
                 <button #butPayment ion-button block [class.selected]="setSelectedClass(payments, payment.key)" (click)="toggleVal('payments', payment.key, butPayment)">
                   {{payment.value}}
                 </button>

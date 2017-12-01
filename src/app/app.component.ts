@@ -5,7 +5,6 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Keyboard } from '@ionic-native/keyboard';
 import { OneSignal } from '@ionic-native/onesignal';
-import { AppMinimize } from '@ionic-native/app-minimize';
 
 import { LoginPage } from '../pages/login/login';
 import { TabsPage } from '../pages/tabs/tabs';
@@ -25,7 +24,7 @@ export class MyApp {
 
   constructor(public platform: Platform, statusBar: StatusBar, public splashScreen: SplashScreen, public translate: TranslateService,
               public authService: AuthService, public events: Events, public keyboard: Keyboard, public config: Config, public oneSignal: OneSignal,
-              @Inject(DOCUMENT) private document: any, public app: App, public alertCtrl: AlertController, public appMinimize: AppMinimize) {
+              @Inject(DOCUMENT) private document: any, public app: App, public alertCtrl: AlertController) {
     platform.ready().then(() => {
 
       statusBar.backgroundColorByHexString('#1998db');
@@ -121,7 +120,7 @@ export class MyApp {
               text: obj['EXIT'],
               handler: () => {
                 this.events.publish('modalState:changed', false);
-                this.appMinimize.minimize();
+                this.platform.exitApp();
               }
             }
           ]
