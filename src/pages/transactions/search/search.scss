@@ -1,7 +1,13 @@
 page-search {
   ion-header ion-row {
-    padding-left: 7px;
-    padding-right: 7px;
+    padding-left: 5px;
+    padding-right: 10px;
+  }
+  ion-header {
+    .btn-header {
+      margin-left: 0;
+      margin-right: 0;
+    }
   }
   .toogle {
     margin: 10px auto 10px!important;

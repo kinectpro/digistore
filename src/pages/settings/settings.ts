@@ -50,7 +50,7 @@ export class SettingsPage {
     this.translate.get(['SETTINGS_PAGE.MESSAGES.LOG_OUT', 'SETTINGS_PAGE.LOGOUT', 'CANCEL']).subscribe(obj => {
       this.alertCtrl.create({
         title: obj['SETTINGS_PAGE.LOGOUT'] + '?',
-        mode: 'ios',
+        mode: 'md',
         message: obj['SETTINGS_PAGE.MESSAGES.LOG_OUT'],
         buttons: [
           {
