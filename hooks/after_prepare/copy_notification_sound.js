@@ -2,7 +2,7 @@
 
 const filestocopy = [{
   "resources/onesignal_default_sound.wav":
-	"platforms/android/res/raw/onesignal_default_sound.wav"
+	"platforms/android/res/raw/pushsound.wav"
 }];
 
 const fs = require('fs');

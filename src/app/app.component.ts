@@ -12,6 +12,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../providers/auth-service';
 import { Settings } from '../config/settings';
+import { PushwooshService } from '../providers/pushwoosh-service';
 
 @Component({
   templateUrl: 'app.html'
@@ -25,7 +26,8 @@ export class MyApp {
 
   constructor(public platform: Platform, statusBar: StatusBar, public splashScreen: SplashScreen, public translate: TranslateService,
               public authService: AuthService, public events: Events, public keyboard: Keyboard, public config: Config, public oneSignal: OneSignal,
-              @Inject(DOCUMENT) private document: any, public app: App, public alertCtrl: AlertController, public appMinimize: AppMinimize) {
+              @Inject(DOCUMENT) private document: any, public app: App, public alertCtrl: AlertController, public appMinimize: AppMinimize,
+              public _pushService: PushwooshService) {
     platform.ready().then(() => {
 
       statusBar.backgroundColorByHexString('#1998db');
@@ -40,6 +42,7 @@ export class MyApp {
 
       if (platform.is("cordova")) {
         this.initOneSignal();
+        this._pushService.init();
       }
       // Confirm exit
       platform.registerBackButtonAction(this.backBtnAction);
