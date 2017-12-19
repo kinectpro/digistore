@@ -35,6 +35,8 @@ import { ErrorService } from '../providers/error-service';
 import { TicketService } from '../providers/ticket-service';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { Device } from '@ionic-native/device';
+import { PushwooshService } from '../providers/pushwoosh-service';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -86,6 +88,8 @@ export function createTranslateLoader(http: HttpClient) {
     TranslateService,
     OneSignal,
     Keyboard,
+    Device,
+    PushwooshService,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     {
       provide: HTTP_INTERCEPTORS,

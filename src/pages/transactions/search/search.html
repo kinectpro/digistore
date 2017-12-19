@@ -4,14 +4,14 @@
 
     <ion-grid no-padding>
       <ion-row align-items-center>
-        <ion-col text-left col-2>
-          <button no-padding text-capitalize ion-button clear color="clear" (click)="dismiss()" icon-left><ion-icon name="ios-arrow-back"></ion-icon>{{ 'CANCEL' | translate}}</button>
+        <ion-col text-left col-3>
+          <button class="btn-header" no-padding text-capitalize ion-button clear color="clear" (click)="dismiss()" icon-left><ion-icon name="ios-arrow-back"></ion-icon>{{ 'CANCEL' | translate}}</button>
         </ion-col>
-        <ion-col text-center col-8>
+        <ion-col text-center col-6>
           <ion-title><b>{{ 'SEARCH_FILTERS_PAGE.SEARCH_FILTERS' | translate}}</b></ion-title>
         </ion-col>
-        <ion-col text-right col-2 *ngIf="extended == 'Y'">
-          <button no-padding text-capitalize text-wrap clear color="clear" ion-button (click)="clearSearchParams()">{{ 'SEARCH_FILTERS_PAGE.CLEAR_ALL' | translate}}</button>
+        <ion-col text-right col-3 *ngIf="extended == 'Y'">
+          <button class="btn-header" no-padding text-capitalize text-wrap clear color="clear" ion-button (click)="clearSearchParams()">{{ 'SEARCH_FILTERS_PAGE.CLEAR_ALL' | translate}}</button>
         </ion-col>
       </ion-row>
     </ion-grid>

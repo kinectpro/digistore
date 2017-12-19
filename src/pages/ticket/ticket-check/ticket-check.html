@@ -33,6 +33,11 @@
       <ion-label text-wrap *ngIf="showedError" class="err-message" no-margin>
         {{ showedError }}
       </ion-label>
+      <ion-row>
+        <ion-col col-12 text-wrap id="description">
+          {{'E_TICKET_PAGE.CHECK_MANUALLY_DESC' | translate}}
+        </ion-col>
+      </ion-row>
     </ion-grid>
 
     <ion-footer class="position-block-onKeyboard-show">

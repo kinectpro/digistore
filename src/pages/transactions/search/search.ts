@@ -86,6 +86,7 @@ export class SearchPage extends EventsPage {
     console.log('Init SearchPage');
     this.searchbar.setValue(this.searchObj.product_name);
     this.keyboardHideSubscription = this.keyboard.onKeyboardHide().subscribe(() => this.logoHidden = false);
+
   }
 
   ionViewWillUnload() {

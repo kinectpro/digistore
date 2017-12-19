@@ -97,7 +97,7 @@
       <ion-col col-10 offset-1 no-padding>
         <ion-item no-lines no-padding>
           <p *ngIf="!currentPeriod">{{ 'TRANSACTIONS_PAGE.NO_RESULTS' | translate }}</p>
-          <p *ngIf="currentPeriod" translate [translateParams]="{period: ('GENERAL.' + (currentPeriod == 'day' ? 'TODAY' : 'THIS_' + currentPeriod.toUpperCase()) | translate).toLowerCase() }">TRANSACTIONS_PAGE.NO_RESULTS_FOR_PERIOD</p>
+          <p *ngIf="currentPeriod" translate [translateParams]="{period: ('GENERAL.' + (currentPeriod == 'day' ? 'today' : 'THIS_' + currentPeriod.toUpperCase()) | translate) }">TRANSACTIONS_PAGE.NO_RESULTS_FOR_PERIOD</p>
           <p text-wrap>{{ 'TRANSACTIONS_PAGE.SEE_ALL_TRANSACTIONS' | translate }}</p>
           <p><button no-margin ion-button clear (click)="openSearch()">{{ 'TRANSACTIONS_PAGE.SEARCH_FILTERS' | translate }}</button></p>
         </ion-item>
@@ -107,6 +107,6 @@
 
 </ion-content>
 
-<section class="bottom-logo">
+<section class="bottom-logo hideElementOnKeyboardShown">
   <img src="assets/img/logo-long.png">
 </section>

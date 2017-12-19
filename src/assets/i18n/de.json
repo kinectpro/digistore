@@ -57,6 +57,7 @@
     "E_TICKET": "E-Ticket",
     "SETTINGS": "Einstellungen",
     "TODAY": "Heute",
+    "today": "heute",
     "THIS_DAY": "Dieser Tag",
     "THIS_WEEK": "Diese Woche",
     "THIS_MONTH": "Diesen Monat",
@@ -138,7 +139,7 @@
     "DETAILED_SEARCH": "Detailsuche",
     "ORDER_ID": "Bestell-ID",
     "PRODUCT_ID": "Produkt ID",
-    "CLEAR_ALL": "Alles löschen",
+    "CLEAR_ALL": "Zurücksetzen",
     "PRODUCT_NAME": "Produktname",
     "CUSTOMER_INFO": "Kundeninformation",
     "FIRSTNAME": "Vorname",
@@ -169,6 +170,7 @@
     "HAVE_NO_NUMBER": "Sie haben keine E-Ticket-Nummer?",
     "SCAN": "Scan",
     "CHECK_MANUALLY": "E-Ticket manuell prüfen",
+    "CHECK_MANUALLY_DESC": "Zeigt nur Ergebnisse für ausgewählte Vorlage, Veranstaltungsort und Datum.",
     "FIRSTNAME": "Vorname",
     "LASTNAME": "Nachname",
     "EMAIL": "E-Mail",
@@ -203,7 +205,7 @@
     "E_TICKET_VALID": "E-Ticket gültig",
     "ALREADY_USED": "Schon benutzt",
     "ACCOUNT_ID": "DS24-ID",
-    "NOT_FOUND": "Keine Tickets gefunden",
+    "NOT_FOUND": "Keine E-Tickets gefunden",
     "QR_CODE_NOT_READ": "QR-Code konnte nicht gelesen werden"
   },
   "SETTINGS_PAGE": {
