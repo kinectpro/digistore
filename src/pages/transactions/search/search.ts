@@ -60,7 +60,7 @@ export class SearchPage extends EventsPage {
       'product_id': [this.searchObj.product_id],
       'first_name': [this.searchObj.first_name],
       'last_name': [this.searchObj.last_name],
-      'email': [this.searchObj.email, Validators.pattern("[a-zA-Z_]+@[a-zA-Z_]+?\.[a-zA-Z]{2,6}")],
+      'email': [this.searchObj.email, Validators.pattern("[a-zA-Z0-9_]+@[a-zA-Z0-9_]+?\.[a-zA-Z]{2,6}")],
       //'from': [this.searchObj.from],
       //'to': [this.searchObj.to]
     });
