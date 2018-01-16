@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const filestocopy = [{
-  "resources/onesignal_default_sound.wav":
+  "resources/pushsound.wav":
 	"platforms/android/res/raw/pushsound.wav"
 }];
 

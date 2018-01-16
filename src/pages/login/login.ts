@@ -8,6 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../../providers/auth-service';
 import { Settings } from '../../config/settings';
 import { TabsPage } from '../tabs/tabs';
+import { PushwooshService } from '../../providers/pushwoosh-service';
 
 @Component({
   selector: 'page-login',
@@ -20,7 +21,7 @@ export class LoginPage {
   pwdType: string = 'password';
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public iab: InAppBrowser, public fb: FormBuilder,
-              public http: HttpClient, public translate: TranslateService, public authService: AuthService) {
+              public http: HttpClient, public translate: TranslateService, public authService: AuthService, public pushwooshService: PushwooshService) {
 
     this.loginForm = fb.group({
       'username': ['', [
@@ -55,6 +56,7 @@ export class LoginPage {
             first_name: res.data.first_name,
             last_name: res.data.last_name
           };
+          this.pushwooshService.sendPushToken(false);
           this.navCtrl.setRoot(TabsPage);
         }
       },

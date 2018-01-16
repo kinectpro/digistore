@@ -30,12 +30,14 @@ export class TransactionService {
           params_search = params_search.append(`search[${key}]`, params.search[key]);
       }
     }
-    return this.http.get(`${Settings.BASE_URL}${this.auth.apiKey}/json/listPurchases?from=${from}&to=${to}&sort_by=${params.sort.sort_by}&sort_order=${params.sort.sort_order}&${decodeURIComponent(params_search.toString())}&language=${this.translate.currentLang}`);
+    return this.http.get(`${Settings.BASE_URL}${this.auth.apiKey}/json/listTransactions?from=${from}&to=${to}&sort_by=${params.sort.sort_by}&sort_order=${params.sort.sort_order}&${decodeURIComponent(params_search.toString())}&language=${this.translate.currentLang}`);
   }
 
-  getTransactionByOrderId(orderId: string): Observable<{[key: string]: any}> {
-    return this.http.get(`${Settings.BASE_URL}${this.auth.apiKey}/json/getPurchase?purchase_id=${orderId}&language=${this.translate.currentLang}`);
-  }
+  // Decide to not use getPurchase anymore, probably will need it in the future
+  // getTransactionByOrderId(orderId: string): Observable<{[key: string]: any}> {
+  //   console.warn(`${Settings.BASE_URL}${this.auth.apiKey}/json/getPurchase?purchase_id=${orderId}&language=${this.translate.currentLang}`);
+  //   return this.http.get(`${Settings.BASE_URL}${this.auth.apiKey}/json/getPurchase?purchase_id=${orderId}&language=${this.translate.currentLang}`);
+  // }
 
   getTransactionList(period: string, params: Params): Promise<any> {
     return new Promise((resolve, reject) => {
@@ -60,12 +62,29 @@ export class TransactionService {
       this.getTransactionListByPeriod(params, from).subscribe(
         res => {
           if (res.result === 'success') {
-            resolve(res.data.purchase_list.map(obj => {
+            resolve(res.data.transaction_list.map(obj => {
               return {
-                date: new Date(obj.created_at),
+                date: new Date(obj.transaction_created_at.replace(' ', 'T')), // wrong response format for ios
                 name: obj.main_product_name,
-                order_id: obj.id,
-                earning: obj.amount - obj.vat_amount
+                order_id: obj.purchase_id,
+                transaction_id: obj.id,
+                earning: obj.transaction_amount, // old value was: obj.amount - obj.vat_amount
+                // additional data from listTransactions we will use instead of getPurchase request
+                products: [{
+                    name: obj.main_product_name,
+                    id: obj.main_product_id
+                }],
+                brutto: obj.transaction_amount,
+                netto: obj.transaction_amount - obj.vat_amount,
+                type: obj.transaction_type,
+                method: obj.transaction_pay_method_msg,
+                currency: obj.transaction_currency,
+                customer: {
+                  name: obj.buyer.first_name + ' ' + obj.buyer.last_name ,
+                  email: obj.buyer.email,
+                  phone: obj.buyer.phone_no || '',
+                  affiliate: obj.affiliate_name
+                }
               }
             }));
           }
@@ -79,43 +98,44 @@ export class TransactionService {
     });
   }
 
-  getTransaction(id: string): Promise<any> {
-    return new Promise((resolve, reject) => {
-      this.getTransactionByOrderId(id).subscribe(
-        res => {
-          if (res.result === 'success') {
-            let obj = res.data;
-            resolve({
-              products: obj.items.map(item => {
-                return {
-                  name: item.product_name,
-                  id: item.product_id
-                }
-              }),
-              order_id: obj.id,
-              brutto: obj.amount,
-              netto: obj.amount - obj.vat_amount,
-              transaction_id: obj.transaction_list[obj.transaction_list.length - 1].id,
-              type: obj.transaction_list[obj.transaction_list.length - 1].type,
-              method: obj.transaction_list[obj.transaction_list.length - 1].pay_method_msg,
-              currency: obj.transaction_list[obj.transaction_list.length - 1].currency,
-              customer: {
-                name: obj.buyer.first_name + ' ' + obj.buyer.last_name ,
-                email: obj.buyer.email,
-                phone: obj.buyer.phone_no,
-                affiliate: obj.affiliate_name
-              }
-            });
-          }
-          else {
-            reject(res.message);
-          }
-        },
-        err => {
-          reject(err);
-        });
-    });
-  }
+  // Decide to not use getPurchase anymore, probably will need it in the future
+  // getTransaction(id: string): Promise<any> {
+  //   return new Promise((resolve, reject) => {
+  //     this.getTransactionByOrderId(id).subscribe(
+  //       res => {
+  //         if (res.result === 'success') {
+  //           let obj = res.data;
+  //           resolve({
+  //             products: obj.items.map(item => {
+  //               return {
+  //                 name: item.product_name,
+  //                 id: item.product_id
+  //               }
+  //             }),
+  //             order_id: obj.id,
+  //             brutto: obj.amount,
+  //             netto: obj.amount - obj.vat_amount,
+  //             transaction_id: obj.transaction_list[obj.transaction_list.length - 1].id,
+  //             type: obj.transaction_list[obj.transaction_list.length - 1].type,
+  //             method: obj.transaction_list[obj.transaction_list.length - 1].pay_method_msg,
+  //             currency: obj.transaction_list[obj.transaction_list.length - 1].currency,
+  //             customer: {
+  //               name: obj.buyer.first_name + ' ' + obj.buyer.last_name ,
+  //               email: obj.buyer.email,
+  //               phone: obj.buyer.phone_no,
+  //               affiliate: obj.affiliate_name
+  //             }
+  //           });
+  //         }
+  //         else {
+  //           reject(res.message);
+  //         }
+  //       },
+  //       err => {
+  //         reject(err);
+  //       });
+  //   });
+  // }
 
   /**
    * The method returns the date in the format YYYY-MM-DD

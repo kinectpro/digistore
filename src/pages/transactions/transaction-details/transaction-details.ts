@@ -13,10 +13,12 @@ export class TransactionDetailsPage {
   transaction: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public tranServ: TransactionService, public errSrv: ErrorService) {
-    this.tranServ.getTransaction(this.navParams.get('transaction').order_id).then(
-      res => this.transaction = res,
-      err => this.errSrv.showMessage(err)
-    );
+    // Device to not use getPurchase function, probably will need it in the future
+    // this.tranServ.getTransaction(this.navParams.get('transaction').order_id).then(
+    //   res => this.transaction = res,
+    //   err => this.errSrv.showMessage(err)
+    // );
+    this.transaction = this.navParams.get('transaction');
   }
 
   ionViewDidLoad() {

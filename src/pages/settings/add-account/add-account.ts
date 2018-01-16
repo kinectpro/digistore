@@ -9,6 +9,7 @@ import { AuthService } from '../../../providers/auth-service';
 import { User } from '../../../models/user';
 import { EventsPage } from '../../../shared/classes/events-page';
 import 'rxjs/add/operator/toPromise';
+import { PushwooshService } from '../../../providers/pushwoosh-service';
 
 @Component({
   selector: 'page-add-account',
@@ -23,7 +24,7 @@ export class AddAccountPage extends EventsPage {
   mesConnProblem: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public fb: FormBuilder, public events: Events,
-              public translate: TranslateService, public http: HttpClient, public authService: AuthService, public toastCtrl: ToastController) {
+              public translate: TranslateService, public http: HttpClient, public authService: AuthService, public toastCtrl: ToastController, public pushwooshService: PushwooshService) {
     super(events);
     this.loginForm = fb.group({
       'username': ['', [
@@ -68,6 +69,7 @@ export class AddAccountPage extends EventsPage {
             first_name: res.data.first_name,
             last_name: res.data.last_name
           };
+          this.pushwooshService.sendPushToken(false);
           this.dismiss();
         }
       },

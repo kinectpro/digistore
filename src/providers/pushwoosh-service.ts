@@ -1,12 +1,20 @@
 import {Injectable} from "@angular/core";
 import { Device } from '@ionic-native/device';
+import { Settings } from '../config/settings';
+import { TabsPage } from '../pages/tabs/tabs';
+import { AuthService } from './auth-service';
+import { HttpClient } from '@angular/common/http';
 
 declare var cordova : any;
 
-// let PUSHWOOSH_APP_ID = 'D8313-6774B';
-let PUSHWOOSH_APP_ID = '5A6CD-E52F0';
-// let GOOGLE_PROJECT_NUMBER = '340402504356';
-let GOOGLE_PROJECT_NUMBER = '933731488416';
+let PUSHWOOSH_APP_ID = 'D8313-6774B'; //old project
+// let PUSHWOOSH_APP_ID = '5A6CD-E52F0';  // dev project
+// let PUSHWOOSH_APP_ID = '8D6EB-3CCF3';  // new project
+
+// let GOOGLE_PROJECT_NUMBER = '340402504356'; //old project (not working)
+let GOOGLE_PROJECT_NUMBER = '727787006045'; //old  project
+// let GOOGLE_PROJECT_NUMBER = '933731488416'; // dev project
+// let GOOGLE_PROJECT_NUMBER = '829938099620'; // new project
 
 // For iOS, open your project .pList file in xCode and add:
 // 1) "Pushwoosh_APPID" key  with the Pushwoosh App Id value
@@ -16,7 +24,7 @@ let GOOGLE_PROJECT_NUMBER = '933731488416';
 @Injectable()
 export class PushwooshService {
 
-  constructor(public device: Device) {
+  constructor(public device: Device, public auth: AuthService, public http: HttpClient) {
 
   }
 
@@ -77,6 +85,7 @@ export class PushwooshService {
   }
 
   initAndroid() {
+    let self = this;
     var pushNotification = cordova.require("pushwoosh-cordova-plugin.PushNotification");
 
     //set push notifications handler
@@ -88,7 +97,7 @@ export class PushwooshService {
         console.warn('user data: ' + JSON.stringify(userData));
       }
 
-      alert(title);
+      // alert(title);
     });
 
     //initialize Pushwoosh with projectid: GOOGLE_PROJECT_NUMBER, pw_appid : PUSHWOOSH_APP_ID. This will trigger all pending push notifications on start.
@@ -97,14 +106,37 @@ export class PushwooshService {
     //register for pushes
     pushNotification.registerDevice(
       function (status) {
-        var pushToken = status;
+        let pushToken = status.pushToken;
         console.warn('push token: ' + JSON.stringify(pushToken));
         // alert('push token: ' + JSON.stringify(pushToken));
+        self.sendPushToken(pushToken);
       },
       function (status) {
         console.warn(JSON.stringify(['failed to register ', status]));
       }
     );
+  }
+
+  sendPushToken(token: any) {
+    if (token !== false || localStorage.getItem('pushToken') == null) {
+      localStorage.setItem('pushToken', token);
+    } else {
+      token = localStorage.getItem('pushToken');
+    }
+    if (this.auth.isLoggedIn()) {
+      let enabled = localStorage.getItem('notify') == null ? 'Y' : localStorage.getItem('notify');
+      let sound = localStorage.getItem('sound') == null ? 'Y' : localStorage.getItem('sound');
+      let vibration = (localStorage.getItem('vibrationEnabled') == 'true')?'N':'Y';
+
+      this.http.get(`${Settings.BASE_URL}${this.auth.apiKey}/json/setAppPushToken?token=${token}&enabled=${enabled}&sound=${sound}&vibration=${vibration}`).subscribe(
+        (res: any) => {
+          // alert(`Regitered push successfully with next params: token=${token}&enabled=${enabled}&sound=${sound}&vibration=${vibration}`);
+          console.log(res);
+        }, (err: any) => {
+          // alert('Regitered push ERROR');
+        }
+      );
+    }
   }
 
 }

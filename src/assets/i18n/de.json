@@ -43,7 +43,7 @@
   "DONE": "Erledigt",
   "CHOOSE": "Wählen",
   "EDIT": "Bearbeiten",
-  "EXIT": "Ausfahrt",
+  "EXIT": "Beenden",
   "YES": "Ja",
   "NO": "Nein",
   "ALL": "Alle",
@@ -221,6 +221,10 @@
       "LOG_OUT": "Dadurch werden Sie von allen verbundenen Konten abgemeldet",
       "USER_WAS_ADDED_EARLIER": "Konto wurde bereits hinzugefügt",
       "DELETE_ACCOUNT": "Konto löschen?"
+    },
+    "LOGOUT_POPUP": {
+      "TITLE": "Verlassen",
+      "EXIT": "Beenden"
     }
   }
 }
