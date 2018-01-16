@@ -221,6 +221,10 @@
       "LOG_OUT": "This will log you out from all connected accounts",
       "USER_WAS_ADDED_EARLIER": "Account was added earlier",
       "DELETE_ACCOUNT": "Delete account?"
+    },
+    "LOGOUT_POPUP": {
+      "TITLE": "Log out",
+      "EXIT": "Log out"
     }
   }
 }

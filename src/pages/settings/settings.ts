@@ -8,6 +8,7 @@ import { LanguagePage } from './language/language';
 import { TranslateService } from '@ngx-translate/core';
 import { AccountPage } from './account/account';
 import 'rxjs/add/operator/toPromise';
+import { PushwooshService } from '../../providers/pushwoosh-service';
 
 @Component({
   selector: 'page-settings',
@@ -19,7 +20,8 @@ export class SettingsPage {
   _notify: boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public app: App, public authService: AuthService,
-              public modalCtrl: ModalController, public translate: TranslateService, public oneSignal: OneSignal, public alertCtrl: AlertController) {
+              public modalCtrl: ModalController, public translate: TranslateService, public oneSignal: OneSignal, public alertCtrl: AlertController,
+              public pushwooshService: PushwooshService) {
     this._sound = localStorage.getItem('sound') == null ? true : localStorage.getItem('sound') == 'Y';
     this._notify = localStorage.getItem('notify') == null ? true : localStorage.getItem('notify') == 'Y';
   }
@@ -30,6 +32,7 @@ export class SettingsPage {
 
   set sound(value: boolean) {
     localStorage.setItem('sound', value ? 'Y' : 'N');
+    this.pushwooshService.sendPushToken(false);
     this._sound = value;
   }
 
@@ -39,6 +42,7 @@ export class SettingsPage {
 
   set notify(value: boolean) {
     localStorage.setItem('notify', value ? 'Y' : 'N');
+    this.pushwooshService.sendPushToken(false);
     this._notify = value;
   }
 
@@ -47,9 +51,9 @@ export class SettingsPage {
   }
 
   logout() {
-    this.translate.get(['SETTINGS_PAGE.MESSAGES.LOG_OUT', 'SETTINGS_PAGE.LOGOUT', 'CANCEL']).subscribe(obj => {
+    this.translate.get(['SETTINGS_PAGE.MESSAGES.LOG_OUT', 'SETTINGS_PAGE.LOGOUT', 'CANCEL', 'SETTINGS_PAGE.LOGOUT_POPUP.TITLE', 'SETTINGS_PAGE.LOGOUT_POPUP.EXIT']).subscribe(obj => {
       this.alertCtrl.create({
-        title: obj['SETTINGS_PAGE.LOGOUT'] + '?',
+        title: obj['SETTINGS_PAGE.LOGOUT_POPUP.TITLE'] + '?',
         mode: 'md',
         message: obj['SETTINGS_PAGE.MESSAGES.LOG_OUT'],
         buttons: [
@@ -58,7 +62,7 @@ export class SettingsPage {
             handler: () => console.log('Cancel clicked')
           },
           {
-            text: obj['SETTINGS_PAGE.LOGOUT'],
+            text: obj['SETTINGS_PAGE.LOGOUT_POPUP.EXIT'],
             cssClass: 'btn-logout',
             handler: () => {
               this.authService.logout();
