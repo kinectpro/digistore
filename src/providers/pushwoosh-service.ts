@@ -51,6 +51,7 @@ export class PushwooshService {
   }
 
   initIOS() {
+    let self = this;
     var pushNotification = cordova.require("pushwoosh-cordova-plugin.PushNotification");
 
     //set push notification callback before we initialize the plugin
@@ -59,7 +60,7 @@ export class PushwooshService {
       var notification = event.notification;
 
       //display alert to the user for example
-      alert(notification.aps.alert);
+      // alert(notification.aps.alert);
 
       //clear the app badge
       pushNotification.setApplicationIconBadgeNumber(0);
@@ -73,10 +74,11 @@ export class PushwooshService {
       function (status) {
         var deviceToken = status['deviceToken'];
         console.warn('registerDevice: ' + deviceToken);
+        self.sendPushToken(deviceToken);
       },
       function (status) {
         console.warn('failed to register : ' + JSON.stringify(status));
-        alert(JSON.stringify(['failed to register ', status]));
+        // alert(JSON.stringify(['failed to register ', status]));
       }
     );
 
