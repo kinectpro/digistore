@@ -76,8 +76,8 @@
     "YEAR": "Jahr",
     "GROSS": "Brutto",
     "NET_COMMISSION": "Nettoprovision",
-    "TOTAL_GROSS": "Gesamt-brutto",
-    "TOTAL_NET": "Gesamt-netto",
+    "TOTAL_GROSS": "Bruttobetrag",
+    "TOTAL_NET": "Nettobetrag",
     "CURRENCY_DESCRIPTION": "Bitte wählen Sie die anzuzeigende Währung"
   },
   "TRANSACTIONS_PAGE": {
