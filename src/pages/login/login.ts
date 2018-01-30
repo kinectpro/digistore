@@ -70,15 +70,17 @@ export class LoginPage {
     let f = this.loginForm.get(field);
     if (f.errors) {
       if (f.errors.required) {
-        this.translate.get('LOGIN_PAGE.IS_REQUIRED', { field: field }).subscribe( val => {
+        this.translate.get('LOGIN_PAGE.IS_REQUIRED').subscribe( val => {
           this.showedErrorPass = val;
         });
         return;
       }
       if (f.errors.minlength) {
-        this.translate.get(['LOGIN_PAGE.MIN_LENGTH', 'LOGIN_PAGE.IS']).subscribe( obj => {
-          this.showedErrorPass = `${obj['LOGIN_PAGE.MIN_LENGTH']} "${field}" ${obj['LOGIN_PAGE.IS']} ${f.errors.minlength.requiredLength}`;
-        });
+        this.translate.get('LOGIN_PAGE.MIN_LENGTH', {value: f.errors.minlength.requiredLength}).subscribe(
+          val => {
+            this.showedErrorPass = val;
+          }
+        );
       }
     }
   }

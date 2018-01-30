@@ -8,8 +8,8 @@
     "FORGOT_PASSWORD": "Passwort vergessen?",
     "NOT_A_MEMBER": "Noch kein Mitglied?",
     "REGISTER": "Jetzt registrieren",
-    "IS_REQUIRED": "{{field}} wird benötigt",
-    "MIN_LENGTH": "Mindestlänge von",
+    "IS_REQUIRED": "Feld wird benötigt",
+    "MIN_LENGTH": "Mindestlänge von {{value}} Zeichen",
     "IS": "ist"
   },
   "MONTHS": {
@@ -76,8 +76,8 @@
     "YEAR": "Jahr",
     "GROSS": "Brutto",
     "NET_COMMISSION": "Nettoprovision",
-    "TOTAL_GROSS": "Gesamt-brutto",
-    "TOTAL_NET": "Gesamt-netto",
+    "TOTAL_GROSS": "Bruttobetrag",
+    "TOTAL_NET": "Nettobetrag",
     "CURRENCY_DESCRIPTION": "Bitte wählen Sie die anzuzeigende Währung"
   },
   "TRANSACTIONS_PAGE": {
@@ -93,6 +93,10 @@
     "TEXT_INPUT": "Suchen...",
     "NO_RESULTS": "Keine Ergebnisse gefunden.",
     "NO_RESULTS_FOR_PERIOD": "Keine Ergebnisse für {{period}} gefunden.",
+    "NO_RESULTS_FOR_PERIOD_DAY": "Keine Ergebnisse für dieser Tag gefunden.",
+    "NO_RESULTS_FOR_PERIOD_WEEK": "Keine Ergebnisse für diese Woche gefunden.",
+    "NO_RESULTS_FOR_PERIOD_MONTH": "Keine Ergebnisse für diesen Monat gefunden.",
+    "NO_RESULTS_FOR_PERIOD_YEAR": "Keine Ergebnisse für dieses Jahr gefunden.",
     "SEE_ALL_TRANSACTIONS": "Versuchen Sie, alle Transaktionen zu durchsuchen."
   },
   "TRANSACTION_DETAILS_PAGE": {
@@ -121,7 +125,9 @@
     "AFFILIATE_DESC": "Der Kauf erfolgte ohne Affiliate",
     "REPORT_AFFILIATE": "Affiliate melden",
     "REPORT_BUTTON": "Melden",
-    "ORDER_ID": "Bestell-ID"
+    "ORDER_ID": "Bestell-ID",
+    "SUCCESS": "Vielen Dank!",
+    "ERROR": "Fehler"
   },
   "SORT_BY_PAGE": {
     "SORT_BY": "Sortiere nach",
@@ -138,9 +144,9 @@
     "SEARCH_FILTERS": "Suche & Filter",
     "DETAILED_SEARCH": "Detailsuche",
     "ORDER_ID": "Bestell-ID",
-    "PRODUCT_ID": "Produkt ID",
+    "PRODUCT_ID": "Produkt-ID",
     "CLEAR_ALL": "Zurücksetzen",
-    "PRODUCT_NAME": "Produktname",
+    "PRODUCT_NAME": "Produkt",
     "CUSTOMER_INFO": "Kundeninformation",
     "FIRSTNAME": "Vorname",
     "LASTNAME": "Nachname",
@@ -220,11 +226,11 @@
     "MESSAGES": {
       "LOG_OUT": "Dadurch werden Sie von allen verbundenen Konten abgemeldet",
       "USER_WAS_ADDED_EARLIER": "Konto wurde bereits hinzugefügt",
-      "DELETE_ACCOUNT": "Konto löschen?"
+      "DELETE_ACCOUNT": "Konto entfernen?"
     },
     "LOGOUT_POPUP": {
       "TITLE": "Verlassen",
-      "EXIT": "Beenden"
+      "EXIT": "Ausloggen"
     }
   }
 }

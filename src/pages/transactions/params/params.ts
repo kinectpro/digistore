@@ -77,7 +77,7 @@ export class ParamsPage extends EventsPage {
     // Affiliate Page
     if (this.pageName == 'Affiliate') {
       if (this.affiliate == 'name') {
-        this.search.affiliate_name = this.affiliateName;
+        this.search.affiliate_name = this.affiliateName ? this.affiliateName.trim() : '';
         this.search.has_affiliate = '';
       }
       else {

@@ -80,10 +80,7 @@ export class AddAccountPage extends EventsPage {
   }
 
   async checkValid(field: string) {
-
-    let is_required: string = await this.translate.get('LOGIN_PAGE.IS_REQUIRED', { field: field }).toPromise();
-    let min_length: string = await this.translate.get('LOGIN_PAGE.MIN_LENGTH').toPromise();
-    let is: string = await this.translate.get('LOGIN_PAGE.IS').toPromise();
+    let is_required: string = await this.translate.get('LOGIN_PAGE.IS_REQUIRED').toPromise();
 
     let f = this.loginForm.get(field);
     if (f.errors) {
@@ -92,7 +89,8 @@ export class AddAccountPage extends EventsPage {
         return;
       }
       if (f.errors.minlength) {
-        this.showedErrorPass = `${min_length} "${field}" ${is} ${f.errors.minlength.requiredLength}`;
+        let min_length: string = await this.translate.get('LOGIN_PAGE.MIN_LENGTH', {value: f.errors.minlength.requiredLength}).toPromise();
+        this.showedErrorPass = `${min_length}`;
       }
     }
   }

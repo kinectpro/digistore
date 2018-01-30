@@ -8,8 +8,8 @@
     "FORGOT_PASSWORD": "Forgot password?",
     "NOT_A_MEMBER": "Not a member yet?",
     "REGISTER": "Register",
-    "IS_REQUIRED": "{{field}} is required",
-    "MIN_LENGTH": "Min length of",
+    "IS_REQUIRED": "Field is required",
+    "MIN_LENGTH": "Min length is {{value}}",
     "IS": "is"
   },
   "MONTHS": {
@@ -93,6 +93,10 @@
     "TEXT_INPUT": "Text input",
     "NO_RESULTS": "No results found.",
     "NO_RESULTS_FOR_PERIOD": "No results for {{period}} found.",
+    "NO_RESULTS_FOR_PERIOD_DAY": "No results for today found.",
+    "NO_RESULTS_FOR_PERIOD_WEEK": "No results for this week found.",
+    "NO_RESULTS_FOR_PERIOD_MONTH": "No results for this month found.",
+    "NO_RESULTS_FOR_PERIOD_YEAR": "No results for this year found.",
     "SEE_ALL_TRANSACTIONS": "Try to go through all transactions."
   },
   "TRANSACTION_DETAILS_PAGE": {
@@ -121,7 +125,9 @@
     "AFFILIATE_DESC": "This purchase was made without affiliate",
     "REPORT_AFFILIATE": "Report Affiliate",
     "REPORT_BUTTON": "Report",
-    "ORDER_ID": "Order ID"
+    "ORDER_ID": "Order ID",
+    "SUCCESS": "Success",
+    "ERROR": "Error"
   },
   "SORT_BY_PAGE": {
     "SORT_BY": "Sort By",
@@ -140,7 +146,7 @@
     "ORDER_ID": "Order ID",
     "PRODUCT_ID": "Product ID",
     "CLEAR_ALL": "Clear all",
-    "PRODUCT_NAME": "Product name",
+    "PRODUCT_NAME": "Product",
     "CUSTOMER_INFO": "Customer info",
     "FIRSTNAME": "First name",
     "LASTNAME": "Last name",
@@ -220,7 +226,7 @@
     "MESSAGES": {
       "LOG_OUT": "This will log you out from all connected accounts",
       "USER_WAS_ADDED_EARLIER": "Account was added earlier",
-      "DELETE_ACCOUNT": "Delete account?"
+      "DELETE_ACCOUNT": "Remove account?"
     },
     "LOGOUT_POPUP": {
       "TITLE": "Log out",

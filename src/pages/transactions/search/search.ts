@@ -28,6 +28,11 @@ export class SearchPage extends EventsPage {
   globalTypesFromServer: any;
   currenciesFromServer: string[];
   extended: string = 'N';
+  months: any = {
+    'en': ["January","February","March","April","May","June","July","August","September","October","November","December"],
+    'de': ["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"]
+  };
+  curLang: string = 'en';
 
   @ViewChild('searchbar')
   searchbar: AutoCompleteComponent;
@@ -60,7 +65,7 @@ export class SearchPage extends EventsPage {
       'product_id': [this.searchObj.product_id],
       'first_name': [this.searchObj.first_name],
       'last_name': [this.searchObj.last_name],
-      'email': [this.searchObj.email, Validators.pattern("[a-zA-Z_]+@[a-zA-Z_]+?\.[a-zA-Z]{2,6}")],
+      'email': [this.searchObj.email, Validators.pattern("[a-zA-Z0-9_.%+-]+@[a-zA-Z0-9_]+?\.[a-zA-Z]{2,6}")],
       //'from': [this.searchObj.from],
       //'to': [this.searchObj.to]
     });
@@ -86,7 +91,7 @@ export class SearchPage extends EventsPage {
     console.log('Init SearchPage');
     this.searchbar.setValue(this.searchObj.product_name);
     this.keyboardHideSubscription = this.keyboard.onKeyboardHide().subscribe(() => this.logoHidden = false);
-
+    this.curLang = this.translate.currentLang;
   }
 
   ionViewWillUnload() {
@@ -183,9 +188,9 @@ export class SearchPage extends EventsPage {
       }
       //this.searchObj.purchase_id = this.searchFormExtended.get('purchase_id').value;
       this.searchObj.product_id = this.searchFormExtended.get('product_id').value;
-      this.searchObj.first_name = this.searchFormExtended.get('first_name').value;
-      this.searchObj.last_name = this.searchFormExtended.get('last_name').value;
-      this.searchObj.email = this.searchFormExtended.get('email').value;
+      this.searchObj.first_name = this.searchFormExtended.get('first_name').value ? this.searchFormExtended.get('first_name').value.trim() : '';
+      this.searchObj.last_name = this.searchFormExtended.get('last_name').value? this.searchFormExtended.get('last_name').value.trim() : '';
+      this.searchObj.email = this.searchFormExtended.get('email').value ? this.searchFormExtended.get('email').value.trim() : '';
       //this.searchObj.from = this.searchFormExtended.get('from').value;
       //this.searchObj.to = this.searchFormExtended.get('to').value;
       this.searchObj.pay_method = this.payments.join(',');
