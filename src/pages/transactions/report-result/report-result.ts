@@ -14,9 +14,9 @@ export class ReportResultPage extends EventsPage {
 
   constructor(public viewCtrl: ViewController, public navParams: NavParams, public events: Events) {
     super(events);
-    this.status = this.navParams.get('status');
+    this.status = this.navParams.get('status').toUpperCase();
     this.message = this.navParams.get('message');
-    this.message = this.navParams.get('order_id');
+    this.order_id = this.navParams.get('order_id');
   }
 
   ionViewDidLoad() {

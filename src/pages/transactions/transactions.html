@@ -86,7 +86,7 @@
             <p class="transaction-name">{{ transaction.name }}</p>
             <p class="transaction-id">{{ transaction.order_id }}</p>
           </ion-col>
-          <ion-col col-5 text-right><span class="transaction-earning">{{ transaction.earning }}</span><ion-icon md="ios-arrow-forward" padding-left color="light"></ion-icon></ion-col>
+          <ion-col col-5 text-right><span class="transaction-earning">{{ +transaction.earning | currency: transaction.currency : true}}</span><ion-icon md="ios-arrow-forward" padding-left color="light"></ion-icon></ion-col>
         </ion-row>
       </ion-label>
     </button>
@@ -97,7 +97,7 @@
       <ion-col col-10 offset-1 no-padding>
         <ion-item no-lines no-padding>
           <p *ngIf="!currentPeriod">{{ 'TRANSACTIONS_PAGE.NO_RESULTS' | translate }}</p>
-          <p *ngIf="currentPeriod" translate [translateParams]="{period: ('GENERAL.' + (currentPeriod == 'day' ? 'today' : 'THIS_' + currentPeriod.toUpperCase()) | translate) }">TRANSACTIONS_PAGE.NO_RESULTS_FOR_PERIOD</p>
+          <p *ngIf="currentPeriod" translate>TRANSACTIONS_PAGE.NO_RESULTS_FOR_PERIOD_{{currentPeriod}}</p>
           <p text-wrap>{{ 'TRANSACTIONS_PAGE.SEE_ALL_TRANSACTIONS' | translate }}</p>
           <p><button no-margin ion-button clear (click)="openSearch()">{{ 'TRANSACTIONS_PAGE.SEARCH_FILTERS' | translate }}</button></p>
         </ion-item>
