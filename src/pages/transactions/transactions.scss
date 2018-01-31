@@ -100,4 +100,19 @@ page-transactions {
   ion-header:after {
     height: 0!important;
   }
+  .vertical-align-middle {
+    vertical-align: middle;
+  }
+  .font-size-general {
+    font-size: 1.4rem !important;
+  }
+  .no-capitalize {
+    text-transform: none !important;
+  }
+  .badge {
+    font-size: 1rem;
+  }
+  .badge.margin {
+    margin: 0 0.6rem;
+  }
 }
