@@ -97,7 +97,7 @@
       <ion-col col-10 offset-1 no-padding>
         <ion-item no-lines no-padding>
           <p *ngIf="!currentPeriod">{{ 'TRANSACTIONS_PAGE.NO_RESULTS' | translate }}</p>
-          <p *ngIf="currentPeriod" translate>TRANSACTIONS_PAGE.NO_RESULTS_FOR_PERIOD_{{currentPeriod}}</p>
+          <p *ngIf="currentPeriod" translate>TRANSACTIONS_PAGE.NO_RESULTS_FOR_PERIOD_{{currentPeriod.toUpperCase()}}</p>
           <p text-wrap>{{ 'TRANSACTIONS_PAGE.SEE_ALL_TRANSACTIONS' | translate }}</p>
           <p><button no-margin ion-button clear (click)="openSearch()">{{ 'TRANSACTIONS_PAGE.SEARCH_FILTERS' | translate }}</button></p>
         </ion-item>
