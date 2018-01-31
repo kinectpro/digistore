@@ -29,6 +29,7 @@ export class TransactionsPage {
   currentPeriod: string;
   showedSearchInput: boolean = false;
   searchInputValue: string = '';
+  filterCount: number = 0;
 
   transactionsFromService: any[];
   transactions: any = [];
@@ -85,10 +86,12 @@ export class TransactionsPage {
   }
 
   getTransactions() {
+    console.warn(this.params);
     this.tranServ.getTransactionList(this.currentPeriod, this.params).then(
       res => {
         this.transactionsFromService = res;
         this.updateTransactions();
+        this.filterCount = this.getSearchAmount();
       },
       err => this.errSrv.showMessage(err)
     );
@@ -180,6 +183,16 @@ export class TransactionsPage {
       return false;
     }
     return true;
+  }
+
+  getSearchAmount(): number{
+    let count = 0;
+    Object.keys(this.params.search).map(key => this.params.search[key]).map(value => {
+      if (value) {
+        count++;
+      }
+    });
+    return count;
   }
 
 }

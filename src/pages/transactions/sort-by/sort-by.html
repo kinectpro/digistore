@@ -43,23 +43,23 @@
       </ion-item>
     </ion-list>
 
-    <button ion-item (click)="openOption('earning')">
+    <button ion-item (click)="openOption('amount')">
       <ion-label>
         {{ 'SORT_BY_PAGE.EARNING_AMOUNT' | translate }}
       </ion-label>
       <div item-content class="item-content">
-        {{ sort == 'earning-desc' ? ('SORT_BY_PAGE.HIGHEST' | translate) : sort == 'earning-asc' ? ('SORT_BY_PAGE.LOWEST' | translate) : '' }}
+        {{ sort == 'amount-desc' ? ('SORT_BY_PAGE.HIGHEST' | translate) : sort == 'amount-asc' ? ('SORT_BY_PAGE.LOWEST' | translate) : '' }}
         <ion-icon md="ios-arrow-forward" color="light"></ion-icon>
       </div>
     </button>
-    <ion-list class="sublist" [hidden]="!options.earning" padding-left>
+    <ion-list class="sublist" [hidden]="!options.amount" padding-left>
       <ion-item mode="ios">
         <ion-label color="dark">{{ 'SORT_BY_PAGE.HIGHEST' | translate }}</ion-label>
-        <ion-radio mode="ios" value="earning-desc"></ion-radio>
+        <ion-radio mode="ios" value="amount-desc"></ion-radio>
       </ion-item>
       <ion-item mode="ios">
         <ion-label color="dark">{{ 'SORT_BY_PAGE.LOWEST' | translate }}</ion-label>
-        <ion-radio mode="ios" value="earning-asc"></ion-radio>
+        <ion-radio mode="ios" value="amount-asc"></ion-radio>
       </ion-item>
     </ion-list>
 

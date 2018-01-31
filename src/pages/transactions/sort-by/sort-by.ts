@@ -10,7 +10,7 @@ import { EventsPage } from '../../../shared/classes/events-page';
 export class SortByPage extends EventsPage {
   options: any[] = [
     { product_name: false },
-    { earning: false },
+    { amount: false },
     { date: false }
   ];
   sort: string;
