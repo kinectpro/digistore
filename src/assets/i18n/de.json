@@ -167,7 +167,9 @@
     "AT_LEAST_SYMBOL": "Mindestens ein Symbol sollte eingegeben werden",
     "MIN_LENGTH": "Mindestanzahl von Zeichen muss",
     "PATTERN": "Nur Zahlen und Buchstaben (muss mindestens 1 Buchstabe sein)",
-    "INVALID_EMAIL": "Ungültige E-Mail"
+    "INVALID_EMAIL": "Ungültige E-Mail",
+    "DONE": "Erledigt",
+    "CANCEL": "Abbrechen"
   },
   "E_TICKET_PAGE": {
     "E_TICKET_SCAN": "E-Ticket scan",
