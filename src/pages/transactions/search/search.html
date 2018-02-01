@@ -132,6 +132,8 @@
                 <ion-item no-margin no-padding>
                   <ion-datetime placeholder="{{ 'SEARCH_FILTERS_PAGE.START_DAY' | translate}}" displayFormat="YYYY-MM-DD" pickerFormat="DD MMMM YYYY"
                                 monthNames="{{months[curLang]}}"
+                                cancelText="{{ 'SEARCH_FILTERS_PAGE.CANCEL' | translate}}"
+                                doneText="{{ 'SEARCH_FILTERS_PAGE.DONE' | translate}}"
                                 [(ngModel)]="searchObj.from"></ion-datetime>
                   <!--<ion-input formControlName="from" type="text" placeholder="Start day"></ion-input>-->
                 </ion-item>
@@ -140,6 +142,8 @@
                 <ion-item no-margin no-padding>
                   <ion-datetime placeholder="{{ 'SEARCH_FILTERS_PAGE.END_DAY' | translate}}" displayFormat="YYYY-MM-DD" pickerFormat="DD MMMM YYYY"
                                 monthNames="{{months[curLang]}}"
+                                cancelText="{{ 'SEARCH_FILTERS_PAGE.CANCEL' | translate}}"
+                                doneText="{{ 'SEARCH_FILTERS_PAGE.DONE' | translate}}"
                                 [(ngModel)]="searchObj.to"></ion-datetime>
                   <!--<ion-input formControlName="to" type="text" placeholder="End day"></ion-input>-->
                 </ion-item>
