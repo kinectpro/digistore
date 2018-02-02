@@ -86,7 +86,6 @@ export class TransactionsPage {
   }
 
   getTransactions() {
-    console.warn(this.params);
     this.tranServ.getTransactionList(this.currentPeriod, this.params).then(
       res => {
         this.transactionsFromService = res;

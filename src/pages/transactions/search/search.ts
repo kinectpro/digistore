@@ -33,6 +33,7 @@ export class SearchPage extends EventsPage {
     'de': ["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"]
   };
   curLang: string = 'en';
+  maxYear: number = new Date().getFullYear() + 5;
 
   @ViewChild('searchbar')
   searchbar: AutoCompleteComponent;

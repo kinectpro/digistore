@@ -102,7 +102,7 @@
           <p *ngIf="currentPeriod" translate>TRANSACTIONS_PAGE.NO_RESULTS_FOR_PERIOD_{{currentPeriod.toUpperCase()}}</p>
           <p text-wrap>
             <span class="vertical-align-middle">{{ 'TRANSACTIONS_PAGE.SEE_ALL_TRANSACTIONS' | translate }}</span>
-            <button class="font-size-general vertical-align-middle no-capitalize" no-margin ion-button clear (click)="showAll()">{{ 'TRANSACTIONS_PAGE.SEE_ALL_TRANSACTIONS_LINK' | translate }}</button>
+            <button class="font-size-general vertical-align-middle no-capitalize no-padding" no-margin ion-button clear (click)="showAll()">{{ 'TRANSACTIONS_PAGE.SEE_ALL_TRANSACTIONS_LINK' | translate }}</button>
           </p>
           <!--<p><button no-margin ion-button clear (click)="openSearch()">{{ 'TRANSACTIONS_PAGE.SEARCH_FILTERS' | translate }}</button></p>-->
         </ion-item>
