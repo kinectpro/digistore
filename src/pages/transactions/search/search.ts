@@ -172,7 +172,7 @@ export class SearchPage extends EventsPage {
           return;
         }
         if (err.minlength) {
-          this.translate.get('SEARCH_FILTERS_PAGE.MIN_LENGTH').subscribe(val => this.showError(`${val} ${err.minlength.requiredLength}`));
+          this.translate.get('SEARCH_FILTERS_PAGE.MIN_LENGTH', { value: err.minlength.requiredLength }).subscribe(val => this.showError(`${val}`));
           return;
         }
         if (err.pattern) {

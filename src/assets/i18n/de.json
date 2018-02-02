@@ -165,7 +165,7 @@
     "WITHOUT_AFFILIATE": "Ohne Affiliate",
     "ENTER_AFFILIATE": "Affiliate eingeben",
     "AT_LEAST_SYMBOL": "Mindestens ein Symbol sollte eingegeben werden",
-    "MIN_LENGTH": "Mindestanzahl von Zeichen muss",
+    "MIN_LENGTH": "Mindestlänge von {{value}} Zeichen",
     "PATTERN": "Nur Zahlen und Buchstaben (muss mindestens 1 Buchstabe sein)",
     "INVALID_EMAIL": "Ungültige E-Mail",
     "DONE": "Erledigt",
