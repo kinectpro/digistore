@@ -83,7 +83,7 @@
                                [dataProvider]="complServ"
                                [options]="{ placeholder : ('SEARCH_FILTERS_PAGE.PRODUCT_NAME' | translate) }">
             </ion-auto-complete>
-            <button no-margin ion-button icon-only clear (click)="clearProduct()" class="clearAC"><ion-icon name="ios-close"></ion-icon></button>
+            <a no-margin ion-button icon-only clear (click)="clearProduct()" class="clearAC"><ion-icon name="ios-close"></ion-icon></a>
           </ion-list>
 
           <div *ngIf="showTransparentDiv" id="transparentDiv"></div>
