@@ -93,7 +93,7 @@
     "TEXT_INPUT": "Suchen...",
     "NO_RESULTS": "Keine Ergebnisse gefunden.",
     "NO_RESULTS_FOR_PERIOD": "Keine Ergebnisse für {{period}} gefunden.",
-    "NO_RESULTS_FOR_PERIOD_DAY": "Keine Ergebnisse für dieser Tag gefunden.",
+    "NO_RESULTS_FOR_PERIOD_DAY": "Keine Ergebnisse für heute gefunden.",
     "NO_RESULTS_FOR_PERIOD_WEEK": "Keine Ergebnisse für diese Woche gefunden.",
     "NO_RESULTS_FOR_PERIOD_MONTH": "Keine Ergebnisse für diesen Monat gefunden.",
     "NO_RESULTS_FOR_PERIOD_YEAR": "Keine Ergebnisse für dieses Jahr gefunden.",
