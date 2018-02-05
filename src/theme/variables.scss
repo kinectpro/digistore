@@ -12,6 +12,14 @@ $font-path: "../assets/fonts";
 $app-direction: ltr;
 
 
+@font-face {
+  font-family: 'SFProText';
+  src: url('../assets/fonts/SanFranciscoText-Regular.otf');
+}
+$font-family-ios-base: “SFProText”;
+$font-family-md-base:“SFProText”;
+$font-family-wp-base:“SFProText”;
+
 @import "ionic.globals";
 
 
