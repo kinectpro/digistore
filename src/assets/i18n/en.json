@@ -176,7 +176,7 @@
     "TEMPLATE": "E-Ticket template",
     "LOCATION": "Event location",
     "DATE": "Date",
-    "HAVE_NO_NUMBER": "Don't have E-Ticket number?",
+    "HAVE_NO_NUMBER": "Forgot e-ticket?",
     "SCAN": "Scan",
     "CHECK_MANUALLY": "Check E-Ticket manually",
     "CHECK_MANUALLY_DESC": "Shows only the results for the previously selected template, location and date.",
