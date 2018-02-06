@@ -176,7 +176,7 @@
     "TEMPLATE": "E-Ticket-Vorlage",
     "LOCATION": "Veranstaltungsort",
     "DATE": "Datum",
-    "HAVE_NO_NUMBER": "Sie haben keine E-Ticket-Nummer?",
+    "HAVE_NO_NUMBER": "E-Ticket nicht zur Hand?",
     "SCAN": "Scan",
     "CHECK_MANUALLY": "E-Ticket manuell prüfen",
     "CHECK_MANUALLY_DESC": "Zeigt nur Ergebnisse für ausgewählte Vorlage, Veranstaltungsort und Datum.",
