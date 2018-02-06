@@ -209,7 +209,7 @@
     "20_NUMBER_LIMIT": "E-Ticket-Nummer muss 20 Symbole lang sein!",
     "ONLY_DIGITS": "E-Ticket-Nummer darf nur Ziffern enthalten!",
     "EMPTY_NUMBER": "Nicht eingegebene E-Ticket-Nummer!",
-    "NO_PARAMS": "Keine 'E-Ticket-Vorlage' oder 'Veranstaltungsort' sind ausgewählt!",
+    "NO_PARAMS": "Bitte E-Ticket-Vorlage und Veranstaltungsort auswählen!",
     "FAILURE": "Fehler",
     "E_TICKET_VALID": "E-Ticket gültig",
     "ALREADY_USED": "Schon benutzt",
