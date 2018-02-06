@@ -107,19 +107,19 @@
           </ng-template>
         </div>
       </ion-item>
-      <ion-item no-padding>
-        <ion-label padding-left>
-          {{ 'TRANSACTION_DETAILS_PAGE.PHONE_NUMBER' | translate }}
-        </ion-label>
-        <div item-content class="item-content" padding-right>
-          <div *ngIf="transaction.customer.phone; else no_phone">
-            <a target="_blank" href="tel:{{transaction.customer.phone}}">{{ transaction.customer.phone }}</a>
-          </div>
-          <ng-template #no_phone>
-            -
-          </ng-template>
-        </div>
-      </ion-item>
+      <!--<ion-item no-padding>-->
+        <!--<ion-label padding-left>-->
+          <!--{{ 'TRANSACTION_DETAILS_PAGE.PHONE_NUMBER' | translate }}-->
+        <!--</ion-label>-->
+        <!--<div item-content class="item-content" padding-right>-->
+          <!--<div *ngIf="transaction.customer.phone; else no_phone">-->
+            <!--<a target="_blank" href="tel:{{transaction.customer.phone}}">{{ transaction.customer.phone }}</a>-->
+          <!--</div>-->
+          <!--<ng-template #no_phone>-->
+            <!-- - -->
+          <!--</ng-template>-->
+        <!--</div>-->
+      <!--</ion-item>-->
       <ion-item no-padding>
         <ion-label padding-left>
           {{ 'TRANSACTION_DETAILS_PAGE.AFFILIATE' | translate }}
