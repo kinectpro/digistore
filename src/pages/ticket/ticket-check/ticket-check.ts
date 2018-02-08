@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavController, NavParams, ToastController, ViewController, Content, Events } from 'ionic-angular';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Keyboard } from '@ionic-native/keyboard';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -16,6 +16,7 @@ import { EventsPage } from '../../../shared/classes/events-page';
   templateUrl: 'ticket-check.html',
 })
 export class TicketCheckPage extends EventsPage {
+  control: FormControl;
 
   private numberForm : FormGroup;
   withoutNumber: boolean;
@@ -30,6 +31,9 @@ export class TicketCheckPage extends EventsPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController, public ticketSrv: TicketService, public fb: FormBuilder,
               public translate: TranslateService, public viewCtrl: ViewController, public keyboard: Keyboard, public events: Events) {
     super(events);
+
+    this.control = new FormControl('', Validators.pattern('[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}'));
+
     this.withoutNumber = navParams.get('withoutNumber');
     this.params = navParams.get('params');
 
@@ -71,7 +75,7 @@ export class TicketCheckPage extends EventsPage {
       this.showedError = '';
     }, 3000);
   }
-  
+
   search() {
     this.navCtrl.push(TicketSearchResultsPage, { params: this.params });
   }
