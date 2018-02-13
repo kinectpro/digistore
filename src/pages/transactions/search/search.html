@@ -74,6 +74,9 @@
 
             <ion-item no-margin no-padding id="product_id">
               <ion-input (ionFocus)="onFocused('product_id')" formControlName="product_id" type="text" placeholder="{{ 'SEARCH_FILTERS_PAGE.PRODUCT_ID' | translate}}"></ion-input>
+              <button ion-button clear icon-only item-right color="dark" style="font-size: 1.4rem; margin: 9px 5px 9px 0" (click)="clearProduct()">
+                <ion-icon name="ios-close"></ion-icon>
+              </button>
             </ion-item>
 
             <ion-auto-complete id="product-name" #searchbar

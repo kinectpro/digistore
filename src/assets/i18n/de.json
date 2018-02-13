@@ -168,7 +168,7 @@
     "MIN_LENGTH": "Mindestlänge von {{value}} Zeichen",
     "PATTERN": "Nur Zahlen und Buchstaben (muss mindestens 1 Buchstabe sein)",
     "INVALID_EMAIL": "Ungültige E-Mail",
-    "DONE": "Erledigt",
+    "DONE": "Fertig",
     "CANCEL": "Abbrechen"
   },
   "E_TICKET_PAGE": {
@@ -192,8 +192,8 @@
     "CHECK_WITH_NUMBER": "Mit E-Ticket Nummer prüfen",
     "MARK_AS": "Markieren als",
     "MARK_AS_USED": "Entwerten",
-    "POPUP_MARK_AS_USED_TITLE": "Als gebraucht markieren?",
-    "POPUP_MARK_AS_USED_TEXT": "Das E-Ticket wird als gebraucht gekennzeichnet",
+    "POPUP_MARK_AS_USED_TITLE": "E-Ticket entwerten?",
+    "POPUP_MARK_AS_USED_TEXT": "Das E-Ticket wird als benutzt gekennzeichnet",
     "POPUP_MARK_AS_UNUSED_TITLE": "Als unbenutzt markieren?",
     "POPUP_MARK_AS_UNUSED_TEXT": "Das E-Ticket wird als nicht verwendet markiert (und kann wieder verwendet werden, wenn es nicht blockiert ist)",
     "MARK": "Entwerten",
