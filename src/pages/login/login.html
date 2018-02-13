@@ -45,9 +45,9 @@
     <button ion-button block [disabled]="!loginForm.valid" (click)="login()">{{ 'LOGIN' | translate }}</button>
 
     <section class="footer" text-center>
-      <a (click)="openBrowser('/extern/login/new_password')">{{ 'LOGIN_PAGE.FORGOT_PASSWORD' | translate }}</a>
+      <a (click)="openBrowser('/' + language + '/home/extern/login/new_password')">{{ 'LOGIN_PAGE.FORGOT_PASSWORD' | translate }}</a>
       <br/>
-      <p class="color-light" text-center>{{ 'LOGIN_PAGE.NOT_A_MEMBER' | translate }}&nbsp;<a (click)="openBrowser('/signup')">{{ 'LOGIN_PAGE.REGISTER' | translate }}</a></p>
+      <p class="color-light" text-center>{{ 'LOGIN_PAGE.NOT_A_MEMBER' | translate }}&nbsp;<a (click)="openBrowser('/' + language + '/home/extern/register/signup')">{{ 'LOGIN_PAGE.REGISTER' | translate }}</a></p>
     </section>
 
   </section>

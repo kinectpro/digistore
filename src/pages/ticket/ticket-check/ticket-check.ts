@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavController, NavParams, ToastController, ViewController, Content, Events } from 'ionic-angular';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Keyboard } from '@ionic-native/keyboard';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -16,8 +16,10 @@ import { EventsPage } from '../../../shared/classes/events-page';
   templateUrl: 'ticket-check.html',
 })
 export class TicketCheckPage extends EventsPage {
+  control: FormControl;
 
   private numberForm : FormGroup;
+  private withoutNumberForm : FormGroup;
   withoutNumber: boolean;
   params: TicketParams;
   keyboardShowSubscription: Subscription;
@@ -30,11 +32,18 @@ export class TicketCheckPage extends EventsPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController, public ticketSrv: TicketService, public fb: FormBuilder,
               public translate: TranslateService, public viewCtrl: ViewController, public keyboard: Keyboard, public events: Events) {
     super(events);
+
     this.withoutNumber = navParams.get('withoutNumber');
     this.params = navParams.get('params');
 
     this.keyboardShowSubscription = this.keyboard.onKeyboardShow().subscribe(() => this.content.resize());
     this.keyboardHideSubscription = this.keyboard.onKeyboardHide().subscribe(() => this.content.resize());
+
+    this.withoutNumberForm = new FormGroup({
+      'firstName': new FormControl(this.params.firstName),
+      'lastName': new FormControl(this.params.lastName),
+      'email': new FormControl(this.params.email, Validators.pattern('[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}')),
+    });
 
     this.numberForm = fb.group({
       'number': ['', [
@@ -59,8 +68,8 @@ export class TicketCheckPage extends EventsPage {
     this.navCtrl.push(TicketCheckPage, { params: this.params, withoutNumber: true });
   }
 
-  checkValid(el: any) {
-    if (el.value && el.invalid) {
+  checkValidEmail() {
+    if (this.withoutNumberForm.get('email').invalid) {
       this.translate.get("SEARCH_FILTERS_PAGE.INVALID_EMAIL").subscribe( msg => this.showError(msg) );
     }
   }
@@ -71,8 +80,21 @@ export class TicketCheckPage extends EventsPage {
       this.showedError = '';
     }, 3000);
   }
-  
+
+  onKeydown(e: any) {
+    if (e.keyCode == 13) {
+      if (this.withoutNumberForm.get('email').valid)
+        this.search();
+      else {
+        this.translate.get("SEARCH_FILTERS_PAGE.INVALID_EMAIL").subscribe( msg => this.showError(msg) );
+      }
+    }
+  }
+
   search() {
+    this.params.firstName = this.withoutNumberForm.get('firstName').value;
+    this.params.lastName = this.withoutNumberForm.get('lastName').value;
+    this.params.email = this.withoutNumberForm.get('email').value;
     this.navCtrl.push(TicketSearchResultsPage, { params: this.params });
   }
 

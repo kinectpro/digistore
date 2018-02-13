@@ -66,7 +66,7 @@ export class SearchPage extends EventsPage {
       'product_id': [this.searchObj.product_id],
       'first_name': [this.searchObj.first_name],
       'last_name': [this.searchObj.last_name],
-      'email': [this.searchObj.email, Validators.pattern("[a-zA-Z0-9_.%+-]+@[a-zA-Z0-9_]+?\.[a-zA-Z]{2,6}")],
+      'email': [this.searchObj.email, Validators.pattern("[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}")],
       //'from': [this.searchObj.from],
       //'to': [this.searchObj.to]
     });
@@ -229,6 +229,17 @@ export class SearchPage extends EventsPage {
     }
     this.logoHidden = true;
     this.content.scrollTo(0, this.document.getElementById(id).offsetTop - 5);
+  }
+
+  onKeydown(e: any) {
+    if (e.keyCode == 13) {
+      e.preventDefault();
+      if (this.extended == 'N')
+        this.submit();
+      else {
+        this.keyboard.close();
+      }
+    }
   }
 
 }

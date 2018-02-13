@@ -19,6 +19,7 @@ export class LoginPage {
   showedError: string = ''; //  from server
   showedErrorPass: string;
   pwdType: string = 'password';
+  language: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public iab: InAppBrowser, public fb: FormBuilder,
               public http: HttpClient, public translate: TranslateService, public authService: AuthService, public pushwooshService: PushwooshService) {
@@ -32,6 +33,8 @@ export class LoginPage {
         Validators.minLength(8)
       ]]
     });
+
+    this.language = this.translate.currentLang;
   }
 
   ionViewDidLoad() {

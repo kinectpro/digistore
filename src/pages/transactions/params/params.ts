@@ -130,4 +130,10 @@ export class ParamsPage extends EventsPage {
     this.content.scrollTo(0, this.document.getElementById(id).offsetTop);
   }
 
+  onKeydown(e: any) {
+    if (e.keyCode == 13) {
+      this.keyboard.close();
+    }
+  }
+
 }
