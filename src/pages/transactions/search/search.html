@@ -44,7 +44,7 @@
 
       <ion-list id="purchase-id">
         <ion-item no-margin no-padding [class.has-value]="searchForm.get('purchase_id').value">
-          <ion-input (ionFocus)="onFocused('purchase-id')" formControlName="purchase_id" type="text" placeholder="{{ 'SEARCH_FILTERS_PAGE.ORDER_ID' | translate}}"></ion-input>
+          <ion-input (ionFocus)="onFocused('purchase-id')" formControlName="purchase_id" type="text" placeholder="{{ 'SEARCH_FILTERS_PAGE.ORDER_ID' | translate}}" (keydown)="onKeydown($event)"></ion-input>
         </ion-item>
         <ion-label text-wrap *ngIf="showedError" class="err-message" no-margin>
           {{ showedError }}
@@ -79,6 +79,7 @@
             <ion-auto-complete id="product-name" #searchbar
                                (autoFocus)="onFocused('product-name')"
                                (itemSelected)="selectedProduct($event)"
+                               (keydown)="onKeydown($event)"
                                (autoBlur)="blurProduct()"
                                [dataProvider]="complServ"
                                [options]="{ placeholder : ('SEARCH_FILTERS_PAGE.PRODUCT_NAME' | translate) }">
@@ -109,7 +110,7 @@
               <ion-row id="e-mail">
                 <ion-col col-12>
                   <ion-item no-margin no-padding [class.has-value]="searchFormExtended.get('email').value">
-                    <ion-input (ionFocus)="onFocused('e-mail')" formControlName="email" type="email" placeholder="{{ 'SEARCH_FILTERS_PAGE.EMAIL' | translate}}"></ion-input>
+                    <ion-input (ionFocus)="onFocused('e-mail')" (keydown)="onKeydown($event)" formControlName="email" type="email" placeholder="{{ 'SEARCH_FILTERS_PAGE.EMAIL' | translate}}"></ion-input>
                   </ion-item>
                   <ion-label class="err-message" *ngIf="searchFormExtended.get('email').value && searchFormExtended.get('email').invalid && searchFormExtended.get('email').touched">
                     {{ 'SEARCH_FILTERS_PAGE.INVALID_EMAIL' | translate}}

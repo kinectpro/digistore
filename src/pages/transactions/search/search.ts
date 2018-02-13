@@ -231,4 +231,15 @@ export class SearchPage extends EventsPage {
     this.content.scrollTo(0, this.document.getElementById(id).offsetTop - 5);
   }
 
+  onKeydown(e: any) {
+    if (e.keyCode == 13) {
+      e.preventDefault();
+      if (this.extended == 'N')
+        this.submit();
+      else {
+        this.keyboard.close();
+      }
+    }
+  }
+
 }
