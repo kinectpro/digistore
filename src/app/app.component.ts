@@ -43,6 +43,10 @@ export class MyApp {
       if (platform.is("cordova")) {
         this.initOneSignal();
         this._pushService.init();
+        // send push token to the server every 10 days even if the app wasn't closed
+        setTimeout(() => {
+          this._pushService.sendPushToken(false);
+        }, 864000000);
       }
       // Confirm exit
       platform.registerBackButtonAction(this.backBtnAction);
