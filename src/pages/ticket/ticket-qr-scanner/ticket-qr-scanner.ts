@@ -71,16 +71,12 @@ export class TicketQrScannerPage extends EventsPage {
       } else {
         this.cancel();
       }
-    }).catch((e: any) => {
-      console.log('Error is', e);
-    });
+    }).catch((e: any) => console.log('Error is', e));
 
   }
 
   ionViewWillLeave() {
     this.document.body.classList.remove('hidden-tabbar');
-    this.stoppedTimer = true;
-    this.qrScanner.destroy();
     super.ionViewWillLeave();
   }
 
