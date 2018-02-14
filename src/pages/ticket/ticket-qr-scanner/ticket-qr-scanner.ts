@@ -72,15 +72,6 @@ export class TicketQrScannerPage extends EventsPage {
         this.cancel();
       }
     }).catch((e: any) => {
-      this.navCtrl.push(TicketDetailsPage, {
-        params: this.params,
-        result: {
-          status: 'failure',
-          msg: e
-        }
-      }).then( () => {
-        this.viewCtrl.dismiss();  //drop page
-      });
       console.log('Error is', e);
     });
 
