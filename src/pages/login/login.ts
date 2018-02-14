@@ -46,7 +46,7 @@ export class LoginPage {
   }
 
   login() {
-    this.http.get(`${Settings.BASE_URL}${Settings.API_KEY}/json/createApiKey?username=${this.loginForm.get('username').value}&password=${this.loginForm.get('password').value}&language=${this.translate.currentLang}`).subscribe(
+    this.http.get(`${Settings.BASE_URL}${Settings.API_KEY}/json/createApiKey?username=${this.loginForm.get('username').value}&password=${encodeURIComponent(this.loginForm.get('password').value)}&language=${this.translate.currentLang}`).subscribe(
       (res: any) => {
         if (res.result === 'error') {
           this.showError(res.message);

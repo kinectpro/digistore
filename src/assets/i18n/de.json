@@ -172,12 +172,12 @@
     "CANCEL": "Abbrechen"
   },
   "E_TICKET_PAGE": {
-    "E_TICKET_SCAN": "E-Ticket scan",
+    "E_TICKET_SCAN": "E-Ticket scannen",
     "TEMPLATE": "E-Ticket-Vorlage",
     "LOCATION": "Veranstaltungsort",
     "DATE": "Datum",
     "HAVE_NO_NUMBER": "E-Ticket nicht zur Hand?",
-    "SCAN": "Scan",
+    "SCAN": "Scannen",
     "CHECK_MANUALLY": "E-Ticket manuell prüfen",
     "CHECK_MANUALLY_DESC": "Zeigt nur Ergebnisse für ausgewählte Vorlage, Veranstaltungsort und Datum.",
     "FIRSTNAME": "Vorname",
