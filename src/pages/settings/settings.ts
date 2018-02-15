@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { App, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
-import { OneSignal } from '@ionic-native/onesignal';
 
 import { LoginPage } from '../login/login';
 import { AuthService } from '../../providers/auth-service';
@@ -20,7 +19,7 @@ export class SettingsPage {
   _notify: boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public app: App, public authService: AuthService,
-              public modalCtrl: ModalController, public translate: TranslateService, public oneSignal: OneSignal, public alertCtrl: AlertController,
+              public modalCtrl: ModalController, public translate: TranslateService, public alertCtrl: AlertController,
               public pushwooshService: PushwooshService) {
     this._sound = localStorage.getItem('sound') == null ? true : localStorage.getItem('sound') == 'Y';
     this._notify = localStorage.getItem('notify') == null ? true : localStorage.getItem('notify') == 'Y';
@@ -75,11 +74,11 @@ export class SettingsPage {
   }
 
   toggleSound() {
-    this.oneSignal.enableSound(this.sound);
+    // this.oneSignal.enableSound(this.sound);
   }
 
   toggleNotify() {
-    this.oneSignal.setSubscription(this.notify);
+    // this.oneSignal.setSubscription(this.notify);
   }
 
   changeLang() {

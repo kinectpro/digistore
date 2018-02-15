@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.digistore.kinectpro" version="2.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.digistore24.reports" version="2.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Digistore24</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
-    <content original-src="index.html" src="http://192.168.1.20:8100" />
+    <content src="index.html" />
     <access origin="*" />
     <access origin="*.pushwoosh.com" />
     <allow-intent href="http://*/*" />
@@ -13,7 +13,7 @@
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
     <preference name="ScrollEnabled" value="false" />
-    <preference name="android-minSdkVersion" value="16" />
+    <preference name="android-minSdkVersion" value="14" />
     <preference name="orientation" value="portrait" />
     <preference name="BackupWebStorage" value="none" />
     <preference name="SplashMaintainAspectRatio" value="true" />
@@ -98,7 +98,6 @@
     <plugin name="cordova-plugin-file-transfer" spec="^1.7.0" />
     <plugin name="cordova-plugin-file" spec="^5.0.0" />
     <plugin name="cordova-plugin-file-opener2" spec="^2.0.19" />
-    <plugin name="onesignal-cordova-plugin" spec="^2.2.2" />
     <plugin name="cordova-plugin-appminimize" spec="^1.0.0" />
     <plugin name="cordova-plugin-device" spec="~1.1.6" />
     <plugin name="pushwoosh-cordova-plugin" spec="~7.0.8" />

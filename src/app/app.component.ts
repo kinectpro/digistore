@@ -4,7 +4,6 @@ import { Platform, Config, Nav, App, Tab, AlertController, Events } from 'ionic-
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Keyboard } from '@ionic-native/keyboard';
-import { OneSignal } from '@ionic-native/onesignal';
 import { AppMinimize } from '@ionic-native/app-minimize';
 
 import { LoginPage } from '../pages/login/login';
@@ -25,7 +24,7 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   constructor(public platform: Platform, statusBar: StatusBar, public splashScreen: SplashScreen, public translate: TranslateService,
-              public authService: AuthService, public events: Events, public keyboard: Keyboard, public config: Config, public oneSignal: OneSignal,
+              public authService: AuthService, public events: Events, public keyboard: Keyboard, public config: Config,
               @Inject(DOCUMENT) private document: any, public app: App, public alertCtrl: AlertController, public appMinimize: AppMinimize,
               public _pushService: PushwooshService) {
     platform.ready().then(() => {
@@ -41,7 +40,6 @@ export class MyApp {
       });
 
       if (platform.is("cordova")) {
-        this.initOneSignal();
         this._pushService.init();
         // send push token to the server every 10 days even if the app wasn't closed
         setTimeout(() => {
@@ -74,31 +72,6 @@ export class MyApp {
 
   initTextBackBtn() {
     this.translate.get('BACK').subscribe(res => this.config.set('backButtonText', res));
-  }
-
-  initOneSignal() {
-
-    this.oneSignal.startInit(Settings.ONE_SIGNAL_APPID, Settings.GOOGLE_PROJECT_NUMBER);
-
-    this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.Notification);
-
-    this.oneSignal.handleNotificationReceived().subscribe((data) => {
-      // alert(JSON.stringify(data))
-    });
-
-    this.oneSignal.handleNotificationOpened().subscribe((data) => {
-      if (data.notification.payload.additionalData) {
-        // alert(data.notification.payload.additionalData);
-
-        //let additionalData = data.notification.payload.additionalData;
-        //let product_id = additionalData.product_id;
-        //let category_id = additionalData.category_id;
-
-
-      }
-    });
-
-    this.oneSignal.endInit();
   }
 
   backBtnAction = () => {

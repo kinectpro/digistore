@@ -11,7 +11,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { Keyboard } from '@ionic-native/keyboard';
 import { QRScanner } from '@ionic-native/qr-scanner';
-import { OneSignal } from '@ionic-native/onesignal';
 import { FileTransfer } from '@ionic-native/file-transfer';
 import { AppMinimize } from '@ionic-native/app-minimize';
 
@@ -89,7 +88,6 @@ export function createTranslateLoader(http: HttpClient) {
     FileOpener,
     AppMinimize,
     TranslateService,
-    OneSignal,
     Keyboard,
     Device,
     PushwooshService,
