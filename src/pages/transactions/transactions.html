@@ -7,9 +7,9 @@
         <ion-col text-center col-8 offset-2>
           <ion-title><b>{{ 'GENERAL.TRANSACTIONS' | translate }}</b></ion-title>
         </ion-col>
-        <ion-col text-right col-2 *ngIf="currentPeriod || !isEmptyObject(params.search)" >
-          <button ion-button float-end text-capitalize clear color="clear" (click)="showAll()">{{ 'ALL' | translate }}</button>
-        </ion-col>
+        <!--<ion-col text-right col-2 *ngIf="currentPeriod || !isEmptyObject(params.search)" >-->
+          <!--<button ion-button float-end text-capitalize clear color="clear" (click)="showAll()">{{ 'ALL' | translate }}</button>-->
+        <!--</ion-col>-->
       </ion-row>
     </ion-grid>
 
@@ -102,7 +102,7 @@
           <p *ngIf="currentPeriod" translate>TRANSACTIONS_PAGE.NO_RESULTS_FOR_PERIOD_{{currentPeriod.toUpperCase()}}</p>
           <p text-wrap>
             <span class="vertical-align-middle">{{ 'TRANSACTIONS_PAGE.SEE_ALL_TRANSACTIONS' | translate }}</span>
-            <button class="font-size-general vertical-align-middle no-capitalize no-padding" no-margin ion-button clear (click)="showAll()">{{ 'TRANSACTIONS_PAGE.SEE_ALL_TRANSACTIONS_LINK' | translate }}</button>
+            <button class="font-size-general vertical-align-middle no-capitalize no-padding" no-margin ion-button clear (click)="openSearch()">{{ 'TRANSACTIONS_PAGE.SEE_ALL_TRANSACTIONS_LINK' | translate }}</button>
           </p>
           <!--<p><button no-margin ion-button clear (click)="openSearch()">{{ 'TRANSACTIONS_PAGE.SEARCH_FILTERS' | translate }}</button></p>-->
         </ion-item>

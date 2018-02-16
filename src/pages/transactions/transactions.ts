@@ -86,6 +86,8 @@ export class TransactionsPage {
   }
 
   getTransactions() {
+    if (!this.currentPeriod && !this.params.search.from)
+      this.params.search.from = this.tranServ.getFormatDate(this.tranServ.getDateAfterSubtractedDays(new Date(), this.tranServ.getDayOfWeek(new Date())));
     this.tranServ.getTransactionList(this.currentPeriod, this.params).then(
       res => {
         this.transactionsFromService = res;
@@ -140,6 +142,7 @@ export class TransactionsPage {
     const searchPageModal = this.modalCtrl.create(SearchPage, { params_search: this.params.search });
     searchPageModal.onDidDismiss(res => {
       if (res && res.params_changed) {
+        this.showAll(); // @todo temporary fix - remove it
         this.params.search = res.params_search;
         this.getTransactions();
       }
