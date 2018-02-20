@@ -78,6 +78,7 @@
     "NET_COMMISSION": "Net Commission",
     "TOTAL_GROSS": "Total Gross",
     "TOTAL_NET": "Total Net",
+    "TOTAL_EARNING": "Total Earning",
     "CURRENCY_DESCRIPTION": "Please choose currency for data to be displayed"
   },
   "TRANSACTIONS_PAGE": {
@@ -85,7 +86,7 @@
     "SEARCH_FILTERS": "Search & Filters",
     "DATE": "Date",
     "PRODUCT_NAME": "Product Name/Order ID",
-    "YOUR_EARNINGS": "Gross amount",
+    "YOUR_EARNINGS": "Your Earnings",
     "THIS": "This",
     "WEEK": "week",
     "MONTH": "month",
@@ -98,7 +99,7 @@
     "NO_RESULTS_FOR_PERIOD_MONTH": "No results for this month found.",
     "NO_RESULTS_FOR_PERIOD_YEAR": "No results for this year found.",
     "SEE_ALL_TRANSACTIONS": "Go to ",
-    "SEE_ALL_TRANSACTIONS_LINK": "Search & Filter"
+    "SEE_ALL_TRANSACTIONS_LINK": "all transactions"
   },
   "TRANSACTION_DETAILS_PAGE": {
     "TRANSACTIONS": "Transactions",
@@ -107,6 +108,7 @@
     "TRANSACTION_ID": "Transaction ID",
     "GROSS_AMOUNT": "Gross Amount",
     "NET_COMMISSION": "Net Commission",
+    "EARNING": "Earning",
     "TRANSACTION_TYPE": "Transaction Type",
     "PAYMENT_METHOD": "Payment Method",
     "CURRENCY": "Currency",
@@ -133,7 +135,7 @@
   "SORT_BY_PAGE": {
     "SORT_BY": "Sort By",
     "PRODUCT_NAME": "Product name",
-    "EARNING_AMOUNT": "Gross amount",
+    "EARNING_AMOUNT": "Earning amount",
     "DATE": "Date",
     "ASC": "Ascending",
     "DESC": "Descending",

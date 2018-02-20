@@ -1,5 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
-import { App, ModalController, NavController, NavParams, Events, Refresher, Content } from 'ionic-angular';
+import {
+  App, ModalController, NavController, NavParams, Events, Refresher, Content,
+  InfiniteScroll
+} from 'ionic-angular';
 
 import { TransactionService } from '../../providers/transaction-service';
 import { Params } from '../../models/params';
@@ -9,6 +12,7 @@ import { TransactionDetailsPage } from './transaction-details/transaction-detail
 import { SortByPage } from './sort-by/sort-by';
 import { SearchPage } from './search/search';
 import { SettingsService } from '../../providers/settings-service';
+import { Settings } from '../../config/settings';
 
 @Component({
   selector: 'page-transactions',
@@ -30,6 +34,9 @@ export class TransactionsPage {
   showedSearchInput: boolean = false;
   searchInputValue: string = '';
   filterCount: number = 0;
+  page: number = 1;
+
+  infiniteScroll: InfiniteScroll;
 
   transactionsFromService: any[];
   transactions: any = [];
@@ -82,20 +89,44 @@ export class TransactionsPage {
 
   doRefresh(refresher: Refresher) {
     refresher.complete();
+    this.page = 1;
+    if (this.infiniteScroll)
+      this.infiniteScroll.enable(true);
     this.getTransactions();
   }
 
-  getTransactions() {
-    if (!this.currentPeriod && !this.params.search.from)
-      this.params.search.from = this.tranServ.getFormatDate(this.tranServ.getDateAfterSubtractedDays(new Date(), this.tranServ.getDayOfWeek(new Date())));
-    this.tranServ.getTransactionList(this.currentPeriod, this.params).then(
+  getTransactions(page: number = null, event: InfiniteScroll = null) {
+    this.tranServ.getTransactionList(this.currentPeriod, this.params, page).then(
       res => {
-        this.transactionsFromService = res;
+        if (page == null) {
+          this.transactionsFromService = res;
+        } else {
+          this.transactionsFromService.concat(res);
+          if (event != null) {
+            event.complete();
+            if (res.length < Settings.ITEMS_PER_PAGE) {
+              event.enable(false);
+            }
+          }
+        }
         this.updateTransactions();
         this.filterCount = this.getSearchAmount();
       },
       err => this.errSrv.showMessage(err)
     );
+  }
+
+  loadMoreTransactions(event) {
+    this.infiniteScroll = event;
+    console.warn(event);
+    if (event == null)
+    {
+      this.page = 1;
+    }
+    else
+      this.page++;
+
+    this.getTransactions(this.page, event);
   }
 
   showAll() {
@@ -142,7 +173,6 @@ export class TransactionsPage {
     const searchPageModal = this.modalCtrl.create(SearchPage, { params_search: this.params.search });
     searchPageModal.onDidDismiss(res => {
       if (res && res.params_changed) {
-        this.showAll(); // @todo temporary fix - remove it
         this.params.search = res.params_search;
         this.getTransactions();
       }

@@ -18,8 +18,9 @@ export class TransactionService {
     console.log('Init TransactionServiceProvider');
   }
 
-  getTransactionListByPeriod(params: Params, from: string = 'start', to: string = 'now'): Observable<{[key: string]: any}> {
+  getTransactionListByPeriod(params: Params, from: string = 'start', to: string = 'now', page: number = null): Observable<{[key: string]: any}> {
     let params_search = new HttpParams();
+    if (page == null) page = 1;
     for (let key in params.search) {
       if (params.search[key] && key != 'product_name') {
         if (key === 'from')
@@ -30,7 +31,8 @@ export class TransactionService {
           params_search = params_search.append(`search[${key}]`, params.search[key]);
       }
     }
-    return this.http.get(`${Settings.BASE_URL}${this.auth.apiKey}/json/listTransactions?from=${from}&to=${to}&sort_by=${params.sort.sort_by}&sort_order=${params.sort.sort_order}&${decodeURIComponent(params_search.toString())}&language=${this.translate.currentLang}`);
+    return this.http.get(`${Settings.BASE_URL}${this.auth.apiKey}/json/listTransactions?page_size=${Settings.ITEMS_PER_PAGE}&page_no=${page}&from=${from}&to=${to}&sort_by=${params.sort.sort_by}&sort_order=${params.sort.sort_order}&${decodeURIComponent(params_search.toString())}&language=${this.translate.currentLang}`);
+    // return this.http.get(`${Settings.BASE_URL}${this.auth.apiKey}/json/listTransactions?from=${from}&to=${to}&sort_by=${params.sort.sort_by}&sort_order=${params.sort.sort_order}&${decodeURIComponent(params_search.toString())}&language=${this.translate.currentLang}`);
   }
 
   // Decide to not use getPurchase anymore, probably will need it in the future
@@ -39,7 +41,7 @@ export class TransactionService {
   //   return this.http.get(`${Settings.BASE_URL}${this.auth.apiKey}/json/getPurchase?purchase_id=${orderId}&language=${this.translate.currentLang}`);
   // }
 
-  getTransactionList(period: string, params: Params): Promise<any> {
+  getTransactionList(period: string, params: Params, page: number = null): Promise<any> {
     return new Promise((resolve, reject) => {
       let from: string;
       let date = new Date();
@@ -59,7 +61,7 @@ export class TransactionService {
           break;
       }
 
-      this.getTransactionListByPeriod(params, from).subscribe(
+      this.getTransactionListByPeriod(params, from,'now', page).subscribe(
         res => {
           if (res.result === 'success') {
             resolve(res.data.transaction_list.map(obj => {
@@ -69,6 +71,8 @@ export class TransactionService {
                 order_id: obj.purchase_id,
                 transaction_id: obj.id,
                 earning: obj.transaction_amount, // old value was: obj.amount - obj.vat_amount
+                earned_amount: obj.earned_amount,
+                earned_currency: obj.currency,
                 // additional data from listTransactions we will use instead of getPurchase request
                 products: [{
                     name: obj.main_product_name,
