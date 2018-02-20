@@ -96,10 +96,10 @@ export class TransactionsPage {
     this.getTransactions();
   }
 
-  getTransactions(page: number = null, event: InfiniteScroll = null) {
+  getTransactions(page: number = 1, event: InfiniteScroll = null) {
     this.tranServ.getTransactionList(this.currentPeriod, this.params, page).then(
       res => {
-        if (page == null)
+        if (page == 1)
           this.transactionsFromService = res;
         else {
           this.transactionsFromService = this.transactionsFromService.concat(res);
