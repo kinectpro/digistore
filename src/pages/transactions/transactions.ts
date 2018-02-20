@@ -90,18 +90,20 @@ export class TransactionsPage {
   doRefresh(refresher: Refresher) {
     refresher.complete();
     this.page = 1;
-    if (this.infiniteScroll)
+    if (this.infiniteScroll) {
       this.infiniteScroll.enable(true);
+    }
     this.getTransactions();
   }
 
   getTransactions(page: number = null, event: InfiniteScroll = null) {
     this.tranServ.getTransactionList(this.currentPeriod, this.params, page).then(
       res => {
-        if (page == null) {
+        if (page == null)
           this.transactionsFromService = res;
-        } else {
-          this.transactionsFromService.concat(res);
+        else {
+          this.transactionsFromService = this.transactionsFromService.concat(res);
+
           if (event != null) {
             event.complete();
             if (res.length < Settings.ITEMS_PER_PAGE) {
@@ -118,14 +120,7 @@ export class TransactionsPage {
 
   loadMoreTransactions(event) {
     this.infiniteScroll = event;
-    console.warn(event);
-    if (event == null)
-    {
-      this.page = 1;
-    }
-    else
-      this.page++;
-
+    this.page = event == null ? 1 : this.page + 1;
     this.getTransactions(this.page, event);
   }
 
