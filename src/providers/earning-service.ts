@@ -37,7 +37,7 @@ export class EarningService {
           this.settingsServ.currencies.forEach(currency => {
             if (!res.data.for[period].amounts[currency]) {
               res.data.for[period].amounts[currency] = {
-                total_netto_amount: 0,
+                total_share_amount: 0,
                 total_brutto_amount: 0
               };
             }
@@ -67,11 +67,11 @@ export class EarningService {
               this.settingsServ.currencies.forEach(currency => {
                 this.statsSalesSummary[currency] = {
                   netto: {
-                    total: res.data.for.all.amounts[currency].total_netto_amount,
-                    today: res.data.for.day.amounts[currency].total_netto_amount,
-                    week: res.data.for.week.amounts[currency].total_netto_amount,
-                    month: res.data.for.month.amounts[currency].total_netto_amount,
-                    year: res.data.for.year.amounts[currency].total_netto_amount
+                    total: res.data.for.all.amounts[currency].total_share_amount,
+                    today: res.data.for.day.amounts[currency].total_share_amount,
+                    week: res.data.for.week.amounts[currency].total_share_amount,
+                    month: res.data.for.month.amounts[currency].total_share_amount,
+                    year: res.data.for.year.amounts[currency].total_share_amount
                   },
                   brutto: {
                     total: res.data.for.all.amounts[currency].total_brutto_amount,
@@ -121,7 +121,7 @@ export class EarningService {
                   this.statsSalesMonthly[currency][this.statsSalesMonthly[currency].length - 1]['months'].push({
                     name: this.months[date.getMonth()],
                     number: date.getMonth() + 1,
-                    netto: monthlyTotals[i].total_netto_amount,
+                    netto: monthlyTotals[i].total_share_amount,
                     brutto: monthlyTotals[i].total_brutto_amount
                   });
                 }
@@ -168,7 +168,7 @@ export class EarningService {
                   this.statsSalesQuarterly[currency][this.statsSalesQuarterly[currency].length - 1]['quarters'].push({
                     number: quarter,
                     name: this.quarters[quarter - 1],
-                    netto: quarterlyTotals[i].total_netto_amount,
+                    netto: quarterlyTotals[i].total_share_amount,
                     brutto: quarterlyTotals[i].total_brutto_amount
                   });
                 }
@@ -196,7 +196,7 @@ export class EarningService {
                 this.statsSalesYearly[currency] = res.data.amounts[currency].map(obj => {
                   return {
                     "year": (new Date(obj.from)).getFullYear(),
-                    "netto": obj.total_netto_amount,
+                    "netto": obj.total_share_amount,
                     "brutto": obj.total_brutto_amount
                   }
                 });
