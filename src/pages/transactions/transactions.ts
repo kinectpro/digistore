@@ -89,11 +89,15 @@ export class TransactionsPage {
 
   doRefresh(refresher: Refresher) {
     refresher.complete();
+    this.resetInfiniteScroll();
+    this.getTransactions();
+  }
+
+  resetInfiniteScroll() {
     this.page = 1;
     if (this.infiniteScroll) {
       this.infiniteScroll.enable(true);
     }
-    this.getTransactions();
   }
 
   getTransactions(page: number = 1, event: InfiniteScroll = null) {
@@ -129,6 +133,7 @@ export class TransactionsPage {
     this.searchInputValue = '';
     this.showedSearchInput = false;
     this.params.search = {};
+    this.resetInfiniteScroll();
     this.getTransactions();
     this.content.resize();
   }
@@ -168,6 +173,7 @@ export class TransactionsPage {
     const searchPageModal = this.modalCtrl.create(SearchPage, { params_search: this.params.search });
     searchPageModal.onDidDismiss(res => {
       if (res && res.params_changed) {
+        this.resetInfiniteScroll();
         this.params.search = res.params_search;
         this.getTransactions();
       }
