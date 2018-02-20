@@ -26,7 +26,7 @@ export class TransactionsPage {
   params: Params = {
     sort: {
       sort_by: 'date',
-      sort_order: 'asc'
+      sort_order: 'desc'
     },
     search: {}
   };

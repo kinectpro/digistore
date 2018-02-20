@@ -18,7 +18,7 @@ export class TransactionService {
     console.log('Init TransactionServiceProvider');
   }
 
-  getTransactionListByPeriod(params: Params, from: string = 'start', to: string = 'now', page: number): Observable<{[key: string]: any}> {
+  getTransactionListByPeriod(params: Params, from: string = 'start', to: string = 'now', page: number, noSpinner: boolean = false): Observable<{[key: string]: any}> {
     let params_search = new HttpParams();
     for (let key in params.search) {
       if (params.search[key] && key != 'product_name') {
@@ -30,7 +30,10 @@ export class TransactionService {
           params_search = params_search.append(`search[${key}]`, params.search[key]);
       }
     }
-    return this.http.get(`${Settings.BASE_URL}${this.auth.apiKey}/json/listTransactions?page_size=${Settings.ITEMS_PER_PAGE}&page_no=${page}&from=${from}&to=${to}&sort_by=${params.sort.sort_by}&sort_order=${params.sort.sort_order}&${decodeURIComponent(params_search.toString())}&language=${this.translate.currentLang}`);
+    noSpinner = page != 1;
+    return this.http.get(`${Settings.BASE_URL}${this.auth.apiKey}/json/listTransactions?page_size=${Settings.ITEMS_PER_PAGE}&page_no=${page}&from=${from}&to=${to}&sort_by=${params.sort.sort_by}&sort_order=${params.sort.sort_order}&${decodeURIComponent(params_search.toString())}&language=${this.translate.currentLang}`, {
+      params: new HttpParams().set(noSpinner ? 'no-spinner' : '', ''),
+    });
     // return this.http.get(`${Settings.BASE_URL}${this.auth.apiKey}/json/listTransactions?from=${from}&to=${to}&sort_by=${params.sort.sort_by}&sort_order=${params.sort.sort_order}&${decodeURIComponent(params_search.toString())}&language=${this.translate.currentLang}`);
   }
 
