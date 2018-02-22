@@ -25,7 +25,7 @@ export class ReportPage {
       'description': ['', [
         Validators.required
       ]],
-      'affiliate': [false]
+      'affiliate': [{ value: false, disabled: !this.transaction.customer.affiliate }]
     });
   }
 
