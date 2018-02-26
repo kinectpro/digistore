@@ -40,8 +40,8 @@ export class TicketCheckPage extends EventsPage {
     this.keyboardHideSubscription = this.keyboard.onKeyboardHide().subscribe(() => this.content.resize());
 
     this.withoutNumberForm = new FormGroup({
-      'firstName': new FormControl(this.params.firstName),
-      'lastName': new FormControl(this.params.lastName),
+      'firstName': new FormControl(this.params.firstName || ''),
+      'lastName': new FormControl(this.params.lastName || ''),
       'email': new FormControl(this.params.email, Validators.pattern('[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}')),
     });
 
@@ -92,8 +92,8 @@ export class TicketCheckPage extends EventsPage {
   }
 
   search() {
-    this.params.firstName = this.withoutNumberForm.get('firstName').value;
-    this.params.lastName = this.withoutNumberForm.get('lastName').value;
+    this.params.firstName = this.withoutNumberForm.get('firstName').value.trim();
+    this.params.lastName = this.withoutNumberForm.get('lastName').value.trim();
     this.params.email = this.withoutNumberForm.get('email').value;
     this.navCtrl.push(TicketSearchResultsPage, { params: this.params });
   }

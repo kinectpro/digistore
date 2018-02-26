@@ -7,9 +7,9 @@
         <ion-col text-center col-8 offset-2>
           <ion-title><b>{{ 'GENERAL.TRANSACTIONS' | translate }}</b></ion-title>
         </ion-col>
-        <!--<ion-col text-right col-2 *ngIf="currentPeriod || !isEmptyObject(params.search)" >-->
-          <!--<button ion-button float-end text-capitalize clear color="clear" (click)="showAll()">{{ 'ALL' | translate }}</button>-->
-        <!--</ion-col>-->
+        <ion-col text-right col-2 *ngIf="currentPeriod || !isEmptyObject(params.search)" >
+          <button ion-button float-end text-capitalize clear color="clear" (click)="showAll()">{{ 'ALL' | translate }}</button>
+        </ion-col>
       </ion-row>
     </ion-grid>
 
@@ -34,15 +34,7 @@
     </ion-row>
   </ion-grid>
 
-</ion-header>
-
-<ion-content no-padding>
-
-  <ion-refresher (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content pullingIcon="arrow-dropdown"></ion-refresher-content>
-  </ion-refresher>
-
-  <ion-grid no-padding *ngIf="transactions">
+  <ion-grid no-padding *ngIf="transactions" class="white-bg">
     <ion-row *ngIf="!showedSearchInput;else searchInput">
       <ion-col col-6>
         <button ion-button class="nav-btn" clear color="primary" (click)="sortBy()">{{ 'TRANSACTIONS_PAGE.SORT_BY' | translate }}</button>
@@ -69,6 +61,14 @@
     </ng-template>
   </ion-grid>
 
+</ion-header>
+
+<ion-content no-padding>
+
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown"></ion-refresher-content>
+  </ion-refresher>
+
   <ion-item-group *ngIf="transactions && transactions.length;else transactionsNotFound">
     <ion-item-divider class="header" sticky>
       <ion-label no-margin>
@@ -88,7 +88,7 @@
             <p class="transaction-name">{{ transaction.name }}</p>
             <p class="transaction-id">{{ transaction.order_id }}</p>
           </ion-col>
-          <ion-col col-5 text-right><span class="transaction-earning">{{ +transaction.earning | currency: transaction.currency : true}}</span><ion-icon md="ios-arrow-forward" padding-left color="light"></ion-icon></ion-col>
+          <ion-col col-5 text-right><span class="transaction-earning">{{ +transaction.earned_amount | currency: transaction.earned_currency : true}}</span><ion-icon md="ios-arrow-forward" padding-left color="light"></ion-icon></ion-col>
         </ion-row>
       </ion-label>
     </button>
@@ -102,13 +102,17 @@
           <p *ngIf="currentPeriod" translate>TRANSACTIONS_PAGE.NO_RESULTS_FOR_PERIOD_{{currentPeriod.toUpperCase()}}</p>
           <p text-wrap>
             <span class="vertical-align-middle">{{ 'TRANSACTIONS_PAGE.SEE_ALL_TRANSACTIONS' | translate }}</span>
-            <button class="font-size-general vertical-align-middle no-capitalize no-padding" no-margin ion-button clear (click)="openSearch()">{{ 'TRANSACTIONS_PAGE.SEE_ALL_TRANSACTIONS_LINK' | translate }}</button>
+            <button class="font-size-general vertical-align-middle no-capitalize no-padding" no-margin ion-button clear (click)="showAll()">{{ 'TRANSACTIONS_PAGE.SEE_ALL_TRANSACTIONS_LINK' | translate }}</button>
           </p>
           <!--<p><button no-margin ion-button clear (click)="openSearch()">{{ 'TRANSACTIONS_PAGE.SEARCH_FILTERS' | translate }}</button></p>-->
         </ion-item>
       </ion-col>
     </ion-row>
   </ng-template>
+
+  <ion-infinite-scroll (ionInfinite)="loadMoreTransactions($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 
 </ion-content>
 

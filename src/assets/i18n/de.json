@@ -78,6 +78,7 @@
     "NET_COMMISSION": "Nettoprovision",
     "TOTAL_GROSS": "Bruttobetrag",
     "TOTAL_NET": "Nettobetrag",
+    "TOTAL_EARNING": "Gesamtverdienst",
     "CURRENCY_DESCRIPTION": "Bitte wählen Sie die anzuzeigende Währung"
   },
   "TRANSACTIONS_PAGE": {
@@ -85,7 +86,7 @@
     "SEARCH_FILTERS": "Suche & Filter",
     "DATE": "Datum",
     "PRODUCT_NAME": "Produktname",
-    "YOUR_EARNINGS": "Bruttobetrag",
+    "YOUR_EARNINGS": "Ihre Einnahmen",
     "THIS": "Diese",
     "WEEK": "Woche",
     "MONTH": "Monat",
@@ -98,7 +99,7 @@
     "NO_RESULTS_FOR_PERIOD_MONTH": "Keine Ergebnisse für diesen Monat gefunden.",
     "NO_RESULTS_FOR_PERIOD_YEAR": "Keine Ergebnisse für dieses Jahr gefunden.",
     "SEE_ALL_TRANSACTIONS": "Gehe zu ",
-    "SEE_ALL_TRANSACTIONS_LINK": "Suche & Filter"
+    "SEE_ALL_TRANSACTIONS_LINK": "allen Transaktionen"
   },
   "TRANSACTION_DETAILS_PAGE": {
     "TRANSACTIONS": "Transaktionen",
@@ -107,6 +108,7 @@
     "TRANSACTION_ID": "Transaktions-ID",
     "GROSS_AMOUNT": "Bruttobetrag",
     "NET_COMMISSION": "Nettobetrag",
+    "EARNING": "Verdienst",
     "TRANSACTION_TYPE": "Transaktionstyp",
     "PAYMENT_METHOD": "Bezahlmethode",
     "CURRENCY": "Währung",
@@ -133,7 +135,7 @@
   "SORT_BY_PAGE": {
     "SORT_BY": "Sortiere nach",
     "PRODUCT_NAME": "Produktname",
-    "EARNING_AMOUNT": "Bruttobetrag",
+    "EARNING_AMOUNT": "Verdienstbetrag",
     "DATE": "Datum",
     "ASC": "Aufsteigend",
     "DESC": "Absteigend",
