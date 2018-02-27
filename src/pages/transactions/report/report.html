@@ -28,7 +28,7 @@
 
         </ion-list>
     </section>
-    <span *ngIf="!reportForm.get('affiliate').value" class="no-affiliate-text" padding-left>{{ 'REPORT_PAGE.AFFILIATE_DESC' | translate }}</span>
+    <span *ngIf="!transaction.customer.affiliate" class="no-affiliate-text" padding-left>{{ 'REPORT_PAGE.AFFILIATE_DESC' | translate }}</span>
     <section margin-top class="white-bg">
       <ion-item-group>
         <ion-item>

@@ -86,9 +86,9 @@ export class TransactionService {
                 method: obj.transaction_pay_method_msg,
                 currency: obj.transaction_currency,
                 customer: {
-                  name: obj.buyer.first_name + ' ' + obj.buyer.last_name ,
-                  email: obj.buyer.email,
-                  phone: obj.buyer.phone_no || '',
+                  name: obj.buyer ? (obj.buyer.first_name + ' ' + obj.buyer.last_name) : '',
+                  email: obj.buyer ? obj.buyer.email : '',
+                  phone: obj.buyer ? obj.buyer.phone_no : '' || '',
                   affiliate: obj.affiliate_name
                 }
               }
