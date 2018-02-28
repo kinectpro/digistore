@@ -88,7 +88,7 @@
       </ion-grid>
     </section>
 
-    <ion-list class="list">
+    <ion-list *ngIf="transaction.can_see_order_details == 'Y'" class="list">
       <ion-list-header>
         {{ 'TRANSACTION_DETAILS_PAGE.CUSTOMER_DETAILS' | translate }}
       </ion-list-header>

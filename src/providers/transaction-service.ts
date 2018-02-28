@@ -75,6 +75,7 @@ export class TransactionService {
                 earning: obj.transaction_amount, // old value was: obj.amount - obj.vat_amount
                 earned_amount: obj.earned_amount,
                 earned_currency: obj.currency,
+                can_see_order_details: obj.can_see_order_details,
                 // additional data from listTransactions we will use instead of getPurchase request
                 products: [{
                     name: obj.main_product_name,
@@ -86,9 +87,9 @@ export class TransactionService {
                 method: obj.transaction_pay_method_msg,
                 currency: obj.transaction_currency,
                 customer: {
-                  name: obj.buyer.first_name + ' ' + obj.buyer.last_name ,
-                  email: obj.buyer.email,
-                  phone: obj.buyer.phone_no || '',
+                  name: obj.buyer ? (obj.buyer.first_name + ' ' + obj.buyer.last_name) : '',
+                  email: obj.buyer ? obj.buyer.email : '',
+                  phone: obj.buyer ? obj.buyer.phone_no : '' || '',
                   affiliate: obj.affiliate_name
                 }
               }
