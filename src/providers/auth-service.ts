@@ -84,7 +84,7 @@ export class AuthService {
       this.http.get(`${Settings.BASE_URL}${api_key}/json/unregister?language=${this.translate.currentLang}`).subscribe(
         (res: any) => {
           if (res.result === 'success') {
-            this.http.get(`${Settings.BASE_URL}${api_key}/json/setAppPushToken?token=empty&enabled=N&sound=N&vibration=N`).subscribe(
+            this.http.get(`${Settings.BASE_URL}${api_key}/json/setAppPushToken?token=${localStorage.getItem('pushToken')}&enabled=N&sound=N&vibration=N`).subscribe(
               (res: any) => {
                 console.log(res);
               }, (err: any) => {

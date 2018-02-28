@@ -75,6 +75,7 @@ export class TransactionService {
                 earning: obj.transaction_amount, // old value was: obj.amount - obj.vat_amount
                 earned_amount: obj.earned_amount,
                 earned_currency: obj.currency,
+                can_see_order_details: obj.can_see_order_details,
                 // additional data from listTransactions we will use instead of getPurchase request
                 products: [{
                     name: obj.main_product_name,
