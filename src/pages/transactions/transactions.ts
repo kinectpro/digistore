@@ -125,7 +125,12 @@ export class TransactionsPage {
   loadMoreTransactions(event) {
     this.infiniteScroll = event;
     this.page = event == null ? 1 : this.page + 1;
-    this.getTransactions(this.page, event);
+    if (this.transactions.length < Settings.ITEMS_PER_PAGE) {
+      event.complete();
+      this.infiniteScroll.enable(false);
+    } else {
+      this.getTransactions(this.page, event);
+    }
   }
 
   showAll() {
