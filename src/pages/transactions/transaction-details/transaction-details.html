@@ -88,31 +88,33 @@
       </ion-grid>
     </section>
 
-    <ion-list *ngIf="transaction.can_see_order_details == 'Y'" class="list">
+    <ion-list class="list">
       <ion-list-header>
         {{ 'TRANSACTION_DETAILS_PAGE.CUSTOMER_DETAILS' | translate }}
       </ion-list-header>
-      <ion-item no-padding>
-        <ion-label padding-left>
-          {{ 'TRANSACTION_DETAILS_PAGE.NAME' | translate }}
-        </ion-label>
-        <div item-content class="item-content" padding-right>
-          {{ transaction.customer.name  || '-' }}
-        </div>
-      </ion-item>
-      <ion-item no-padding>
-        <ion-label padding-left>
-          {{ 'TRANSACTION_DETAILS_PAGE.EMAIL' | translate }}
-        </ion-label>
-        <div item-content class="item-content" padding-right>
-          <div *ngIf="transaction.customer.email; else no_email">
-            <a target="_blank" href="mailto:{{transaction.customer.email}}">{{ transaction.customer.email }}</a>
+      <ng-container *ngIf="transaction.can_see_order_details == 'Y'">
+        <ion-item no-padding>
+          <ion-label padding-left>
+            {{ 'TRANSACTION_DETAILS_PAGE.NAME' | translate }}
+          </ion-label>
+          <div item-content class="item-content" padding-right>
+            {{ transaction.customer.name  || '-' }}
           </div>
-          <ng-template #no_email>
-            -
-          </ng-template>
-        </div>
-      </ion-item>
+        </ion-item>
+        <ion-item no-padding>
+          <ion-label padding-left>
+            {{ 'TRANSACTION_DETAILS_PAGE.EMAIL' | translate }}
+          </ion-label>
+          <div item-content class="item-content" padding-right>
+            <div *ngIf="transaction.customer.email; else no_email">
+              <a target="_blank" href="mailto:{{transaction.customer.email}}">{{ transaction.customer.email }}</a>
+            </div>
+            <ng-template #no_email>
+              -
+            </ng-template>
+          </div>
+        </ion-item>
+      </ng-container>
       <!--<ion-item no-padding>-->
         <!--<ion-label padding-left>-->
           <!--{{ 'TRANSACTION_DETAILS_PAGE.PHONE_NUMBER' | translate }}-->
