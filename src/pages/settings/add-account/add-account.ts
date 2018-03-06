@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController, ToastController, Events } from 'ionic-angular';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { Device } from '@ionic-native/device';
 import { HttpClient } from '@angular/common/http';
 
 import { TranslateService } from '@ngx-translate/core';
@@ -23,7 +24,7 @@ export class AddAccountPage extends EventsPage {
   pwdType: string = 'password';
   mesConnProblem: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public fb: FormBuilder, public events: Events,
+  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public fb: FormBuilder, public events: Events, public device: Device,
               public translate: TranslateService, public http: HttpClient, public authService: AuthService, public toastCtrl: ToastController, public pushwooshService: PushwooshService) {
     super(events);
     this.loginForm = fb.group({
@@ -56,7 +57,8 @@ export class AddAccountPage extends EventsPage {
       return;
     }
     this.translate.get('LOGIN_PAGE.CONNECTION_PROBLEM').subscribe(value => this.mesConnProblem = value);
-    this.http.get(`${Settings.BASE_URL}${Settings.API_KEY}/json/createApiKey?username=${this.loginForm.get('username').value}&password=${encodeURIComponent(this.loginForm.get('password').value)}&language=${this.translate.currentLang}`).subscribe(
+    const deviceName = encodeURIComponent(this.device.manufacturer + ' ' + this.device.model);
+    this.http.get(`${Settings.BASE_URL}${Settings.API_KEY}/json/createApiKey?username=${this.loginForm.get('username').value}&password=${encodeURIComponent(this.loginForm.get('password').value)}&device_name=${deviceName}&language=${this.translate.currentLang}`).subscribe(
       (res: any) => {
         if (res.result === 'error') {
           this.showError(res.message);

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { Device } from '@ionic-native/device';
 import { HttpClient } from '@angular/common/http';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
@@ -21,7 +22,7 @@ export class LoginPage {
   pwdType: string = 'password';
   language: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public iab: InAppBrowser, public fb: FormBuilder,
+  constructor(public navCtrl: NavController, public navParams: NavParams, public iab: InAppBrowser, public fb: FormBuilder, public device: Device,
               public http: HttpClient, public translate: TranslateService, public authService: AuthService, public pushwooshService: PushwooshService) {
 
     this.loginForm = fb.group({
@@ -46,7 +47,8 @@ export class LoginPage {
   }
 
   login() {
-    this.http.get(`${Settings.BASE_URL}${Settings.API_KEY}/json/createApiKey?username=${this.loginForm.get('username').value}&password=${encodeURIComponent(this.loginForm.get('password').value)}&language=${this.translate.currentLang}`).subscribe(
+    const deviceName = encodeURIComponent(this.device.manufacturer + ' ' + this.device.model);
+    this.http.get(`${Settings.BASE_URL}${Settings.API_KEY}/json/createApiKey?username=${this.loginForm.get('username').value}&password=${encodeURIComponent(this.loginForm.get('password').value)}&device_name=${deviceName}&language=${this.translate.currentLang}`).subscribe(
       (res: any) => {
         if (res.result === 'error') {
           this.showError(res.message);
