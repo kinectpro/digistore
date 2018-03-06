@@ -88,6 +88,12 @@ export class SearchPage extends EventsPage {
     this.activeTab = this.activeTab === tab ? null : tab;
   }
 
+  toggleChanged(e: any) {
+    if (e.value == 'Y' && this.searchForm.invalid) {
+      this.searchObj.purchase_id = '';
+    }
+  }
+
   ionViewDidLoad() {
     console.log('Init SearchPage');
     this.searchbar.setValue(this.searchObj.product_name);
