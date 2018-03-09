@@ -72,7 +72,8 @@ export class PushwooshService {
     //register for pushes
     pushNotification.registerDevice(
       function (status) {
-        var deviceToken = status['deviceToken'];
+        var deviceToken = status['pushToken'];
+        console.log(JSON.stringify(deviceToken));
         console.warn('registerDevice: ' + deviceToken);
         self.sendPushToken(deviceToken);
       },

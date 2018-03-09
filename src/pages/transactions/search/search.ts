@@ -201,7 +201,7 @@ export class SearchPage extends EventsPage {
     this.viewCtrl.dismiss({
       params_changed: true,
       params_search: this.searchObj
-    });
+    }, this.extended);
   }
 
   selectedProduct(e: any) {

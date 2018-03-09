@@ -176,10 +176,17 @@ export class TransactionsPage {
 
   openSearch() {
     const searchPageModal = this.modalCtrl.create(SearchPage, { params_search: this.params.search });
-    searchPageModal.onDidDismiss(res => {
+    searchPageModal.onDidDismiss( (res, isExtendedForm) => {
       if (res && res.params_changed) {
+        // Search will be on only one of the forms
+        if (isExtendedForm == 'N') {
+          this.params.search = { purchase_id: res.params_search.purchase_id };
+        }
+        else {
+          this.params.search = res.params_search;
+          this.params.search.purchase_id = '';
+        }
         this.resetInfiniteScroll();
-        this.params.search = res.params_search;
         this.getTransactions();
       }
     });
