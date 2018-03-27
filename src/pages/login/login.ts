@@ -10,6 +10,7 @@ import { AuthService } from '../../providers/auth-service';
 import { Settings } from '../../config/settings';
 import { TabsPage } from '../tabs/tabs';
 import { PushwooshService } from '../../providers/pushwoosh-service';
+import { ChooseLanguagePage } from '../choose-language/choose-language';
 
 @Component({
   selector: 'page-login',
@@ -99,6 +100,15 @@ export class LoginPage {
 
   openBrowser(url: string) {
     this.iab.create(Settings.SITE_URL + url, '_self', {location:'no'});
+  }
+
+  back() {
+    if (this.navCtrl.canGoBack()) {
+      this.navCtrl.pop();
+    }
+    else {
+      this.navCtrl.setRoot(ChooseLanguagePage);
+    }
   }
 
 }

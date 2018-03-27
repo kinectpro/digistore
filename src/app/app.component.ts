@@ -55,7 +55,6 @@ export class MyApp {
 
     });
     // Set the root page
-    console.log(this.authService.langIsSelected());
     this.rootPage = this.authService.isLoggedIn() ? TabsPage : this.authService.langIsSelected() ? LoginPage : ChooseLanguagePage;
     // Set the default language for translation strings, and the current language.
     this.translate.setDefaultLang(this.authService.lang);
