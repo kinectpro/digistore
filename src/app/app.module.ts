@@ -22,6 +22,7 @@ import { TicketPageModule } from '../pages/ticket/ticket.module';
 import { SharedModule } from '../shared/shared.module';
 import { SettingsPageModule } from '../pages/settings/settings.module';
 import { TransactionsPageModule } from '../pages/transactions/transactions.module';
+import { ChooseLanguagePageModule } from '../pages/choose-language/choose-language.module';
 
 import { TabsPage } from '../pages/tabs/tabs';
 
@@ -55,6 +56,7 @@ export function createTranslateLoader(http: HttpClient) {
     HttpClientModule,
     LoginPageModule,
     TransactionsPageModule,
+    ChooseLanguagePageModule,
     TicketPageModule,
     EarningPageModule,
     SettingsPageModule,

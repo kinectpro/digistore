@@ -10,8 +10,8 @@ import { LoginPage } from '../pages/login/login';
 import { TabsPage } from '../pages/tabs/tabs';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../providers/auth-service';
-import { Settings } from '../config/settings';
 import { PushwooshService } from '../providers/pushwoosh-service';
+import { ChooseLanguagePage } from '../pages/choose-language/choose-language';
 
 @Component({
   templateUrl: 'app.html'
@@ -55,7 +55,8 @@ export class MyApp {
 
     });
     // Set the root page
-    this.rootPage = this.authService.isLoggedIn() ? TabsPage : LoginPage;
+    console.log(this.authService.langIsSelected());
+    this.rootPage = this.authService.isLoggedIn() ? TabsPage : this.authService.langIsSelected() ? LoginPage : ChooseLanguagePage;
     // Set the default language for translation strings, and the current language.
     this.translate.setDefaultLang(this.authService.lang);
     this.translate.use(this.authService.lang);

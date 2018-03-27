@@ -1,4 +1,8 @@
 {
+  "CHOOSE_LANG_PAGE": {
+    "TEXT": "Please select a language",
+    "NEXT": "Next"
+  },
   "LOGIN_PAGE": {
     "CONNECTION_PROBLEM": "Connection problem",
     "LOGIN_TO_CONTINUE": "Login to continue",

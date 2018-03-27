@@ -66,6 +66,11 @@ export class AuthService {
     this._lang = value;
   }
 
+  langIsSelected(): boolean {
+    const lang = localStorage.getItem('lang') || null;
+    return !!lang;
+  }
+
   isLoggedIn(): boolean {
     return this._user !== null;
   }
