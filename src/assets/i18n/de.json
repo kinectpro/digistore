@@ -153,6 +153,7 @@
     "ORDER_ID": "Bestell-ID",
     "PRODUCT_ID": "Produkt-ID",
     "CLEAR_ALL": "Zurücksetzen",
+    "PRODUCT": "Produkt",
     "PRODUCT_NAME": "Produktname",
     "CUSTOMER_INFO": "Kundeninformation",
     "FIRSTNAME": "Vorname",

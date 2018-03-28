@@ -59,10 +59,11 @@
 
     <ion-list no-padding>
 
-        <ion-item-divider style="min-height: 0"><ion-label no-margin></ion-label></ion-item-divider>
-        <button no-padding ion-item icon-end (click)="setActive('product')">
+        <button no-padding ion-item icon-end (click)="setActive('product')" class="radio-btn">
           <ion-icon [color]="activeTab === 'product' ? 'primary' : 'dark'" name="{{activeTab === 'product' ? 'ios-arrow-up' :'ios-arrow-down'}}" item-end></ion-icon>
-          <ion-label padding-left [color]="activeTab === 'product' ? 'primary' : 'dark'">{{ 'SEARCH_FILTERS_PAGE.PRODUCT_NAME' | translate}}</ion-label>
+          <ion-label padding-left [color]="activeTab === 'product' ? 'primary' : 'dark'">
+            {{ 'SEARCH_FILTERS_PAGE.PRODUCT' | translate}} <ion-badge *ngIf="counters.product" mode="ios" [color]="activeTab === 'product' ? 'primary' : 'inactive'">{{ counters.product }}</ion-badge>
+          </ion-label>
         </button>
 
         <form [formGroup]="searchFormExtended">
@@ -92,9 +93,11 @@
 
           <div *ngIf="showTransparentDiv" id="transparentDiv"></div>
 
-          <button no-padding ion-item icon-end (click)="setActive('customer')">
+          <button no-padding ion-item icon-end (click)="setActive('customer')" class="radio-btn">
             <ion-icon [color]="activeTab === 'customer' ? 'primary' : 'dark'" name="{{activeTab === 'customer' ? 'ios-arrow-up' :'ios-arrow-down'}}" item-end></ion-icon>
-            <ion-label padding-left [color]="activeTab === 'customer' ? 'primary' : 'dark'">{{ 'SEARCH_FILTERS_PAGE.CUSTOMER_INFO' | translate}}</ion-label>
+            <ion-label padding-left [color]="activeTab === 'customer' ? 'primary' : 'dark'">
+              {{ 'SEARCH_FILTERS_PAGE.CUSTOMER_INFO' | translate}} <ion-badge *ngIf="counters.customer" mode="ios" [color]="activeTab === 'customer' ? 'primary' : 'inactive'">{{ counters.customer }}</ion-badge>
+            </ion-label>
           </button>
           <ion-list *ngIf="activeTab === 'customer'">
             <ion-grid padding>
@@ -112,10 +115,10 @@
               </ion-row>
               <ion-row id="e-mail">
                 <ion-col col-12>
-                  <ion-item no-margin no-padding [class.has-value]="searchFormExtended.get('email').value">
+                  <ion-item no-margin no-padding [class.has-value]="email.value">
                     <ion-input (ionFocus)="onFocused('e-mail')" (keydown)="onKeydown($event)" formControlName="email" type="email" placeholder="{{ 'SEARCH_FILTERS_PAGE.EMAIL' | translate}}"></ion-input>
                   </ion-item>
-                  <ion-label class="err-message" *ngIf="searchFormExtended.get('email').value && searchFormExtended.get('email').invalid && searchFormExtended.get('email').touched">
+                  <ion-label class="err-message" *ngIf="email.value && email.invalid && email.touched">
                     {{ 'SEARCH_FILTERS_PAGE.INVALID_EMAIL' | translate}}
                   </ion-label>
                 </ion-col>
@@ -125,9 +128,11 @@
 
         </form>
 
-        <button no-padding ion-item icon-end (click)="setActive('transaction')">
+        <button no-padding ion-item icon-end (click)="setActive('transaction')" class="radio-btn">
           <ion-icon [color]="activeTab === 'transaction' ? 'primary' : 'dark'" name="{{activeTab === 'transaction' ? 'ios-arrow-up' :'ios-arrow-down'}}" item-end></ion-icon>
-          <ion-label padding-left [color]="activeTab === 'transaction' ? 'primary' : 'dark'">{{ 'SEARCH_FILTERS_PAGE.TRANSACTION_DETAILS' | translate}}</ion-label>
+          <ion-label padding-left [color]="activeTab === 'transaction' ? 'primary' : 'dark'">
+            {{ 'SEARCH_FILTERS_PAGE.TRANSACTION_DETAILS' | translate}} <ion-badge *ngIf="counters.transaction" mode="ios" [color]="activeTab === 'transaction' ? 'primary' : 'inactive'">{{ counters.transaction }}</ion-badge>
+          </ion-label>
         </button>
         <ion-list *ngIf="activeTab === 'transaction'">
           <ion-grid padding>
@@ -138,6 +143,7 @@
                                 monthNames="{{months[curLang]}}"
                                 cancelText="{{ 'SEARCH_FILTERS_PAGE.CANCEL' | translate}}"
                                 doneText="{{ 'SEARCH_FILTERS_PAGE.DONE' | translate}}"
+                                (ionChange)="dateChanged()"
                                 [(ngModel)]="searchObj.from"></ion-datetime>
                   <!--<ion-input formControlName="from" type="text" placeholder="Start day"></ion-input>-->
                 </ion-item>
@@ -148,6 +154,7 @@
                                 monthNames="{{months[curLang]}}"
                                 cancelText="{{ 'SEARCH_FILTERS_PAGE.CANCEL' | translate}}"
                                 doneText="{{ 'SEARCH_FILTERS_PAGE.DONE' | translate}}"
+                                (ionChange)="dateChanged()"
                                 [(ngModel)]="searchObj.to"></ion-datetime>
                   <!--<ion-input formControlName="to" type="text" placeholder="End day"></ion-input>-->
                 </ion-item>
