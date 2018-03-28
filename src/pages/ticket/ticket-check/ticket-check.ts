@@ -40,9 +40,12 @@ export class TicketCheckPage extends EventsPage {
     this.keyboardHideSubscription = this.keyboard.onKeyboardHide().subscribe(() => this.content.resize());
 
     this.withoutNumberForm = new FormGroup({
-      'firstName': new FormControl(this.params.firstName || ''),
-      'lastName': new FormControl(this.params.lastName || ''),
-      'email': new FormControl(this.params.email, Validators.pattern('[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}')),
+      'firstName': new FormControl(this.params.firstName || '', Validators.required),
+      'lastName': new FormControl(this.params.lastName || '', Validators.required),
+      'email': new FormControl(this.params.email, [
+        Validators.required,
+        Validators.pattern('[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}')
+      ]),
     });
 
     this.numberForm = fb.group({

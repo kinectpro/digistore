@@ -1,4 +1,8 @@
 {
+  "CHOOSE_LANG_PAGE": {
+    "TEXT": "Bitte wählen sie eine Sprache",
+    "NEXT": "Weiter"
+  },
   "LOGIN_PAGE": {
     "CONNECTION_PROBLEM": "Verbindungsproblem",
     "LOGIN_TO_CONTINUE": "Anmelden um fortzufahren",
@@ -149,7 +153,8 @@
     "ORDER_ID": "Bestell-ID",
     "PRODUCT_ID": "Produkt-ID",
     "CLEAR_ALL": "Zurücksetzen",
-    "PRODUCT_NAME": "Produktname",
+    "PRODUCT": "Produkt",
+    "PRODUCT_NAME": "Produkt",
     "CUSTOMER_INFO": "Kundeninformation",
     "FIRSTNAME": "Vorname",
     "LASTNAME": "Nachname",

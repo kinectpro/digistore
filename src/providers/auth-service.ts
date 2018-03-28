@@ -66,6 +66,11 @@ export class AuthService {
     this._lang = value;
   }
 
+  langIsSelected(): boolean {
+    const lang = localStorage.getItem('lang') || null;
+    return !!lang;
+  }
+
   isLoggedIn(): boolean {
     return this._user !== null;
   }
@@ -81,23 +86,24 @@ export class AuthService {
 
   unregister(api_key: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.http.get(`${Settings.BASE_URL}${api_key}/json/unregister?language=${this.translate.currentLang}`).subscribe(
+      this.http.get(`${Settings.BASE_URL}${api_key}/json/setAppPushToken?token=${localStorage.getItem('pushToken')}&enabled=N&sound=N&vibration=N`).subscribe(
         (res: any) => {
-          if (res.result === 'success') {
-            this.http.get(`${Settings.BASE_URL}${api_key}/json/setAppPushToken?token=${localStorage.getItem('pushToken')}&enabled=N&sound=N&vibration=N`).subscribe(
-              (res: any) => {
-                console.log(res);
-              }, (err: any) => {
-                console.log(err);
+          console.log(JSON.stringify(res));
+          this.http.get(`${Settings.BASE_URL}${api_key}/json/unregister?language=${this.translate.currentLang}`).subscribe(
+            (res: any) => {
+              if (res.result === 'success') {
+                resolve();
               }
-            );
-            resolve();
-          }
-          else {
-            reject(res.message);
-          }
-        },
-        err => reject(err)
+              else {
+                reject(res.message);
+              }
+            },
+            err => reject(err)
+          );
+        }, (err: any) => {
+          console.log(err);
+          reject(err);
+        }
       );
     });
   }

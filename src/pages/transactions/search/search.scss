@@ -16,6 +16,16 @@ page-search {
     bottom: 6rem;
   }
   ion-list {
+    button.item.radio-btn {
+      div.item-inner {
+        border-top: 1px solid #dedede;
+        border-bottom: none;
+        ion-badge {
+          padding: 3px;
+          min-width: 19px;
+        }
+      }
+    }
     .label-types {
       margin-right: 0!important;
     }

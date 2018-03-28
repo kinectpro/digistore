@@ -46,6 +46,7 @@ $colors: (
   secondary:  #35ce76,
   danger:     #f53d3d,
   light:      #b8bcc3,
+  inactive:   #687381,
   dark:       #222,
   activated:  #3247a1,
   clear:      #fff,
@@ -58,6 +59,7 @@ $colors: (
 // iOS only Sass variables can go here
 $toolbar-ios-button-color: #fff;
 $toolbar-ios-title-text-align: 'center';
+$badge-ios-border-radius: 50%;
 
 
 // App Material Design Variables

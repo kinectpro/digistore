@@ -1,0 +1,57 @@
+page-choose-language {
+  .logo img {
+    margin-top: 44px;
+    width: 100px;
+  }
+
+  .login-text p {
+    font-size: 17px;
+  }
+  .login-text {
+    padding: 26px 0;
+  }
+
+  button.item {
+    margin-bottom: 10px;
+    border: solid 1px #e3e3e3;
+    border-radius: 4px;
+    .item-inner {
+      padding-right: 0!important;
+      border-bottom: none !important;
+      ion-label {
+        margin: 0;
+        height: 56px;
+        font-family: SFProText;
+        font-size: 17px;
+        text-align: center;
+        line-height: 1.29;
+        letter-spacing: -0.4px;
+        color: #414141;
+        ion-row {
+          height: 100%;
+          img.flag {
+            line-height: 1;
+            margin: 8px 16px;
+            border-radius: 50%;
+            height: 40px;
+            width: 40px;
+            min-width: 40px;
+            min-height: 40px;
+            max-width: 40px;
+            max-height: 40px;
+          }
+        }
+      }
+    }
+  }
+
+  .not-select {
+    opacity: 0.5;
+    border: none!important;
+  }
+
+  .btn-next {
+    margin-top: 50px;
+  }
+
+}

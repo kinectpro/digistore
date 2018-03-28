@@ -84,6 +84,7 @@ export class TransactionService {
                 brutto: obj.transaction_amount,
                 netto: obj.transaction_amount - obj.vat_amount,
                 type: obj.transaction_type_msg,
+                billing_type: obj.billing_type_msg,
                 method: obj.transaction_pay_method_msg,
                 currency: obj.transaction_currency,
                 customer: {

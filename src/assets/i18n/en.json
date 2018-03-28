@@ -1,4 +1,8 @@
 {
+  "CHOOSE_LANG_PAGE": {
+    "TEXT": "Please select a language",
+    "NEXT": "Next"
+  },
   "LOGIN_PAGE": {
     "CONNECTION_PROBLEM": "Connection problem",
     "LOGIN_TO_CONTINUE": "Login to continue",
@@ -149,7 +153,8 @@
     "ORDER_ID": "Order ID",
     "PRODUCT_ID": "Product ID",
     "CLEAR_ALL": "Clear all",
-    "PRODUCT_NAME": "Product name",
+    "PRODUCT": "Product",
+    "PRODUCT_NAME": "Product",
     "CUSTOMER_INFO": "Customer info",
     "FIRSTNAME": "First name",
     "LASTNAME": "Last name",

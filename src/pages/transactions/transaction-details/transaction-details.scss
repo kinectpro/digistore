@@ -23,21 +23,6 @@ page-transaction-details {
     color: color($colors, light);
     text-transform: uppercase;
   }
-  .bordered {
-    padding-top: 0;
-    padding-bottom: 0;
-    border-top: 1px solid #d1d1d6;
-    border-bottom: 1px solid #d1d1d6;
-  }
-  .bordered .border-bottom {
-    border-bottom: 1px solid #d1d1d6;
-  }
-  .bordered .border-right {
-    border-right: 1px solid #d1d1d6;
-  }
-  .bordered ion-col {
-    padding: 2rem;
-  }
   .products-header {
     border-bottom: 1px solid #d1d1d6;
   }
@@ -57,47 +42,69 @@ page-transaction-details {
     text-align: left;
     color: #3247a1;
   }
-  .list ion-label {
-    font-size: 17px;
-    line-height: 1.29;
-    letter-spacing: -0.4px;
-    text-align: left;
-    color: #687381;
-    text-transform: capitalize;
-  }
-  .list ion-list-header ion-label {
+  .date-transaction {
     font-size: 11px;
-    font-weight: 500;
-    line-height: 1.18;
-    letter-spacing: -0.1px;
-    text-align: left;
     color: #c1c4cb;
-    text-transform: uppercase;
+    padding: 0;
   }
-  .list ion-list-header {
-    background-color: #fafafa;
+  ion-list.list {
     margin: 0;
-  }
-  .list .item-content {
-    color: #c1c4cb;
-  }
-  .divider {
-    height: 30px;
-    background-color: #fafafa;
+    ion-list-header {
+      border-bottom: 1px solid #dedede;
+      background-color: #fafafa;
+      height: 31px;
+      min-height: 26px;
+      margin: 0;
+      ion-label.label.label-md {
+        margin: 0;
+        font-family: SFProText;
+        font-size: 11px;
+        font-weight: 500;
+        line-height: 1.18;
+        letter-spacing: -0.1px;
+        text-align: left;
+        text-transform: uppercase;
+        color: #c1c4cb;
+      }
+    }
+    ion-item {
+      padding-left: 16px;
+      ion-label.label {
+        padding-left: 0;
+        font-size: 17px;
+        line-height: 1.29;
+        letter-spacing: -0.4px;
+        text-align: left;
+        color: #c1c4cb;
+        text-transform: capitalize;
+      }
+      .total, .item-content {
+        font-size: 17px;
+        padding-right: 8px;
+        line-height: 1.29;
+        letter-spacing: -0.4px;
+        color: #687381;
+        text-transform: capitalize;
+      }
+      &.border-bottom {
+        border-bottom: 1px solid #dedede;
+      }
+    }
   }
   .report-customer-btn {
+    margin: 30px 0;
     border-top: 1px solid #d1d1d6;
     border-bottom: 1px solid #d1d1d6;
-  }
-  .report-customer-btn .item-inner {
-    border-bottom: 0 !important;
-  }
-  .report-customer-btn ion-label {
-    font-size: 17px;
-    line-height: 1.29;
-    letter-spacing: -0.4px;
-    text-align: left;
-    color: #414142;
-    text-transform: capitalize;
+    .item-inner {
+      border-bottom: 0 !important;
+      ion-label {
+        font-size: 17px;
+        line-height: 1.29;
+        letter-spacing: -0.4px;
+        text-align: left;
+        color: #414142;
+        text-transform: capitalize;
+      }
+    }
   }
 }

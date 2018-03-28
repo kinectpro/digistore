@@ -232,7 +232,7 @@ export class TransactionsPage {
 
   getSearchAmount(): number{
     let count = 0;
-    Object.keys(this.params.search).map(key => this.params.search[key]).map(value => {
+    Object.keys(this.params.search).map(key => { if (key !== 'product_name') return this.params.search[key] }).map(value => {
       if (value) {
         count++;
       }

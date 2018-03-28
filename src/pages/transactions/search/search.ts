@@ -1,6 +1,6 @@
 import { Component, ViewChild, Inject } from '@angular/core';
 import { NavParams, ViewController, ModalController, LoadingController, Events, Content } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { DOCUMENT } from '@angular/common';
 import { Keyboard } from '@ionic-native/keyboard';
 
@@ -24,7 +24,14 @@ export class SearchPage extends EventsPage {
   private showedError: string = '';
   private payments: string[];
   private currencies: string[];
-  searchObj: Search;
+  private _searchObj: Search;
+  get searchObj(): Search {
+    return this._searchObj;
+  }
+  set searchObj(value: Search) {
+    this._searchObj = value;
+    this.recount(this._searchObj);
+  }
   globalTypesFromServer: any;
   currenciesFromServer: string[];
   extended: string = 'N';
@@ -34,6 +41,11 @@ export class SearchPage extends EventsPage {
   };
   curLang: string = 'en';
   maxYear: number = new Date().getFullYear() + 5;
+  counters: any = {
+    product: 0,
+    customer: 0,
+    transaction: 0
+  };
 
   @ViewChild('searchbar')
   searchbar: AutoCompleteComponent;
@@ -45,6 +57,7 @@ export class SearchPage extends EventsPage {
   private logoHidden: boolean = false;
   private showTransparentDiv: boolean = false;
   keyboardHideSubscription: Subscription;
+  searchFormExtendedSubscription: Subscription;
 
   constructor(public navParams: NavParams, public fb: FormBuilder, public viewCtrl: ViewController, public modalCtrl: ModalController, public events: Events, public errSrv: ErrorService, public keyboard: Keyboard,
               public settingsServ: SettingsService, public loadingCtrl: LoadingController, public translate: TranslateService, public complServ: CompleteService, @Inject(DOCUMENT) private document: any) {
@@ -62,13 +75,10 @@ export class SearchPage extends EventsPage {
     });
 
     this.searchFormExtended = fb.group({
-      //'purchase_id': [this.searchObj.purchase_id],
-      'product_id': [this.searchObj.product_id],
-      'first_name': [this.searchObj.first_name],
-      'last_name': [this.searchObj.last_name],
-      'email': [this.searchObj.email, Validators.pattern("[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}")],
-      //'from': [this.searchObj.from],
-      //'to': [this.searchObj.to]
+      'product_id': [this.searchObj.product_id || ''],
+      'first_name': [this.searchObj.first_name || ''],
+      'last_name': [this.searchObj.last_name || ''],
+      'email': [this.searchObj.email || '', Validators.pattern("[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}")],
     });
 
     this.currenciesFromServer = this.settingsServ.currencies;
@@ -82,29 +92,51 @@ export class SearchPage extends EventsPage {
     this.currencies = this.searchObj.currency ? this.searchObj.currency.split(',') : [];
 
     this.events.subscribe('transactions-params:changed', params => this.searchObj = params);
+    this.searchFormExtendedSubscription = this.searchFormExtended.valueChanges.subscribe( valuesObj => {
+      if (this.searchFormExtended.valid) {
+        Object.keys(valuesObj).map(key => this.searchObj[key] = valuesObj[key].trim());
+        this.counters.product = 0;
+        this.counters.customer = 0;
+        this.recount(valuesObj, false);
+      }
+    });
+  }
+
+  get product_id(): AbstractControl {
+    return this.searchFormExtended.get('product_id');
+  }
+  get first_name(): AbstractControl {
+    return this.searchFormExtended.get('first_name');
+  }
+  get last_name(): AbstractControl {
+    return this.searchFormExtended.get('last_name');
+  }
+  get email(): AbstractControl {
+    return this.searchFormExtended.get('email');
+  }
+
+  ionViewDidLoad() {
+    console.log('Init SearchPage');
+    this.searchbar.setValue(this._searchObj.product_name);
+    this.keyboardHideSubscription = this.keyboard.onKeyboardHide().subscribe(() => this.logoHidden = false);
+    this.curLang = this.translate.currentLang;
   }
 
   setActive(tab: string) {
     this.activeTab = this.activeTab === tab ? null : tab;
   }
 
-  ionViewDidLoad() {
-    console.log('Init SearchPage');
-    this.searchbar.setValue(this.searchObj.product_name);
-    this.keyboardHideSubscription = this.keyboard.onKeyboardHide().subscribe(() => this.logoHidden = false);
-    this.curLang = this.translate.currentLang;
-  }
-
-  ionViewWillUnload() {
-    this.keyboardHideSubscription.unsubscribe();
-  }
-
   clearSearchParams() {
-    this.searchFormExtended.reset();
+    this.searchFormExtended.reset({ product_id: '', first_name: '', last_name: '', email: ''});
     for (let key in this.searchObj) this.searchObj[key] = '';
     this.searchbar.setValue('');
     this.payments = [];
     this.currencies = [];
+    this.counters = {
+      product: 0,
+      customer: 0,
+      transaction: 0
+    };
   }
 
   getAffiliateValue(): string {
@@ -137,6 +169,8 @@ export class SearchPage extends EventsPage {
     else {
       this[collection] = this[collection].filter(obj => obj != value);
     }
+    this.searchObj[collection == 'currencies' ? 'currency' : 'pay_method'] = this[collection].join(',');
+    this.recount(this.searchObj);
   }
 
   setSelectedClass(collection: any, value: string): boolean {
@@ -183,19 +217,10 @@ export class SearchPage extends EventsPage {
       this.searchObj.purchase_id = this.searchForm.get('purchase_id').value;
     }
     else {
-      if (this.searchFormExtended.get('email').value && this.searchFormExtended.get('email').invalid) {
+      if (this.email.value && this.email.invalid) {
         this.activeTab = 'customer';
         return;
       }
-      //this.searchObj.purchase_id = this.searchFormExtended.get('purchase_id').value;
-      this.searchObj.product_id = this.searchFormExtended.get('product_id').value;
-      this.searchObj.first_name = this.searchFormExtended.get('first_name').value ? this.searchFormExtended.get('first_name').value.trim() : '';
-      this.searchObj.last_name = this.searchFormExtended.get('last_name').value? this.searchFormExtended.get('last_name').value.trim() : '';
-      this.searchObj.email = this.searchFormExtended.get('email').value ? this.searchFormExtended.get('email').value.trim() : '';
-      //this.searchObj.from = this.searchFormExtended.get('from').value;
-      //this.searchObj.to = this.searchFormExtended.get('to').value;
-      this.searchObj.pay_method = this.payments.join(',');
-      this.searchObj.currency = this.currencies.join(',');
     }
 
     this.viewCtrl.dismiss({
@@ -206,20 +231,20 @@ export class SearchPage extends EventsPage {
 
   selectedProduct(e: any) {
     this.searchObj.product_name = this.searchbar.getValue();
-    this.searchFormExtended.get('product_id').setValue(e.id);
+    this.product_id.setValue(e.id);
   }
 
   clearProduct() {
     this.searchbar.setValue('');
-    this.searchFormExtended.get('product_id').reset();
+    this.product_id.reset('');
     this.searchbar.suggestions = [];
   }
 
   blurProduct() {
     this.showTransparentDiv = false;
-    if (!this.searchFormExtended.get('product_id').value && this.searchbar.suggestions[0]) {
+    if (!this.product_id.value && this.searchbar.suggestions[0]) {
       this.searchbar.setValue(this.searchbar.suggestions[0]['name']);
-      this.searchFormExtended.get('product_id').setValue(this.searchbar.suggestions[0]['id']);
+      this.product_id.setValue(this.searchbar.suggestions[0]['id']);
     }
   }
 
@@ -240,6 +265,52 @@ export class SearchPage extends EventsPage {
         this.keyboard.close();
       }
     }
+  }
+
+  dateChanged() {
+    this.recount(this.searchObj);
+  }
+
+  private recount(obj: any, resetCounters: boolean = true) {
+    if (resetCounters) {
+      this.counters = {
+        product: 0,
+        customer: 0,
+        transaction: 0
+      };
+    }
+    for (let key in obj) {
+      if (!obj[key]) continue;
+      switch (key) {
+        case 'product_id': {
+          this.counters.product++;
+          break;
+        }
+        case 'first_name':
+        case 'last_name':
+        case 'email': {
+          this.counters.customer++;
+          break;
+        }
+        case 'from':
+        case 'to':
+        case 'has_affiliate':
+        case 'affiliate_name':
+        case 'transaction_type':
+        case 'pay_method':
+        case 'currency':
+        case 'billing_type': {
+          this.counters.transaction++;
+          break;
+        }
+      }
+    }
+  }
+
+  ionViewWillUnload() {
+    this.keyboardHideSubscription.unsubscribe();
+    this.searchFormExtendedSubscription.unsubscribe();
+    this.events.unsubscribe('transactions-params:changed');
   }
 
 }

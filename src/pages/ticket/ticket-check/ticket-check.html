@@ -27,7 +27,7 @@
         <ion-row>
           <ion-col col-12>
             <ion-item no-margin no-padding [class.has-value]="withoutNumberForm.get('email').value">
-              <ion-input #email type="text" formControlName="email" placeholder="{{'E_TICKET_PAGE.EMAIL' | translate}}" (keydown)="onKeydown($event)" (ionBlur)="checkValidEmail()"></ion-input>
+              <ion-input #email type="email" formControlName="email" placeholder="{{'E_TICKET_PAGE.EMAIL' | translate}}" (keydown)="onKeydown($event)" (ionBlur)="checkValidEmail()"></ion-input>
             </ion-item>
           </ion-col>
         </ion-row>
