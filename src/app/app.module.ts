@@ -5,6 +5,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS, HttpClient } from '@angular/common
 
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { File } from '@ionic-native/file';
+import { Device } from '@ionic-native/device';
 import { FileOpener } from '@ionic-native/file-opener';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -13,6 +14,7 @@ import { Keyboard } from '@ionic-native/keyboard';
 import { QRScanner } from '@ionic-native/qr-scanner';
 import { FileTransfer } from '@ionic-native/file-transfer';
 import { AppMinimize } from '@ionic-native/app-minimize';
+import { IonicStorageModule } from '@ionic/storage';
 
 import { MyApp } from './app.component';
 
@@ -36,7 +38,6 @@ import { ErrorService } from '../providers/error-service';
 import { TicketService } from '../providers/ticket-service';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { Device } from '@ionic-native/device';
 import { PushwooshService } from '../providers/pushwoosh-service';
 
 export function createTranslateLoader(http: HttpClient) {
@@ -60,6 +61,7 @@ export function createTranslateLoader(http: HttpClient) {
     TicketPageModule,
     EarningPageModule,
     SettingsPageModule,
+    IonicStorageModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

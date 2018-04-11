@@ -3,14 +3,16 @@ import { NavController, NavParams, ViewController, ToastController, Events } fro
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Device } from '@ionic-native/device';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
 
 import { TranslateService } from '@ngx-translate/core';
 import { Settings } from '../../../config/settings';
 import { AuthService } from '../../../providers/auth-service';
 import { User } from '../../../models/user';
 import { EventsPage } from '../../../shared/classes/events-page';
-import 'rxjs/add/operator/toPromise';
 import { PushwooshService } from '../../../providers/pushwoosh-service';
+import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/observable/timer';
 
 @Component({
   selector: 'page-add-account',
@@ -23,6 +25,7 @@ export class AddAccountPage extends EventsPage {
   showedErrorPass: string;
   pwdType: string = 'password';
   mesConnProblem: string;
+  timer: Observable<any> = Observable.timer(3000);
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public fb: FormBuilder, public events: Events, public device: Device,
               public translate: TranslateService, public http: HttpClient, public authService: AuthService, public toastCtrl: ToastController, public pushwooshService: PushwooshService) {
@@ -99,9 +102,7 @@ export class AddAccountPage extends EventsPage {
 
   showError(mess: string) {
     this.showedError = mess;
-    setTimeout(() => {
-      this.showedError = '';
-    }, 3000);
+    this.timer.subscribe( () => this.showedError = '' );
   }
 
   dismiss() {

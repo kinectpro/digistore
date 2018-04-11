@@ -11,6 +11,8 @@ import { Settings } from '../../config/settings';
 import { TabsPage } from '../tabs/tabs';
 import { PushwooshService } from '../../providers/pushwoosh-service';
 import { ChooseLanguagePage } from '../choose-language/choose-language';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/timer';
 
 @Component({
   selector: 'page-login',
@@ -22,6 +24,7 @@ export class LoginPage {
   showedErrorPass: string;
   pwdType: string = 'password';
   language: string;
+  timer: Observable<any> = Observable.timer(3000);
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public iab: InAppBrowser, public fb: FormBuilder, public device: Device,
               public http: HttpClient, public translate: TranslateService, public authService: AuthService, public pushwooshService: PushwooshService) {
@@ -93,9 +96,7 @@ export class LoginPage {
 
   showError(mess: string) {
     this.showedError = mess;
-    setTimeout(() => {
-      this.showedError = '';
-    }, 3000);
+    this.timer.subscribe( () => this.showedError = '' );
   }
 
   openBrowser(url: string) {

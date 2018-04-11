@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Events } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
+import { Storage } from '@ionic/storage';
 
 import { User } from '../models/user';
 import { Settings } from '../config/settings';
@@ -14,11 +15,8 @@ export class AuthService {
   private _user: User;
   private _accounts: User[];
 
-  constructor(public http: HttpClient, public translate: TranslateService, public events: Events, public errSrv: ErrorService) {
+  constructor(public http: HttpClient, public translate: TranslateService, public events: Events, public errSrv: ErrorService, public storage: Storage) {
     console.log('Init AuthServiceProvider');
-    this._lang = localStorage.getItem('lang') || 'de';
-    this._user = JSON.parse(localStorage.getItem('user')) || null;
-    this._accounts = JSON.parse(localStorage.getItem('accounts')) || [];
   }
 
   get apiKey(): string {
@@ -36,14 +34,39 @@ export class AuthService {
   set user(user: User) {
     this._user = user;
     this._accounts.push(user);
-    localStorage.setItem('user', JSON.stringify(user));
-    localStorage.setItem('accounts', JSON.stringify(this._accounts));
+    this.storage.set('user', user);
+    this.storage.set('accounts', this._accounts);
     this.events.publish('user:changed');
+  }
+
+  initVariables(): Promise<any> {
+    return new Promise( resolve => {
+      
+      this.storage.ready().then( ready => {
+        Promise.all([
+          this.storage.get('lang'),
+          this.storage.get('user'),
+          this.storage.get('accounts')
+        ]).then(results => {
+          this._lang = results[0] || 'de';
+          this._user = results[1] || null;
+          this._accounts = results[2] || [];
+          resolve();
+        })          
+      }).catch( err => {
+        console.log(err);
+        this._lang = 'de';
+        this._user = null;
+        this._accounts = [];
+        resolve();
+      });
+
+    });
   }
 
   changeUser(user: User) {
     this._user = user;
-    localStorage.setItem('user', JSON.stringify(user));
+    this.storage.set('user', user);
     this.events.publish('user:changed');
   }
 
@@ -51,7 +74,7 @@ export class AuthService {
     this.unregister(user.api_key).then(
       res => {
         this._accounts = this._accounts.filter(item => item.user_id != user.user_id);
-        localStorage.setItem('accounts', JSON.stringify(this._accounts));
+        this.storage.set('accounts', this._accounts);
       },
       err => this.errSrv.showMessage(err)
     );
@@ -62,13 +85,13 @@ export class AuthService {
   }
 
   set lang(value: string) {
-    localStorage.setItem('lang', value);
+    this.storage.set('lang', value);
     this._lang = value;
   }
 
-  langIsSelected(): boolean {
-    const lang = localStorage.getItem('lang') || null;
-    return !!lang;
+  async langIsSelected(): Promise<boolean> {
+    const lang = await this.storage.get('lang');
+    return Promise.resolve(!!lang);
   }
 
   isLoggedIn(): boolean {
@@ -77,10 +100,10 @@ export class AuthService {
 
   logout(): void {
     this._user = null;
-    localStorage.removeItem('user');
+    this.storage.remove('user');
     this.unregisterAll(this._accounts).then(() => {
       this._accounts = [];
-      localStorage.removeItem('accounts');
+      this.storage.remove('accounts');
     });
   }
 

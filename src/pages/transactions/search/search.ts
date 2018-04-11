@@ -3,6 +3,8 @@ import { NavParams, ViewController, ModalController, LoadingController, Events, 
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { DOCUMENT } from '@angular/common';
 import { Keyboard } from '@ionic-native/keyboard';
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 
 import { ParamsPage } from '../params/params';
 import { TranslateService } from '@ngx-translate/core';
@@ -12,7 +14,7 @@ import { SettingsService } from '../../../providers/settings-service';
 import { CompleteService } from '../../../providers/complete-service';
 import { ErrorService } from '../../../providers/error-service';
 import { EventsPage } from '../../../shared/classes/events-page';
-import { Subscription } from 'rxjs/Subscription';
+import 'rxjs/add/observable/timer';
 
 @Component({
   selector: 'page-search',
@@ -46,6 +48,7 @@ export class SearchPage extends EventsPage {
     customer: 0,
     transaction: 0
   };
+  timer: Observable<any> = Observable.timer(3000);
 
   @ViewChild('searchbar')
   searchbar: AutoCompleteComponent;
@@ -191,9 +194,7 @@ export class SearchPage extends EventsPage {
 
   showError(mess: string) {
     this.showedError = mess;
-    setTimeout(() => {
-      this.showedError = '';
-    }, 3000);
+    this.timer.subscribe( () => this.showedError = '' );
   }
 
   submit() {

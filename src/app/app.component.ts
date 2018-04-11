@@ -39,13 +39,6 @@ export class MyApp {
         this.document.body.classList.remove('keyboard-is-open');
       });
 
-      if (platform.is("cordova")) {
-        this._pushService.init();
-        // send push token to the server every 10 days even if the app wasn't closed
-        setTimeout(() => {
-          this._pushService.sendPushToken(false);
-        }, 864000000);
-      }
       // Confirm exit
       platform.registerBackButtonAction(this.backBtnAction);
 
@@ -54,15 +47,35 @@ export class MyApp {
       this.document.getElementById('custom-overlay').style.display = 'none';
 
     });
-    // Set the root page
-    this.rootPage = this.authService.isLoggedIn() ? TabsPage : this.authService.langIsSelected() ? LoginPage : ChooseLanguagePage;
-    // Set the default language for translation strings, and the current language.
-    this.translate.setDefaultLang(this.authService.lang);
-    this.translate.use(this.authService.lang);
 
-    this.initTextBackBtn();
+    this.authService.initVariables().then( () => {
+      // Set the root page
+      if (this.authService.isLoggedIn()) {
+        this.rootPage = TabsPage;
+      }
+      else {
+        this.authService.langIsSelected().then( res => {
+          this.rootPage = res ? LoginPage : ChooseLanguagePage;
+        });
+      }
+      // this.rootPage = this.authService.isLoggedIn() ? TabsPage : this.authService.langIsSelected() ? LoginPage : ChooseLanguagePage;
+      // Set the default language for translation strings, and the current language.
+      this.translate.setDefaultLang(this.authService.lang);
+      this.translate.use(this.authService.lang);
 
-    this.translate.onLangChange.subscribe( _ => this.initTextBackBtn() );
+      this.initTextBackBtn();
+
+      this.translate.onLangChange.subscribe( _ => this.initTextBackBtn() );
+
+      if (platform.is("cordova")) {
+        this._pushService.init();
+        // send push token to the server every 10 days even if the app wasn't closed
+        setTimeout(() => {
+          this._pushService.sendPushToken(false);
+        }, 864000000);
+      }
+
+    });
 
   }
 

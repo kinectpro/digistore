@@ -3,6 +3,7 @@ import { NavController, NavParams, ToastController, ViewController, Content, Eve
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Keyboard } from '@ionic-native/keyboard';
 import { Subscription } from 'rxjs/Subscription';
+import { Observable } from 'rxjs/Observable';
 
 import { TicketSearchResultsPage } from '../ticket-search-results/ticket-search-results';
 import { TicketParams } from '../../../models/params';
@@ -10,6 +11,7 @@ import { TicketService } from '../../../providers/ticket-service';
 import { TicketDetailsPage } from '../ticket-details/ticket-details';
 import { TranslateService } from '@ngx-translate/core';
 import { EventsPage } from '../../../shared/classes/events-page';
+import 'rxjs/add/observable/timer';
 
 @Component({
   selector: 'page-ticket-check',
@@ -25,6 +27,7 @@ export class TicketCheckPage extends EventsPage {
   keyboardShowSubscription: Subscription;
   keyboardHideSubscription: Subscription;
   showedError: string = '';
+  timer: Observable<any> = Observable.timer(3000);
 
   @ViewChild(Content)
   content: Content;
@@ -79,9 +82,7 @@ export class TicketCheckPage extends EventsPage {
 
   showError(mess: string) {
     this.showedError = mess;
-    setTimeout(() => {
-      this.showedError = '';
-    }, 3000);
+    this.timer.subscribe( () => this.showedError = '' );
   }
 
   onKeydown(e: any) {
