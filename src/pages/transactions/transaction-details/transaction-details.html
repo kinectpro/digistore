@@ -172,7 +172,7 @@
       </ion-item>
     </ion-list>
 
-    <button class="report-customer-btn" ion-item no-border (click)="report()">
+    <button *ngIf="transaction.can_see_order_details == 'Y'" class="report-customer-btn" ion-item no-border (click)="report()">
       <ion-icon name="ios-alert-outline" color="danger" item-start></ion-icon>
       {{ 'TRANSACTION_DETAILS_PAGE.REPORT_CUSTOMER' | translate }}
     </button>

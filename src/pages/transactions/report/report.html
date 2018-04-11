@@ -16,12 +16,12 @@
     <section class="white-bg">
         <ion-list>
 
-          <ion-item>
+          <ion-item class="dark-grey-text">
             <ion-label fixed>{{ 'REPORT_PAGE.NAME' | translate }}</ion-label>
             <ion-input readonly text-right type="text" placeholder="Enter here" value="{{transaction ? transaction.customer.name : '-'}}"></ion-input>
           </ion-item>
 
-          <ion-item>
+          <ion-item class="dark-grey-text">
             <ion-label fixed>{{ 'REPORT_PAGE.EMAIL' | translate }}</ion-label>
             <ion-input readonly text-right type="email" placeholder="Enter here" value="{{transaction ? transaction.customer.email : '-'}}"></ion-input>
           </ion-item>
