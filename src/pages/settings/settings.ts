@@ -6,8 +6,8 @@ import { AuthService } from '../../providers/auth-service';
 import { LanguagePage } from './language/language';
 import { TranslateService } from '@ngx-translate/core';
 import { AccountPage } from './account/account';
+import { StorageService } from '../../providers/storage-service';
 import 'rxjs/add/operator/toPromise';
-import { PushwooshService } from '../../providers/pushwoosh-service';
 
 @Component({
   selector: 'page-settings',
@@ -15,34 +15,9 @@ import { PushwooshService } from '../../providers/pushwoosh-service';
 })
 export class SettingsPage {
 
-  _sound: boolean;
-  _notify: boolean;
-
   constructor(public navCtrl: NavController, public navParams: NavParams, public app: App, public authService: AuthService,
               public modalCtrl: ModalController, public translate: TranslateService, public alertCtrl: AlertController,
-              public pushwooshService: PushwooshService) {
-    this._sound = localStorage.getItem('sound') == null ? true : localStorage.getItem('sound') == 'Y';
-    this._notify = localStorage.getItem('notify') == null ? true : localStorage.getItem('notify') == 'Y';
-  }
-
-  get sound(): boolean {
-    return this._sound;
-  }
-
-  set sound(value: boolean) {
-    localStorage.setItem('sound', value ? 'Y' : 'N');
-    this.pushwooshService.sendPushToken(false);
-    this._sound = value;
-  }
-
-  get notify(): boolean {
-    return this._notify;
-  }
-
-  set notify(value: boolean) {
-    localStorage.setItem('notify', value ? 'Y' : 'N');
-    this.pushwooshService.sendPushToken(false);
-    this._notify = value;
+              public store: StorageService) {
   }
 
   ionViewDidLoad() {

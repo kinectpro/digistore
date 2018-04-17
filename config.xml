@@ -101,10 +101,10 @@
     <plugin name="cordova-plugin-appminimize" spec="^1.0.0" />
     <plugin name="cordova-plugin-device" spec="~1.1.6" />
     <plugin name="pushwoosh-cordova-plugin" spec="~7.0.8" />
-    <engine name="android" spec="~6.3.0" />
     <plugin name="cordova-plugin-facebook4" spec="^1.9.1">
         <variable name="APP_ID" value="1608396699197480" />
         <variable name="APP_NAME" value="Digistore24" />
     </plugin>
     <plugin name="cordova-sqlite-storage" spec="^2.3.0" />
+    <engine name="android" spec="6.3.0" />
 </widget>

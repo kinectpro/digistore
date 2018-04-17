@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController, Events } from 'ionic-angular';
 
 import { TicketParams } from '../../../models/params';
-import { TicketService } from '../../../providers/ticket-service';
 import { EventsPage } from '../../../shared/classes/events-page';
+import { StorageService } from '../../../providers/storage-service';
 
 @Component({
   selector: 'page-ticket-params',
@@ -15,7 +15,7 @@ export class TicketParamsPage extends EventsPage {
   params: TicketParams;
   paramsFromServer: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public ticketSrv: TicketService, public events: Events) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public store: StorageService, public events: Events) {
     super(events);
     this.pageName = navParams.get('pageName');
     this.params = navParams.get('params');
@@ -32,7 +32,7 @@ export class TicketParamsPage extends EventsPage {
 
   changeParam(kind: string, obj: any) {
     this.params[kind] = obj;
-    this.ticketSrv[kind] = this.params[kind];  // save to LocalStorage
+    this.store[kind] = this.params[kind];  // save to LocalStorage
     this.events.publish('ticket-params:changed', this.params);
     this.dismiss();
   }

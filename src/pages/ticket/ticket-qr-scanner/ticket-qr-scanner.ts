@@ -8,6 +8,8 @@ import { TicketParams } from '../../../models/params';
 import { TicketDetailsPage } from '../ticket-details/ticket-details';
 import { TranslateService } from '@ngx-translate/core';
 import { EventsPage } from '../../../shared/classes/events-page';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/timer';
 
 @Component({
   selector: 'page-ticket-qr-scanner',
@@ -17,6 +19,7 @@ export class TicketQrScannerPage extends EventsPage {
 
   params: TicketParams;
   stoppedTimer: boolean = false;
+  timer: Observable<any> = Observable.timer(10000);
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public qrScanner: QRScanner, public viewCtrl: ViewController,
               public translate: TranslateService, @Inject(DOCUMENT) private document: any, public events: Events) {
@@ -46,7 +49,7 @@ export class TicketQrScannerPage extends EventsPage {
         // show camera preview
         this.qrScanner.show();
 
-        setTimeout(() => {
+        this.timer.subscribe( () => {
           if (!this.stoppedTimer) {
             this.qrScanner.destroy(); // hide camera preview
             this.translate.get('E_TICKET_PAGE.QR_CODE_NOT_READ').subscribe(message => {
@@ -61,7 +64,7 @@ export class TicketQrScannerPage extends EventsPage {
               });
             });
           }
-        }, 10000)
+        });
       }
       else if (status.denied) {
         console.log('status.denied');

@@ -20,7 +20,7 @@
 
     <ion-item>
       <ion-icon class="icon-sound" item-start></ion-icon>
-      <ion-toggle mode="ios" [(ngModel)]="sound" (ionChange)="toggleSound()" color="secondary"></ion-toggle>
+      <ion-toggle mode="ios" [(ngModel)]="store.sound" (ionChange)="toggleSound()" color="secondary"></ion-toggle>
       <ion-label>
         {{ 'SETTINGS_PAGE.SOUND' | translate }}
       </ion-label>
@@ -35,7 +35,7 @@
 
     <ion-item>
       <ion-icon class="icon-notify" item-start></ion-icon>
-      <ion-toggle mode="ios" [(ngModel)]="notify" (ionChange)="toggleNotify()" color="secondary"></ion-toggle>
+      <ion-toggle mode="ios" [(ngModel)]="store.notify" (ionChange)="toggleNotify()" color="secondary"></ion-toggle>
       <ion-label>
         {{ 'SETTINGS_PAGE.NOTIFY' | translate }}
       </ion-label>

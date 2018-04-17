@@ -7,6 +7,8 @@ import { User } from '../models/user';
 import { Settings } from '../config/settings';
 import { TranslateService } from '@ngx-translate/core';
 import { ErrorService } from './error-service';
+import { StorageService } from './storage-service';
+import 'rxjs/add/operator/mergeMap';
 
 @Injectable()
 export class AuthService {
@@ -15,7 +17,8 @@ export class AuthService {
   private _user: User;
   private _accounts: User[];
 
-  constructor(public http: HttpClient, public translate: TranslateService, public events: Events, public errSrv: ErrorService, public storage: Storage) {
+  constructor(public http: HttpClient, public translate: TranslateService, public events: Events, public errSrv: ErrorService,
+              public storage: Storage, public store: StorageService) {
     console.log('Init AuthServiceProvider');
   }
 
@@ -109,24 +112,17 @@ export class AuthService {
 
   unregister(api_key: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.http.get(`${Settings.BASE_URL}${api_key}/json/setAppPushToken?token=${localStorage.getItem('pushToken')}&enabled=N&sound=N&vibration=N`).subscribe(
+      this.http.get(`${Settings.BASE_URL}${api_key}/json/setAppPushToken?token=${this.store.pushToken}&enabled=N&sound=N&vibration=N`)
+        .mergeMap( res => this.http.get(`${Settings.BASE_URL}${api_key}/json/unregister?language=${this.translate.currentLang}`)
+      ).subscribe(
         (res: any) => {
-          console.log(JSON.stringify(res));
-          this.http.get(`${Settings.BASE_URL}${api_key}/json/unregister?language=${this.translate.currentLang}`).subscribe(
-            (res: any) => {
-              if (res.result === 'success') {
-                resolve();
-              }
-              else {
-                reject(res.message);
-              }
-            },
-            err => reject(err)
-          );
-        }, (err: any) => {
-          console.log(err);
-          reject(err);
-        }
+          if (res.result === 'success') {
+            resolve();
+          } else {
+            reject(res.message);
+          }
+        },
+        err => reject(err)
       );
     });
   }

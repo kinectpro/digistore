@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController, ToastController, Events } from 'ionic-angular';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder, AbstractControl } from '@angular/forms';
 import { Device } from '@ionic-native/device';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
 import { TranslateService } from '@ngx-translate/core';
@@ -24,7 +24,6 @@ export class AddAccountPage extends EventsPage {
   showedError: string = ''; //  from server
   showedErrorPass: string;
   pwdType: string = 'password';
-  mesConnProblem: string;
   timer: Observable<any> = Observable.timer(3000);
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public fb: FormBuilder, public events: Events, public device: Device,
@@ -45,12 +44,20 @@ export class AddAccountPage extends EventsPage {
     console.log('Init AddAccountPage');
   }
 
+  get username(): AbstractControl {
+    return this.loginForm.get('username');
+  }
+
+  get password(): AbstractControl {
+    return this.loginForm.get('password');
+  }
+
   showPassword() {
     this.pwdType = this.pwdType === 'password' ?  'text' : 'password';
   }
 
   login() {
-    if (this.checkAccount(this.loginForm.get('username').value)) {
+    if (this.checkAccount(this.username.value)) {
       this.translate.get('SETTINGS_PAGE.MESSAGES.USER_WAS_ADDED_EARLIER').subscribe(mess => this.toastCtrl.create({
         message: mess,
         duration: 3000,
@@ -59,9 +66,14 @@ export class AddAccountPage extends EventsPage {
       this.dismiss();
       return;
     }
-    this.translate.get('LOGIN_PAGE.CONNECTION_PROBLEM').subscribe(value => this.mesConnProblem = value);
-    const deviceName = encodeURIComponent(this.device.manufacturer + ' ' + this.device.model);
-    this.http.get(`${Settings.BASE_URL}${Settings.API_KEY}/json/createApiKey?username=${this.loginForm.get('username').value}&password=${encodeURIComponent(this.loginForm.get('password').value)}&device_name=${deviceName}&language=${this.translate.currentLang}`).subscribe(
+
+    let httpParams = new HttpParams();
+    httpParams = httpParams
+      .append('username', this.username.value)
+      .append('password', encodeURIComponent(this.password.value))
+      .append('device_name', encodeURIComponent(this.device.manufacturer + ' ' + this.device.model))
+      .append('language', this.translate.currentLang);
+    this.http.get(`${Settings.BASE_URL}${Settings.API_KEY}/json/createApiKey`, { params: httpParams }).subscribe(
       (res: any) => {
         if (res.result === 'error') {
           this.showError(res.message);
@@ -79,23 +91,20 @@ export class AddAccountPage extends EventsPage {
         }
       },
       err => {
-        this.showError(this.mesConnProblem);
+        this.translate.get('LOGIN_PAGE.CONNECTION_PROBLEM').subscribe( value => this.showError(value) );
         console.log('ERROR:', err);
       })
   }
 
   async checkValid(field: string) {
-    let is_required: string = await this.translate.get('LOGIN_PAGE.IS_REQUIRED').toPromise();
-
     let f = this.loginForm.get(field);
     if (f.errors) {
       if (f.errors.required) {
-        this.showedErrorPass = is_required;
+        this.showedErrorPass = await this.translate.get('LOGIN_PAGE.IS_REQUIRED').toPromise();
         return;
       }
       if (f.errors.minlength) {
-        let min_length: string = await this.translate.get('LOGIN_PAGE.MIN_LENGTH', {value: f.errors.minlength.requiredLength}).toPromise();
-        this.showedErrorPass = `${min_length}`;
+        this.showedErrorPass = await this.translate.get('LOGIN_PAGE.MIN_LENGTH', { value: f.errors.minlength.requiredLength }).toPromise();
       }
     }
   }

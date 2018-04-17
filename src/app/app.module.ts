@@ -30,6 +30,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 
 import { LoadingInterceptor } from '../providers/loading-interceptor';
 import { AuthService } from '../providers/auth-service';
+import { StorageService } from '../providers/storage-service';
 import { EarningService } from '../providers/earning-service';
 import { SettingsService } from '../providers/settings-service';
 import { CompleteService } from '../providers/complete-service';
@@ -105,6 +106,7 @@ export function createTranslateLoader(http: HttpClient) {
     EarningService,
     CompleteService,
     SettingsService,
+    StorageService,
     TicketService,
     ErrorService,
     TransactionService

@@ -12,14 +12,19 @@ import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../providers/auth-service';
 import { PushwooshService } from '../providers/pushwoosh-service';
 import { ChooseLanguagePage } from '../pages/choose-language/choose-language';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/timer';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
+
   rootPage: any;
 
   isModalPage: boolean = false;
+
+  timer: Observable<any> = Observable.timer(864000000);
 
   @ViewChild(Nav) nav: Nav;
 
@@ -44,8 +49,6 @@ export class MyApp {
 
       events.subscribe('modalState:changed', val => this.isModalPage = val);
 
-      this.document.getElementById('custom-overlay').style.display = 'none';
-
     });
 
     this.authService.initVariables().then( () => {
@@ -58,7 +61,6 @@ export class MyApp {
           this.rootPage = res ? LoginPage : ChooseLanguagePage;
         });
       }
-      // this.rootPage = this.authService.isLoggedIn() ? TabsPage : this.authService.langIsSelected() ? LoginPage : ChooseLanguagePage;
       // Set the default language for translation strings, and the current language.
       this.translate.setDefaultLang(this.authService.lang);
       this.translate.use(this.authService.lang);
@@ -70,9 +72,7 @@ export class MyApp {
       if (platform.is("cordova")) {
         this._pushService.init();
         // send push token to the server every 10 days even if the app wasn't closed
-        setTimeout(() => {
-          this._pushService.sendPushToken(false);
-        }, 864000000);
+        this.timer.subscribe( () => this._pushService.sendPushToken(false) );
       }
 
     });

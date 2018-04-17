@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { Device } from '@ionic-native/device';
-import { HttpClient } from '@angular/common/http';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../../providers/auth-service';
@@ -13,6 +13,7 @@ import { PushwooshService } from '../../providers/pushwoosh-service';
 import { ChooseLanguagePage } from '../choose-language/choose-language';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/timer';
+import 'rxjs/add/operator/toPromise';
 
 @Component({
   selector: 'page-login',
@@ -42,17 +43,30 @@ export class LoginPage {
     this.language = this.translate.currentLang;
   }
 
+  get username(): AbstractControl {
+    return this.loginForm.get('username');
+  }
+
+  get password(): AbstractControl {
+    return this.loginForm.get('password');
+  }
+
   ionViewDidLoad() {
     console.log('Init LoginPage');
   }
 
   showPassword() {
-    this.pwdType = this.pwdType === 'password' ?  'text' : 'password';
+    this.pwdType = this.pwdType === 'password' ? 'text' : 'password';
   }
 
   login() {
-    const deviceName = encodeURIComponent(this.device.manufacturer + ' ' + this.device.model);
-    this.http.get(`${Settings.BASE_URL}${Settings.API_KEY}/json/createApiKey?username=${this.loginForm.get('username').value}&password=${encodeURIComponent(this.loginForm.get('password').value)}&device_name=${deviceName}&language=${this.translate.currentLang}`).subscribe(
+    let httpParams = new HttpParams();
+    httpParams = httpParams
+      .append('username', this.username.value)
+      .append('password', encodeURIComponent(this.password.value))
+      .append('device_name', encodeURIComponent(this.device.manufacturer + ' ' + this.device.model))
+      .append('language', this.translate.currentLang);
+    this.http.get(`${Settings.BASE_URL}${Settings.API_KEY}/json/createApiKey`, { params: httpParams }).subscribe(
       (res: any) => {
         if (res.result === 'error') {
           this.showError(res.message);
@@ -70,33 +84,27 @@ export class LoginPage {
         }
       },
       err => {
-        this.translate.get('LOGIN_PAGE.CONNECTION_PROBLEM').subscribe(value => this.showError(value));
+        this.translate.get('LOGIN_PAGE.CONNECTION_PROBLEM').subscribe( value => this.showError(value) );
         console.log('ERROR:', err);
       });
   }
 
-  checkValid(field: string) {
+  async checkValid(field: string) {
     let f = this.loginForm.get(field);
     if (f.errors) {
       if (f.errors.required) {
-        this.translate.get('LOGIN_PAGE.IS_REQUIRED').subscribe( val => {
-          this.showedErrorPass = val;
-        });
+        this.showedErrorPass = await this.translate.get('LOGIN_PAGE.IS_REQUIRED').toPromise();
         return;
       }
       if (f.errors.minlength) {
-        this.translate.get('LOGIN_PAGE.MIN_LENGTH', {value: f.errors.minlength.requiredLength}).subscribe(
-          val => {
-            this.showedErrorPass = val;
-          }
-        );
+        this.showedErrorPass = await this.translate.get('LOGIN_PAGE.MIN_LENGTH', { value: f.errors.minlength.requiredLength }).toPromise();
       }
     }
   }
 
   showError(mess: string) {
     this.showedError = mess;
-    this.timer.subscribe( () => this.showedError = '' );
+    this.timer.subscribe( () => this.showedError = '' ); // flow dies and don't need to unsubscribe
   }
 
   openBrowser(url: string) {

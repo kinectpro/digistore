@@ -9,6 +9,7 @@ import { TicketCheckPage } from './ticket-check/ticket-check';
 import { TranslateService } from '@ngx-translate/core';
 import { CalendarComponentOptions } from 'ion2-calendar';
 import { ErrorService } from '../../providers/error-service';
+import { StorageService } from '../../providers/storage-service';
 
 @Component({
   selector: 'page-ticket',
@@ -24,14 +25,14 @@ export class TicketPage {
     showMonthPicker: false
   };
   params: TicketParams = {
-    template: this.tickServ.template,
-    location: this.tickServ.location,
+    template: this.store.template,
+    location: this.store.location,
     date: this.getFormatDate(new Date())
   };
   paramsFromServer: any = {};
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public app: App, public errSrv: ErrorService,
-              public tickServ: TicketService, public toastCtrl: ToastController, public events: Events, public translate: TranslateService) {
+              public tickServ: TicketService, public toastCtrl: ToastController, public events: Events, public translate: TranslateService, public store: StorageService) {
 
     this.events.subscribe('ticket-params:changed', params => this.params = params);
     this.events.subscribe('user:changed', () => this.needDataUpdate = true);

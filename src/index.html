@@ -105,23 +105,23 @@
 </head>
 <body>
 
-  <div id="custom-overlay">
-    <div class="spinner-wrapper">
-      <div class="splash-spinner">
-        <div class="bounce1"></div>
-        <div class="bounce2"></div>
-        <div class="bounce3"></div>
-      </div>
-    </div>
-    <div id="container">
-      <div id="logo">
-        <img src="assets/img/logo-ds24-white.png">
-      </div>
-    </div>
-  </div>
-
   <!-- Ionic's root component and where the app will load -->
-  <ion-app style="background: none transparent;"></ion-app>
+  <ion-app style="background: none transparent;">
+    <div id="custom-overlay">
+      <div class="spinner-wrapper">
+        <div class="splash-spinner">
+          <div class="bounce1"></div>
+          <div class="bounce2"></div>
+          <div class="bounce3"></div>
+        </div>
+      </div>
+      <div id="container">
+        <div id="logo">
+          <img src="assets/img/logo-ds24-white.png">
+        </div>
+      </div>
+    </div>
+  </ion-app>
 
   <!-- The polyfills js is generated during the build process -->
   <script src="build/polyfills.js"></script>

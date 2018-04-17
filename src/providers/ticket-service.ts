@@ -12,30 +12,9 @@ import { TranslateService } from '@ngx-translate/core';
 @Injectable()
 export class TicketService {
 
-  private _location: {[key: string]: string};
-  private _template: {[key: string]: string};
-
   constructor(public http: HttpClient, public auth: AuthService, public translate: TranslateService) {
     console.log('Init TicketServiceProvider');
-    this._location = JSON.parse(localStorage.getItem('location')) || { key: '', value: '' };
-    this._template = JSON.parse(localStorage.getItem('template')) || { key: '', value: '' };
   }
-
-  get location(): {[key: string]: string} {
-    return this._location;
-  }
-  set location(value: {[key: string]: string}) {
-    localStorage.setItem('location', JSON.stringify(value));
-    this._location = value;
-  }
-  get template(): {[key: string]: string} {
-    return this._template;
-  }
-  set template(value: {[key: string]: string}) {
-    localStorage.setItem('template', JSON.stringify(value));
-    this._template = value;
-  }
-
 
   getTicketParams(): Promise<any> {
     return new Promise((resolve, reject) => {

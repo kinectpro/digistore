@@ -23,19 +23,19 @@
       <ion-item no-margin no-padding>
         <ion-input formControlName="username" type="email" placeholder="{{ 'LOGIN_PAGE.DIGISTORE_ID_EMAIL' | translate }}"></ion-input>
       </ion-item>
-      <ion-row *ngIf="loginForm.controls['username'].invalid && loginForm.controls['username'].touched && !loginForm.controls['username'].pristine">
+      <ion-row *ngIf="username.invalid && username.touched && !username.pristine">
         <ion-col>
           <sup ion-text color="danger">{{ 'LOGIN_PAGE.DIGISTROE_ID_REQUIRED' | translate }}</sup>
         </ion-col>
       </ion-row>
 
       <ion-item no-margin no-padding>
-        <ion-input [clearOnEdit]="false" formControlName="password" #password type="{{pwdType}}" placeholder="{{ 'LOGIN_PAGE.PASSWORD' | translate }}" (ionBlur)="checkValid('password')"></ion-input>
+        <ion-input [clearOnEdit]="false" formControlName="password" type="{{pwdType}}" placeholder="{{ 'LOGIN_PAGE.PASSWORD' | translate }}" (ionBlur)="checkValid('password')"></ion-input>
         <button ion-button clear icon-only item-right (click)="showPassword()">
           <ion-icon name="ios-eye-outline" color="{{pwdType === 'password' ? 'light' : 'secondary' }}"></ion-icon>
         </button>
       </ion-item>
-      <ion-row *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched && !loginForm.controls['password'].pristine">
+      <ion-row *ngIf="password.invalid && password.touched && !password.pristine">
         <ion-col>
           <sup ion-text color="danger">{{ showedErrorPass }}</sup>
         </ion-col>

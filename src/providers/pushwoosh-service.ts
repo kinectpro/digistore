@@ -1,9 +1,10 @@
-import {Injectable} from "@angular/core";
+import { Injectable } from "@angular/core";
 import { Device } from '@ionic-native/device';
 import { Settings } from '../config/settings';
-import { TabsPage } from '../pages/tabs/tabs';
 import { AuthService } from './auth-service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Events } from 'ionic-angular';
+import { StorageService } from './storage-service';
 
 declare var cordova : any;
 
@@ -24,15 +25,15 @@ let GOOGLE_PROJECT_NUMBER = '727787006045'; //old  project
 @Injectable()
 export class PushwooshService {
 
-  constructor(public device: Device, public auth: AuthService, public http: HttpClient) {
-
+  constructor(public events: Events, public device: Device, public auth: AuthService, public http: HttpClient, public store: StorageService) {
+    console.log('Init PushwooshService');
+    this.events.subscribe('send token', token => this.sendPushToken(token) );
   }
 
   init() {
-    console.log("PushwooshService init");
 
-    if(!this.device) {
-      console.log("PushwooshService init: No device object available.  Skipping init.  (Probably not running in a deployed Cordova app.)");
+    if (!this.device) {
+      console.log('PushwooshService init: No device object available.  Skipping init.  (Probably not running in a deployed Cordova app.)');
       return;
     }
 
@@ -52,15 +53,13 @@ export class PushwooshService {
 
   initIOS() {
     let self = this;
-    var pushNotification = cordova.require("pushwoosh-cordova-plugin.PushNotification");
+    let pushNotification = cordova.require('pushwoosh-cordova-plugin.PushNotification');
 
     //set push notification callback before we initialize the plugin
-    document.addEventListener('push-notification', function (event:any) {
-      //get the notification payload
-      var notification = event.notification;
+    document.addEventListener('push-notification',  (event: any) => {
 
       //display alert to the user for example
-      // alert(notification.aps.alert);
+      // alert(event.notification.aps.alert);
 
       //clear the app badge
       pushNotification.setApplicationIconBadgeNumber(0);
@@ -71,15 +70,12 @@ export class PushwooshService {
 
     //register for pushes
     pushNotification.registerDevice(
-      function (status) {
-        var deviceToken = status['deviceToken'];
+      status => {
+        let deviceToken = status['deviceToken'];
         console.warn('registerDevice: ' + deviceToken);
         self.sendPushToken(deviceToken);
       },
-      function (status) {
-        console.warn('failed to register : ' + JSON.stringify(status));
-        // alert(JSON.stringify(['failed to register ', status]));
-      }
+      status => console.warn('failed to register : ' + JSON.stringify(status))
     );
 
     //reset badges on app start
@@ -88,18 +84,14 @@ export class PushwooshService {
 
   initAndroid() {
     let self = this;
-    var pushNotification = cordova.require("pushwoosh-cordova-plugin.PushNotification");
+    let pushNotification = cordova.require('pushwoosh-cordova-plugin.PushNotification');
 
     //set push notifications handler
-    document.addEventListener('push-notification', function (event:any) {
-      var title    = event.notification.title;
-      var userData = event.notification.userdata;
-
-      if (typeof(userData) != "undefined") {
+    document.addEventListener('push-notification', (event: any) => {
+      let userData = event.notification.userdata;
+      if (typeof(userData) != 'undefined') {
         console.warn('user data: ' + JSON.stringify(userData));
       }
-
-      // alert(title);
     });
 
     //initialize Pushwoosh with projectid: GOOGLE_PROJECT_NUMBER, pw_appid : PUSHWOOSH_APP_ID. This will trigger all pending push notifications on start.
@@ -107,30 +99,30 @@ export class PushwooshService {
 
     //register for pushes
     pushNotification.registerDevice(
-      function (status) {
+      status => {
         let pushToken = status.pushToken;
         console.warn('push token: ' + JSON.stringify(pushToken));
-        // alert('push token: ' + JSON.stringify(pushToken));
         self.sendPushToken(pushToken);
       },
-      function (status) {
-        console.warn(JSON.stringify(['failed to register ', status]));
-      }
+      status => console.warn(JSON.stringify(['failed to register ', status]))
     );
   }
 
   sendPushToken(token: any) {
-    if (token !== false || localStorage.getItem('pushToken') == null) {
-      localStorage.setItem('pushToken', token);
-    } else {
-      token = localStorage.getItem('pushToken');
+    if (token) {
+      this.store.pushToken = token;
     }
-    if (this.auth.isLoggedIn()) {
-      let enabled = localStorage.getItem('notify') == null ? 'Y' : localStorage.getItem('notify');
-      let sound = localStorage.getItem('sound') == null ? 'Y' : localStorage.getItem('sound');
-      let vibration = (localStorage.getItem('vibrationEnabled') == 'true')?'N':'Y';
 
-      this.http.get(`${Settings.BASE_URL}${this.auth.apiKey}/json/setAppPushToken?token=${token}&enabled=${enabled}&sound=${sound}&vibration=${vibration}`).subscribe(
+    if (this.auth.isLoggedIn()) {
+      let vibration = (localStorage.getItem('vibrationEnabled') == 'true') ? 'N' : 'Y';
+
+      let httpParams = new HttpParams();
+      httpParams = httpParams
+        .append('token', this.store.pushToken)
+        .append('enabled', this.store.notify ? 'Y' : 'N')
+        .append('sound', this.store.sound ? 'Y' : 'N')
+        .append('vibration', vibration);
+      this.http.get(`${Settings.BASE_URL}${this.auth.apiKey}/json/setAppPushToken`, { params: httpParams }).subscribe(
         (res: any) => {
           // alert(`Regitered push successfully with next params: token=${token}&enabled=${enabled}&sound=${sound}&vibration=${vibration}`);
           console.log(res);
