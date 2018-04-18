@@ -25,7 +25,7 @@ export class StorageService {
         this.storage.get('location'),
         this.storage.get('template')
       ]).then( results => {
-        console.log(results);
+        // console.log(results);
         this._pushToken = results[0];
         this._sound = results[1] == null ? true : results[1] == 'Y';
         this._notify = results[2] == null ? true : results[2] == 'Y';
